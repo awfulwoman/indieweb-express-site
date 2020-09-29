@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>{{meta.title}}</title>
+    <link rel="stylesheet" href="/public/core.css">
+    <meta name="HandheldFriendly" content="True" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="c-header">
+      {{>nav}}
+    </header>
+    <main class="c-main">
+      {{{body}}}
+    </main>
+    <footer class="c-footer">
+      <ul>
+        <li><a href="/login">Log in</a></li>
+      </ul>
+    </footer>
+    </body>
+  </body>
+</html>

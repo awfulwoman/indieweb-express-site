@@ -1,0 +1,16 @@
+<h1>{{meta.title}}</h1>
+
+{{#if username}}
+  <p class="message"><span>{{username}}</span> is not a valid user ID.</p>
+{{/if}}
+
+<form action="/login/method" method="post">
+  <div class="c-form-row">
+    <label for="username" class="c-form-title">Username</label>
+    <input type="email" id="username" name="username" value="{{username}}" class="c-form-texty" required>
+  </div>
+
+  <div class="c-form-row">
+    <button class="c-button c-button--primary">Next</button>
+  </div>
+</form>

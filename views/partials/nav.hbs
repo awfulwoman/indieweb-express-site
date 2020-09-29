@@ -1,0 +1,30 @@
+<nav>
+  <div class="c-header-layout">
+
+    <div>
+      <svg class="icon" width="406px" height="78px" viewBox="0 0 406 78">
+        <use xlink:href="/public/sprites.svg#mainlogo" />
+      </svg>
+    </div>
+
+    <div>
+      <ul class="c-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/posts/">Posts</a></li>
+        <li><a href="/notes/">Notes</a></li>
+        <li><a href="/bookmarks/">Bookmarks</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  {{!-- Next row --}}
+  {{#if admin}}
+  <div>
+    {{>navadmin}}
+  </div>
+  {{/if}}
+
+</nav>

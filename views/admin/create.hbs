@@ -1,0 +1,39 @@
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/bouncer@1/dist/bouncer.polyfills.min.js"></script>
+
+<h1>Create a new {{scaffold.englishSingular}}</h1>
+
+{{content}}
+
+{{#if url}}<p><a href="{{url}}">{{url}}</a></p>{{/if}}
+
+
+{{#if scaffold}}
+<form action="" method="post" class="c-form">
+  {{#each scaffold.fields}}
+    {{>field scaffold=../scaffold}}
+
+    {{#eq this.formFieldRenderType 'group'}}
+      <details>
+        <summary class="c-form-title">{{this.fieldTitle}}</summary>
+
+        {{#each this.children}}
+          {{>field scaffold=../../scaffold}}
+
+        {{/each}}
+      </details>
+    {{/eq}}
+
+  {{/each}}
+
+  <input type="hidden" id="type" name="type" value="{{scaffold.id}}">
+  {{!-- <input type="hidden" id="englishSingular" name="englishSingular" value="{{scaffold.englishSingular}}"> --}}
+
+  <div class="c-form-row">
+    <button class="c-button c-button--primary">Create this new {{scaffold.englishSingular}}!</button></div>
+  </div>
+</form>
+
+<script>
+	var validate = new Bouncer('form');
+</script>
+{{/if}}

@@ -1,0 +1,109 @@
+
+
+
+{{#eq this.formFieldRenderType 'text'}}
+<div class="c-form-row {{#if this.errorMessages}}c-form-row--error{{/if}}">
+  <label for="{{this.fieldId}}" class="c-form-title">{{this.fieldTitle}}</label>
+  <input type="text" id="{{this.fieldId}}" name="{{this.fieldId}}" class="c-form-texty"
+    value="{{this.savedFieldValue}}" {{#if this.required}}required{{/if}}>
+  {{#if this.errorMessages}}
+  <ul>
+    {{#each this.errorMessages}}
+    <li class="c-errormsg">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+{{/eq}}
+
+
+{{#eq this.formFieldRenderType 'textarea'}}
+<div class="c-form-row {{#if this.errorMessages}}c-form-row--error{{/if}}">
+  <label for="{{this.fieldId}}" class="c-form-title">{{this.fieldTitle}}</label>
+  <textarea rows=8 id="{{this.fieldId}}" name="{{this.fieldId}}"
+    class="c-form-textarea" {{#if this.required}}required{{/if}}>{{this.savedFieldValue}}</textarea>
+  {{#if this.errorMessages}}
+  <ul>
+    {{#each this.errorMessages}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+{{/eq}}
+
+{{#eq this.formFieldRenderType 'multitext'}}
+<div class="c-form-row {{#if this.errorMessages}}c-form-row--error{{/if}}">
+  <label for="{{this.fieldId}}" class="c-form-title">{{this.fieldTitle}}</label>
+  <textarea id="{{this.fieldId}}" name="{{this.fieldId}}"
+    class="c-form-textarea" {{#if this.required}}required{{/if}}>{{this.savedFieldValue}}</textarea>
+  {{#if this.errorMessages}}
+  <ul>
+    {{#each this.errorMessages}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+{{/eq}}
+
+{{#eq this.formFieldRenderType 'fileupload'}}
+<div class="c-form-row {{#if this.errorMessages}}c-form-row--error{{/if}}">
+  <label for="{{this.fieldId}}" class="c-form-title">{{this.fieldTitle}}</label>
+  <input type="file" id="{{this.fieldId}}" name="{{this.fieldId}}" class="c-form-file" value="{{this.savedFieldValue}}">
+  {{#if this.errorMessages}}
+  <ul>
+    {{#each this.errorMessages}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+{{/eq}}
+
+{{#eq this.formFieldRenderType 'geo'}}
+<div class="c-form-row {{#if this.errorMessages}}c-form-row--error{{/if}}">
+  <label for="{{this.fieldId}}" class="c-form-title">{{this.fieldTitle}}</label>
+  <input type="text" id="{{this.fieldId}}" name="{{this.fieldId}}" class="c-form-texty" value="{{this.savedFieldValue}}" {{#if this.required}}required{{/if}}>
+  {{#if this.errorMessages}}
+  <ul>
+    {{#each this.errorMessages}}
+    <li>{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</div>
+{{/eq}}
+
+{{#eq this.formFieldRenderType 'boolean'}}
+
+<div class="c-form-row {{#if this.errorMessages}}c-form-row--error{{/if}}">
+  <p class="c-form-title">{{this.fieldTitle}}</p>
+  <div class="c-checkbox-group">
+    <input type="radio" value="true" id="{{this.fieldId}}True" name="{{this.fieldId}}" 
+      {{#if this.savedFieldValue}}
+        {{#eq this.saveFieldValue true}}
+          checked="checked"
+        {{/eq}}
+      {{else}}
+        {{#eq this.fieldDefaultValueGenerator true}}
+          checked="checked"
+        {{/eq}}
+      {{/if}}>
+      <label for="{{this.fieldId}}True">Yes {{#eq this.fieldDefaultValueGenerator true}}(Default for {{scaffold.englishPlural}}){{/eq}}</label>
+      </div>
+      <div>
+    <input type="radio" value="false" id="{{this.fieldId}}False" name="{{this.fieldId}}" 
+      {{#if this.savedFieldValue}}
+        {{#eq this.saveFieldValue false}}
+          checked="checked"
+        {{/eq}}
+      {{else}}
+        {{#eq this.fieldDefaultValueGenerator false}}
+          checked="checked"
+        {{/eq}}
+      {{/if}}>
+      <label for="{{this.fieldId}}False">No {{#eq this.fieldDefaultValueGenerator false}}(Default for {{scaffold.englishPlural}}){{/eq}}</label>
+  </div>
+</div>
+{{/eq}}

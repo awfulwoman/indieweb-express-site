@@ -1,0 +1,15 @@
+{{#if this.meta.title}}
+<h2>{{this.meta.title}}</h2>
+{{/if}}
+
+{{#each this.meta.image}}
+  <img src="{{file}}" alt="{{alt}}">
+{{/each}}
+
+{{{this.content}}}
+
+{{#if this.meta.aside}}
+  <div>
+    {{this.meta.aside}}
+  </div>
+{{/if}}
