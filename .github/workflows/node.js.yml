@@ -25,7 +25,7 @@ jobs:
       run: npm ci
     - name: Run app tests
       run: npm test
-    - name: Send tested code to server
+    - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
@@ -33,7 +33,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.SERVER_IP }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: ${{ secrets.SERVER_DIR }}
-    - name: executing remote ssh commands using ssh key
+    - name: Execute build script on remote server
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_IP }}
