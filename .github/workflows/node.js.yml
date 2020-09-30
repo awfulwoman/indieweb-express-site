@@ -14,7 +14,6 @@ jobs:
     env:
       node_version: 12.18.3
       APPDIR: ${{ secrets.SERVER_DIR }}
-      BUILDENV: 'randomstring'
 
     steps:
     - name: Checkout code from ${{ github.repository }}
@@ -41,4 +40,4 @@ jobs:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
-        script: ${{ secrets.SERVER_DIR }}/build.sh
+        script: ${{ secrets.SERVER_DIR }}/build.sh ${{ env.APPDIR }}
