@@ -26,9 +26,6 @@ jobs:
       run: npm ci
     - name: Run app tests
       run: npm test
-
-  deploy:
-    steps:
     - name: Send tested code to server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
