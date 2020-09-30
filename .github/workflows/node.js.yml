@@ -16,7 +16,7 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - name: Checkout code from ${{ GITHUB_REPOSITORY }}
+    - name: Checkout code from ${{ github.repository }}
       uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1.1.0
