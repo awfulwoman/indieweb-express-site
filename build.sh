@@ -1,8 +1,9 @@
 #!/bin/bash
 
 echo 'Copying env vars...'
-echo APP dir is $APP_DIR
-cd $APP_DIR
+echo 'APPDIR is $APPDIR and nothing else'
+echo 'BUILDENV is $BUILDENV'
+cd $APPDIR
 pwd
 cp ../.env .env
 

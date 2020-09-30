@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, debug ]
 
 jobs:
   build:
@@ -13,7 +13,8 @@ jobs:
 
     env:
       node_version: 12.18.3
-      APP_DIR: ${{ secrets.SERVER_DIR }}
+      APPDIR: ${{ secrets.SERVER_DIR }}
+      BUILDENV: 'randomstring'
 
     steps:
     - name: Checkout code from ${{ github.repository }}
