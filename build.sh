@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo 'Copying env vars...'
-cd $SERVER_DIR
+
+cd $APP_DIR
 pwd
 cp ../.env .env
 

@@ -35,6 +35,8 @@ jobs:
           TARGET: ${{ secrets.SERVER_DIR }}
     - name: Execute build script on remote server
       uses: appleboy/ssh-action@master
+      env:
+        APP_DIR: ${{ secrets.SERVER_DIR }}
       with:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
