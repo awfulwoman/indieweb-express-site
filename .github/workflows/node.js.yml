@@ -13,6 +13,7 @@ jobs:
 
     env:
       node_version: 12.18.3
+      APP_DIR: ${{ secrets.SERVER_DIR }}
 
     steps:
     - name: Checkout code from ${{ github.repository }}
@@ -34,9 +35,7 @@ jobs:
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: ${{ secrets.SERVER_DIR }}
     - name: Execute build script on remote server
-      uses: appleboy/ssh-action@master
-      env:
-        APP_DIR: ${{ secrets.SERVER_DIR }}
+      uses: appleboy/ssh-action@master        
       with:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
