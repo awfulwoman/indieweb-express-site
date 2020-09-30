@@ -1,16 +1,17 @@
 #!/bin/bash
 
 APPDIR=$1
+cd $APPDIR
 
 echo "Copying env vars..."
-echo "APPDIR is $APPDIR and nothing else"
-cd $APPDIR
-pwd
 cp ../.env .env
 
-echo "Building app..."
+echo "Remove existing node_modules..."
+rm -rf node_modules
 
-# Install dependencies
+echo "Building app..."
 npm ci
 
 # Build assets like Sass
+
+# pm2 restart app
