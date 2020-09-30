@@ -39,4 +39,4 @@ jobs:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
-        script: ./build
+        script: SERVER_DIR/build.sh
