@@ -2,6 +2,8 @@
 
 Based on Express, and using Markdown for data storage.  Powers [charlie.sonniesedge.net](https://charlie.sonniesedge.net).
 
+![Node.js CI](https://github.com/sonniesedge/site/workflows/Node.js%20CI/badge.svg)
+
 ## Installation
 
 ```
