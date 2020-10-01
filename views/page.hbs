@@ -15,6 +15,18 @@
   <p><a href="{{meta.bookmark_of}}">View the original link</a>.</p>
 {{/if}}
 
+{{#if meta.repost_of}}
+  <p><a href="{{meta.repost_of}}">{{meta.repost_of}}</a>.</p>
+{{/if}}
+
+{{#if meta.like_of}}
+  <p><a href="{{meta.like_of}}">{{meta.like_of}}</a>.</p>
+{{/if}}
+
+{{#if meta.quote_of}}
+  <p><a href="{{meta.quote_of}}">{{meta.quote_of}}</a>.</p>
+{{/if}}
+
 {{#if meta.images}}
   {{#each meta.images}}
     <img src="/notes/{{../meta.id}}/{{this.file}}" alt="{{this.alt}}" >
