@@ -2,6 +2,7 @@
 
 APPDIR=$1
 cd $APPDIR
+nvm use
 
 echo "Copying env vars..."
 cp ../.env .env
@@ -13,5 +14,6 @@ echo "Building app..."
 npm ci
 
 # Build assets like Sass
+
 
 # pm2 restart app
