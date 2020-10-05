@@ -17,36 +17,10 @@ module.exports = {
       formFieldRender: 'tags'
     },
     images: {
-      type: 'group',
+      type: 'object',
       description: 'Images',
-      extendedDescription: 'Photos photos photos and stuff',
-      repeat: {
-        limit: 4,
-        children: {
-          image: {
-            file: {
-              type: 'string',
-              description: 'Upload a photo',
-              formFieldRender: 'file'
-            },
-            alt: {
-              type: 'string',
-              description: 'Alt text',
-              formFieldRender: 'text'
-            },
-            width: {
-              type: 'int',
-              description: 'Image width',
-              formFieldRender: 'text'
-            },
-            height: {
-              type: 'int',
-              description: 'Image height',
-              formFieldRender: 'text'
-            }
-          }
-        }
-      }
+      extendedDescription: 'Photos and stuff',
+      formFieldRender: 'images'
     },
     created_geo: {
       type: 'string',
@@ -64,41 +38,43 @@ module.exports = {
       formFieldRender: 'place'
     }
   },
-  save: async function (meta, content, slug) {
-    if (!meta || !content || !slug)
+  save: async function (meta, content, id) {
+    if (!meta || !content || !id)
       throw 'You must supply all params'
     if (is.not.object(meta))
       throw 'Meta must be an object'
     if (is.not.string(content))
       throw 'Content must be a string'
-    if (is.not.string(slug))
-      throw 'slug must be a string'
-    return db.save('notes', markdownFile(meta, content), slug || meta.slug);
+    if (is.not.string(id))
+      throw 'id must be a string'
+    // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
+    return db.save('notes', markdownFile(meta, content), id);
   },
-  update: async function (meta, content, slug) {
-    if (!meta || !content || !slug)
+  update: async function (meta, content, id) {
+    if (!meta || !content || !id)
       throw 'You must supply all params'
     if (is.not.object(meta))
       throw 'Meta must be an object'
     if (is.not.string(content))
       throw 'Content must be a string'
-    if (is.not.string(slug))
-      throw 'slug must be a string'
-    return db.update('notes', markdownFile(meta, content), slug);
+    if (is.not.string(id))
+      throw 'id must be a string'
+    // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
+    return db.update('notes', markdownFile(meta, content), id);
   },
-  load: async function (slug) {
-    if (!slug)
+  load: async function (id) {
+    if (!id)
       throw 'A file ID must be supplied'
-    if (is.not.string(slug))
-      throw 'slug must be a string'
-    return db.load('notes', slug);
+    if (is.not.string(id))
+      throw 'id must be a string'
+    return db.load('notes', id);
   },
-  delete: async function (slug) {
-    if (!slug)
+  delete: async function (id) {
+    if (!id)
       throw 'A file ID must be supplied'
-    if (is.not.string(slug))
-      throw 'slug must be a string'
-    return db.delete('notes', slug);
+    if (is.not.string(id))
+      throw 'id must be a string'
+    return db.delete('notes', id);
   },
   settings: {
     defaults: {
