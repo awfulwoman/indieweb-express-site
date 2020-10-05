@@ -1,6 +1,6 @@
 const is = require('is_js')
-const markdownFile = require('../../utilities/markdownfile')
 const db = require('../../utilities/db')
+const matter = require('gray-matter')
 
 module.exports = {
   fields: { // merge with global fields
@@ -51,7 +51,7 @@ module.exports = {
       throw 'id must be a string'
     // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
 
-    db.create('notes', markdownFile(meta, content), id);  
+    db.create('notes', matter.stringify(meta, content), id);  
   },
   read: async function (id) {
     if (!id)
@@ -70,7 +70,7 @@ module.exports = {
     if (is.not.string(id))
       throw 'id must be a string'
     // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-    return db.update('notes', markdownFile(meta, content), id);
+    return db.update('notes', matter.stringify(meta, content), id);
   },
   delete: async function (id) {
     if (!id)
