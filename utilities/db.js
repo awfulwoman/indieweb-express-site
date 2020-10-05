@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const config = require('../config')
+const is = require('is_js')
 
 const db = {
   save: async function (type, id, fileContent) {
