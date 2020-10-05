@@ -23,6 +23,7 @@
     "express-session": "^1.17.0",
     "express-slash": "^2.0.1",
     "express-validator": "^6.6.1",
+    "feed": "^4.2.1",
     "glob": "^7.1.6",
     "gray-matter": "^4.0.2",
     "handlebars-helpers": "^0.10.0",
