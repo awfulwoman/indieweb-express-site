@@ -16,7 +16,6 @@
     "connect-ensure-login": "^0.1.1",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
-    "easy-no-password": "^1.2.0",
     "eslint-plugin-security": "^1.4.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
@@ -29,18 +28,15 @@
     "handlebars-helpers": "^0.10.0",
     "helmet": "^3.22.0",
     "is_js": "^0.9.0",
-    "jest": "^26.1.0",
     "js-yaml": "^3.14.0",
     "json-size": "^1.0.0",
     "luxon": "^1.25.0",
     "markdown-it": "^10.0.0",
     "markdown-it-implicit-figures": "^0.10.0",
     "mime-types": "^2.1.27",
-    "mock-fs": "^4.12.0",
     "morgan": "^1.9.1",
     "node-cache": "^5.1.0",
     "node-fetch": "^2.6.1",
-    "nodemailer": "^6.4.11",
     "nodemon": "^2.0.2",
     "normalize-path": "^3.0.0",
     "outdent": "^0.7.1",
@@ -49,11 +45,12 @@
     "passport-twitter": "^1.0.4",
     "rand-token": "^1.0.1",
     "remove-markdown": "^0.3.0",
-    "simple-git": "^2.5.0",
     "uuid": "^8.3.0",
     "validator": "^13.1.17"
   },
   "devDependencies": {
-    "eslint": "^7.1.0"
+    "eslint": "^7.1.0",
+    "jest": "^26.5.0",
+    "mock-fs": "^4.12.0"
   }
 }
