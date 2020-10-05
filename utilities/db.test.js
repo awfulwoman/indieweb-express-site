@@ -75,7 +75,7 @@ describe('Check for working file operations', () => {
 
     beforeEach(() => {
       mock({
-        [testRawFileDataPath]: mock.load(path.resolve(__dirname, '__mocks__/mocked-note.md'), {lazy: false}),
+        [testRawFileDataPath]: mock.load(path.resolve(config.appRoot, 'fixtures/mocked-note.md'), {lazy: false}),
       });
     });
 
