@@ -5,11 +5,11 @@ const path = require('path')
 const config = require('../config')
 
 describe('Check for empty parameters ', () => {
-  test('Save: Empty params', () => {
-    return expect(db.save()).rejects.toThrow('db.save: Missing parameters');
+  test('create: Empty params', () => {
+    return expect(db.create()).rejects.toThrow('db.create: Missing parameters');
   });
-  test('Load: Empty params', () => {
-    return expect(db.load()).rejects.toThrow('db.load: Missing parameters');
+  test('read: Empty params', () => {
+    return expect(db.read()).rejects.toThrow('db.read: Missing parameters');
   });
   test('Update: Empty params', () => {
     return expect(db.update()).rejects.toThrow('db.update: Missing parameters');
@@ -20,20 +20,20 @@ describe('Check for empty parameters ', () => {
 });
 
 describe('Check for correct type of parameters ', () => {
-  test('Save: non-string params', () => {
-    return expect(db.save({}, {}, {})).rejects.toThrow('db.save: Parameters must be supplied as strings');
+  test('create: non-string params', () => {
+    return expect(db.create({}, {}, {})).rejects.toThrow('db.create: Parameters must be supplied as strings');
   });
 
-  test('Save: non-string params', () => {
-    return expect(db.save(1, 1, 1)).rejects.toThrow('db.save: Parameters must be supplied as strings');
+  test('create: non-string params', () => {
+    return expect(db.create(1, 1, 1)).rejects.toThrow('db.create: Parameters must be supplied as strings');
   });
 
-  test('Load: non-string params', () => {
-    return expect(db.load({}, {}, {})).rejects.toThrow('db.load: Parameters must be supplied as strings');
+  test('read: non-string params', () => {
+    return expect(db.read({}, {}, {})).rejects.toThrow('db.read: Parameters must be supplied as strings');
   });
 
-  test('load: non-string params', () => {
-    return expect(db.load(1, 1, 1)).rejects.toThrow('db.load: Parameters must be supplied as strings');
+  test('read: non-string params', () => {
+    return expect(db.read(1, 1, 1)).rejects.toThrow('db.read: Parameters must be supplied as strings');
   });
 
   test('Update: non-string params', () => {
@@ -57,7 +57,7 @@ describe('Check for correct type of parameters ', () => {
 describe('Check for working file operations', () => {
 
 
-  describe('Test ability to load data', () => {
+  describe('Test ability to read data', () => {
     console.log(config.contentRoot)
     testRawFileDataPath = path.join(config.contentRoot, 'notes/0000/index.md');
     beforeEach(() => {
@@ -68,10 +68,10 @@ describe('Check for working file operations', () => {
     });
 
 
-    test('Loading from disk', () => {
+    test('reading from disk', () => {
       // console.log(testRawFileDataPath)
-        // expect(db.load('0000')).toMatchObject(expectedNodeData);
-        return db.load('notes','0000').then(data => {
+        // expect(db.read('0000')).toMatchObject(expectedNodeData);
+        return db.read('notes','0000').then(data => {
           expect(data).toMatchObject(expectedNodeData);
         });
     });

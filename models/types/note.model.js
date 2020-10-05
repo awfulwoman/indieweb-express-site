@@ -1,5 +1,6 @@
 const is = require('is_js')
 const markdownFile = require('../../utilities/markdownfile')
+const db = require('../../utilities/db')
 
 module.exports = {
   fields: { // merge with global fields
@@ -38,7 +39,8 @@ module.exports = {
       formFieldRender: 'place'
     }
   },
-  save: async function (meta, content, id) {
+  // CRUD
+  create: async function (meta, content, id) {
     if (!meta || !content || !id)
       throw 'You must supply all params'
     if (is.not.object(meta))
@@ -48,7 +50,15 @@ module.exports = {
     if (is.not.string(id))
       throw 'id must be a string'
     // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-    return db.save('notes', markdownFile(meta, content), id);
+
+    db.create('notes', markdownFile(meta, content), id);  
+  },
+  read: async function (id) {
+    if (!id)
+      throw 'A file ID must be supplied'
+    if (is.not.string(id))
+      throw 'id must be a string'
+    return db.read('notes', id);
   },
   update: async function (meta, content, id) {
     if (!meta || !content || !id)
@@ -61,13 +71,6 @@ module.exports = {
       throw 'id must be a string'
     // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
     return db.update('notes', markdownFile(meta, content), id);
-  },
-  load: async function (id) {
-    if (!id)
-      throw 'A file ID must be supplied'
-    if (is.not.string(id))
-      throw 'id must be a string'
-    return db.load('notes', id);
   },
   delete: async function (id) {
     if (!id)

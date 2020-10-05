@@ -4,19 +4,35 @@ const config = require('../config')
 const is = require('is_js')
 
 const db = {
-  save: async function (type, id, fileContent) {
+  create: async function (type, id, fileContent) {
     if (!type || !fileContent || !id)
-      throw new Error('db.save: Missing parameters')
+      throw new Error('db.create: Missing parameters')
     if (is.not.string(type) || is.not.string(id))
-      throw new Error('db.save: Parameters must be supplied as strings')
+      throw new Error('db.create: Parameters must be supplied as strings')
 
     let destination = path.join(config.contentRoot, type, id, 'index.md')
+
     fs.stat(destination, (err, stat) => {
       if (is.not.falsy(err))
-        throw new Error('db.save: File already exists')
+        throw new Error('db.create: File already exists')
     });
 
     return fs.promises.writeFile(destination, message, 'utf8')
+  },
+
+  read: async function (type, id) {
+    if (!type || !id)
+      throw new Error('db.read: Missing parameters')
+    if (is.not.string(type) || is.not.string(id))
+      throw new Error('db.read: Parameters must be supplied as strings')
+    let destination = path.join(config.contentRoot, location, id, 'index.md')
+
+    try {
+      let data = fs.promises.readFile(destination)
+      return await markdownToObj(data) // TODO: er, create this
+    } catch (error) {
+      return false // TODO: return a specific error type that can be plugged into a flash message?
+    }
   },
 
   update: async function (type, id, fileContent) {
@@ -32,16 +48,6 @@ const db = {
     });
 
     return fs.promises.writeFile(destination, message, 'utf8')
-  },
-
-  load: async function (type, id) {
-    if (!type || !id)
-      throw new Error('db.load: Missing parameters')
-    if (is.not.string(type) || is.not.string(id))
-      throw new Error('db.load: Parameters must be supplied as strings')
-    let destination = path.join(config.contentRoot, location, id, 'index.md')
-
-    return fs.promises.readFile(destination)
   },
 
   delete: async function (type, id) {
