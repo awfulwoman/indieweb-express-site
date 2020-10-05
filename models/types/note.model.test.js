@@ -16,6 +16,24 @@ let expectedNodeData = {
   }
 }
 
+describe('Checking parameters', () => {
+
+  test('Create: Empty params', () => {
+    return expect(note.create()).rejects.toThrow('You must supply all params');
+  });
+
+  test('Read: Empty params', () => {
+    return expect(note.read()).rejects.toThrow('A file ID must be supplied');
+  });
+
+  test('Update: Empty params', () => {
+    return expect(note.update()).rejects.toThrow('You must supply all params');
+  });
+
+  test('Delete: Empty params', () => {
+    return expect(note.delete()).rejects.toThrow('A file ID must be supplied');
+  });
+})
 
 describe('Read from a file', () => {
     
