@@ -1,8 +1,20 @@
-const mock = require('mock-fs');
+const mock = require('mock-fs')
 const db = require('./db');
-let {rawData, expectedNodeData} = jest.mock('nodedata');
 const path = require('path')
 const config = require('../config')
+
+let expectedNodeData = {
+  content: 
+`\nThis is a note. It is beautiful.`,
+  data: {
+    guid: 'e09e7eeb-da6d-4c83-9ff9-709d9ad4b300',
+    type: 'note',
+    id: '0000',
+    title: 'This is a note',
+    created: '2019-08-26T11:12:22+00:00',
+    changed: '2019-09-24T19:20:44+00:00',
+  }
+}
 
 describe('Check for empty parameters ', () => {
   test('create: Empty params', () => {
@@ -58,24 +70,21 @@ describe('Check for working file operations', () => {
 
 
   describe('Test ability to read data', () => {
-    console.log(config.contentRoot)
-    testRawFileDataPath = path.join(config.contentRoot, 'notes/0000/index.md');
+    
+    let testRawFileDataPath = path.join(config.contentRoot, 'notes/0000/index.md');
+
     beforeEach(() => {
       mock({
-          [config.dataRoot]: {},
-          [testRawFileDataPath]: rawData
+        [testRawFileDataPath]: mock.load(path.resolve(__dirname, '__mocks__/mocked-note.md'), {lazy: false}),
       });
     });
 
 
     test('reading from disk', () => {
-      // console.log(testRawFileDataPath)
-        // expect(db.read('0000')).toMatchObject(expectedNodeData);
         return db.read('notes','0000').then(data => {
           expect(data).toMatchObject(expectedNodeData);
         });
     });
-
 
     afterEach(() => mock.restore());
 });

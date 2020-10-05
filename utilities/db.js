@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const config = require('../config')
 const is = require('is_js')
+const matter = require('gray-matter')
 
 const db = {
   create: async function (type, id, fileContent) {
@@ -25,14 +26,10 @@ const db = {
       throw new Error('db.read: Missing parameters')
     if (is.not.string(type) || is.not.string(id))
       throw new Error('db.read: Parameters must be supplied as strings')
-    let destination = path.join(config.contentRoot, location, id, 'index.md')
+    let destination = path.join(config.contentRoot, type, id, 'index.md')
 
-    try {
-      let data = fs.promises.readFile(destination)
-      return await markdownToObj(data) // TODO: er, create this
-    } catch (error) {
-      return false // TODO: return a specific error type that can be plugged into a flash message?
-    }
+    const data = await fs.promises.readFile(destination, {encoding: 'utf8'})
+    return matter(data, {})
   },
 
   update: async function (type, id, fileContent) {
