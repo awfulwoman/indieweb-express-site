@@ -2,6 +2,7 @@ const mock = require('mock-fs')
 const db = require('./db');
 const path = require('path')
 const config = require('../config')
+const outdent = require('outdent')
 
 let expectedNodeData = {
   content:
@@ -72,6 +73,16 @@ describe('Check for working file operations', () => {
   describe('Test ability to read data', () => {
 
     let testRawFileDataPath = path.join(config.contentRoot, 'notes/0000/index.md');
+    let expectedData = outdent`---
+    guid: e09e7eeb-da6d-4c83-9ff9-709d9ad4b300
+    type: note
+    id: '0000'
+    title: 'This is a note'
+    created: '2019-08-26T11:12:22+00:00'
+    changed: '2019-09-24T19:20:44+00:00'
+    ---
+    
+    This is a note. It is beautiful.`
 
     beforeEach(() => {
       mock({
@@ -80,10 +91,8 @@ describe('Check for working file operations', () => {
     });
 
 
-    test('reading from disk', () => {
-      return db.read('notes', '0000').then(data => {
-        expect(data).toMatchObject(expectedNodeData);
-      });
+    test('reading from disk', async () => {
+      await expect(db.read('notes', '0000')).resolves.toEqual(expectedData);
     });
 
     afterEach(() => mock.restore());

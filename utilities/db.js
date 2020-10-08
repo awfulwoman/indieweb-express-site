@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const config = require('../config')
 const is = require('is_js')
-const matter = require('gray-matter')
 
 const db = {
   create: async function (type, id, fileContent) {
@@ -34,8 +33,7 @@ const db = {
         throw new Error('db.read: Parameters must be supplied as strings')
       let destination = path.join(config.contentRoot, type, id, 'index.md')
 
-      const data = await fs.promises.readFile(destination, { encoding: 'utf8' })
-      return matter(data, {})
+      return await fs.promises.readFile(destination, { encoding: 'utf8' })
     } catch (error) {
       return Promise.reject(error)
     }

@@ -60,30 +60,49 @@ module.exports = {
 
   },
   read: async function (id) {
-    if (!id)
-      return Promise.reject(new Error('A file ID must be supplied'))
-    if (is.not.string(id))
-      return Promise.reject(new Error('id must be a string'))
-    return db.read('notes', id);
+    try {
+      if (!id)
+        throw new Error('A file ID must be supplied')
+      if (is.not.string(id))
+        throw new Error('id must be a string')
+      let result = await db.read('notes', id);
+      return matter(result)
+    } catch (error) {
+      // TODO Add to error log
+      return Promise.reject(error)
+    }
+
   },
   update: async function (meta, content, id) {
-    if (!meta || !content || !id)
-      return Promise.reject(new Error('You must supply all params'))
-    if (is.not.object(meta))
-      return Promise.reject(new Error('Meta must be an object'))
-    if (is.not.string(content))
-      return Promise.reject(new Error('Content must be a string'))
-    if (is.not.string(id))
-      return Promise.reject(new Error('id must be a string'))
-    // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-    return db.update('notes', matter.stringify(meta, content), id);
+    try {
+      if (!meta || !content || !id)
+        throw new Error('You must supply all params')
+      if (is.not.object(meta))
+        throw new Error('Meta must be an object')
+      if (is.not.string(content))
+        throw new Error('Content must be a string')
+      if (is.not.string(id))
+        throw new Error('id must be a string')
+      // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
+      return db.update('notes', matter.stringify(meta, content), id);
+    } catch (error) {
+      // TODO Add to error log
+      return Promise.reject(error)
+    }
+
   },
   delete: async function (id) {
-    if (!id)
-      return Promise.reject(new Error('A file ID must be supplied'))
-    if (is.not.string(id))
-      return Promise.reject(new Error('id must be a string'))
-    return db.delete('notes', id);
+    try {
+      if (!id)
+        throw new Error('A file ID must be supplied')
+      if (is.not.string(id))
+        throw new Error('id must be a string')
+      return db.delete('notes', id);
+    } catch (error) {
+      // TODO Add to error log
+      return Promise.reject(error)
+    }
+
   },
   settings: {
     defaults: {
