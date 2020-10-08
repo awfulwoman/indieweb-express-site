@@ -41,17 +41,23 @@ module.exports = {
   },
   // CRUD
   create: async function (meta, content, id) {
-    if (!meta || !content || !id)
-      return Promise.reject(new Error('You must supply all params'))
-    if (is.not.object(meta))
-      return Promise.reject(new Error('Meta must be an object'))
-    if (is.not.string(content))
-      return Promise.reject(new Error('Content must be a string'))
-    if (is.not.string(id))
-      return Promise.reject(new Error('id must be a string'))
-    // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
+    try {
+      if (!meta || !content || !id)
+        throw new Error('You must supply all params')
+      if (is.not.object(meta))
+        throw new Error('Meta must be an object')
+      if (is.not.string(content))
+        throw new Error('Content must be a string')
+      if (is.not.string(id))
+        throw new Error('id must be a string')
+      // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
 
-    return db.create('notes', matter.stringify(meta, content), id);
+      return await db.create('notes', matter.stringify(meta, content), id);
+    } catch (error) {
+      // TODO Add to error log
+      return Promise.reject(error)
+    }
+
   },
   read: async function (id) {
     if (!id)
