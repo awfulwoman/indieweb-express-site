@@ -8,16 +8,18 @@ const express = require('express');
 const helmet = require('helmet');
 const slash = require('express-slash');
 // const logger = require('morgan');
-const querystring = require('querystring'); 
-const bodyParser = require('body-parser');
+// const querystring = require('querystring'); 
+// const bodyParser = require('body-parser');
 const renderUsers = require('./middleware/render-users');
 const renderDebug = require('./middleware/render-debug');
-const renderNodeTypes = require('./middleware/render-nodetypes');
+// const renderNodeTypes = require('./middleware/render-nodetypes');
+
+const notesController = require('./controllers/note.controller')
 
 // Auth
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
-const GitHubStrategy = require('passport-github2').Strategy;
+// const GitHubStrategy = require('passport-github2').Strategy;
 
 // Handlebars
 const hbs = require('express-handlebars');
@@ -28,11 +30,11 @@ const hbsHelpers = require('handlebars-helpers')();
 const routesContent = require('./routes/content');
 const routesLogin = require('./routes/login');
 const routesAdmin = require('./routes/admin');
-const caching = require('./utilities/caching');
+// const caching = require('./utilities/caching');
 const config = require('./config');
 const users = require('./models/user');
 
-// Initialise Express
+// Initialise Express 🎉
 var app = express();
 
 // Configure Helmet headers
@@ -77,11 +79,11 @@ const passportTwitterOptions = {
   callbackURL: constructOauthCallbackUrl('twitter')
 };
 
-const passportGithubOptions = {
-  clientID: process.env['GITHUB_CLIENT_ID'],
-  clientSecret: process.env['GITHUB_CLIENT_SECRET'],
-  callbackURL: constructOauthCallbackUrl('github')
-}
+// const passportGithubOptions = {
+//   clientID: process.env['GITHUB_CLIENT_ID'],
+//   clientSecret: process.env['GITHUB_CLIENT_SECRET'],
+//   callbackURL: constructOauthCallbackUrl('github')
+// }
 
 // Use Twitter passport strategy
 passport.use(new TwitterStrategy(passportTwitterOptions, function(token, tokenSecret, profile, cb) {
@@ -91,11 +93,11 @@ passport.use(new TwitterStrategy(passportTwitterOptions, function(token, tokenSe
 }));
 
 // Use Github passport strategy
-passport.use(new GitHubStrategy(passportGithubOptions, function(accessToken, refreshToken, profile, cb) {
-  // debug(passportGithubOptions)
-  // debug('Passport Github profile:', profile);
-  return cb(null, profile);
-}));
+// passport.use(new GitHubStrategy(passportGithubOptions, function(accessToken, refreshToken, profile, cb) {
+//   // debug(passportGithubOptions)
+//   // debug('Passport Github profile:', profile);
+//   return cb(null, profile);
+// }));
 
 // Configure Passport authenticated session persistence.
 passport.serializeUser(function(userAppObj, callback) {
@@ -117,7 +119,7 @@ app.use(passport.session());
 // Make some info available to every render
 app.use(renderUsers);
 app.use(renderDebug);
-app.use(renderNodeTypes);
+// app.use(renderNodeTypes);
 
 // LOGGING
 // ------
@@ -129,6 +131,7 @@ app.use(renderNodeTypes);
 //
 app.use('/login', routesLogin); // Main routes
 app.use('/admin', routesAdmin); // Main routes
+app.use('/', notesController); // Main routes
 app.use('/', routesContent); // Main routes
 app.use(slash()); // Ensure trailing slashes are used
 
@@ -151,10 +154,10 @@ app.use(function (req, res, next) {
 })
 
 // Prep cache
-let warmedNodeCache = caching.prepNodeCache()
-let warmedNodeListCache = caching.prepNodeListCache(10)
-debug('Warming up node cache: %O', warmedNodeCache);
-debug('Warming up node list cache: %O', warmedNodeListCache);
+// let warmedNodeCache = caching.prepNodeCache()
+// let warmedNodeListCache = caching.prepNodeListCache(10)
+// debug('Warming up node cache: %O', warmedNodeCache);
+// debug('Warming up node list cache: %O', warmedNodeListCache);
 
 // Boot app
 app.listen(config.sitePort, function() {

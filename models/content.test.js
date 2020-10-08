@@ -90,9 +90,9 @@ describe('Generate cache key from path', () => {
 
 describe('Test ability to load node data', () => {
     beforeEach(() => {
-        testRawFileDataPath = path.join(config.dataRoot, `content/posts/3145/index.md`);
+        testRawFileDataPath = path.join(config.contentRoot, `posts/3145/index.md`);
         mock({
-            [config.dataRoot]: {},
+            [config.contentRoot]: {},
             [testRawFileDataPath]: rawNodeData
         });
     });
@@ -136,9 +136,9 @@ describe('Test ability to load node data', () => {
 // describe('Test ability to load a non-node file from disk', () => {
 //     const testImageFile = mock.bypass(() => fs.readFileSync('./test.jpg', 'utf-8'));
 //     beforeEach(() => {
-//         testRawFileDataPath = path.join(config.dataRoot, 'content/posts/3145/files/photo.jpg');
+//         testRawFileDataPath = path.join(config.contentRoot, '/posts/3145/files/photo.jpg');
 //         mock({
-//             [config.dataRoot]: {},
+//             [config.contentRoot]: {},
 //             [testRawFileDataPath]: testImageFile
 //         })
 //     });

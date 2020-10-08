@@ -45,7 +45,7 @@ const loadNodeSync = function (retrievePath) {
   let keyPath = getKeyFromPath(retrievePath);
 
   // Get the node path on disk
-  let fileSystemPath = path.join(config.dataRoot, 'content', retrievePath);
+  let fileSystemPath = path.join(config.contentRoot, retrievePath);
   fileSystemPath = normalize(fileSystemPath);
 
   // Get the node path on disk, including markdown file if it isn't present in path
@@ -130,7 +130,7 @@ const loadNodeSync = function (retrievePath) {
 const loadNodeFromCache = function (retrievePath) {
   debug('loadNodeFromCache - received parameter value: ', retrievePath);
   let keyPath = getKeyFromPath(retrievePath);
-  // let fileSystemPath = path.join(config.dataRoot, 'content', retrievePath);
+  // let fileSystemPath = path.join(config.contentRoot, retrievePath);
 
   let cacheResult = nodeCache.get(keyPath);
 
@@ -150,7 +150,7 @@ const saveNodeSync = function (savePath, data, content) {
   // update cache.
   debug('saveNodeSync called with: ', savePath);
 
-  let fullPath = path.join(config.dataRoot, 'content', savePath);
+  let fullPath = path.join(config.contentRoot, savePath);
 
   data = YAML.safeDump(data)
   let node = outdent`---
@@ -275,7 +275,7 @@ const listNodesSync = function (nodeType, amount=10) {
 
 const listNodesFromCache = function(nodeType) {
   debug('listNodesFromCache - received parameter value: ', nodeType);
-  // let fileSystemPath = path.join(config.dataRoot, 'content', retrievePath);
+  // let fileSystemPath = path.join(config.contentRoot, retrievePath);
 
   if (nodeType === undefined || nodeType === null || nodeType === ''|| nodeType === '/') {
     nodeType = '_allnodes';

@@ -1,39 +1,55 @@
+const express = require('express');
+const app = express();
+app.enable('strict routing');
+const router = express.Router({
+    caseSensitive: app.get('case sensitive routing'),
+    strict: app.get('strict routing')
+});
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: true });
+const checkAuthentication = require('../middleware/checkauthentication');
+
 const note = require('../models/types/note.model');
 const { body, validationResult } = require('express-validator');
 const is = require('is_js');
-const authentication = {}
+const asyncHandler = require('express-async-handler')
+
 
 const validateNote = [
   body('content').isAlphanumeric().trim(),
   body('images')
 ]
 
+// router.get('/notes/', asyncHandler(async (req, res, next) => {
 
-app.get('/notes/:id', async (req, res, next) => {
+//   let itemObj = await note.read(req.params.id);
 
-  if(is.falsy(req.params.id))
-    next()
-  
-  try {
-    let data = note.read(req.params.id);  
+//   res.render('page', {
+//     content: itemObj.content,
+//     meta: itemObj.data,
+//   });
 
-    await res.render('note', {
-      content: `Start creating your note!`,
-      fields: note.fields
-    });
-  } catch (error) {
-    next()
-  }
-});
+// }));
 
-app.get('/notes/create', [authentication], (req, res, next) => {
+router.get('/notes/:id', asyncHandler(async (req, res, next) => {
+
+  let itemObj = await note.read(req.params.id);
+
+  res.render('page', {
+    content: itemObj.content,
+    meta: itemObj.data,
+  });
+
+}));
+
+router.get('/notes/create', [], asyncHandler(async (req, res, next) => {
   res.render('create/note', {
     content: `Start creating your note!`,
     fields: note.fields
   });
-});
+}));
 
-app.post('/notes/create', [authentication, validateNote], (req, res, next) => {
+router.post('/notes/create', [checkAuthentication, urlencodedParser, validateNote], asyncHandler(async (req, res, next) => {
 
   // Errors?
   const errors = validationResult(req);
@@ -72,20 +88,39 @@ app.post('/notes/create', [authentication, validateNote], (req, res, next) => {
       errors: errors.toArray()
     });
   }
-});
+}));
 
-app.get('/notes/:id/edit', [authentication], (req, res, next) => {
+router.get('/notes/:id/edit', [], asyncHandler(async (req, res, next) => {
 
-});
+}));
 
-app.post('/notes/:id/edit', [authentication], (req, res, next) => {
+router.post('/notes/:id/edit', [], asyncHandler(async (req, res, next) => {
 
-});
+}));
 
-app.get('/notes/:id/delete', [authentication], (req, res, next) => {
+router.get('/notes/:id/delete', [], asyncHandler(async (req, res, next) => {
 
-});
+}));
 
-app.post('/notes/:id/delete', [authentication], (req, res, next) => {
+router.post('/notes/:id/delete', [], asyncHandler(async (req, res, next) => {
 
-});
+}));
+
+
+router.get('/notes/:id/:file', [], asyncHandler(async (req, res, next) => {
+  // check that note id is valid
+
+  // redirect to a default size
+
+
+}));
+
+router.get('/notes/:id/:file/:size', [], asyncHandler(async (req, res, next) => {
+  // check that note id is valid
+
+  // try to get file
+
+
+}));
+
+module.exports = router;

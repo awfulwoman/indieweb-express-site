@@ -1,8 +1,9 @@
 const is = require('is_js')
-const db = require('../../utilities/db')
+const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
 
 module.exports = {
+  modelDir: 'notes',
   fields: { // merge with global fields
     content: {
       type: 'string',
@@ -45,10 +46,10 @@ module.exports = {
       if (!meta || !content || !id) throw new Error('You must supply all params')
       if (is.not.object(meta)) throw new Error('Meta must be an object')
       if (is.not.string(content)) throw new Error('Content must be a string')
-      if (is.not.string(id)) throw new Error('id must be a string')
+      if (is.not.string(id)) throw new Error('The file ID must be a string')
       // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
 
-      return await db.create('notes', matter.stringify(meta, content), id);
+      return await markdown.create(this.modelDir, matter.stringify(meta, content), id);
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)
@@ -57,8 +58,8 @@ module.exports = {
   read: async function (id) {
     try {
       if (!id) throw new Error('A file ID must be supplied')
-      if (is.not.string(id)) throw new Error('id must be a string')
-      let result = await db.read('notes', id);
+      if (is.not.string(id)) throw new Error('The file ID must be a string')
+      let result = await markdown.read(this.modelDir, id);
       return matter(result)
     } catch (error) {
       // TODO Add to error log
@@ -70,9 +71,9 @@ module.exports = {
       if (!meta || !content || !id) throw new Error('You must supply all params')
       if (is.not.object(meta)) throw new Error('Meta must be an object')
       if (is.not.string(content)) throw new Error('Content must be a string')
-      if (is.not.string(id)) throw new Error('id must be a string')
+      if (is.not.string(id)) throw new Error('The file ID must be a string')
       // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-      return db.update('notes', matter.stringify(meta, content), id);
+      return markdown.update(this.modelDir, matter.stringify(meta, content), id);
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)
@@ -81,8 +82,8 @@ module.exports = {
   delete: async function (id) {
     try {
       if (!id) throw new Error('A file ID must be supplied')
-      if (is.not.string(id)) throw new Error('id must be a string')
-      return db.delete('notes', id);
+      if (is.not.string(id)) throw new Error('The file ID must be a string')
+      return markdown.delete(this.modelDir, id);
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)

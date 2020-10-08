@@ -1,5 +1,5 @@
 const mock = require('mock-fs')
-const db = require('./db');
+const markdown = require('./markdown');
 const path = require('path')
 const config = require('../config')
 const outdent = require('outdent')
@@ -19,50 +19,50 @@ let expectedNodeData = {
 
 describe('Check for empty parameters ', () => {
   test('create: Empty params', async () => {
-    await expect(db.create()).rejects.toThrow('db.create: Missing parameters');
+    await expect(markdown.create()).rejects.toThrow('markdown.create: Missing parameters');
   });
   test('read: Empty params', async () => {
-    await expect(db.read()).rejects.toThrow('db.read: Missing parameters');
+    await expect(markdown.read()).rejects.toThrow('markdown.read: Missing parameters');
   });
   test('Update: Empty params', async () => {
-    await expect(db.update()).rejects.toThrow('db.update: Missing parameters');
+    await expect(markdown.update()).rejects.toThrow('markdown.update: Missing parameters');
   });
   test('Delete: Empty params', async () => {
-    await expect(db.delete()).rejects.toThrow('db.delete: Missing parameters');
+    await expect(markdown.delete()).rejects.toThrow('markdown.delete: Missing parameters');
   });
 });
 
 describe('Check for correct type of parameters ', () => {
   test('create: non-string params', async () => {
-    await expect(db.create({}, {}, {})).rejects.toThrow('db.create: Parameters must be supplied as strings');
+    await expect(markdown.create({}, {}, {})).rejects.toThrow('markdown.create: Parameters must be supplied as strings');
   });
 
   test('create: non-string params', async () => {
-    await expect(db.create(1, 1, 1)).rejects.toThrow('db.create: Parameters must be supplied as strings');
+    await expect(markdown.create(1, 1, 1)).rejects.toThrow('markdown.create: Parameters must be supplied as strings');
   });
 
   test('read: non-string params', async () => {
-    await expect(db.read({}, {}, {})).rejects.toThrow('db.read: Parameters must be supplied as strings');
+    await expect(markdown.read({}, {}, {})).rejects.toThrow('markdown.read: Parameters must be supplied as strings');
   });
 
   test('read: non-string params', async () => {
-    await expect(db.read(1, 1, 1)).rejects.toThrow('db.read: Parameters must be supplied as strings');
+    await expect(markdown.read(1, 1, 1)).rejects.toThrow('markdown.read: Parameters must be supplied as strings');
   });
 
   test('Update: non-string params', async () => {
-    await expect(db.update({}, {}, {})).rejects.toThrow('db.update: Parameters must be supplied as strings');
+    await expect(markdown.update({}, {}, {})).rejects.toThrow('markdown.update: Parameters must be supplied as strings');
   });
 
   test('Update: non-string params', async () => {
-    await expect(db.update(1, 1, 1)).rejects.toThrow('db.update: Parameters must be supplied as strings');
+    await expect(markdown.update(1, 1, 1)).rejects.toThrow('markdown.update: Parameters must be supplied as strings');
   });
 
   test('Delete: non-string params', async () => {
-    await expect(db.delete({}, {}, {})).rejects.toThrow('db.delete: Parameters must be supplied as strings');
+    await expect(markdown.delete({}, {}, {})).rejects.toThrow('markdown.delete: Parameters must be supplied as strings');
   });
 
   test('Delete: non-string params', async () => {
-    await expect(db.delete(1, 1, 1)).rejects.toThrow('db.delete: Parameters must be supplied as strings');
+    await expect(markdown.delete(1, 1, 1)).rejects.toThrow('markdown.delete: Parameters must be supplied as strings');
   });
 
 });
@@ -92,7 +92,7 @@ describe('Check for working file operations', () => {
 
 
     test('reading from disk', async () => {
-      await expect(db.read('notes', '0000')).resolves.toEqual(expectedData);
+      await expect(markdown.read('notes', '0000')).resolves.toEqual(expectedData);
     });
 
     afterEach(() => mock.restore());
