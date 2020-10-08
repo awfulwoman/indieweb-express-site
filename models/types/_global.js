@@ -3,37 +3,43 @@ const { string, boolean } = require("is_js");
 module.exports = {
   fields: {
     guid: {
-      description: 'A unique identifier for this item.',
-      descriptionExtra: 'Only used internally',
       type: 'string',
+      description: 'Item GUID',
+      descriptionExtra: 'A globally unique identifier for this item. Only used internally',
       default: uuid.v4()
     },
-    slug: {
-      description: 'How the item is stored on disk',
+    id: {
       type: 'string',
+      description: 'Item ID',
+      descriptionExtra: 'A unique ID for this item type and how the item is stored on disk',
       default: DateTime.local().toFormat(config.fileDateFormat)
     },
     created: {
       type: 'string',
-      description: 'Item creation timestamp',
+      description: 'Created',
+      descriptionExtra: 'The item creation time and date',
       default: DateTime.local().toString()
     },
     updated: {
       type: 'string',
-      description: 'Item update timestamp',
+      description: 'Updated',
+      descriptionExtra: 'The item update time and date',
       default: DateTime.local().toString()
     },
     rss: {
       type: 'boolean',
-      description: 'Include item in relevant local RSS feed'
+      description: 'Include in RSS',
+      descriptionExtra: 'Whether the item is included in the item type RSS feed'
     },
     listed: {
       type: 'boolean',
-      description: 'Include item in this sections index page listing and archive listing'
+      description: 'Include on listings',
+      descriptionExtra: 'Whether the item is included on the sites listings and archives'
     },
     public: {
       type: 'boolean',
-      description: 'Visibility of item when visited directly'
+      description: 'Public',
+      descriptionExtra: 'Whether the item is available when the URL is visited directly'
     }
   }
 }
