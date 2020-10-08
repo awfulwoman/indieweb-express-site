@@ -1,6 +1,9 @@
 const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
+const Nodecache = require('node-cache')
+const { nodeCache } = require('../content')
+
 
 module.exports = {
   modelDir: 'notes',
@@ -49,7 +52,19 @@ module.exports = {
       if (is.not.string(id)) throw new Error('The file ID must be a string')
       // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
 
-      return await markdown.create(this.modelDir, matter.stringify(meta, content), id);
+      function compareKeys(a, b) {
+        var aKeys = Object.keys(a).sort();
+        var bKeys = Object.keys(b).sort();
+        return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+      }
+
+      // merge global and field objects
+
+      // compare merged with incoming meta
+      
+
+      await markdown.create(this.modelDir, matter.stringify(meta, content), id)
+      return this.cachedItems.set(id)
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)
@@ -59,7 +74,12 @@ module.exports = {
     try {
       if (!id) throw new Error('A file ID must be supplied')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
-      let result = await markdown.read(this.modelDir, id);
+      if (this.cachedItems.has(id)) {
+        let result = this.cachedItems.get(id)
+        return matter(result)
+      }
+
+      let result = await markdown.read(this.modelDir, id)
       return matter(result)
     } catch (error) {
       // TODO Add to error log
@@ -73,7 +93,7 @@ module.exports = {
       if (is.not.string(content)) throw new Error('Content must be a string')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
       // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-      return markdown.update(this.modelDir, matter.stringify(meta, content), id);
+      return markdown.update(this.modelDir, matter.stringify(meta, content), id)
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)
@@ -89,6 +109,7 @@ module.exports = {
       return Promise.reject(error)
     }
   },
+  cachedItems: new Nodecache(),
   settings: {
     defaults: {
       rss: true,
