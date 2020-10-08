@@ -18,20 +18,20 @@ let expectedNodeData = {
 
 describe('Checking parameters', () => {
 
-  test('Create: Empty params', () => {
-    return expect(note.create()).rejects.toThrow('You must supply all params');
+  test('Create: Empty params', async () => {
+    await expect(note.create()).rejects.toThrow('You must supply all params');
   });
 
-  test('Read: Empty params', () => {
-    return expect(note.read()).rejects.toThrow('A file ID must be supplied');
+  test('Read: Empty params', async () => {
+    await expect(note.read()).rejects.toThrow('A file ID must be supplied');
   });
 
-  test('Update: Empty params', () => {
-    return expect(note.update()).rejects.toThrow('You must supply all params');
+  test('Update: Empty params', async () => {
+    await expect(note.update()).rejects.toThrow('You must supply all params');
   });
 
-  test('Delete: Empty params', () => {
-    return expect(note.delete()).rejects.toThrow('A file ID must be supplied');
+  test('Delete: Empty params', async () => {
+    await expect(note.delete()).rejects.toThrow('A file ID must be supplied');
   });
 })
 
@@ -45,11 +45,8 @@ describe('Read from a file', () => {
     });
   });
 
-
-  test('reading from disk', () => {
-      return note.read('0000').then(data => {
-        expect(data).toMatchObject(expectedNodeData);
-      });
+  test('reading from disk', async () => {
+    await expect(note.read('0000')).resolves.toMatchObject(expectedNodeData);
   });
 
   afterEach(() => mock.restore());
