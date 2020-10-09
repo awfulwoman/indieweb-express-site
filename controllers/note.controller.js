@@ -1,3 +1,4 @@
+// 🏃‍♀️💨 Express
 const express = require('express')
 const app = express();
 
@@ -8,11 +9,11 @@ const router = express.Router({
     strict: app.get('strict routing')
 });
 
-// Models
+// 💅 Models
 const note = require('../models/types/note.model')
 const static = require('../models/types/static.model')
 
-// Middleware
+// 🖕 Middleware
 const asyncHandler = require('express-async-handler');
 const file = require('./generics/file')
 const markdown = require('./generics/markdown')
