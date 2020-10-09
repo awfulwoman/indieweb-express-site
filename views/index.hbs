@@ -1,3 +1,46 @@
 <h1>{{meta.title}}</h1>
 
 {{content}}
+
+
+{{#if children}}
+  <section>
+    <h2>Related nodes</h2>
+    <ul>
+      {{#each children}}
+      <li><a href="{{this.path}}">{{this.title}}</a></li>
+      {{/each}}
+    </ul>
+  </section>
+{{/if}}
+
+
+
+{{#if debug}}
+<div class="l-debug">
+  <h1>Debugging</h1>
+  <h2>.meta</h2>
+  <pre>
+  {{{
+    dumpObject meta
+  }}}
+  </pre>
+
+  {{#if children}}
+  <h2>.children</h2>
+
+  <pre>
+  {{{
+    dumpObject children
+  }}}
+  </pre>
+  {{/if}}
+
+  <h2>.content</h2>
+  <pre>
+  {{{
+    dumpObject content
+  }}}
+  </pre>
+</div>
+{{/if}}

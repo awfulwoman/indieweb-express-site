@@ -95,14 +95,14 @@ exports.submitNode = function(req, res, next) {
     delete data.content;
 
     // SAVE DATA
-    contentModel.saveNodeSync(`${data.type}/${data.slug}`, data, content || '');
-    contentModel.loadNodeSync(`${data.type}/${data.slug}`); // TODO: UPDATE THE CACHES PROPERLY, inc listings
+    contentModel.saveNodeSync(`${data.type}/${data.id}`, data, content || '');
+    contentModel.loadNodeSync(`${data.type}/${data.id}`); // TODO: UPDATE THE CACHES PROPERLY, inc listings
 
     // SHOW CONFIRMATION PAGE
     res.render('admin/create', {
       admin: true,
       content: `Your new ${scaffoldData.englishSingular} has been created!`,
-      url: `/${data.type}/${data.slug}/`
+      url: `/${data.type}/${data.id}/`
       // scaffold: scaffoldData
     });
 

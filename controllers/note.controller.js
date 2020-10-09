@@ -5,6 +5,8 @@ const router = express.Router({
     caseSensitive: app.get('case sensitive routing'),
     strict: app.get('strict routing')
 });
+const files = require('../drivers/files')
+const debug = require('debug')('sonniesedge:controllers:note');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
 const checkAuthentication = require('../middleware/checkauthentication');
@@ -15,28 +17,25 @@ const is = require('is_js');
 const asyncHandler = require('express-async-handler');
 const { resolve } = require('app-root-path');
 const ErrorHandler = require('../utilities/error-handler')
+const mime = require('mime-types');
 
 const validateNote = [
   body('content').isAlphanumeric().trim(),
   body('images')
 ]
 
-// router.get('/notes/', asyncHandler(async (req, res, next) => {
+router.get('/notes/', asyncHandler(async (req, res, next) => {
 
-//   let itemObj = await note.read(req.params.id);
+  let itemObj = await note.read(req.params.id);
 
-//   res.render('page', {
-//     content: itemObj.content,
-//     meta: itemObj.data,
-//   });
+  res.render('index', {
+    content: itemObj.content,
+    meta: itemObj.data,
+  });
 
-// }));
+}));
 
-router.get('/error', asyncHandler( async (req, res, next) => {
-  throw new ErrorHandler('500', 'Internal server error');
-}))
-
-router.get('/notes/:id', asyncHandler(async (req, res, next) => {
+router.get('/notes/:id/', asyncHandler(async (req, res, next) => {
   try {
     let itemObj = await note.read(req.params.id);
 
@@ -49,7 +48,7 @@ router.get('/notes/:id', asyncHandler(async (req, res, next) => {
   }
 }));
 
-router.get('/notes/create', [], asyncHandler(async (req, res, next) => {
+router.get('/notes/create/', [], asyncHandler(async (req, res, next) => {
   res.render('create/note', {
     content: `Start creating your note!`,
     fields: note.fields
@@ -75,18 +74,18 @@ router.post('/notes/create', [checkAuthentication, urlencodedParser, validateNot
       req.body.meta.updated = _global.fields.updated.default
     if (is.falsy(req.body.meta.uuid))
       req.body.meta.uuid = _global.fields.uuid.default
-    if (is.falsy(req.body.meta.slug))
-      req.body.meta.slug = slug || _global.fields.slug.default
+    if (is.falsy(req.body.meta.id))
+      req.body.meta.id = id || _global.fields.id.default
 
     // save
-    note.create(meta, content, slug)
+    note.create(meta, content, id)
 
     // Render
-    res.render('create/note', {
+    res.render('create/note/', {
       success: true,
       flash: { type: 'success', message: `Note created` },
       content: `Your new Note has been created!`,
-      url: `/notes/${req.body.meta.slug}/`
+      url: `/notes/${req.body.meta.id}/`
     });
   } catch (error) {
     res.render('create/note', {
@@ -97,19 +96,19 @@ router.post('/notes/create', [checkAuthentication, urlencodedParser, validateNot
   }
 }));
 
-router.get('/notes/:id/edit', [], asyncHandler(async (req, res, next) => {
+router.get('/notes/:id/edit/', [], asyncHandler(async (req, res, next) => {
 
 }));
 
-router.post('/notes/:id/edit', [], asyncHandler(async (req, res, next) => {
+router.post('/notes/:id/edit/', [], asyncHandler(async (req, res, next) => {
 
 }));
 
-router.get('/notes/:id/delete', [], asyncHandler(async (req, res, next) => {
+router.get('/notes/:id/delete/', [], asyncHandler(async (req, res, next) => {
 
 }));
 
-router.post('/notes/:id/delete', [], asyncHandler(async (req, res, next) => {
+router.post('/notes/:id/delete/', [], asyncHandler(async (req, res, next) => {
 
 }));
 
@@ -118,6 +117,16 @@ router.get('/notes/:id/:file', [], asyncHandler(async (req, res, next) => {
   // check that note id is valid
 
   // redirect to a default size
+
+  try {
+    let readStream = await files.read('notes', req.params.id, req.params.file)
+    let fileType = mime.lookup(req.params.file) || 'application/octet-stream'
+    if(fileType){res.set('Content-Type', fileType)}
+    res.end(readStream)
+  } catch (error) {
+    debug(error)
+    throw new ErrorHandler(404, 'File not found')
+  }
 
 
 }));

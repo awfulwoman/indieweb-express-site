@@ -3,6 +3,8 @@ const debug = require('debug')('sonniesedge:app');
 const msg = require('debug')('sonniesedge:messages');
 const error = require('debug')('sonniesedge:error');
 
+const path = require('path')
+
 const handleError = require('./middleware/errors')
 
 // Express
@@ -127,14 +129,21 @@ app.use(renderDebug);
 // ------
 // app.use(logger('dev'));
 
+
+app.enable('strict routing');
+
 //
 // ROUTES
 // ------
 //
+app.use('/youdidntsaythemagicword', function (req, res, next) {
+  res.render('youdidntsaythemagicword', {});
+})
+app.use("/public", express.static(path.join(config.appRoot, 'public'), {fallthrough: false}));
 app.use('/login', routesLogin); // Main routes
 app.use('/admin', routesAdmin); // Main routes
 app.use('/', notesController); // Main routes
-app.use('/', routesContent); // Main routes
+// app.use('/', routesContent); // Main routes
 app.use(slash()); // Ensure trailing slashes are used
 
 
@@ -142,6 +151,8 @@ app.use(slash()); // Ensure trailing slashes are used
 // ERROR PAGES
 // -----------
 //
+
+
 
 app.use((err, req, res, next) => {
   handleError(err, res);

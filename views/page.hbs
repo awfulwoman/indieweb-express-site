@@ -5,10 +5,6 @@
 
 {{#if meta.place_name}}at {{meta.place_name}}{{/if}}
 
-{{meta.photo}}
-
-<hr>
-
 {{{content}}}
 
 {{#if meta.bookmark_of}}
@@ -39,16 +35,7 @@
   {{/each}}
 {{/if}}
 
-{{#if children}}
-  <section>
-    <h2>Related nodes</h2>
-    <ul>
-      {{#each children}}
-      <li><a href="{{this.path}}">{{this.title}}</a></li>
-      {{/each}}
-    </ul>
-  </section>
-{{/if}}
+
 
 {{#if debug}}
 <div class="l-debug">
