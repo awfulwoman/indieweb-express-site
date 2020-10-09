@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controllers:note');
+const debug = require('debug')('sonniesedge:controllers:generics:markdown');
 const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../utilities/error-handler')
 
@@ -25,14 +25,17 @@ exports.create = {
 
 // READ
 exports.read = function (model, options) {
+
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
+    debug('read options: ', options)
     try {
-      let itemObj = await model.read(req.params.id);
+      let itemObj = await model.read(options.id || req.params.id);
 
-      res.render('page', {
+      res.render(options.template || 'page', {
         content: itemObj.content,
         meta: itemObj.data,
+        children: options.children ? options.children.latest : null
       });
     } catch (error) {
       throw new ErrorHandler(404, 'Note not found')

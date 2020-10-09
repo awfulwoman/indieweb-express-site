@@ -10,6 +10,7 @@ const router = express.Router({
 
 // Models
 const note = require('../models/types/note.model')
+const static = require('../models/types/static.model')
 
 // Middleware
 const asyncHandler = require('express-async-handler');
@@ -28,15 +29,18 @@ const checkAuthentication = require('../middleware/checkauthentication')
 
 // }));
 
-// router.get('/notes/', markdown.read(note));
+// 🔓 Public routes 
+router.get('/notes/', markdown.read(static, {id: 'notes', index: true, children: note, template: 'index'}));
 router.get('/notes/:id/', markdown.read(note));
+router.get('/notes/:id/:file', [], file.read(note));
+router.get('/notes/:id/:file/:size', [], file.read(note));
+
+// 🔐 Protected routes 
 router.get('/notes/create/', [], markdown.create.get(note));
 router.post('/notes/create/', [], markdown.create.post(note));
 router.get('/notes/:id/edit/', [], markdown.update.get(note));
 router.post('/notes/:id/edit/', [], markdown.update.post(note));
 router.get('/notes/:id/delete/', [], markdown.delete.get(note));
 router.post('/notes/:id/delete/', [], markdown.delete.post(note));
-router.get('/notes/:id/:file', [], file.read(note));
-router.get('/notes/:id/:file/:size', [], file.read(note));
 
 module.exports = router;

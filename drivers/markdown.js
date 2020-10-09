@@ -1,3 +1,4 @@
+const debug = require('debug')('sonniesedge:drivers:markdown');
 const fs = require('fs')
 const path = require('path')
 const config = require('../config')
@@ -28,11 +29,14 @@ const markdown = {
       if (!type || !id) throw new Error('markdown.read: Missing parameters')
       if (is.not.string(type) || is.not.string(id)) throw new Error('markdown.read: Parameters must be supplied as strings')
 
-      let destination = path.join(config.contentRoot, type, id, 'index.md')
+      
+      let destination = path.join(config.contentRoot, type === 'static' ? '' : type, id, 'index.md')
 
       return await fs.promises.readFile(destination, { encoding: 'utf8' })
     } catch (error) {
-
+      debug(error)
+      debug('read type: ', type)
+      debug('read id: ', id)
       return Promise.reject(error)
     }
   },
