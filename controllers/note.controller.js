@@ -18,17 +18,6 @@ const file = require('./generics/file')
 const markdown = require('./generics/markdown')
 const checkAuthentication = require('../middleware/checkauthentication')
 
-// router.get('/notes/', asyncHandler(async (req, res, next) => {
-
-//   let itemObj = await note.read(req.params.id);
-
-//   res.render('index', {
-//     content: itemObj.content,
-//     meta: itemObj.data,
-//   });
-
-// }));
-
 // 🔓 Public routes 
 router.get('/notes/', markdown.read(static, {id: 'notes', index: true, children: note, template: 'index'}));
 router.get('/notes/:id/', markdown.read(note));

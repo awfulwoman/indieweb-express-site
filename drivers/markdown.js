@@ -5,7 +5,7 @@ const config = require('../config')
 const is = require('is_js')
 const ErrorHandler = require('../utilities/error-handler')
 
-const markdown = {
+module.exports = {
   create: async function (type, id, fileContent) {
     try {
       if (!type || !fileContent || !id) throw new Error('markdown.create: Missing parameters')
@@ -74,4 +74,3 @@ const markdown = {
   }
 }
 
-module.exports = markdown;

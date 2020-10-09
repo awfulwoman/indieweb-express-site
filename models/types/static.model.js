@@ -46,6 +46,7 @@ module.exports = {
       formFieldRender: 'place'
     }
   },
+
   // CRUD
   create: async function (data, content, id) {
     try {
@@ -53,7 +54,6 @@ module.exports = {
       if (is.not.object(data)) throw new Error('data must be an object')
       if (is.not.string(content)) throw new Error('Content must be a string')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
-
 
       // Add globals if they are not present 
       for (const [key, value] of Object.entries(globalFields.fields)) {
@@ -125,5 +125,3 @@ module.exports = {
     includeInMainRssFeed: true,
   }
 }
-
-
