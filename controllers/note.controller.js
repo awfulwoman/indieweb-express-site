@@ -12,8 +12,9 @@ const checkAuthentication = require('../middleware/checkauthentication');
 const note = require('../models/types/note.model');
 const { body, validationResult } = require('express-validator');
 const is = require('is_js');
-const asyncHandler = require('express-async-handler')
-
+const asyncHandler = require('express-async-handler');
+const { resolve } = require('app-root-path');
+const ErrorHandler = require('../utilities/error-handler')
 
 const validateNote = [
   body('content').isAlphanumeric().trim(),
@@ -31,15 +32,21 @@ const validateNote = [
 
 // }));
 
+router.get('/error', asyncHandler( async (req, res, next) => {
+  throw new ErrorHandler('500', 'Internal server error');
+}))
+
 router.get('/notes/:id', asyncHandler(async (req, res, next) => {
+  try {
+    let itemObj = await note.read(req.params.id);
 
-  let itemObj = await note.read(req.params.id);
-
-  res.render('page', {
-    content: itemObj.content,
-    meta: itemObj.data,
-  });
-
+    res.render('page', {
+      content: itemObj.content,
+      meta: itemObj.data,
+    });
+  } catch (error) {
+    throw new ErrorHandler(404, 'Note not found')
+  }
 }));
 
 router.get('/notes/create', [], asyncHandler(async (req, res, next) => {

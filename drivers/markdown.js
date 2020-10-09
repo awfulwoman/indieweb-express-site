@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const config = require('../config')
 const is = require('is_js')
+const ErrorHandler = require('../utilities/error-handler')
 
 const markdown = {
   create: async function (type, id, fileContent) {
@@ -31,6 +32,7 @@ const markdown = {
 
       return await fs.promises.readFile(destination, { encoding: 'utf8' })
     } catch (error) {
+
       return Promise.reject(error)
     }
   },

@@ -1,6 +1,7 @@
 const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
+const globalFields = require('./_global')
 const Nodecache = require('node-cache')
 const { nodeCache } = require('../content')
 
@@ -44,26 +45,29 @@ module.exports = {
     }
   },
   // CRUD
-  create: async function (meta, content, id) {
+  create: async function (data, content, id) {
     try {
-      if (!meta || !content || !id) throw new Error('You must supply all params')
-      if (is.not.object(meta)) throw new Error('Meta must be an object')
+      if (!data || !content || !id) throw new Error('You must supply all params')
+      if (is.not.object(data)) throw new Error('data must be an object')
       if (is.not.string(content)) throw new Error('Content must be a string')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
-      // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-
-      function compareKeys(a, b) {
-        var aKeys = Object.keys(a).sort();
-        var bKeys = Object.keys(b).sort();
-        return JSON.stringify(aKeys) === JSON.stringify(bKeys);
-      }
-
-      // merge global and field objects
-
-      // compare merged with incoming meta
       
 
-      await markdown.create(this.modelDir, matter.stringify(meta, content), id)
+      // Add globals if they are not present 
+      for (const [key, value] of Object.entries(globalFields.fields)) {
+        // console.log(`${key}: ${value}`);
+        if (!data[key]) {
+          data[key] = value.default
+        }
+      }
+
+      // Check all property names match those in schema
+      for (const field of data) {
+        if (!globalFields.fields.hasOwnProperty(data[field])) throw new Error('Illegal property name')
+        if (!this.fields.hasOwnProperty(data[field])) throw new Error('Illegal property name')
+      }
+
+      await markdown.create(this.modelDir, matter.stringify(data, content), id)
       return this.cachedItems.set(id)
     } catch (error) {
       // TODO Add to error log
@@ -86,14 +90,14 @@ module.exports = {
       return Promise.reject(error)
     }
   },
-  update: async function (meta, content, id) {
+  update: async function (data, content, id) {
     try {
-      if (!meta || !content || !id) throw new Error('You must supply all params')
-      if (is.not.object(meta)) throw new Error('Meta must be an object')
+      if (!data || !content || !id) throw new Error('You must supply all params')
+      if (is.not.object(data)) throw new Error('data must be an object')
       if (is.not.string(content)) throw new Error('Content must be a string')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
-      // IF META PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-      return markdown.update(this.modelDir, matter.stringify(meta, content), id)
+      // IF data PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
+      return markdown.update(this.modelDir, matter.stringify(data, content), id)
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)
@@ -111,11 +115,9 @@ module.exports = {
   },
   cachedItems: new Nodecache(),
   settings: {
-    defaults: {
-      rss: true,
-      listed: true,
-      public: true
-    },
+    rss: true,
+    listed: true,
+    public: true,
     generateOwnRssFeed: true,
     includeInMainRssFeed: true,
   }

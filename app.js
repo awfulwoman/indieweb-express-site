@@ -3,6 +3,8 @@ const debug = require('debug')('sonniesedge:app');
 const msg = require('debug')('sonniesedge:messages');
 const error = require('debug')('sonniesedge:error');
 
+const handleError = require('./middleware/errors')
+
 // Express
 const express = require('express');
 const helmet = require('helmet');
@@ -140,17 +142,18 @@ app.use(slash()); // Ensure trailing slashes are used
 // ERROR PAGES
 // -----------
 //
-app.use(function (err, req, res, next) {
-  // Handle internal errors
-  debug(err);
-  res.status(500).render('500', {
-    // content: err.stack // only use this when debugging
-  })
-})
+
+app.use((err, req, res, next) => {
+  handleError(err, res);
+});
 
 app.use(function (req, res, next) {
   // 404, running at bottom of stack
-  res.status(404).render('404')
+  res.status(404).render('error', {
+    status: 'error',
+    statusCode: '404',
+    message: 'Nothing to see here. Go home.'
+  });
 })
 
 // Prep cache

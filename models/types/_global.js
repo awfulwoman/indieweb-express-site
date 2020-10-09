@@ -1,4 +1,7 @@
 const { string, boolean } = require("is_js");
+const config = require('../../config')
+const uuid = require('uuid')
+const DateTime = require('luxon').DateTime
 
 module.exports = {
   fields: {
@@ -29,17 +32,20 @@ module.exports = {
     rss: {
       type: 'boolean',
       description: 'Include in RSS',
-      descriptionExtra: 'Whether the item is included in the item type RSS feed'
+      descriptionExtra: 'Whether the item is included in the item type RSS feed',
+      default: true
     },
     listed: {
       type: 'boolean',
       description: 'Include on listings',
-      descriptionExtra: 'Whether the item is included on the sites listings and archives'
+      descriptionExtra: 'Whether the item is included on the sites listings and archives',
+      default: true
     },
     public: {
       type: 'boolean',
       description: 'Public',
-      descriptionExtra: 'Whether the item is available when the URL is visited directly'
+      descriptionExtra: 'Whether the item is available when the URL is visited directly',
+      default: true
     }
   }
 }

@@ -13,6 +13,7 @@
   "dependencies": {
     "ansi-colors": "^4.1.1",
     "app-root-path": "^3.0.0",
+    "async-middleware": "^1.2.1",
     "connect-ensure-login": "^0.1.1",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
