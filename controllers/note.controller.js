@@ -1,23 +1,27 @@
-const express = require('express');
+const express = require('express')
 const app = express();
+
+// TODO: Can I just remove this or move to app.js?
 app.enable('strict routing');
 const router = express.Router({
     caseSensitive: app.get('case sensitive routing'),
     strict: app.get('strict routing')
 });
-const files = require('../drivers/files')
-const debug = require('debug')('sonniesedge:controllers:note');
-const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: true });
-const checkAuthentication = require('../middleware/checkauthentication');
 
-const note = require('../models/types/note.model');
+const files = require('../drivers/files')
+const note = require('../models/types/note.model')
+
+// Middleware
+const bodyParser = require('body-parser')
+const urlencodedParser = bodyParser.urlencoded({ extended: true })
+const checkAuthentication = require('../middleware/checkauthentication')
+const asyncHandler = require('express-async-handler');
+// const ErrorHandler = require('../utilities/error-handler')
+const readFile = require('./generics/read-file')
+const readMarkdown = require('./generics/read-markdown')
+
 const { body, validationResult } = require('express-validator');
 const is = require('is_js');
-const asyncHandler = require('express-async-handler');
-const { resolve } = require('app-root-path');
-const ErrorHandler = require('../utilities/error-handler')
-const mime = require('mime-types');
 
 const validateNote = [
   body('content').isAlphanumeric().trim(),
@@ -35,18 +39,7 @@ router.get('/notes/', asyncHandler(async (req, res, next) => {
 
 }));
 
-router.get('/notes/:id/', asyncHandler(async (req, res, next) => {
-  try {
-    let itemObj = await note.read(req.params.id);
-
-    res.render('page', {
-      content: itemObj.content,
-      meta: itemObj.data,
-    });
-  } catch (error) {
-    throw new ErrorHandler(404, 'Note not found')
-  }
-}));
+router.get('/notes/:id/', readMarkdown(note));
 
 router.get('/notes/create/', [], asyncHandler(async (req, res, next) => {
   res.render('create/note', {
@@ -113,23 +106,7 @@ router.post('/notes/:id/delete/', [], asyncHandler(async (req, res, next) => {
 }));
 
 
-router.get('/notes/:id/:file', [], asyncHandler(async (req, res, next) => {
-  // check that note id is valid
-
-  // redirect to a default size
-
-  try {
-    let readStream = await files.read('notes', req.params.id, req.params.file)
-    let fileType = mime.lookup(req.params.file) || 'application/octet-stream'
-    if(fileType){res.set('Content-Type', fileType)}
-    res.end(readStream)
-  } catch (error) {
-    debug(error)
-    throw new ErrorHandler(404, 'File not found')
-  }
-
-
-}));
+router.get('/notes/:id/:file', [], readFile);
 
 router.get('/notes/:id/:file/:size', [], asyncHandler(async (req, res, next) => {
   // check that note id is valid
