@@ -49,7 +49,7 @@ app.engine('.hbs', hbs({
 
 
 app.set('view cache', process.env['DEBUG'] ? false : true);
-app.use(require('express-session')({ secret: 'keyboard cat wirhfwenkwefjbwiurhiwuhjgjhgjhgjhgjhg', resave: true, saveUninitialized: true }));
+app.use(require('express-session')({ secret: '76tttrs3%tskn£%knjhbhcfdxsewaer4trytuiuhk$', resave: true, saveUninitialized: true }));
 
 
 // PASSPORT AUTHENTICATION
