@@ -9,7 +9,7 @@ const config = require('../config');
 const prepNodeCache = function() {
 
   // Warm up node cache
-  glob.sync(`**/index.md`, {cwd: path.join(config.dataRoot, 'content')}).forEach(file => {
+  glob.sync(`**/index.md`, {cwd: config.contentRoot}).forEach(file => {
     // Retrieve the node from disk, therefore causing it to insert itself into the main node cache.
     let data = contentModel.loadNodeSync(file);
 
@@ -27,12 +27,12 @@ const prepNodeCache = function() {
   });
 
   // Warm up photo cache
-  glob.sync(`**/*.jpg`, {cwd: path.join(config.dataRoot, 'content')}).forEach(file => {
+  glob.sync(`**/*.jpg`, {cwd: config.contentRoot}).forEach(file => {
     // contentModel.loadNodeFileSync(file); // TODO: uncomment this when we have a working binary file cache
   });
 
   // Warm up webmentions cache
-  glob.sync(`**/webmentions.json`, {cwd: path.join(config.dataRoot, 'content')}).forEach(file => {
+  glob.sync(`**/webmentions.json`, {cwd: config.contentRoot}).forEach(file => {
     // console.log('file: ', file);
   });
 

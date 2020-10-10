@@ -262,7 +262,7 @@ async function request () {
 
           imageData.file = fileinfo.attributes.filename;
 
-          let dataImagePath = path.join(config.dataRoot, 'content', 'checkins', data.id.toString(), 'files')
+          let dataImagePath = path.join(config.contentRoot, 'checkins', data.id.toString(), 'files')
           let dataImageFetch = 'http://cms.sonniesedge.net' + fileinfo.attributes.uri.url
           debug('Dir to write: ', dataImagePath + '/' + fileinfo.attributes.filename);
           debug('File to download: ', 'http://cms.sonniesedge.net' + fileinfo.attributes.uri.url);
@@ -344,7 +344,7 @@ async function request () {
 
     //       imageData.file = fileinfo.attributes.filename;
 
-    //       let dataImagePath = path.join(config.dataRoot, 'content', 'notes', data.id.toString(), 'files')
+    //       let dataImagePath = path.join(config.contentRoot, 'notes', data.id.toString(), 'files')
     //       let dataImageFetch = 'http://cms.sonniesedge.net' + fileinfo.attributes.uri.url
     //       debug('Dir to write: ', dataImagePath + '/' + fileinfo.attributes.filename);
     //       debug('File to download: ', 'http://cms.sonniesedge.net' + fileinfo.attributes.uri.url);

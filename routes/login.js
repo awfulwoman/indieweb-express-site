@@ -1,5 +1,5 @@
 
-const debug = require('debug')('sonniesedge:routes');
+const debug = require('debug')('sonniesedge:login');
 const msg = require('debug')('sonniesedge:messages');
 const express = require('express');
 const app = express();
