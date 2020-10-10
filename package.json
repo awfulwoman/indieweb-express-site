@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "repository": "https://github.com/sonniesedge/site",
   "scripts": {
     "start": "node app.js",
     "start:dev": "npx nodemon app.js",

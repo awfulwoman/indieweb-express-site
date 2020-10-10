@@ -34,9 +34,6 @@ module.exports = {
 
       return await fs.promises.readFile(destination, { encoding: 'utf8' })
     } catch (error) {
-      debug(error)
-      debug('read type: ', type)
-      debug('read id: ', id)
       return Promise.reject(error)
     }
   },
