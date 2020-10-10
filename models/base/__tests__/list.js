@@ -17,6 +17,31 @@ let expectedNodeData = {
 
 describe('Checking model cache', () => {
   const testCache1 = new Nodecache()
+  let testCache1Result = {
+    '0000': expectedNodeData,
+    '0001': expectedNodeData,
+    '0002': expectedNodeData,
+    '0003': expectedNodeData,
+    '0004': expectedNodeData,
+    '0005': expectedNodeData,
+    '0006': expectedNodeData,
+    '0007': expectedNodeData,
+    '0008': expectedNodeData,
+    '0009': expectedNodeData,
+  }
+
+  let testCache2Result = {
+    '20210705t1200': expectedNodeData,
+    '20200605t1201': expectedNodeData,
+    '20200605t1200': expectedNodeData,
+    '3657': expectedNodeData,
+    '2034': expectedNodeData,
+    '1450': expectedNodeData,
+    '1123': expectedNodeData,
+    '10': expectedNodeData,
+    '7': expectedNodeData,
+    '1': expectedNodeData
+  }
   const testCache2 = new Nodecache()
   beforeEach(() => {
     testCache1.mset([
@@ -46,34 +71,12 @@ describe('Checking model cache', () => {
     ])
   })
 
-  test('Test cache lists 10 entries', async () => {
-    await expect(list(testCache1)).resolves.toMatchObject([
-       '0009', 
-       '0008', 
-       '0007', 
-       '0006', 
-       '0005', 
-       '0004', 
-       '0003', 
-       '0002', 
-       '0001', 
-       '0000' 
-      ])
+  test('Test cache lists 10 entries in descending order', async () => {
+    await expect(list(testCache1)).resolves.toMatchObject(testCache1Result)
   });
 
-  test('Test cache lists 10 entries', async () => {
-    await expect(list(testCache2)).resolves.toMatchObject([
-      '20210705t1200',
-      '20200605t1201',
-      '20200605t1200',
-      '3657',
-      '2034',
-      '1450',
-      '1123',
-      '10',
-      '7',
-      '1',
-    ])
+  test('Test cache lists 10 complex entries in descending order', async () => {
+    await expect(list(testCache2)).resolves.toMatchObject(testCache2Result)
   });
 
 })

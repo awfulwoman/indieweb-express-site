@@ -9,7 +9,8 @@ const listBase = async (cache, limit=20) => {
     if (is.not.object(cache)) throw new Error('cache must be an object')
 
     let keyList = cache.keys().slice().sort(naturalSort).reverse()
-    return keyList
+
+    return cache.mget(keyList)
 
   } catch (error) {
     // TODO Add to error log
