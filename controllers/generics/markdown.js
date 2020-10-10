@@ -28,7 +28,6 @@ exports.read = function (model, options) {
 
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
-    debug('read options: ', options)
     try {
       let itemObj = await model.read(options.id || req.params.id);
 
@@ -50,7 +49,7 @@ exports.update = {
     return asyncHandler((req, res, next) => {
       res.render('create/note', {
         content: `Start creating your note!`,
-        fields: note.fields
+        fields: model.fields
       });
     })
   },

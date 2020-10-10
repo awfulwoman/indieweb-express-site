@@ -51,7 +51,7 @@ module.exports = {
       if (is.not.object(data)) throw new Error('data must be an object')
       if (is.not.string(content)) throw new Error('Content must be a string')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
-      
+
 
       // Add globals if they are not present 
       for (const [key, value] of Object.entries(globalFields.fields)) {
@@ -107,7 +107,7 @@ module.exports = {
     try {
       if (!id) throw new Error('A file ID must be supplied')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
-      return markdown.delete(this.modelDir, id);
+      return markdown.delete(this.modelDir, id)
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)
@@ -123,9 +123,9 @@ module.exports = {
   },
   recent: async () => {
     try {
-      
+
     } catch (error) {
-      
+
     }
   }
 }

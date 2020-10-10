@@ -1,8 +1,8 @@
 {
-  "name": "sonniesedge-api",
+  "name": "sonniesedge-site",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "start:dev": "npx nodemon app.js",

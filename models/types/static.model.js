@@ -77,7 +77,6 @@ module.exports = {
     }
   },
   read: async function (id) {
-    debug('read options: ', id)
     try {
       if (!id) throw new Error('A file ID must be supplied')
       if (is.not.string(id)) throw new Error('The file ID must be a string')

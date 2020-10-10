@@ -42,21 +42,23 @@ const users = require('./models/user');
 var app = express();
 
 // Configure Helmet headers
-app.use(helmet({contentSecurityPolicy: {
-  directives: {
-    defaultSrc: ["'self'"],
-    scriptSrc: ["'self'"],
-    styleSrc: ["'self'", "https://fonts.googleapis.com"],
-    fontSrc: ["'self'", "https://fonts.gstatic.com"]
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"]
+    }
   }
-}}));
+}));
 
 // Set view engine to handlebars, using the .hbs extension
 app.set('view engine', '.hbs');
 // let demoUser = users.getAppUserObjFromAppId('DEMO');
 
 app.engine('.hbs', hbs({
-  helpers: {...hbsHelpers, dumpObject},
+  helpers: { ...hbsHelpers, dumpObject },
   extname: '.hbs',
   defaultLayout: 'default'
 }));
@@ -71,7 +73,7 @@ app.use(require('express-session')({ secret: 'keyboard cat wirhfwenkwefjbwiurhiw
 
 // Build an oauth callback URL from env vars.
 // This is stupidly complex
-const constructOauthCallbackUrl = function(authsite){
+const constructOauthCallbackUrl = function (authsite) {
   let result = `${config.siteProtocol}${config.siteDomain}${(config.sitePortExternal && config.sitePortExternal != 80 ? ':' + config.sitePortExternal : '')}/login/${authsite}/callback`;
   return result;
 }
@@ -90,7 +92,7 @@ const passportTwitterOptions = {
 // }
 
 // Use Twitter passport strategy
-passport.use(new TwitterStrategy(passportTwitterOptions, function(token, tokenSecret, profile, cb) {
+passport.use(new TwitterStrategy(passportTwitterOptions, function (token, tokenSecret, profile, cb) {
   debug('Someone trying to login with following Twitter profile: ', profile.username);
   let appUserProfile = users.getAppUserObjFromTwitterId(profile.id);
   return cb(null, appUserProfile);
@@ -104,12 +106,12 @@ passport.use(new TwitterStrategy(passportTwitterOptions, function(token, tokenSe
 // }));
 
 // Configure Passport authenticated session persistence.
-passport.serializeUser(function(userAppObj, callback) {
+passport.serializeUser(function (userAppObj, callback) {
   // serialize into session token - only need to store user ID in here
   callback(null, userAppObj.id);
 });
 
-passport.deserializeUser(function(userAppId, callback) {
+passport.deserializeUser(function (userAppId, callback) {
   // deserialize out of session token and into a full user object
   callback(null, users.getAppUserObjFromAppId(userAppId));
 });
@@ -130,7 +132,7 @@ app.use(renderDebug);
 // app.use(logger('dev'));
 
 
-app.enable('strict routing');
+// app.enable('strict routing');
 
 //
 // ROUTES
@@ -139,7 +141,7 @@ app.enable('strict routing');
 app.use('/youdidntsaythemagicword', function (req, res, next) {
   res.render('youdidntsaythemagicword', {});
 })
-app.use("/public", express.static(path.join(config.appRoot, 'public'), {fallthrough: false}));
+app.use('/public', express.static(path.join(config.appRoot, 'public'), { fallthrough: false }));
 app.use('/login', routesLogin); // Main routes
 app.use('/admin', routesAdmin); // Main routes
 app.use('/', notesController); // Main routes
@@ -174,7 +176,7 @@ app.use(function (req, res, next) {
 // debug('Warming up node list cache: %O', warmedNodeListCache);
 
 // Boot app
-app.listen(config.sitePort, function() {
+app.listen(config.sitePort, function () {
   debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`);
   debug('Twitter callback url:', constructOauthCallbackUrl('twitter'));
   debug('Github callback url:', constructOauthCallbackUrl('github'));
