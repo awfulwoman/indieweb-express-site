@@ -14,7 +14,7 @@ const checkAuthentication = require('../middleware/check-authentication')
 router.get(`/${note.modelDir}`, markdownBase.read(static, {
   id: note.modelDir, 
   index: true, 
-  children: note, 
+  children: note.recent(), 
   template: 'index'
 }));
 router.get(`/${note.modelDir}/:id`, markdownBase.read(note))

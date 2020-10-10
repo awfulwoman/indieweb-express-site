@@ -1,3 +1,4 @@
+const debug = require('debug')('sonniesedge:models:base')
 const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')

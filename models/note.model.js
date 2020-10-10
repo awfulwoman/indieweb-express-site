@@ -62,8 +62,9 @@ module.exports = {
     generateOwnRssFeed: true,
     includeInMainRssFeed: true,
   },
-  recent: async () => {
-    return await listBase(this.cachedItems)
+  recent: async function () {
+    let cache = this.cachedItems
+    return await listBase(cache)
   }
 }
 
