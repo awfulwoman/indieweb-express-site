@@ -20,7 +20,8 @@ const express = require('express');
 const helmet = require('helmet');
 const renderUsers = require('./middleware/render-users');
 const renderDebug = require('./middleware/render-debug');
-const handleError = require('./middleware/errors')
+const handleError = require('./middleware/handle-errors')
+const handle404 = require('./middleware/handle-404')
 const notesController = require('./controllers/note.controller')
 const routesLogin = require('./routes/login')
 const users = require('./models/user')
@@ -39,22 +40,18 @@ app.use(helmet({
   }
 }));
 
-// Set view engine to handlebars, using the .hbs extension
+// Templates
 app.set('view engine', '.hbs')
 app.engine('.hbs', hbs({
   helpers: { ...hbsHelpers, dumpObject },
   extname: '.hbs',
   defaultLayout: 'default'
 }))
-
-
 app.set('view cache', process.env['DEBUG'] ? false : true);
-app.use(require('express-session')({ secret: '76tttrs3%tskn£%knjhbhcfdxsewaer4trytuiuhk$', resave: true, saveUninitialized: true }));
 
-
-// PASSPORT AUTHENTICATION
+// AUTHENTICATION
 // -----------------------
-
+app.use(require('express-session')({ secret: '76tttrs3%tskn£%knjhbhcfdxsewaer4trytuiuhk$', resave: true, saveUninitialized: true }));
 // Build an oauth callback URL from environment variables.
 // This is stupidly complex
 const constructOauthCallbackUrl = function (strategy) {
@@ -122,9 +119,8 @@ app.use('/', notesController)
 // 
 // ERROR PAGES
 // -----------
-const handle404 = require('./middleware/handle404')
-app.use((err, req, res, next) => handleError(err, res)) // Handle any custom errors
-app.use((req, res, next) => handle404(res)) // Handle anything else as a 404
+app.use((err, req, res, next) => handleError(err, req, res, next)) // Handle any custom errors
+app.use((req, res, next) => handle404(req, res, next)) // Handle anything else as a 404
 
 // Boot app
 app.listen(config.sitePort, function () {

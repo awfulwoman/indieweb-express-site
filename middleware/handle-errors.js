@@ -1,4 +1,4 @@
-const errors = (err, res) => {
+const errors = (err, req, res, next) => {
   const { statusCode, message } = err;
   res.status(statusCode);
   res.render('error', {

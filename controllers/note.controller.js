@@ -9,7 +9,7 @@ const static = require('../models/static.model')
 // 🖕 Middleware
 const fileBase = require('./base/file')
 const markdownBase = require('./base/markdown')
-const checkAuthentication = require('../middleware/checkauthentication')
+const checkAuthentication = require('../middleware/check-authentication')
 
 // 🔓 Public routes 
 router.get(`/${model.modelDir}`, markdownBase.read(static, {
