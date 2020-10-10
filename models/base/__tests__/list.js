@@ -46,9 +46,20 @@ describe('Checking model cache', () => {
     ])
   })
 
-  // test('Test cache lists 10 entries', async () => {
-  //   await expect(list(testCache1)).resolves.toMatchObject([ '0000', '0001', '0002', '0003', '0004', '0005', '0006', '0007', '0008', '0009' ])
-  // });
+  test('Test cache lists 10 entries', async () => {
+    await expect(list(testCache1)).resolves.toMatchObject([
+       '0009', 
+       '0008', 
+       '0007', 
+       '0006', 
+       '0005', 
+       '0004', 
+       '0003', 
+       '0002', 
+       '0001', 
+       '0000' 
+      ])
+  });
 
   test('Test cache lists 10 entries', async () => {
     await expect(list(testCache2)).resolves.toMatchObject([
