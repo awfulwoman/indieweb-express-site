@@ -4,14 +4,16 @@ const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
 const naturalSort = require('javascript-natural-sort')
 
-const listBase = async (cache, limit=20) => {
+const list = async (cache, limit=20) => {
+  debug('list.js called')
   try {
     if (!cache) throw new Error('You must supply all params')
     if (is.not.object(cache)) throw new Error('cache must be an object')
 
     let keyList = cache.keys().slice().sort(naturalSort).reverse()
-
-    return cache.mget(keyList)
+    let temp = cache.mget(keyList)
+    debug(temp)
+    return temp
 
   } catch (error) {
     // TODO Add to error log
@@ -19,4 +21,4 @@ const listBase = async (cache, limit=20) => {
   }
 }
 
-module.exports = listBase
+module.exports = {list}

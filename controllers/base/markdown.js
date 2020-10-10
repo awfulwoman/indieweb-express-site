@@ -34,7 +34,7 @@ exports.read = function (model, options) {
       res.render(options.template || 'page', {
         content: itemObj.content,
         meta: itemObj.data,
-        children: options.children ? options.children.latest : null
+        children: options.children ? await options.children() : null
       });
     } catch (error) {
       throw new ErrorHandler(404, 'Note not found')

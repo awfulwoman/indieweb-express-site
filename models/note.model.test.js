@@ -31,7 +31,7 @@ describe('Checking parameters', () => {
   });
 
   test('Delete: Empty params', async () => {
-    await expect(note.delete()).rejects.toThrow('You must supply all params');
+    await expect(note.del()).rejects.toThrow('You must supply all params');
   });
 })
 

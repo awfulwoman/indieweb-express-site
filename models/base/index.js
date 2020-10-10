@@ -2,6 +2,6 @@ const createBase = require('./create')
 const updateBase = require('./update')
 const readBase = require('./read')
 const deleteBase = require('./delete')
-const listBase = require('./list')
+const cache = require('./cache')
 
-module.exports = {createBase, updateBase, readBase, deleteBase, listBase}
+module.exports = {createBase, updateBase, readBase, deleteBase, cache}

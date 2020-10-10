@@ -1,6 +1,6 @@
 const Nodecache = require('node-cache')
 
-const list = require('../list')
+const cache = require('../cache')
 
 let expectedNodeData = {
   content:
@@ -72,11 +72,11 @@ describe('Checking model cache', () => {
   })
 
   test('Test cache lists 10 entries in descending order', async () => {
-    await expect(list(testCache1)).resolves.toMatchObject(testCache1Result)
+    await expect(cache.list(testCache1)).resolves.toMatchObject(testCache1Result)
   });
 
   test('Test cache lists 10 complex entries in descending order', async () => {
-    await expect(list(testCache2)).resolves.toMatchObject(testCache2Result)
+    await expect(cache.list(testCache2)).resolves.toMatchObject(testCache2Result)
   });
 
 })

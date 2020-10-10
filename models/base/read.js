@@ -14,6 +14,7 @@ const readBase = async (dir, cache, id) => {
     }
 
     let result = await markdown.read(dir, id)
+    cache.set(id, result)
     return matter(result)
   } catch (error) {
     // TODO Add to error log
