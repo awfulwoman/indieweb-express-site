@@ -2,9 +2,9 @@ const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
 
-const createBase = async (modelDir, cache, data, content, id) => {
+const createBase = async (dir, cache, data, content, id) => {
   try {
-    if (!data || !content || !id) throw new Error('You must supply all params')
+    if (!dir || !cache || !data || !content || !id) throw new Error('You must supply all params')
     if (is.not.object(data)) throw new Error('data must be an object')
     if (is.not.string(content)) throw new Error('Content must be a string')
     if (is.not.string(id)) throw new Error('The file ID must be a string')
@@ -24,7 +24,7 @@ const createBase = async (modelDir, cache, data, content, id) => {
       if (!this.fields.hasOwnProperty(data[field])) throw new Error('Illegal property name')
     }
 
-    await markdown.create(modelDir, matter.stringify(data, content), id)
+    await markdown.create(dir, matter.stringify(data, content), id)
     return cache.set(id)
   } catch (error) {
     // TODO Add to error log

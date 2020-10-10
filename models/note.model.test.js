@@ -23,7 +23,7 @@ describe('Checking parameters', () => {
   });
 
   test('Read: Empty params', async () => {
-    await expect(note.read()).rejects.toThrow('A file ID must be supplied');
+    await expect(note.read()).rejects.toThrow('You must supply all params');
   });
 
   test('Update: Empty params', async () => {
@@ -31,7 +31,7 @@ describe('Checking parameters', () => {
   });
 
   test('Delete: Empty params', async () => {
-    await expect(note.delete()).rejects.toThrow('A file ID must be supplied');
+    await expect(note.delete()).rejects.toThrow('You must supply all params');
   });
 })
 
@@ -45,8 +45,12 @@ describe('Read from a file', () => {
     });
   });
 
-  test('reading from disk', async () => {
+  test('Successfully reading from disk', async () => {
     await expect(note.read('0000')).resolves.toMatchObject(expectedNodeData);
+  });
+
+  test('Fail reading from disk', async () => {
+    await expect(note.read('xyz')).rejects.toThrow();
   });
 
   afterEach(() => mock.restore());
