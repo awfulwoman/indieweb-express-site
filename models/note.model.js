@@ -72,7 +72,7 @@ const settings = {
 
 const recent = async () => {
   let temp = await cache.list(noteCache)
-  debug('Cache list', temp)
+  // debug('Cache list', temp)
   return temp
 }
 
