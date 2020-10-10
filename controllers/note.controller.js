@@ -7,8 +7,7 @@ const model = require('../models/note.model')
 const static = require('../models/static.model')
 
 // 🖕 Middleware
-const fileBase = require('./base/file')
-const markdownBase = require('./base/markdown')
+const {fileBase, markdownBase} = require('./base')
 const checkAuthentication = require('../middleware/check-authentication')
 
 // 🔓 Public routes 

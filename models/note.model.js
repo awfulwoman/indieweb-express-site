@@ -1,10 +1,7 @@
 
 const globalFields = require('./_global')
 const Nodecache = require('node-cache')
-const createBase = require('./base/create')
-const readBase = require('./base/read')
-const updateBase = require('./base/update')
-const deleteBase = require('./base/delete')
+const {createBase, readBase, updateBase, deleteBase} = require('./base')
 
 module.exports = {
   modelDir: 'notes',
