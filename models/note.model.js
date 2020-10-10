@@ -1,7 +1,7 @@
 
 const globalFields = require('./_global')
 const Nodecache = require('node-cache')
-const {createBase, readBase, updateBase, deleteBase} = require('./base')
+const { createBase, readBase, updateBase, deleteBase, listBase } = require('./base')
 
 module.exports = {
   modelDir: 'notes',
@@ -63,11 +63,7 @@ module.exports = {
     includeInMainRssFeed: true,
   },
   recent: async () => {
-    try {
-
-    } catch (error) {
-
-    }
+    return await listBase(this.cachedItems)
   }
 }
 
