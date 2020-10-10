@@ -22,7 +22,6 @@
     "express-async-handler": "^1.1.4",
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.0",
-    "express-slash": "^2.0.1",
     "express-validator": "^6.6.1",
     "feed": "^4.2.1",
     "glob": "^7.1.6",

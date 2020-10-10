@@ -1,5 +1,5 @@
 const { string, boolean } = require("is_js");
-const config = require('../../config')
+const config = require('../config')
 const uuid = require('uuid')
 const DateTime = require('luxon').DateTime
 

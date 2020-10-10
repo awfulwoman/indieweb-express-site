@@ -2,46 +2,32 @@ require('dotenv').config()
 const debug = require('debug')('sonniesedge:app');
 const msg = require('debug')('sonniesedge:messages');
 const error = require('debug')('sonniesedge:error');
-
 const path = require('path')
+const config = require('./config');
 
-const handleError = require('./middleware/errors')
-
-// Express
-const express = require('express');
-const helmet = require('helmet');
-const slash = require('express-slash');
-// const logger = require('morgan');
-// const querystring = require('querystring'); 
-// const bodyParser = require('body-parser');
-const renderUsers = require('./middleware/render-users');
-const renderDebug = require('./middleware/render-debug');
-// const renderNodeTypes = require('./middleware/render-nodetypes');
-
-const notesController = require('./controllers/note.controller')
-
-// Auth
+// 🆔 Passport
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
 // const GitHubStrategy = require('passport-github2').Strategy;
 
-// Handlebars
+// ⛩ Handlebars
 const hbs = require('express-handlebars');
 const dumpObject = require('./helpers/dumpobject');
 const hbsHelpers = require('handlebars-helpers')();
 
-// App
-const routesContent = require('./routes/content');
-const routesLogin = require('./routes/login');
-const routesAdmin = require('./routes/admin');
-// const caching = require('./utilities/caching');
-const config = require('./config');
-const users = require('./models/user');
+// 🏃‍♀️💨 Express
+const express = require('express');
+const helmet = require('helmet');
+const renderUsers = require('./middleware/render-users');
+const renderDebug = require('./middleware/render-debug');
+const handleError = require('./middleware/errors')
+const notesController = require('./controllers/note.controller')
+const routesLogin = require('./routes/login')
+const users = require('./models/user')
+const app = express();
 
-// Initialise Express 🎉
-var app = express();
 
-// Configure Helmet headers
+// ⛑ Configure Helmet headers
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -54,16 +40,14 @@ app.use(helmet({
 }));
 
 // Set view engine to handlebars, using the .hbs extension
-app.set('view engine', '.hbs');
-// let demoUser = users.getAppUserObjFromAppId('DEMO');
-
+app.set('view engine', '.hbs')
 app.engine('.hbs', hbs({
   helpers: { ...hbsHelpers, dumpObject },
   extname: '.hbs',
   defaultLayout: 'default'
-}));
+}))
 
-app.use(express.static(__dirname + '/public'));
+
 app.set('view cache', process.env['DEBUG'] ? false : true);
 app.use(require('express-session')({ secret: 'keyboard cat wirhfwenkwefjbwiurhiwuhjgjhgjhgjhgjhg', resave: true, saveUninitialized: true }));
 
@@ -71,10 +55,10 @@ app.use(require('express-session')({ secret: 'keyboard cat wirhfwenkwefjbwiurhiw
 // PASSPORT AUTHENTICATION
 // -----------------------
 
-// Build an oauth callback URL from env vars.
+// Build an oauth callback URL from environment variables.
 // This is stupidly complex
-const constructOauthCallbackUrl = function (authsite) {
-  let result = `${config.siteProtocol}${config.siteDomain}${(config.sitePortExternal && config.sitePortExternal != 80 ? ':' + config.sitePortExternal : '')}/login/${authsite}/callback`;
+const constructOauthCallbackUrl = function (strategy) {
+  let result = `${config.siteProtocol}${config.siteDomain}${(config.sitePortExternal && config.sitePortExternal != 80 ? ':' + config.sitePortExternal : '')}/login/${strategy}/callback`;
   return result;
 }
 
@@ -116,68 +100,34 @@ passport.deserializeUser(function (userAppId, callback) {
   callback(null, users.getAppUserObjFromAppId(userAppId));
 });
 
-// Initialize Passport in Express.
-app.use(passport.initialize());
 
-// Restore Passport's authentication state, if any, from the session.
-app.use(passport.session());
-
-// Make some info available to every render
-app.use(renderUsers);
-app.use(renderDebug);
+app.use(passport.initialize()) // Initialize Passport in Express.
+app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
+app.use(renderUsers) // Make user info available to every render
+app.use(renderDebug) // Make debug status available to every render
 // app.use(renderNodeTypes);
 
 // LOGGING
 // ------
 // app.use(logger('dev'));
 
-
-// app.enable('strict routing');
-
 //
 // ROUTES
 // ------
-//
-app.use('/youdidntsaythemagicword', function (req, res, next) {
-  res.render('youdidntsaythemagicword', {});
-})
-app.use('/public', express.static(path.join(config.appRoot, 'public'), { fallthrough: false }));
-app.use('/login', routesLogin); // Main routes
-app.use('/admin', routesAdmin); // Main routes
-app.use('/', notesController); // Main routes
-// app.use('/', routesContent); // Main routes
-app.use(slash()); // Ensure trailing slashes are used
-
+app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
+app.use('/public', express.static(path.join(config.appRoot, 'public'), { fallthrough: false }))
+app.use('/login', routesLogin)
+app.use('/', notesController)
 
 // 
 // ERROR PAGES
 // -----------
-//
-
-
-
-app.use((err, req, res, next) => {
-  handleError(err, res);
-});
-
-app.use(function (req, res, next) {
-  // 404, running at bottom of stack
-  res.status(404).render('error', {
-    status: 'error',
-    statusCode: '404',
-    message: 'Nothing to see here. Go home.'
-  });
-})
-
-// Prep cache
-// let warmedNodeCache = caching.prepNodeCache()
-// let warmedNodeListCache = caching.prepNodeListCache(10)
-// debug('Warming up node cache: %O', warmedNodeCache);
-// debug('Warming up node list cache: %O', warmedNodeListCache);
+const handle404 = require('./middleware/handle404')
+app.use((err, req, res, next) => handleError(err, res)) // Handle any custom errors
+app.use((req, res, next) => handle404(res)) // Handle anything else as a 404
 
 // Boot app
 app.listen(config.sitePort, function () {
-  debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`);
-  debug('Twitter callback url:', constructOauthCallbackUrl('twitter'));
-  debug('Github callback url:', constructOauthCallbackUrl('github'));
-});
+  debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`)
+  debug('Twitter callback url:', constructOauthCallbackUrl('twitter'))
+})

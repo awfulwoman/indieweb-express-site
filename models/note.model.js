@@ -1,15 +1,11 @@
-
-const debug = require('debug')('sonniesedge:models:static');
 const is = require('is_js')
-const markdown = require('../../drivers/markdown')
+const markdown = require('../drivers/markdown')
 const matter = require('gray-matter')
 const globalFields = require('./_global')
 const Nodecache = require('node-cache')
-const { nodeCache } = require('../content')
-
 
 module.exports = {
-  modelDir: 'static', // special case
+  modelDir: 'notes',
   fields: { // merge with global fields
     content: {
       type: 'string',
@@ -46,7 +42,6 @@ module.exports = {
       formFieldRender: 'place'
     }
   },
-
   // CRUD
   create: async function (data, content, id) {
     try {
@@ -54,6 +49,7 @@ module.exports = {
       if (is.not.object(data)) throw new Error('data must be an object')
       if (is.not.string(content)) throw new Error('Content must be a string')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
+
 
       // Add globals if they are not present 
       for (const [key, value] of Object.entries(globalFields.fields)) {
@@ -109,7 +105,7 @@ module.exports = {
     try {
       if (!id) throw new Error('A file ID must be supplied')
       if (is.not.string(id)) throw new Error('The file ID must be a string')
-      return markdown.delete(this.modelDir, id);
+      return markdown.delete(this.modelDir, id)
     } catch (error) {
       // TODO Add to error log
       return Promise.reject(error)
@@ -122,5 +118,14 @@ module.exports = {
     public: true,
     generateOwnRssFeed: true,
     includeInMainRssFeed: true,
+  },
+  recent: async () => {
+    try {
+
+    } catch (error) {
+
+    }
   }
 }
+
+
