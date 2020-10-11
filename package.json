@@ -25,6 +25,7 @@
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.0",
     "express-validator": "^6.6.1",
+    "fast-glob": "^3.2.4",
     "feed": "^4.2.1",
     "glob": "^7.1.6",
     "gray-matter": "^4.0.2",

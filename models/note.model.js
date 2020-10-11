@@ -4,7 +4,7 @@ const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:note')
 const { createBase, readBase, updateBase, deleteBase, cache } = require('./base')
 
-let noteCache = new Nodecache()
+let modelCache = new Nodecache()
 
 const modelDir = 'notes'
 
@@ -45,23 +45,6 @@ const fields = { // merge with global fields
   }
 }
 
-
-const create = async function (data, content, id) {
-  return await createBase(modelDir, noteCache, data, content, id)
-}
-
-const read = async function (id) {
-  return await readBase(modelDir, noteCache, id)
-}
-
-const update = async function (data, content, id) {
-  return await updateBase(modelDir, noteCache, data, content, id)
-}
-
-const del = async function (id) {
-  return await deleteBase(modelDir, noteCache, id)
-}
-
 const settings = {
   rss: true,
   listed: true,
@@ -70,10 +53,28 @@ const settings = {
   includeInMainRssFeed: true,
 }
 
-const recent = async () => {
-  let temp = await cache.list(noteCache)
-  // debug('Cache list', temp)
-  return temp
+const create = async function (data, content, id) {
+  return await createBase(modelDir, modelCache, data, content, id)
 }
 
-module.exports = { modelDir, fields, create, read, update, del, settings, recent }
+const read = async function (id) {
+  return await readBase(modelDir, modelCache, id)
+}
+
+const update = async function (data, content, id) {
+  return await updateBase(modelDir, modelCache, data, content, id)
+}
+
+const del = async function (id) {
+  return await deleteBase(modelDir, modelCache, id)
+}
+
+const recent = async () => {
+  return await cache.list(modelCache)
+}
+
+const warm = async () => {
+  return await cache.warm(modelCache, modelDir)
+}
+
+module.exports = { modelDir, fields, create, read, update, del, settings, recent, warm }

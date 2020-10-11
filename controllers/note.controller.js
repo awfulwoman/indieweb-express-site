@@ -4,36 +4,35 @@ const express = require('express')
 const router = express.Router()
 
 // 💅 Models
-const note = require('../models/note.model')
+const model = require('../models/note.model')
 const static = require('../models/static.model')
 
 // 🖕 Middleware
 const {fileBase, markdownBase} = require('./base')
 const checkAuthentication = require('../middleware/check-authentication')
-const { resolve } = require('app-root-path')
 
-router.get('/test', async (req, res, next) => {
-  let temp = await note.recent()
-  res.send(temp)
+router.get('/warm', async (req, res, next) => {
+  let results = await model.warm()
+  res.send(results)
 })
 
 // 🔓 Public routes 
-router.get(`/${note.modelDir}`, markdownBase.read(static, {
-  id: note.modelDir, 
+router.get(`/${model.modelDir}`, markdownBase.read(static, {
+  id: model.modelDir, 
   index: true, 
-  children: note.recent, 
+  children: model.recent, 
   template: 'index'
 }));
-router.get(`/${note.modelDir}/:id`, markdownBase.read(note))
-router.get(`/${note.modelDir}/:id/:file`, [], fileBase.read(note))
-router.get(`/${note.modelDir}/:id/:file/:size`, [], fileBase.read(note))
+router.get(`/${model.modelDir}/:id`, markdownBase.read(model))
+router.get(`/${model.modelDir}/:id/:file`, [], fileBase.read(model))
+router.get(`/${model.modelDir}/:id/:file/:size`, [], fileBase.read(model))
 
 // 🔐 Protected routes 
-router.get(`/${note.modelDir}/create`, [], markdownBase.create.get(note))
-router.post(`/${note.modelDir}/create`, [], markdownBase.create.post(note))
-router.get(`/${note.modelDir}/:id/edit`, [], markdownBase.update.get(note))
-router.post(`/${note.modelDir}/:id/edit`, [], markdownBase.update.post(note))
-router.get(`/${note.modelDir}/:id/delete`, [], markdownBase.delete.get(note))
-router.post(`/${note.modelDir}/:id/delete`, [], markdownBase.delete.post(note))
+router.get(`/${model.modelDir}/create`, [], markdownBase.create.get(model))
+router.post(`/${model.modelDir}/create`, [], markdownBase.create.post(model))
+router.get(`/${model.modelDir}/:id/edit`, [], markdownBase.update.get(model))
+router.post(`/${model.modelDir}/:id/edit`, [], markdownBase.update.post(model))
+router.get(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.get(model))
+router.post(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.post(model))
 
 module.exports = router;
