@@ -1,7 +1,7 @@
 const mock = require('mock-fs')
-const note = require('./note.model');
+const note = require('../note.model');
 const path = require('path')
-const config = require('../config')
+const config = require('../../config')
 
 let expectedNodeData = {
   content: 

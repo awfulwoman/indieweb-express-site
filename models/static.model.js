@@ -48,12 +48,4 @@ const del = async function (id) {
   return await deleteBase(modelDir, modelCache, id)
 }
 
-const recent = async () => {
-  return await cache.list(modelCache)
-}
-
-const warm = async () => {
-  return await cache.warm(modelCache, modelDir)
-}
-
-module.exports = { modelDir, fields, create, read, update, del, settings, recent, warm }
+module.exports = { modelDir, fields, create, read, update, del, settings }
