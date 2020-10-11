@@ -11,12 +11,7 @@ const list = async (cache, limit=20) => {
     if (is.not.object(cache)) throw new Error('cache must be an object')
 
     let keyList = cache.keys().slice().sort(naturalSort).reverse()
-    let temp = {}
-    keyList.forEach(element => {
-      temp[element] = matter(cache.get(element))
-    })
-    // debug(temp)
-    return temp
+    return cache.mget(keyList)
 
   } catch (error) {
     // TODO Add to error log
