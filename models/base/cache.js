@@ -16,9 +16,11 @@ const list = async (cache, limit=20) => {
 
     let keyList = cache.keys().slice().sort(naturalSort).reverse()
 
-    let results = []
+    keyList = keyList.slice(0,limit)
+
+    let results = {}
     for (let item = 0; item < keyList.length; item++) {
-      results.push(cache.get(keyList[item]))
+      results[keyList[item]] = cache.get(keyList[item])
     }
     return results
 

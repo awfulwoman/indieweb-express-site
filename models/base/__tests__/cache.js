@@ -18,16 +18,16 @@ let expectedNodeData = {
 describe('Checking model cache', () => {
   const testCache1 = new Nodecache()
   let testCache1Result = {
-    '0000': expectedNodeData,
-    '0001': expectedNodeData,
-    '0002': expectedNodeData,
-    '0003': expectedNodeData,
-    '0004': expectedNodeData,
-    '0005': expectedNodeData,
-    '0006': expectedNodeData,
-    '0007': expectedNodeData,
-    '0008': expectedNodeData,
-    '0009': expectedNodeData,
+    '9': expectedNodeData,
+    '8': expectedNodeData,
+    '7': expectedNodeData,
+    '6': expectedNodeData,
+    '5': expectedNodeData,
+    '4': expectedNodeData,
+    '3': expectedNodeData,
+    '2': expectedNodeData,
+    '1': expectedNodeData,
+    '0': expectedNodeData,
   }
 
   let testCache2Result = {
@@ -45,16 +45,16 @@ describe('Checking model cache', () => {
   const testCache2 = new Nodecache()
   beforeEach(() => {
     testCache1.mset([
-      { key: '0000', val: expectedNodeData },
-      { key: '0001', val: expectedNodeData },
-      { key: '0002', val: expectedNodeData },
-      { key: '0003', val: expectedNodeData },
-      { key: '0004', val: expectedNodeData },
-      { key: '0005', val: expectedNodeData },
-      { key: '0006', val: expectedNodeData },
-      { key: '0007', val: expectedNodeData },
-      { key: '0008', val: expectedNodeData },
-      { key: '0009', val: expectedNodeData }
+      { key: '0', val: expectedNodeData },
+      { key: '1', val: expectedNodeData },
+      { key: '2', val: expectedNodeData },
+      { key: '3', val: expectedNodeData },
+      { key: '4', val: expectedNodeData },
+      { key: '5', val: expectedNodeData },
+      { key: '6', val: expectedNodeData },
+      { key: '7', val: expectedNodeData },
+      { key: '8', val: expectedNodeData },
+      { key: '9', val: expectedNodeData }
     ])
 
     testCache2.mset([
