@@ -11,11 +11,6 @@ const static = require('../models/static.model')
 const {fileBase, markdownBase} = require('./base')
 const checkAuthentication = require('../middleware/check-authentication')
 
-router.get('/warm', async (req, res, next) => {
-  let results = await model.warm()
-  res.send(results)
-})
-
 // 🔓 Public routes 
 router.get(`/${model.modelDir}`, markdownBase.read(static, {
   id: model.modelDir, 

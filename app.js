@@ -4,6 +4,7 @@ const msg = require('debug')('sonniesedge:messages');
 const error = require('debug')('sonniesedge:error');
 const path = require('path')
 const config = require('./config');
+const models = require('./models')
 
 // 🆔 Passport
 const passport = require('passport');
@@ -121,6 +122,11 @@ app.use('/', notesController)
 // -----------
 app.use((err, req, res, next) => handleError(err, req, res, next)) // Handle any custom errors
 app.use((req, res, next) => handle404(req, res, next)) // Handle anything else as a 404
+
+models.forEach((model) => {
+  if (model.warm) {model.warm()}
+  
+})
 
 // Boot app
 app.listen(config.sitePort, function () {
