@@ -1,6 +1,7 @@
 const debug = require('debug')('sonniesedge:controllers:generics:markdown');
 const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../utilities/error-handler')
+const md = require('../../utilities/markdown-it')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
@@ -32,7 +33,7 @@ exports.read = function (model, options) {
       let itemObj = await model.read(options.id || req.params.id);
 
       res.render(options.template || 'page', {
-        content: itemObj.content,
+        content: md.render(itemObj.content),
         meta: itemObj.data,
         children: options.children ? await options.children() : null
       });
