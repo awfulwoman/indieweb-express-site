@@ -1,11 +1,30 @@
 const debug = require('debug')('sonniesedge:models')
+
 let note = require('./note.model')
 let bookmark = require('./bookmark.model')
 let static = require('./static.model')
-let naturalSort = require('javascript-natural-sort')
+// let checkin = require('./checkin.model')
+// let like = require('./like.model')
+// let reply = require('./reply.model')
+// let quote = require('./quote.model')
+// let bandname = require('./bandname.model')
+// let repost = require('./repost.model')
+// let photo = require('./photo.model')
+
 const {orderBy} = require('natural-orderby');
 
-const models = [note, bookmark, static]
+const models = [
+  note, 
+  bookmark, 
+  static,
+  // checkin,
+  // like,
+  // reply,
+  // quote,
+  // bandname,
+  // repost,
+  // photo
+]
 
 const warmAll = async () => {
   for (let index = 0; index < models.length; index++) {
@@ -15,16 +34,13 @@ const warmAll = async () => {
   }
 }
 
-const recent = async () => {
+const recent = async (limit=20) => {
   try {
     let recentItems = []
 
     for (let index = 0; index < models.length; index++) {
-      debug(models[index].modelDir)
       if(models[index].recent) {
-        
         for (let [key, value] of Object.entries(await models[index].recent())) {
-          // debug(value)
           recentItems.push(value)
         }      
       }
@@ -36,12 +52,11 @@ const recent = async () => {
       ['desc']
       )
   
-    return sorted.slice(0, 20)
+    return sorted.slice(0, limit)
   } catch (error) {
     throw error
   }
 
 }
-
 
 module.exports = {models, warmAll, recent}
