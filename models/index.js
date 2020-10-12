@@ -23,10 +23,8 @@ const recent = async () => {
         // debug(value)
         recentItems.push(value)
       }
-
-      let temp = recentItems.sort(naturalSort).slice(0, 20)
     
-      return temp
+      return recentItems.sort(naturalSort).slice(0, 20)
     }
   }
 }
