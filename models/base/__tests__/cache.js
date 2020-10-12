@@ -17,31 +17,41 @@ let expectedNodeData = {
 
 describe('Checking model cache', () => {
   const testCache1 = new Nodecache()
-  let testCache1Result = {
-    '9': expectedNodeData,
-    '8': expectedNodeData,
-    '7': expectedNodeData,
-    '6': expectedNodeData,
-    '5': expectedNodeData,
-    '4': expectedNodeData,
-    '3': expectedNodeData,
-    '2': expectedNodeData,
-    '1': expectedNodeData,
-    '0': expectedNodeData,
-  }
+  let testCache1Result = [
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+  ]
 
-  let testCache2Result = {
-    '20210705t1200': expectedNodeData,
-    '20200605t1201': expectedNodeData,
-    '20200605t1200': expectedNodeData,
-    '3657': expectedNodeData,
-    '2034': expectedNodeData,
-    '1450': expectedNodeData,
-    '1123': expectedNodeData,
-    '10': expectedNodeData,
-    '7': expectedNodeData,
-    '1': expectedNodeData
-  }
+  let testCache2Result = [
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    expectedNodeData,
+    // '20210705t1200': expectedNodeData,
+    // '20200605t1201': expectedNodeData,
+    // '20200605t1200': expectedNodeData,
+    // '3657': expectedNodeData,
+    // '2034': expectedNodeData,
+    // '1450': expectedNodeData,
+    // '1123': expectedNodeData,
+    // '10': expectedNodeData,
+    // '7': expectedNodeData,
+    // '1': expectedNodeData
+  ]
   const testCache2 = new Nodecache()
   beforeEach(() => {
     testCache1.mset([
