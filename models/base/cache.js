@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:models:base:cache')
+const debug = require('debug')('sonniesedge:model:base:cache')
 const is = require('is_js')
 const config = require('../../config')
 const path = require('path')
@@ -30,7 +30,7 @@ const list = async (cache, modelDir, limit = 20) => {
 
   } catch (error) {
     // TODO Add to error log
-    if (error.code === 'ENOENT') { throw new ErrorHandler('404', 'File note found on disk') }
+    if (error.code === 'ENOENT') { throw new ErrorHandler('404', 'File not found on disk') }
     throw error
   }
 }
@@ -38,12 +38,13 @@ const list = async (cache, modelDir, limit = 20) => {
 const warm = async (cache, type) => {
   let result = []
   try {
-
+    debug(`Warming ${type} cache.`)
     if (!cache || !type) throw new Error('You must supply all params')
     if (is.not.object(cache)) throw new Error('cache must be an object')
     if (is.not.string(type)) throw new Error('type must be a string')
 
   } catch (error) {
+    debug(`Failed to warm ${type} cache!`)
     throw error
   }
 
