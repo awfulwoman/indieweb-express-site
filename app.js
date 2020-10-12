@@ -120,11 +120,8 @@ app.use('/login', routesLogin)
 app.use('/', [controllers])
 
 
-//
-// WARM CACHES
-// ------
 
-cacheTools.warmAll(models)
+
 
 
 // 
@@ -139,4 +136,9 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 app.listen(config.sitePort, function () {
   debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`)
   debug('Twitter callback url:', constructOauthCallbackUrl('twitter'))
+
+  //
+  // WARM CACHES
+  // ------
+  cacheTools.warmAll(models)
 })

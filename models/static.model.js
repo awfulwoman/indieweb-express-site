@@ -34,20 +34,8 @@ const settings = {
   includeInMainRssFeed: false,
 }
 
-const create = async function (data, content, id) {
-  return await createBase(modelDir, modelCache, data, content, id)
-}
-
 const read = async function (id) {
   return await readBase(modelDir, modelCache, id)
 }
 
-const update = async function (data, content, id) {
-  return await updateBase(modelDir, modelCache, data, content, id)
-}
-
-const del = async function (id) {
-  return await deleteBase(modelDir, modelCache, id)
-}
-
-module.exports = { modelDir, fields, create, read, update, del, settings }
+module.exports = { modelDir, fields, read, settings }

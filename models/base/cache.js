@@ -33,7 +33,6 @@ const list = async (cache, limit = 20) => {
 }
 
 const warm = async (cache, type) => {
-  debug(`Warming ${type}`)
   let result = []
   try {
 
@@ -48,16 +47,17 @@ const warm = async (cache, type) => {
   try {
     result = await fg(path.join(config.contentRoot, type, '*'), { onlyDirectories: true })
   } catch (error) {
-    debug('error globbing')
+    debug(`There was an error globbing for ${type}`)
     throw error
   }
 
 
   for (let index = 0; index < result.length; index++) {
     try {
+      // debug(`Warming ${type}/${path.basename(result[index])}`)
       await read(type, cache, path.basename(result[index]))
     } catch (error) {
-      debug('Error reading file. Skipping.', error)
+      debug(`Error warming /${type}/${path.basename(result[index])}. Skipping.%o`, error)
       // TODO Add to error log
       // throw error
     }
