@@ -14,8 +14,7 @@ const readBase = async (dir, cache, id) => {
       debug(`Calling ${id} from ${dir} cache`)
       return matter(cache.get(id))
     }
-
-    // debug(`Calling ${id} from ${dir} disk file`)
+    if (dir === 'static') {debug(`Calling ${id} from ${dir} disk file`)}
     let result = await markdown.read(dir, id)
     let resultObject = matter(result)
     cache.set(id, resultObject)

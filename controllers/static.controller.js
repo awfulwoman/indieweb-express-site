@@ -13,6 +13,7 @@ debug('Controller activated')
 
 // 🔓 Public routes 
 
+router.get(`/`, [], markdownBase.read(model, {id: 'root'}))
 router.get(`/:id`, [], markdownBase.read(model))
 router.get(`/:id/:file`, [], fileBase.read(model))
 router.get(`/:id/:file/:size`, [], fileBase.read(model))

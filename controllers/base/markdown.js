@@ -35,8 +35,9 @@ exports.read = function (model, options) {
 
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
+    if (!req.params.id && !options.id) {options.id = 'root'}
     try {
-      let itemObj = await model.read(options.id || req.params.id);
+      let itemObj = await model.read(options.id || req.params.id) 
 
       res.render(options.template || 'page', {
         content: md.render(itemObj.content),
