@@ -1,9 +1,11 @@
 const debug = require('debug')('sonniesedge:controller:static')
+
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
 
 // 💅 Models
+const models = require('../models')
 const model = require('../models/static.model')
 
 // 🖕 Middleware
@@ -16,7 +18,7 @@ debug('Controller activated')
 router.get(`/`, [], markdownBase.read(model, {
   id: 'root',
   index: true, 
-  // children: model.recent, // TODO: Handle gathering all recent posts
+  children: models.recent,
   template: 'index'
 }))
 router.get(`/:id`, [], markdownBase.read(model))

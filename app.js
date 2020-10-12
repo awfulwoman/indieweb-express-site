@@ -5,7 +5,7 @@ const error = require('debug')('sonniesedge:error');
 const path = require('path')
 const config = require('./config');
 const models = require('./models')
-const cacheTools = require('./utilities/cache-tools')
+
 
 // 🆔 Passport
 const passport = require('passport');
@@ -29,7 +29,7 @@ const routesLogin = require('./routes/login')
 const users = require('./models/user');
 const ErrorHandler = require('./utilities/error-handler');
 const app = express();
-
+const cacheTools = require('./utilities/cache-tools')
 
 // ⛑ Configure Helmet headers
 app.use(helmet({
@@ -136,9 +136,8 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 app.listen(config.sitePort, function () {
   debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`)
   debug('Twitter callback url:', constructOauthCallbackUrl('twitter'))
-
   //
   // WARM CACHES
   // ------
-  cacheTools.warmAll(models)
+  models.warmAll()
 })

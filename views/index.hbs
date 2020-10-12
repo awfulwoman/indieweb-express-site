@@ -9,7 +9,7 @@
     <h2>Related nodes</h2>
     <ul>
       {{#each children}}
-      <li><a href="{{this.data.id}}">{{this.data.title}}</a></li>
+      <li><a href="/{{this.dir}}/{{this.id}}">{{this.data.title}}</a> - {{this.data.created}}</li>
       {{/each}}
     </ul>
   </section>

@@ -9,8 +9,9 @@ const naturalSort = require('javascript-natural-sort')
 const fg = require('fast-glob');
 const read = require('./read')
 
+debug('Cache called')
 
-const list = async (cache, limit = 20) => {
+const list = async (cache, modelDir, limit = 20) => {
   try {
     if (!cache) throw new Error('You must supply all params')
     if (is.not.object(cache)) throw new Error('cache must be an object')
@@ -19,10 +20,14 @@ const list = async (cache, limit = 20) => {
 
     keyList = keyList.slice(0, limit)
 
-    let results = {}
+    let results = []
     for (let item = 0; item < keyList.length; item++) {
-      results[keyList[item]] = cache.get(keyList[item])
+      let result = cache.get(keyList[item])
+      result.dir = modelDir
+      result.id = keyList[item]
+      results.push(result)
     }
+    // debug(results)
     return results
 
   } catch (error) {

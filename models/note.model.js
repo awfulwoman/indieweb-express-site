@@ -71,7 +71,7 @@ const del = async function (id) {
 }
 
 const recent = async () => {
-  return await cache.list(modelCache)
+  return await cache.list(modelCache, modelDir)
 }
 
 const warm = async () => {
