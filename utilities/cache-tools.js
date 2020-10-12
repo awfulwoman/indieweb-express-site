@@ -1,8 +1,7 @@
-const debug = require('debug')('sonniesedge:app');
+const debug = require('debug')('sonniesedge:utilities:cache-tools');
 const is = require('is_js')
 
 const warmAll = async (models) => {
-  debug(models)
   try {
     if (!models) {throw new Error('All parameters must be supplied')}
     if (is.not.array(models)) {throw new Error('models must be an array of models')}
@@ -13,8 +12,8 @@ const warmAll = async (models) => {
   } catch (error) {
     debug(`Warning: `, error)
     // TODO: Add to logging
-    // Don't throw an error/reject Promise here because where's it gonna go? TO THE MOON?
-    // Don't render a page here because the warm cache method of a model us low-level
+    // Don't throw an error/reject Promise here because where's it gonna go? TO THE MOON? 
+    // (this function is called at the top level of the app and any errors throw can't be caught by anything)
   }
 }
 
