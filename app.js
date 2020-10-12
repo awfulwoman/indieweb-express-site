@@ -29,7 +29,6 @@ const routesLogin = require('./routes/login')
 const users = require('./models/user');
 const ErrorHandler = require('./utilities/error-handler');
 const app = express();
-const cacheTools = require('./utilities/cache-tools')
 
 // ⛑ Configure Helmet headers
 app.use(helmet({

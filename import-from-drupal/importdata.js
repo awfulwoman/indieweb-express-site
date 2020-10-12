@@ -1,9 +1,9 @@
 const debug = require('debug')('sonniesedge:utilities:importdata');
-const fetchData = require('./utilities/fetchdata');
+const fetchData = require('./fetchdata');
 const fs = require('fs');
-const config = require('./config');
+const config = require('../config');
 const path = require('path');
-const contentModel = require('./models/content');
+const contentModel = require('../models/content');
 const baseUrl = 'https://cms.sonniesedge.net/jsonapi/'
 const http = require('http');
 

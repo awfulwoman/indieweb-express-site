@@ -9,8 +9,6 @@ const naturalSort = require('javascript-natural-sort')
 const fg = require('fast-glob');
 const read = require('./read')
 
-debug('Cache called')
-
 const list = async (cache, modelDir, limit = 20) => {
   try {
     if (!cache) throw new Error('You must supply all params')
@@ -62,7 +60,7 @@ const warm = async (cache, type) => {
       // debug(`Warming ${type}/${path.basename(result[index])}`)
       await read(type, cache, path.basename(result[index]))
     } catch (error) {
-      debug(`Error warming /${type}/${path.basename(result[index])}. Skipping.%o`, error)
+      // debug(`Error warming /${type}/${path.basename(result[index])}. Skipping.%o`, error)
       // TODO Add to error log
       // throw error
     }
