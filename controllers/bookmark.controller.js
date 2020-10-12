@@ -1,10 +1,10 @@
-const debug = require('debug')('sonniesedge:controller:note')
+const debug = require('debug')('sonniesedge:controller:bookmark')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
 
 // 💅 Models
-const model = require('../models/note.model')
+const model = require('../models/bookmark.model')
 const static = require('../models/static.model')
 
 // 🖕 Middleware

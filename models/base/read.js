@@ -1,3 +1,4 @@
+const debug = require('debug')('sonniesedge:models:base:read')
 const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
@@ -16,10 +17,11 @@ const readBase = async (dir, cache, id) => {
     let result = await markdown.read(dir, id)
     let resultObject = matter(result)
     cache.set(id, resultObject)
+
     return resultObject
   } catch (error) {
     // TODO Add to error log
-    return Promise.reject(error)
+    throw error
   }
 }
 

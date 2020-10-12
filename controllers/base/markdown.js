@@ -44,7 +44,8 @@ exports.read = function (model, options) {
         children: options.children ? await options.children() : null
       });
     } catch (error) {
-      throw new ErrorHandler(404, 'Note not found')
+      debug('Could not read file')
+      throw new ErrorHandler('404', error)
     }
   })
 }

@@ -5,6 +5,7 @@ const error = require('debug')('sonniesedge:error');
 const path = require('path')
 const config = require('./config');
 const models = require('./models')
+const cacheTools = require('./utilities/cache-tools')
 
 // 🆔 Passport
 const passport = require('passport');
@@ -23,9 +24,10 @@ const renderUsers = require('./middleware/render-users');
 const renderDebug = require('./middleware/render-debug');
 const handleError = require('./middleware/handle-errors')
 const handle404 = require('./middleware/handle-404')
-const notesController = require('./controllers/note.controller')
+const controllers = require('./controllers')
 const routesLogin = require('./routes/login')
-const users = require('./models/user')
+const users = require('./models/user');
+const ErrorHandler = require('./utilities/error-handler');
 const app = express();
 
 
@@ -115,7 +117,15 @@ app.use(renderDebug) // Make debug status available to every render
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use('/public', express.static(path.join(config.appRoot, 'public'), { fallthrough: false }))
 app.use('/login', routesLogin)
-app.use('/', notesController)
+app.use('/', [controllers])
+
+
+//
+// WARM CACHES
+// ------
+
+cacheTools.warmAll(models)
+
 
 // 
 // ERROR PAGES
@@ -123,10 +133,7 @@ app.use('/', notesController)
 app.use((err, req, res, next) => handleError(err, req, res, next)) // Handle any custom errors
 app.use((req, res, next) => handle404(req, res, next)) // Handle anything else as a 404
 
-models.forEach((model) => {
-  if (model.warm) {model.warm()}
-  
-})
+
 
 // Boot app
 app.listen(config.sitePort, function () {
