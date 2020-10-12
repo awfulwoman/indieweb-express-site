@@ -12,14 +12,20 @@ exports.create = {
   get: (model, options) => {
     options || (options = {});
     return asyncHandler((req, res, next) => {
-
+      res.render('page', {
+        meta: {title: 'Under construction'},
+        content: 'TODO: Implement'
+      })
     })
   },
 
   post: (model, options) => {
     options || (options = {});
     return asyncHandler((req, res, next) => {
-
+      res.render('page', {
+        meta: {title: 'Under construction'},
+        content: 'TODO: Implement'
+      })
     })
   }
 }
@@ -105,14 +111,20 @@ exports.delete = {
   get: (model, options) => {
     options || (options = {});
     return asyncHandler(async (req, res, next) => {
-
+      res.render('page', {
+        meta: {title: 'Under construction'},
+        content: 'TODO: Implement'
+      })
     })
   },
 
   post: (model, options) => {
     options || (options = {});
     return asyncHandler(async (req, res, next) => {
-
+      res.render('page', {
+        meta: {title: 'Under construction'},
+        content: 'TODO: Implement'
+      })
     })
   }
 }

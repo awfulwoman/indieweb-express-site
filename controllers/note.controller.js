@@ -11,6 +11,14 @@ const static = require('../models/static.model')
 const {fileBase, markdownBase} = require('./base')
 const checkAuthentication = require('../middleware/check-authentication')
 
+// 🔐 Protected routes 
+router.get(`/${model.modelDir}/create`, [], markdownBase.create.get(model))
+router.post(`/${model.modelDir}/create`, [], markdownBase.create.post(model))
+router.get(`/${model.modelDir}/:id/edit`, [], markdownBase.update.get(model))
+router.post(`/${model.modelDir}/:id/edit`, [], markdownBase.update.post(model))
+router.get(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.get(model))
+router.post(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.post(model))
+
 // 🔓 Public routes 
 router.get(`/${model.modelDir}`, markdownBase.read(static, {
   id: model.modelDir, 
@@ -21,13 +29,5 @@ router.get(`/${model.modelDir}`, markdownBase.read(static, {
 router.get(`/${model.modelDir}/:id`, markdownBase.read(model))
 router.get(`/${model.modelDir}/:id/:file`, [], fileBase.read(model))
 router.get(`/${model.modelDir}/:id/:file/:size`, [], fileBase.read(model))
-
-// 🔐 Protected routes 
-router.get(`/${model.modelDir}/create`, [], markdownBase.create.get(model))
-router.post(`/${model.modelDir}/create`, [], markdownBase.create.post(model))
-router.get(`/${model.modelDir}/:id/edit`, [], markdownBase.update.get(model))
-router.post(`/${model.modelDir}/:id/edit`, [], markdownBase.update.post(model))
-router.get(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.get(model))
-router.post(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.post(model))
 
 module.exports = router;
