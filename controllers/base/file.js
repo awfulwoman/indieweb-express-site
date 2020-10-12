@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controllers:note');
+const debug = require('debug')('sonniesedge:controllers:base:file');
 const mime = require('mime-types');
 const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../utilities/error-handler')

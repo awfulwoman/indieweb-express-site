@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controllers:generics:markdown');
+const debug = require('debug')('sonniesedge:controllers:base:markdown');
 const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../utilities/error-handler')
 const md = require('../../utilities/markdown-it')
