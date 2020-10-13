@@ -1,6 +1,7 @@
 const removeMarkdown = require('remove-markdown');
 const isEmptyString = require('./isemptystring');
 
+// TODO: Remove, as redundant
 
 // Creates a short except from a chunk of markdown content
 const excerpt = function(markdown, lines=2) {
