@@ -1,4 +1,4 @@
-# WHALECOINER.COM
+# whalecoiner
 
 Based on Express, and using Markdown for data storage.  Powers [whalecoiner.com](https://whalecoiner.com).
 
