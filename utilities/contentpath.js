@@ -1,5 +1,7 @@
 const debug = require('debug')('sonniesedge:utilities:contentpath');
 
+// TODO: Remove. No longer used. 
+
 const constructContentPath = function (first, second) {
     debug('constructContentPath - first:', first);
     debug('constructContentPath - second:', second);
