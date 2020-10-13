@@ -5,6 +5,9 @@ const config = require('../config')
 const is = require('is_js')
 const ErrorHandler = require('../utilities/error-handler')
 
+// TODO: Rename this to something like "content". Markdown is too confusing.
+// TODO: Remove the giant object and make individual functions.
+
 module.exports = {
   create: async function (type, id, fileContent) {
     try {
