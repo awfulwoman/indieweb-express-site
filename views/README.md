@@ -1,3 +1,3 @@
-# Views
+# Handlebars view templates
 
-All the handlebars templates needed to render HTML pages.
+All the Handlebars templates needed to render HTML pages.
