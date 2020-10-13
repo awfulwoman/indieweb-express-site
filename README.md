@@ -1,6 +1,6 @@
-# sonniesedge node site
+# WHALECOINER.COM
 
-Based on Express, and using Markdown for data storage.  Powers [charlie.sonniesedge.net](https://charlie.sonniesedge.net).
+Based on Express, and using Markdown for data storage.  Powers [whalecoiner.com](https://whalecoiner.com).
 
 ![Node.js CI](https://github.com/sonniesedge/site/workflows/Node.js%20CI/badge.svg)
 
@@ -19,6 +19,12 @@ npm test
 ```
 
 ## Running app
+
+```
+npm run start:dev
+```
+
+This is an alias in `package.json` for:
 
 ```
 npx nodemon app.js
