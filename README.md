@@ -1,6 +1,6 @@
 # whalecoiner
 
-Based on Express, and using Markdown for data storage.  Powers [whalecoiner.com](https://whalecoiner.com).
+Express server-side app, using Markdown for data storage.  
 
 ![Node.js CI](https://github.com/sonniesedge/site/workflows/Node.js%20CI/badge.svg)
 
