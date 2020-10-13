@@ -1,21 +1,15 @@
-const globalFields = require('./_global')
+const globalFields = require('../_global')
 const Nodecache = require('node-cache')
-const debug = require('debug')('sonniesedge:model:bookmark')
-const { createBase, readBase, updateBase, deleteBase, cache } = require('./base')
+const debug = require('debug')('sonniesedge:model:quote')
+const { createBase, readBase, updateBase, deleteBase, cache } = require('../base')
 
 debug('Model activated')
 
 let modelCache = new Nodecache()
 
-const modelDir = 'bookmarks'
+const modelDir = 'quotes'
 
 const fields = { // merge with global fields
-  title: {
-    type: 'string',
-    required: true,
-    description: 'Title of the linked document',
-    formFieldRender: 'textfield'
-  },
   content: {
     type: 'string',
     required: true,
@@ -29,10 +23,26 @@ const fields = { // merge with global fields
     example: 'apple, banana, cherry',
     formFieldRender: 'tags'
   },
+  images: {
+    type: 'object',
+    description: 'Images',
+    extendedDescription: 'Photos and stuff',
+    formFieldRender: 'images'
+  },
   created_geo: {
     type: 'string',
     description: 'Where this was created',
     formFieldRender: 'geo'
+  },
+  place_geo: {
+    type: 'string',
+    description: 'The position this relates to',
+    formFieldRender: 'gps'
+  },
+  place_name: {
+    type: 'string',
+    description: 'The place this relates to',
+    formFieldRender: 'place'
   }
 }
 
@@ -65,6 +75,7 @@ const recent = async () => {
 }
 
 const warm = async () => {
+  debug(`Warming ${modelDir} cache.`)
   return await cache.warm(modelCache, modelDir)
 }
 

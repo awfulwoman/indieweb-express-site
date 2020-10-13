@@ -1,8 +1,8 @@
 
-const globalFields = require('./_global')
+const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:model:static')
-const { createBase, readBase, updateBase, deleteBase, cache } = require('./base')
+const { createBase, readBase, updateBase, deleteBase, cache } = require('../base')
 
 debug('Model activated')
 

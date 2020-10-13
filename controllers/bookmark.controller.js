@@ -4,8 +4,8 @@ const express = require('express')
 const router = express.Router()
 
 // 💅 Models
-const model = require('../models/bookmark.model')
-const static = require('../models/static.model')
+const model = require('../models/types/bookmark.model')
+const static = require('../models/types/static.model')
 
 // 🖕 Middleware
 const {fileBase, markdownBase} = require('./base')

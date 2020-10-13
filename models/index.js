@@ -1,16 +1,16 @@
 const debug = require('debug')('sonniesedge:model')
 
-let note = require('./note.model')
-let bookmark = require('./bookmark.model')
-let static = require('./static.model')
-let checkin = require('./checkin.model')
-let like = require('./like.model')
-let reply = require('./reply.model')
-let quote = require('./quote.model')
-let bandname = require('./bandname.model')
-let repost = require('./repost.model')
-let photo = require('./photo.model')
-let post = require('./post.model')
+let note = require('./types/note.model')
+let bookmark = require('./types/bookmark.model')
+let static = require('./types/static.model')
+let checkin = require('./types/checkin.model')
+let like = require('./types/like.model')
+let reply = require('./types/reply.model')
+let quote = require('./types/quote.model')
+let bandname = require('./types/bandname.model')
+let repost = require('./types/repost.model')
+let photo = require('./types/photo.model')
+let post = require('./types/post.model')
 
 const {orderBy} = require('natural-orderby');
 

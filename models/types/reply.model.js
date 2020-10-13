@@ -1,13 +1,13 @@
-const globalFields = require('./_global')
+const globalFields = require('../_global')
 const Nodecache = require('node-cache')
-const debug = require('debug')('sonniesedge:model:bandname')
-const { createBase, readBase, updateBase, deleteBase, cache } = require('./base')
+const debug = require('debug')('sonniesedge:model:reply')
+const { createBase, readBase, updateBase, deleteBase, cache } = require('../base')
 
 debug('Model activated')
 
 let modelCache = new Nodecache()
 
-const modelDir = 'bandnames'
+const modelDir = 'replies'
 
 const fields = { // merge with global fields
   content: {
@@ -75,6 +75,7 @@ const recent = async () => {
 }
 
 const warm = async () => {
+  debug(`Warming ${modelDir} cache.`)
   return await cache.warm(modelCache, modelDir)
 }
 

@@ -1,7 +1,7 @@
-const globalFields = require('./_global')
+const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:model:checkin')
-const { createBase, readBase, updateBase, deleteBase, cache } = require('./base')
+const { createBase, readBase, updateBase, deleteBase, cache } = require('../base')
 
 debug('Model activated')
 
@@ -75,6 +75,7 @@ const recent = async () => {
 }
 
 const warm = async () => {
+  debug(`Warming ${modelDir} cache.`)
   return await cache.warm(modelCache, modelDir)
 }
 

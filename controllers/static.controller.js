@@ -6,7 +6,7 @@ const router = express.Router()
 
 // 💅 Models
 const models = require('../models')
-const model = require('../models/static.model')
+const model = require('../models/types/static.model')
 
 // 🖕 Middleware
 const {fileBase, markdownBase} = require('./base')

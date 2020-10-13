@@ -38,7 +38,6 @@ const list = async (cache, modelDir, limit = 20) => {
 const warm = async (cache, type) => {
   let result = []
   try {
-    debug(`Warming ${type} cache.`)
     if (!cache || !type) throw new Error('You must supply all params')
     if (is.not.object(cache)) throw new Error('cache must be an object')
     if (is.not.string(type)) throw new Error('type must be a string')
@@ -54,7 +53,6 @@ const warm = async (cache, type) => {
     debug(`There was an error globbing for ${type}`)
     throw error
   }
-
 
   for (let index = 0; index < result.length; index++) {
     try {

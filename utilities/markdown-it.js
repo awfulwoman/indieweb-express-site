@@ -8,16 +8,14 @@ const ErrorHandler = require('../utilities/error-handler')
       if (lang && hljs.getLanguage(lang)) {
         try {
           return hljs.highlight(lang, str).value;
-        } catch (__) {}
+        } catch (error) 
+        {
+          throw error
+        }
       }
   
       return ''
     }
   })
 
-
 module.exports = md
-
-
-
-
