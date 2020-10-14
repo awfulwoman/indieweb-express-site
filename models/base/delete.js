@@ -9,7 +9,7 @@ const deleteBase = async (dir, cache, id) => {
     if (!id) throw new Error('A file ID must be supplied')
     if (is.not.string(dir)) throw new Error('dir must be a string')
     if (is.not.string(id)) throw new Error('The file ID must be a string')
-    return markdown.delete(dir, id)
+    return markdown.del(dir, id)
   } catch (error) {
     // TODO Add to error log
     return Promise.reject(error)
