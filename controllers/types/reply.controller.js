@@ -8,7 +8,7 @@ const model = require('../../models/types/reply.model')
 const static = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper} = require('../base')
+const {controllerFileHelper, controllerContentHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
 
 debug('Controller activated')

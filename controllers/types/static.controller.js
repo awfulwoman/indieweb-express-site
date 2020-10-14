@@ -9,7 +9,7 @@ const models = require('../../models')
 const model = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper} = require('../base')
+const {controllerFileHelper, controllerContentHelper} = require('../utils')
 
 debug('Controller activated')
 
