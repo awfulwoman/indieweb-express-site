@@ -14,21 +14,21 @@ const checkAuthentication = require('../../middleware/check-authentication')
 debug('Controller activated')
 
 // 🔐 Protected routes 
-router.get(`/${model.modelDir}/create`, [], markdownBase.create.get(model))
-router.post(`/${model.modelDir}/create`, [], markdownBase.create.post(model))
-router.get(`/${model.modelDir}/:id/edit`, [], markdownBase.update.get(model))
-router.post(`/${model.modelDir}/:id/edit`, [], markdownBase.update.post(model))
-router.get(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.get(model))
-router.post(`/${model.modelDir}/:id/delete`, [], markdownBase.delete.post(model))
+router.get(`/${model.modelDir}/create`, [], markdownBase.createGet(model))
+router.post(`/${model.modelDir}/create`, [], markdownBase.createPost(model))
+router.get(`/${model.modelDir}/:id/edit`, [], markdownBase.updateGet(model))
+router.post(`/${model.modelDir}/:id/edit`, [], markdownBase.updatePost(model))
+router.get(`/${model.modelDir}/:id/delete`, [], markdownBase.deleteGet(model))
+router.post(`/${model.modelDir}/:id/delete`, [], markdownBase.deletePost(model))
 
 // 🔓 Public routes 
-router.get(`/${model.modelDir}`, markdownBase.read(static, {
+router.get(`/${model.modelDir}`, markdownBase.readGet(static, {
   id: model.modelDir, 
   index: true, 
   children: model.recent, 
   template: 'index'
 }));
-router.get(`/${model.modelDir}/:id`, markdownBase.read(model))
+router.get(`/${model.modelDir}/:id`, markdownBase.readGet(model))
 router.get(`/${model.modelDir}/:id/:file`, [], fileBase.read(model))
 router.get(`/${model.modelDir}/:id/:file/:size`, [], fileBase.read(model))
 
