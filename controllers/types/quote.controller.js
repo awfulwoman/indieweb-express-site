@@ -1,15 +1,15 @@
-const debug = require('debug')('sonniesedge:controller:note')
+const debug = require('debug')('sonniesedge:controller:quote')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
 
 // 💅 Models
-const model = require('../models/types/note.model')
-const static = require('../models/types/static.model')
+const model = require('../../models/types/quote.model')
+const static = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {fileBase, markdownBase} = require('./base')
-const checkAuthentication = require('../middleware/check-authentication')
+const {fileBase, markdownBase} = require('../base')
+const checkAuthentication = require('../../middleware/check-authentication')
 
 debug('Controller activated')
 

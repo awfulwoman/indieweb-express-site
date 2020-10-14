@@ -1,13 +1,13 @@
-const bookmark = require('./bookmark.controller')
-const note = require('./note.controller')
-const static = require('./static.controller')
-const bandname = require('./bandname.controller')
-const like = require('./like.controller')
-const photo = require('./photo.controller')
-const quote = require('./quote.controller')
-const reply = require('./reply.controller')
-const repost = require('./repost.controller')
-const post = require('./post.controller')
+const bookmark = require('./types/bookmark.controller')
+const note = require('./types/note.controller')
+const static = require('./types/static.controller')
+const bandname = require('./types/bandname.controller')
+const like = require('./types/like.controller')
+const photo = require('./types/photo.controller')
+const quote = require('./types/quote.controller')
+const reply = require('./types/reply.controller')
+const repost = require('./types/repost.controller')
+const post = require('./types/post.controller')
 
 
 // Routes are applied in this order. 

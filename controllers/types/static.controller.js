@@ -5,11 +5,11 @@ const express = require('express')
 const router = express.Router()
 
 // 💅 Models
-const models = require('../models')
-const model = require('../models/types/static.model')
+const models = require('../../models')
+const model = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {fileBase, markdownBase} = require('./base')
+const {fileBase, markdownBase} = require('../base')
 
 debug('Controller activated')
 
