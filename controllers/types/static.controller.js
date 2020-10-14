@@ -9,20 +9,20 @@ const models = require('../../models')
 const model = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {fileBase, markdownBase} = require('../base')
+const {controllerFileHelper, controllerContentHelper} = require('../base')
 
 debug('Controller activated')
 
 // 🔓 Public routes 
 
-router.get(`/`, [], markdownBase.readGet(model, {
+router.get(`/`, [], controllerContentHelper.readGet(model, {
   id: 'root',
   index: true, 
   children: models.recent,
   template: 'index'
 }))
-router.get(`/:id`, [], markdownBase.readGet(model))
-router.get(`/:id/:file`, [], fileBase.read(model))
-router.get(`/:id/:file/:size`, [], fileBase.read(model))
+router.get(`/:id`, [], controllerContentHelper.readGet(model))
+router.get(`/:id/:file`, [], controllerFileHelper.read(model))
+router.get(`/:id/:file/:size`, [], controllerFileHelper.read(model))
 
 module.exports = router;

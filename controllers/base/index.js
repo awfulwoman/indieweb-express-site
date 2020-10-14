@@ -1,4 +1,4 @@
-const fileBase = require('./file')
-const markdownBase = require('./markdown')
+const controllerFileHelper = require('./file')
+const controllerContentHelper = require('./content')
 
-module.exports = {fileBase, markdownBase}
+module.exports = {controllerFileHelper, controllerContentHelper}
