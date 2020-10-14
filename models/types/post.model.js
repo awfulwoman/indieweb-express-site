@@ -1,7 +1,7 @@
 const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:model:post')
-const { createBase, readBase, updateBase, deleteBase, cache } = require('../base')
+const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 
 debug('Model activated')
 
@@ -55,19 +55,19 @@ const settings = {
 }
 
 const create = async function (data, content, id) {
-  return await createBase(modelDir, modelCache, data, content, id)
+  return await modelCreate(modelDir, modelCache, data, content, id)
 }
 
 const read = async function (id) {
-  return await readBase(modelDir, modelCache, id)
+  return await modelRead(modelDir, modelCache, id)
 }
 
 const update = async function (data, content, id) {
-  return await updateBase(modelDir, modelCache, data, content, id)
+  return await modelUpdate(modelDir, modelCache, data, content, id)
 }
 
 const del = async function (id) {
-  return await deleteBase(modelDir, modelCache, id)
+  return await modelDelete(modelDir, modelCache, id)
 }
 
 const recent = async () => {

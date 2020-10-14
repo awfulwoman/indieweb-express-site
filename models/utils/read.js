@@ -3,7 +3,7 @@ const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
 
-const readBase = async (dir, cache, id) => {
+const modelRead = async (dir, cache, id) => {
   try {
     if (!dir || !id || !cache) throw new Error('You must supply all params')
     if (!id) throw new Error('id must be supplied')
@@ -26,4 +26,4 @@ const readBase = async (dir, cache, id) => {
   }
 }
 
-module.exports = readBase
+module.exports = modelRead

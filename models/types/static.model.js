@@ -2,7 +2,7 @@
 const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:model:static')
-const { createBase, readBase, updateBase, deleteBase, cache } = require('../base')
+const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 
 debug('Model activated')
 
@@ -35,7 +35,7 @@ const settings = {
 }
 
 const read = async function (id) {
-  return await readBase(modelDir, modelCache, id)
+  return await modelRead(modelDir, modelCache, id)
 }
 
 module.exports = { modelDir, fields, read, settings }

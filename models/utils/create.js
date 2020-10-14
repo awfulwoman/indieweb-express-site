@@ -2,7 +2,7 @@ const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
 
-const createBase = async (dir, cache, data, content, id) => {
+const modelCreate = async (dir, cache, data, content, id) => {
   try {
     if (!dir || !cache || !data || !content || !id) throw new Error('You must supply all params')
     if (is.not.object(data)) throw new Error('data must be an object')
@@ -32,4 +32,4 @@ const createBase = async (dir, cache, data, content, id) => {
   }
 }
 
-module.exports = createBase
+module.exports = modelCreate

@@ -2,7 +2,7 @@ const is = require('is_js')
 const markdown = require('../../drivers/markdown')
 const matter = require('gray-matter')
 
-const deleteBase = async (dir, cache, id) => {
+const modelDelete = async (dir, cache, id) => {
   try {
     if (!dir || !cache || !id) throw new Error('You must supply all params')
     if (!dir) throw new Error('A storage directory must be supplied')
@@ -16,4 +16,4 @@ const deleteBase = async (dir, cache, id) => {
   }
 }
 
-module.exports = deleteBase
+module.exports = modelDelete
