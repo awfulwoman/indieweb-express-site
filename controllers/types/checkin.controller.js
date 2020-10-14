@@ -29,7 +29,7 @@ router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
   template: 'index'
 }));
 router.get(`/${model.modelDir}/:id`, controllerContentHelper.readGet(model))
-router.get(`/${model.modelDir}/:id/:file`, [], controllerFileHelper.read(model))
-router.get(`/${model.modelDir}/:id/:file/:size`, [], controllerFileHelper.read(model))
+router.get(`/${model.modelDir}/:id/:file`, [], controllerFileHelper.readGet(model))
+router.get(`/${model.modelDir}/:id/:file/:size`, [], controllerFileHelper.readGet(model))
 
 module.exports = router;

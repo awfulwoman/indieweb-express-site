@@ -22,7 +22,7 @@ router.get(`/`, [], controllerContentHelper.readGet(model, {
   template: 'index'
 }))
 router.get(`/:id`, [], controllerContentHelper.readGet(model))
-router.get(`/:id/:file`, [], controllerFileHelper.read(model))
-router.get(`/:id/:file/:size`, [], controllerFileHelper.read(model))
+router.get(`/:id/:file`, [], controllerFileHelper.readGet(model))
+router.get(`/:id/:file/:size`, [], controllerFileHelper.readGet(model))
 
 module.exports = router;

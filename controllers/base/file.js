@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../utilities/error-handler')
 const files = require('../../drivers/files')
 
-exports.read = function(model, options) {
+exports.readGet = function(model, options) {
   if (!model) {throw new ErrorHandler('500', 'No model specified')}
   return asyncHandler(async (req, res, next) => {
     try {
