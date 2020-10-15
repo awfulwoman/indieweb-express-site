@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:model:base:cache')
+const debug = require('debug')('sonniesedge:model:utils:cache')
 const is = require('is_js')
 const config = require('../../config')
 const path = require('path')
@@ -8,6 +8,8 @@ const ErrorHandler = require('../../utilities/error-handler')
 const naturalSort = require('javascript-natural-sort')
 const fg = require('fast-glob');
 const read = require('./read')
+
+// TODO: Split into separate files
 
 const list = async (cache, modelDir, limit = 20) => {
   try {
@@ -30,6 +32,7 @@ const list = async (cache, modelDir, limit = 20) => {
 
   } catch (error) {
     // TODO Add to error log
+    debug(error)
     if (error.code === 'ENOENT') { throw new ErrorHandler('404', 'File not found on disk') }
     throw error
   }
@@ -59,6 +62,7 @@ const warm = async (cache, type) => {
       // debug(`Warming ${type}/${path.basename(result[index])}`)
       await read(type, cache, path.basename(result[index]))
     } catch (error) {
+      debug(error)
       // debug(`Error warming /${type}/${path.basename(result[index])}. Skipping.%o`, error)
       // TODO Add to error log
       // throw error

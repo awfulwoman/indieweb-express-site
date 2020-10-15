@@ -15,6 +15,7 @@ const read = async (type, id) => {
 
     return await fs.promises.readFile(destination, { encoding: 'utf8' })
   } catch (error) {
+    debug(error)
     throw error
   }
 }

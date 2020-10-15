@@ -13,10 +13,13 @@ const del = async (type, id) => {
     if (is.not.string(type) || is.not.string(id))
       throw new Error('markdown.delete: Parameters must be supplied as strings')
 
+
     let destination = path.join(config.contentRoot, location, id, 'index.md')
+    debug('destination: ', destination)
 
     return await fs.promises.unlink(destination)
   } catch (error) {
+    debug(error)
     return Promise.reject(error)
   }
 }

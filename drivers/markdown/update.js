@@ -6,7 +6,9 @@ const config = require('../../config')
 const ErrorHandler = require('../../utilities/error-handler')
 
 const update = async (type, id, fileContent) => {
-  debug(fileContent)
+  // debug('type: ', type)
+  // debug('id: ', id)
+  // debug('fileContent: ', fileContent)
   try {
     if (!type || !fileContent || !id) throw new Error('markdown.update: Missing parameters')
     if (is.not.string(type) || is.not.string(id)) throw new Error('markdown.update: Parameters must be supplied as strings')
@@ -15,11 +17,12 @@ const update = async (type, id, fileContent) => {
 
     debug(destination)
     fs.stat(destination, (err, stat) => {
-      if (is.falsy(err)) throw new Error('markdown.update: No file exists to update')
+      if (is.truthy(err)) throw new Error(`markdown.update: No file exists to update.`)
     });
 
     return await fs.promises.writeFile(destination, fileContent, 'utf8')
   } catch (error) {
+    debug(error)
     return Promise.reject(error)
   }
 }
