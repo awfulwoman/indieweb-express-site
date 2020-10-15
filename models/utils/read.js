@@ -17,8 +17,9 @@ const modelRead = async (dir, cache, id) => {
     if (dir === 'static') {debug(`Calling ${id} from ${dir} disk file`)}
     let result = await markdown.read(dir, id)
     let resultObject = matter(result)
+    resultObject.id = id
     cache.set(id, resultObject)
-
+    // debug(resultObject)
     return resultObject
   } catch (error) {
     // TODO Add to error log
