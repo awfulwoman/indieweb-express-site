@@ -57,6 +57,12 @@ const read = async function (id) {
   return await modelRead(modelDir, modelCache, id)
 }
 
+/** @description Update a note item
+ * @param {object} data Metadata 
+ * @param {string} content Item body content, in Markdown format
+ * @param {string} id The file storage ID
+ * @return {Promise}
+ */
 const update = async function (data, content, id) {
   return await modelUpdate(modelDir, modelCache, data, content, id)
 }
