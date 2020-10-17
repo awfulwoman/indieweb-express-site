@@ -1,5 +1,6 @@
+const debug = require('debug')('sonniesedge:models:utils:create')
 const is = require('is_js')
-const markdown = require('../../drivers/markdown')
+const {markdown} = require('../../drivers')
 const matter = require('gray-matter')
 
 const modelCreate = async (dir, cache, data, content, id) => {
@@ -28,6 +29,7 @@ const modelCreate = async (dir, cache, data, content, id) => {
     return cache.set(id)
   } catch (error) {
     // TODO Add to error log
+    debug(error)
     return Promise.reject(error)
   }
 }

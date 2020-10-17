@@ -29,18 +29,13 @@ const fields = { // merge with global fields
     extendedDescription: 'Photos and stuff',
     formFieldRender: 'images'
   },
-  created_geo: {
+  creation_geo: {
     type: 'string',
     description: 'Where this was created',
     formFieldRender: 'geo'
   },
-  place_geo: {
-    type: 'string',
-    description: 'The position this relates to',
-    formFieldRender: 'gps'
-  },
-  place_name: {
-    type: 'string',
+  place: {
+    type: 'object', // contains: gps, name, address, google_maps_id
     description: 'The place this relates to',
     formFieldRender: 'place'
   }
@@ -62,6 +57,12 @@ const read = async function (id) {
   return await modelRead(modelDir, modelCache, id)
 }
 
+/** @description Update a note item
+ * @param {object} data Metadata 
+ * @param {string} content Item body content, in Markdown format
+ * @param {string} id The file storage ID
+ * @return {Promise}
+ */
 const update = async function (data, content, id) {
   return await modelUpdate(modelDir, modelCache, data, content, id)
 }

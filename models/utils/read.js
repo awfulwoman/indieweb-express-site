@@ -1,6 +1,6 @@
-const debug = require('debug')('sonniesedge:models:base:read')
+const debug = require('debug')('sonniesedge:models:utils:read')
 const is = require('is_js')
-const markdown = require('../../drivers/markdown')
+const {markdown} = require('../../drivers')
 const matter = require('gray-matter')
 
 const modelRead = async (dir, cache, id) => {
@@ -17,11 +17,13 @@ const modelRead = async (dir, cache, id) => {
     if (dir === 'static') {debug(`Calling ${id} from ${dir} disk file`)}
     let result = await markdown.read(dir, id)
     let resultObject = matter(result)
+    resultObject.id = id
     cache.set(id, resultObject)
-
+    // debug(resultObject)
     return resultObject
   } catch (error) {
     // TODO Add to error log
+    debug(error)
     throw error
   }
 }

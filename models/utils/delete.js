@@ -1,5 +1,6 @@
+const debug = require('debug')('sonniesedge:models:utils:delete')
 const is = require('is_js')
-const markdown = require('../../drivers/markdown')
+const {markdown} = require('../../drivers')
 const matter = require('gray-matter')
 
 const modelDelete = async (dir, cache, id) => {
@@ -12,6 +13,7 @@ const modelDelete = async (dir, cache, id) => {
     return markdown.del(dir, id)
   } catch (error) {
     // TODO Add to error log
+    debug(error)
     return Promise.reject(error)
   }
 }

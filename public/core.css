@@ -157,3 +157,7 @@ img {
 .c-nav a:action {
   color: var(--link-color-action);
 }
+
+.c-note {
+  font-size: 3rem;
+}
