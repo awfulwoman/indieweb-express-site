@@ -2,26 +2,26 @@
 {{#if debug}}
 
 <div class="l-debug">
-  <h1>DEBUG INFO</h1>
+  <h1>Handlebars template debugging 🐜 </h1>
 
   {{#if data}}
   <h2>data</h2>
-  <pre><code>{{{dumpObject data}}}</code></pre>
+  <pre class="hljs"><code>{{{dumpObject data}}}</code></pre>
   {{/if}}
 
   {{#if children}}
   <h2>children</h2>
-  <pre><code>{{{dumpObject children}}}</code></pre>
+  <pre class="hljs"><code>{{{dumpObject children}}}</code></pre>
   {{/if}}
 
   {{#if content}}
   <h2>content</h2>
-  <pre><code>{{{dumpObject content}}}</code></pre>
+  <pre class="hljs"><code>{{{dumpObject content}}}</code></pre>
   {{/if}}
 
   {{#if sections}}
   <h2>sections</h2>
-  <pre><code>{{{dumpObject sections}}}</code></pre>
+  <pre class="hljs"><code>{{{dumpObject sections}}}</code></pre>
   {{/if}}
 </div>
 {{/if}}
