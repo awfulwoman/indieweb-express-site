@@ -133,8 +133,12 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 
 // Boot app
 app.listen(config.sitePort, function () {
+  debug(`-----------------------------------------------------`)
+  debug(`BOOTING`)
   debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`)
   debug('Twitter callback url:', constructOauthCallbackUrl('twitter'))
+  debug(config)
+  debug(`-----------------------------------------------------`)
   //
   // WARM CACHES
   // ------
