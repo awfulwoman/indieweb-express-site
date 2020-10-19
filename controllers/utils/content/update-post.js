@@ -23,24 +23,24 @@ const updatePost = (model, options) => {
 
       // add any missing data
       // ensureDefaultData() ??
-      if (is.falsy(req.body.meta.created))
-        req.body.meta.created = _global.fields.created.default
-      if (is.falsy(req.body.meta.updated))
-        req.body.meta.updated = _global.fields.updated.default
-      if (is.falsy(req.body.meta.uuid))
-        req.body.meta.uuid = _global.fields.uuid.default
-      if (is.falsy(req.body.meta.id))
-        req.body.meta.id = id || _global.fields.id.default
+      if (is.falsy(req.body.data.created))
+        req.body.data.created = _global.fields.created.default
+      if (is.falsy(req.body.data.updated))
+        req.body.data.updated = _global.fields.updated.default
+      if (is.falsy(req.body.data.uuid))
+        req.body.data.uuid = _global.fields.uuid.default
+      if (is.falsy(req.body.data.id))
+        req.body.data.id = id || _global.fields.id.default
 
       // save
-      note.create(meta, content, id)
+      note.create(data, content, id)
 
       // Render
       res.render('create/note/', {
         success: true,
         flash: { type: 'success', message: `Note created` },
         content: `Your new Note has been created!`,
-        url: `/notes/${req.body.meta.id}/`
+        url: `/notes/${req.body.data.id}/`
       });
     } catch (error) {
       res.render('create/note', {

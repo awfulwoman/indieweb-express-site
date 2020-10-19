@@ -17,7 +17,7 @@ const router = express.Router({
 // Default login page
 router.get('/', function(req, res){
   res.render('auth/login', {
-    meta: {title: 'Log in'},
+    data: {title: 'Log in'},
     username: req.query.username || null,
     content: req.query.message || null
   });
@@ -28,7 +28,7 @@ router.post('/method', urlencodedParser, function(req, res){
   if(userList.some(user => user.userName === req.body.username)) {
     res.render('auth/method', {
       username: req.body.username,
-      meta: {title: 'Choose authentication method'},
+      data: {title: 'Choose authentication method'},
       content: null,
     });
   } else {

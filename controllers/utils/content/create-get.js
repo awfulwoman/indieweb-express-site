@@ -11,7 +11,7 @@ const createGet = (model, options) => {
   options || (options = {});
   return asyncHandler((req, res, next) => {
     res.render('page', {
-      meta: { title: 'Under construction' },
+      data: { title: 'Under construction' },
       content: 'TODO: Implement'
     })
   })

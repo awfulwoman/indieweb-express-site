@@ -253,9 +253,9 @@ async function request () {
           debug('Drupal Media Node info: ', drupalMediaNode)
           
           imageData = {}
-          imageData.width = drupalMediaNode.relationships.thumbnail.data.meta.width
-          imageData.height = drupalMediaNode.relationships.thumbnail.data.meta.height
-          imageData.alt = drupalMediaNode.relationships.thumbnail.data.meta.alt
+          imageData.width = drupalMediaNode.relationships.thumbnail.data.data.width
+          imageData.height = drupalMediaNode.relationships.thumbnail.data.data.height
+          imageData.alt = drupalMediaNode.relationships.thumbnail.data.data.alt
 
           let fileinfo = relatedNodes.filter(relatedNode => relatedNode.type === 'file--file' && relatedNode.id === drupalMediaNode.relationships.thumbnail.data.id)[0];
           // debug('Drupal file info: ', fileinfo);
@@ -335,9 +335,9 @@ async function request () {
     //       // debug('Drupal Media Node info: ', drupalMediaNode)
           
     //       imageData = {}
-    //       imageData.width = drupalMediaNode.relationships.thumbnail.data.meta.width
-    //       imageData.height = drupalMediaNode.relationships.thumbnail.data.meta.height
-    //       imageData.alt = drupalMediaNode.relationships.thumbnail.data.meta.alt
+    //       imageData.width = drupalMediaNode.relationships.thumbnail.data.data.width
+    //       imageData.height = drupalMediaNode.relationships.thumbnail.data.data.height
+    //       imageData.alt = drupalMediaNode.relationships.thumbnail.data.data.alt
 
     //       let fileinfo = relatedNodes.filter(relatedNode => relatedNode.type === 'file--file' && relatedNode.id === drupalMediaNode.relationships.thumbnail.data.id)[0];
     //       // debug('Drupal file info: ', fileinfo);

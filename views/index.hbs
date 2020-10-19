@@ -1,4 +1,4 @@
-<h1>{{meta.title}}</h1>
+<h1>{{data.title}}</h1>
 
 
 {{{content}}}
@@ -20,10 +20,10 @@
 {{#if debug}}
 <div class="l-debug">
   <h1>Debugging</h1>
-  <h2>.meta</h2>
+  <h2>.data</h2>
   <pre>
   {{{
-    dumpObject meta
+    dumpObject data
   }}}
   </pre>
 

@@ -1,78 +1,36 @@
-<h1>{{meta.title}}</h1>
-<p>{{date meta.created "dddd Do MMMM, YYYY"}}</p>
+<h1>{{data.title}}</h1>
+<p>{{date data.created "dddd Do MMMM, YYYY"}}</p>
 
-{{>strapline value=meta.strapline}}
+{{>strapline value=data.strapline}}
 
-{{#if meta.place_name}}at {{meta.place_name}}{{/if}}
+{{#if data.place_name}}at {{data.place_name}}{{/if}}
 
 {{{content}}}
 
-{{#if meta.bookmark_of}}
-<p><a href="{{meta.bookmark_of}}">View the original link</a>.</p>
+{{#if data.bookmark_of}}
+<p><a href="{{data.bookmark_of}}">View the original link</a>.</p>
 {{/if}}
 
-{{#if meta.repost_of}}
-<p><a href="{{meta.repost_of}}">{{meta.repost_of}}</a>.</p>
+{{#if data.repost_of}}
+<p><a href="{{data.repost_of}}">{{data.repost_of}}</a>.</p>
 {{/if}}
 
-{{#if meta.like_of}}
-<p><a href="{{meta.like_of}}">{{meta.like_of}}</a>.</p>
+{{#if data.like_of}}
+<p><a href="{{data.like_of}}">{{data.like_of}}</a>.</p>
 {{/if}}
 
-{{#if meta.quote_of}}
-<p><a href="{{meta.quote_of}}">{{meta.quote_of}}</a>.</p>
+{{#if data.quote_of}}
+<p><a href="{{data.quote_of}}">{{data.quote_of}}</a>.</p>
 {{/if}}
 
-{{#if meta.images}}
-  {{#each meta.images}}
-    <img src="/{{storage}}/{{../id}}/{{this.file}}" alt="{{this.alt}}">
-  {{/each}}
+{{#if data.images}}
+{{#each data.images}}
+<img src="/{{storage}}/{{../id}}/{{this.file}}" alt="{{this.alt}}">
+{{/each}}
 {{/if}}
 
 {{#if sections}}
-  {{#each sections}}
-    {{>section id=../id storage=../storage data=this.data content=this.content}}
-  {{/each}}
-{{/if}}
-
-
-
-{{#if debug}}
-<div class="l-debug">
-  <h1>Debugging</h1>
-  <h2>.meta</h2>
-  <pre>
-    {{{
-      dumpObject meta
-    }}}
-    </pre>
-
-  {{#if children}}
-  <h2>.children</h2>
-
-  <pre>
-    {{{
-      dumpObject children
-    }}}
-    </pre>
-  {{/if}}
-
-  {{#if content}}
-  <h2>.content</h2>
-  <pre>
-    {{{
-      dumpObject content
-    }}}
-    </pre>
-  {{/if}}
-
-  {{#if sections}}
-  <h2>.sections</h2>
-  <pre>
-    {{{
-      dumpObject sections
-    }}}
-    </pre>
-  {{/if}}
-</div>
+{{#each sections}}
+{{>section id=../id storage=../storage data=this.data content=this.content}}
+{{/each}}
 {{/if}}

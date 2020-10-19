@@ -15,7 +15,7 @@ const readGet = (model, options) => {
 
       res.render(options.template || 'page', {
         content: itemObj.rendered,
-        meta: itemObj.data,
+        data: itemObj.data,
         children: options.children ? await options.children() : null,
         id: itemObj.id,
         storage: itemObj.storage,

@@ -12,7 +12,7 @@ const deletePost = (model, options) => {
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
     res.render('page', {
-      meta: { title: 'Under construction' },
+      data: { title: 'Under construction' },
       content: 'TODO: Implement'
     })
   })
