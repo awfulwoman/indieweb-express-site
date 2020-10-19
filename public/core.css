@@ -1,4 +1,5 @@
 :root {
+  --content-width: 80rem;
   --form-item-width: 40rem;
   --background-color: #fff;
   --text-color: #333;
@@ -60,6 +61,16 @@ h6 {
 
 img {
   max-width: 100%;
+}
+
+.l-debug {
+  max-width: var(--content-width);
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: scroll;
+  border: 2px solid white;
+  padding: 15px;
+  margin-bottom: 1rem;
 }
 
 .c-footer {
