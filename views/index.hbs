@@ -14,34 +14,3 @@
     </ul>
   </section>
 {{/if}}
-
-
-
-{{#if debug}}
-<div class="l-debug">
-  <h1>Debugging</h1>
-  <h2>.data</h2>
-  <pre>
-  {{{
-    dumpObject data
-  }}}
-  </pre>
-
-  {{#if children}}
-  <h2>.children</h2>
-
-  <pre>
-  {{{
-    dumpObject children
-  }}}
-  </pre>
-  {{/if}}
-
-  <h2>.content</h2>
-  <pre>
-  {{{
-    dumpObject content
-  }}}
-  </pre>
-</div>
-{{/if}}

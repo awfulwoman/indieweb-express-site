@@ -1,51 +1,12 @@
 
-<h1>{{date meta.created "dddd Do MMMM, YYYY"}}</h1>
+<h1>{{date data.created "dddd Do MMMM, YYYY"}}</h1>
 
 <div class="c-note">
   {{{content}}}
 </div>
 
-{{#if meta.images}}
-  {{#each meta.images}}
+{{#if data.images}}
+  {{#each data.images}}
     <img src="/notes/{{../id}}/{{this.file}}" alt="{{this.alt}}" >
   {{/each}}
-{{/if}}
-
-
-
-
-{{#if debug}}
-<div class="l-debug">
-  <h1>Debugging</h1>
-  <h2>.meta</h2>
-  <pre>
-  {{{
-    dumpObject meta
-  }}}
-  </pre>
-
-  {{#if children}}
-  <h2>.children</h2>
-
-  <pre>
-  {{{
-    dumpObject children
-  }}}
-  </pre>
-  {{/if}}
-
-  <h2>.content</h2>
-  <pre>
-  {{{
-    dumpObject content
-  }}}
-  </pre>
-
-  <h2>.id</h2>
-  <pre>
-  {{{
-    dumpObject id
-  }}}
-  </pre>
-</div>
 {{/if}}

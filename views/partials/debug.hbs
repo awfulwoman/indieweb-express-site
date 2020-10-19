@@ -1,0 +1,27 @@
+
+{{#if debug}}
+
+<div class="l-debug">
+  <h1>Debugginggggggg</h1>
+
+  {{#if data}}
+  <h2>.data</h2>
+  <pre>{{dumpObject data}}</pre>
+  {{/if}}
+
+  {{#if children}}
+  <h2>.children</h2>
+  <pre>{{dumpObject children}}</pre>
+  {{/if}}
+
+  {{#if content}}
+  <h2>.content</h2>
+  <pre>{{dumpObject content}}</pre>
+  {{/if}}
+
+  {{#if sections}}
+  <h2>.sections</h2>
+  <pre>{{dumpObject sections}}</pre>
+  {{/if}}
+</div>
+{{/if}}
