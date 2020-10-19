@@ -13,8 +13,6 @@ const readGet = (model, options) => {
     try {
       let itemObj = await model.read(options.id || req.params.id)
 
-      debug(itemObj)
-
       res.render(options.template || 'page', {
         content: itemObj.rendered,
         meta: itemObj.data,
