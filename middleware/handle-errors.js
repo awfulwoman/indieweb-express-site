@@ -3,7 +3,7 @@ const errors = (err, req, res, next) => {
   res.status(statusCode);
   res.render('error', {
     status: 'error',
-    statusCode: statusCode,
+    statusCode: statusCode || 500,
     message: message || null
   })
 }

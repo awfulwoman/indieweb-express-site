@@ -1,15 +1,17 @@
-{{#if this.meta.title}}
-<h2>{{this.meta.title}}</h2>
+
+{{#if data.title}}
+<h2>{{data.title}}</h2>
 {{/if}}
 
-{{#each this.meta.image}}
-  <img src="{{file}}" alt="{{alt}}">
+{{#each data.image}}
+<img src="/{{../storage}}/{{../id}}/{{this.file}}" alt="{{this.alt}}">
 {{/each}}
 
-{{{this.content}}}
+{{{content}}}
 
-{{#if this.meta.aside}}
-  <div>
-    {{this.meta.aside}}
-  </div>
+{{#if data.aside}}
+<div>
+  <hr>
+  {{data.aside}}
+</div>
 {{/if}}

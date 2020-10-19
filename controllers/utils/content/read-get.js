@@ -1,10 +1,6 @@
-const debug = require('debug')('sonniesedge:controllers:base:markdown');
+const debug = require('debug')('sonniesedge:controllers:utils:content:readGet');
 const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../../utilities/error-handler')
-const md = require('../../../utilities/markdown-it')
-
-const bodyParser = require('body-parser')
-const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const is = require('is_js');
 
 
@@ -17,12 +13,17 @@ const readGet = (model, options) => {
     try {
       let itemObj = await model.read(options.id || req.params.id)
 
+      debug(itemObj)
+
       res.render(options.template || 'page', {
-        content: md.render(itemObj.content),
+        content: itemObj.rendered,
         meta: itemObj.data,
         children: options.children ? await options.children() : null,
-        id: itemObj.id
-      });
+        id: itemObj.id,
+        storage: itemObj.storage,
+        sections: itemObj.sections ? itemObj.sections : null
+      })
+
     } catch (error) {
       debug('Could not read file')
       throw new ErrorHandler('404', error)
