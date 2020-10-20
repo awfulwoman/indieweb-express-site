@@ -25,7 +25,7 @@ const set = async function(aliasCache, id, alias) {
     if (is.not.string(alias)) throw new Error('alias must be a string')
     if (is.not.string(id)) throw new Error('id must be a string')
     if (aliasCache.has(alias)) throw new Error('alias already exists')
-    debug(`setting ${alias}`)
+    // debug(`setting ${alias}`)
     aliasCache.set(alias, id)
   } catch (error) {
     throw error
