@@ -11,7 +11,7 @@ const static = require('../../models/types/static.model')
 const {controllerFileHelper, controllerContentHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
 
-debug('Controller activated')
+
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [], controllerContentHelper.createGet(model))

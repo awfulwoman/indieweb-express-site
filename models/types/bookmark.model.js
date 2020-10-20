@@ -3,7 +3,7 @@ const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:bookmark')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 
-debug('Model activated')
+
 
 let modelCache = new Nodecache()
 

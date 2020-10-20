@@ -4,7 +4,7 @@ const debug = require('debug')('sonniesedge:models:post')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache, aliasUtil } = require('../utils')
 const is = require('is_js')
 
-debug('Model activated')
+
 
 let modelCache = new Nodecache()
 let aliasCache = new Nodecache()
