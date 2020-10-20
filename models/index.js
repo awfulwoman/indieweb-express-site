@@ -14,7 +14,7 @@ let post = require('./types/post.model')
 
 const {orderBy} = require('natural-orderby');
 
-const models = [
+const modelsArray = [
   note, 
   bookmark, 
   static,
@@ -28,10 +28,13 @@ const models = [
   post
 ]
 
+const list = {...modelsArray}
+
+
 const warmAll = async () => {
-  for (let index = 0; index < models.length; index++) {
-    if(models[index].warm) {
-      await models[index].warm()
+  for (let index = 0; index < modelsArray.length; index++) {
+    if(modelsArray[index].warm) {
+      await modelsArray[index].warm()
     }
   }
 }
@@ -40,9 +43,9 @@ const recent = async (limit=20) => {
   try {
     let recentItems = []
 
-    for (let index = 0; index < models.length; index++) {
-      if(models[index].recent) {
-        for (let [key, value] of Object.entries(await models[index].recent())) {
+    for (let index = 0; index < modelsArray.length; index++) {
+      if(modelsArray[index].recent) {
+        for (let [key, value] of Object.entries(await modelsArray[index].recent())) {
           recentItems.push(value)
         }      
       }
@@ -61,4 +64,4 @@ const recent = async (limit=20) => {
 
 }
 
-module.exports = {models, warmAll, recent}
+module.exports = { list, warmAll, recent}

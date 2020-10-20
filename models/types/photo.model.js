@@ -1,6 +1,6 @@
 const globalFields = require('../_global')
 const Nodecache = require('node-cache')
-const debug = require('debug')('sonniesedge:model:photo')
+const debug = require('debug')('sonniesedge:models:photo')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 
 debug('Model activated')

@@ -6,12 +6,18 @@ const is = require('is_js');
 
 // READ
 const readGet = (model, options) => {
-
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
     if (!req.params.id && !options.id) { options.id = 'root' }
     try {
-      let itemObj = await model.read(options.id || req.params.id)
+
+      let resolvedId = options.id || req.params.id
+      debug('resolvedId', resolvedId)
+
+      if (model.resolveAlias) {resolvedId = await model.resolveAlias(resolvedId)}
+      
+      debug('resolvedId', resolvedId)
+      let itemObj = await model.read(resolvedId)
 
       res.render(options.template || 'page', {
         content: itemObj.rendered,

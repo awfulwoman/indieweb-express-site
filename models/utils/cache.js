@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:model:utils:cache')
+const debug = require('debug')('sonniesedge:models:utils:cache')
 const is = require('is_js')
 const config = require('../../config')
 const path = require('path')
@@ -8,21 +8,23 @@ const ErrorHandler = require('../../utilities/error-handler')
 const naturalSort = require('javascript-natural-sort')
 const fg = require('fast-glob');
 const read = require('./read')
+const alias = require('./alias')
+// const models = require(../models)
 
 // TODO: Split into separate files
 
-const list = async (cache, modelDir, limit = 20) => {
+const list = async (modelCache, modelDir, limit = 20) => {
   try {
-    if (!cache) throw new Error('You must supply all params')
-    if (is.not.object(cache)) throw new Error('cache must be an object')
+    if (!modelCache) throw new Error('You must supply all params')
+    if (is.not.object(modelCache)) throw new Error('cache must be an object')
 
-    let keyList = cache.keys().slice().sort(naturalSort).reverse()
+    let keyList = modelCache.keys().slice().sort(naturalSort).reverse()
 
     keyList = keyList.slice(0, limit)
 
     let results = []
     for (let item = 0; item < keyList.length; item++) {
-      let result = cache.get(keyList[item])
+      let result = modelCache.get(keyList[item])
       result.dir = modelDir
       result.id = keyList[item]
       results.push(result)
@@ -38,11 +40,11 @@ const list = async (cache, modelDir, limit = 20) => {
   }
 }
 
-const warm = async (cache, type) => {
+const warm = async (modelCache, type, modelAliasCache) => {
   let result = []
   try {
-    if (!cache || !type) throw new Error('You must supply all params')
-    if (is.not.object(cache)) throw new Error('cache must be an object')
+    if (!modelCache || !type) throw new Error('You must supply all params')
+    if (is.not.object(modelCache)) throw new Error('cache must be an object')
     if (is.not.string(type)) throw new Error('type must be a string')
 
   } catch (error) {
@@ -60,7 +62,10 @@ const warm = async (cache, type) => {
   for (let index = 0; index < result.length; index++) {
     try {
       // debug(`Warming ${type}/${path.basename(result[index])}`)
-      await read(type, cache, path.basename(result[index]))
+      let readData = await read(type, modelCache, path.basename(result[index]))
+      if (readData.data.slug && modelAliasCache) {
+        await alias.set(modelAliasCache, path.basename(result[index]), readData.data.slug)
+      }
     } catch (error) {
       debug(error)
       // debug(`Error warming /${type}/${path.basename(result[index])}. Skipping.%o`, error)

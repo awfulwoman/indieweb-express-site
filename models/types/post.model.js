@@ -1,11 +1,13 @@
 const globalFields = require('../_global')
 const Nodecache = require('node-cache')
-const debug = require('debug')('sonniesedge:model:post')
-const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
+const debug = require('debug')('sonniesedge:models:post')
+const { modelCreate, modelRead, modelUpdate, modelDelete, cache, aliasUtil } = require('../utils')
+const is = require('is_js')
 
 debug('Model activated')
 
 let modelCache = new Nodecache()
+let aliasCache = new Nodecache()
 
 const modelDir = 'posts'
 
@@ -54,6 +56,10 @@ const settings = {
   includeInMainRssFeed: true,
 }
 
+const resolveAlias = async (slug) => {
+  return await aliasUtil.get(aliasCache, slug)
+}
+
 const create = async function (data, content, id) {
   return await modelCreate(modelDir, modelCache, data, content, id)
 }
@@ -76,7 +82,7 @@ const recent = async () => {
 
 const warm = async () => {
   debug(`Warming ${modelDir} cache.`)
-  return await cache.warm(modelCache, modelDir)
+  return await cache.warm(modelCache, modelDir, aliasCache)
 }
 
-module.exports = { modelDir, fields, create, read, update, del, settings, recent, warm }
+module.exports = { modelDir, fields, create, read, update, del, settings, recent, warm, resolveAlias }

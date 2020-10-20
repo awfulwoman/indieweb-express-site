@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:model:utils:update')
+const debug = require('debug')('sonniesedge:models:utils:update')
 const is = require('is_js')
 const { markdown } = require('../../drivers')
 const matter = require('gray-matter')
