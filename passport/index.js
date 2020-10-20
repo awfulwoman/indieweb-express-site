@@ -1,5 +1,6 @@
-const passport = require('passport');
-const TwitterStrategy = require('passport-twitter').Strategy;
+const config = require('../config')
+const passport = require('passport')
+const TwitterStrategy = require('passport-twitter').Strategy
 // const GitHubStrategy = require('passport-github2').Strategy;
 
 
