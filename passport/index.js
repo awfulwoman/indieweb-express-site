@@ -5,7 +5,7 @@ const TwitterStrategy = require('passport-twitter').Strategy
 
 
 const constructOauthCallbackUrl = function (strategy) {
-  let result = `${config.siteProtocol}${config.siteDomain}${(config.sitePortExternal && config.sitePortExternal != 80 ? ':' + config.sitePortExternal : '')}/login/${strategy}/callback`;
+  let result = `${config.siteProtocol()}${config.siteDomain()}${(config.sitePortExternal() && config.sitePortExternal() != 80 ? ':' + config.sitePortExternal() : '')}/login/${strategy}/callback`;
   return result;
 }
 

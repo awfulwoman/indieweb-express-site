@@ -10,7 +10,7 @@ const readSection = async (type, id, sectionId) => {
     if (!type || !id) throw new Error('markdown.read: Missing parameters')
     if (is.not.string(type) || is.not.string(id)) throw new Error('markdown.read: Parameters must be supplied as strings')
 
-    let destination = path.join(config.contentRoot, type === 'static' ? '' : type, (type === 'static' && id === 'root') ? '' : id, 'sections', `${sectionId}.md`)
+    let destination = path.join(config.contentRoot(), type === 'static' ? '' : type, (type === 'static' && id === 'root') ? '' : id, 'sections', `${sectionId}.md`)
     // if (type === 'static') {debug(destination)}
 
     return await fs.promises.readFile(destination, { encoding: 'utf8' })

@@ -37,11 +37,11 @@ describe('Checking parameters', () => {
 
 describe('Read from a file', () => {
     
-  let testRawFileDataPath = path.join(config.contentRoot, 'notes/0000/index.md');
+  let testRawFileDataPath = path.join(config.contentRoot(), 'notes/0000/index.md');
 
   beforeEach(() => {
     mock({
-      [testRawFileDataPath]: mock.load(path.resolve(config.appRoot, 'fixtures/mocked-note.md'), {lazy: false}),
+      [testRawFileDataPath]: mock.load(path.resolve(config.appRoot(), 'fixtures/mocked-note.md'), {lazy: false}),
     });
   });
 

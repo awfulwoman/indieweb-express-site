@@ -13,7 +13,7 @@ const update = async (type, id, fileContent) => {
     if (!type || !fileContent || !id) throw new Error('markdown.update: Missing parameters')
     if (is.not.string(type) || is.not.string(id)) throw new Error('markdown.update: Parameters must be supplied as strings')
 
-    let destination = path.join(config.contentRoot, type, id, 'index.md')
+    let destination = path.join(config.contentRoot(), type, id, 'index.md')
 
     debug(destination)
     fs.stat(destination, (err, stat) => {

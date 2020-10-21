@@ -16,7 +16,7 @@
       let modelItemList = []
       // debug(model)
       debug(model.modelDir)
-      modelItemList = await fg(path.join(config.contentRoot, model.modelDir, '*', 'index.md'))
+      modelItemList = await fg(path.join(config.contentRoot(), model.modelDir, '*', 'index.md'))
 
       for (let i = 0; i < modelItemList.length; i++) {
         let id = modelItemList[i].split('/').reverse()[1]

@@ -15,7 +15,7 @@ module.exports = {
       type: 'string',
       description: 'Item ID',
       descriptionExtra: 'A unique ID for this item type and how the item is stored on disk',
-      default: DateTime.local().toFormat(config.fileDateFormat)
+      default: DateTime.local().toFormat(config.fileDateFormat())
     },
     created: {
       type: 'string',

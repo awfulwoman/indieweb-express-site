@@ -62,7 +62,7 @@ app.use(renderDebug) // Make debug status available to every render
 // ROUTES
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
-app.use('/public', express.static(path.join(config.appRoot, 'public'), { fallthrough: false }))
+app.use('/public', express.static(path.join(config.appRoot(), 'public'), { fallthrough: false }))
 app.use('/login', routesLogin)
 app.use('/', [controllers])
 
@@ -75,13 +75,15 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 
 
 // Boot app
-app.listen(config.sitePort, () => {
+app.listen(config.sitePort(), () => {
   debug(`-----------------------------------------------------`)
   debug(`BOOTING`)
   debug(`-----------------------------------------------------`)
   // TODO: Check that content and data dirs exist at boot
-  debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`)
-  debug(config)
+  debug(`App booted and running at ${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`)
+  for (const [key, value] of Object.entries(config)) {
+    debug(`${key}: ${value()}`);
+  }
   debug(`-----------------------------------------------------`)
 
   // WARM CACHES

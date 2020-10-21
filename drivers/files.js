@@ -11,7 +11,7 @@ const files = {
     //   if (!type || !fileContent || !id) throw new Error('markdown.create: Missing parameters')
     //   if (is.not.string(type) || is.not.string(id)) throw new Error('markdown.create: Parameters must be supplied as strings')
 
-    //   let destination = path.join(config.contentRoot, type, id, 'index.md')
+    //   let destination = path.join(config.contentRoot(), type, id, 'index.md')
 
     //   fs.stat(destination, (err, stat) => {
     //     if (is.not.falsy(err)) throw new Error('markdown.create: File already exists')
@@ -29,7 +29,7 @@ const files = {
       if (!type || !id) throw new Error('markdown.read: Missing parameters')
       if (is.not.string(type) || is.not.string(id) || is.not.string(filename)) throw new Error('markdown.read: Parameters must be supplied as strings')
 
-      let destination = path.join(config.contentRoot, type, id, 'files', filename)
+      let destination = path.join(config.contentRoot(), type, id, 'files', filename)
 
       return await fs.promises.readFile(destination)
     } catch (error) {
@@ -42,7 +42,7 @@ const files = {
     //   if (!type || !fileContent || !id) throw new Error('markdown.update: Missing parameters')
     //   if (is.not.string(type) || is.not.string(id)) throw new Error('markdown.update: Parameters must be supplied as strings')
 
-    //   let destination = path.join(config.contentRoot, type, id, 'index.md')
+    //   let destination = path.join(config.contentRoot(), type, id, 'index.md')
 
     //   fs.stat(destination, (err, stat) => {
     //     if (is.falsy(err)) throw new Error('markdown.update: No file exists to update')
@@ -61,7 +61,7 @@ const files = {
     //   if (is.not.string(type) || is.not.string(id))
     //     throw new Error('markdown.delete: Parameters must be supplied as strings')
 
-    //   let destination = path.join(config.contentRoot, location, id, 'index.md')
+    //   let destination = path.join(config.contentRoot(), location, id, 'index.md')
 
     //   return await fs.promises.unlink(destination)
     // } catch (error) {

@@ -72,7 +72,7 @@ describe('Check for working file operations', () => {
 
   describe('Test ability to read data', () => {
 
-    let testRawFileDataPath = path.join(config.contentRoot, 'notes/0000/index.md');
+    let testRawFileDataPath = path.join(config.contentRoot(), 'notes/0000/index.md');
     let expectedData = outdent`---
     guid: e09e7eeb-da6d-4c83-9ff9-709d9ad4b300
     type: note
@@ -86,7 +86,7 @@ describe('Check for working file operations', () => {
 
     beforeEach(() => {
       mock({
-        [testRawFileDataPath]: mock.load(path.resolve(config.appRoot, 'fixtures/mocked-note.md'), { lazy: false }),
+        [testRawFileDataPath]: mock.load(path.resolve(config.appRoot(), 'fixtures/mocked-note.md'), { lazy: false }),
       });
     });
 

@@ -53,7 +53,7 @@ const warm = async (modelCache, type, modelAliasCache) => {
   }
 
   try {
-    result = await fg(path.join(config.contentRoot, type, '*'), { onlyDirectories: true })
+    result = await fg(path.join(config.contentRoot(), type, '*'), { onlyDirectories: true })
   } catch (error) {
     debug(`There was an error globbing for ${type}`)
     throw error
