@@ -1,7 +1,8 @@
-const debug = require('debug')('sonniesedge:controllers:utils:content:readGet');
-const asyncHandler = require('express-async-handler');
+const debug = require('debug')('sonniesedge:controllers:utils:content:readGet')
+const asyncHandler = require('express-async-handler')
 const ErrorHandler = require('../../../utilities/error-handler')
-const is = require('is_js');
+const is = require('is_js')
+const path = require('path')
 
 
 // READ
@@ -12,6 +13,8 @@ const readGet = (model, options) => {
     try {
 
       let resolvedId = options.id || req.params.id
+
+      if (path.extname(resolvedId)) throw(`${model.modelDir}/${resolvedId} not found`)
 
       if (model.resolveAlias) resolvedId = await model.resolveAlias(resolvedId)
       
