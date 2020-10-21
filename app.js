@@ -10,7 +10,7 @@ const passport = require('./passport');
 
 // ⛩ Handlebars
 const hbs = require('express-handlebars');
-const dumpObject = require('./helpers/dumpobject')
+const customHelpers= require('./helpers')
 const hbsHelpers = require('handlebars-helpers')()
 
 // 🏃‍♀️💨 Express
@@ -38,12 +38,11 @@ app.use(helmet({
 
 // Templates
 app.set('view engine', '.hbs')
-app.engine('.hbs', hbs({
-  helpers: { ...hbsHelpers, dumpObject },
+app.engine('hbs', hbs({
+  helpers: { ...hbsHelpers, ...customHelpers },
   extname: '.hbs',
   defaultLayout: 'default'
 }))
-app.set('view cache', process.env['DEBUG'] ? false : true);
 
 // AUTHENTICATION + SESSIONS
 // -----------------------
@@ -80,6 +79,7 @@ app.listen(config.sitePort, () => {
   debug(`-----------------------------------------------------`)
   debug(`BOOTING`)
   debug(`-----------------------------------------------------`)
+  // TODO: Check that content and data dirs exist at boot
   debug(`App booted and running at ${config.siteProtocol}${config.siteDomain}:${config.sitePort}`)
   debug(config)
   debug(`-----------------------------------------------------`)
