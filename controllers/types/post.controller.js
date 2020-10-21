@@ -8,10 +8,8 @@ const model = require('../../models/types/post.model')
 const static = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper} = require('../utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
-
-
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [], controllerContentHelper.createGet(model))
@@ -22,6 +20,9 @@ router.get(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deleteGe
 router.post(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deletePost(model))
 
 // 🔓 Public routes 
+router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))
+// router.get(`/${model.modelDir}/json`, controllerRssHelper.rssGet(model))
+
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
   id: model.modelDir, 
   index: true, 
