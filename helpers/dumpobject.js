@@ -5,7 +5,6 @@ const dumpObject = function(context) {
   try {
     let stringified = JSON.stringify(context, null, '  ');
     let output = hljs.highlight('json', stringified)
-    debug(output.language)
     return output.value
   } catch (error) {
     debug(error)

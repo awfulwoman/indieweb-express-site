@@ -12,11 +12,9 @@ const readGet = (model, options) => {
     try {
 
       let resolvedId = options.id || req.params.id
-      debug('resolvedId', resolvedId)
 
-      if (model.resolveAlias) {resolvedId = await model.resolveAlias(resolvedId)}
+      if (model.resolveAlias) resolvedId = await model.resolveAlias(resolvedId)
       
-      debug('resolvedId', resolvedId)
       let itemObj = await model.read(resolvedId)
 
       res.render(options.template || 'page', {
@@ -29,7 +27,7 @@ const readGet = (model, options) => {
       })
 
     } catch (error) {
-      debug('Could not read file')
+      debug(error)
       throw new ErrorHandler('404', error)
     }
   })
