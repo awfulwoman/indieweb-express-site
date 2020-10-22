@@ -1,22 +1,30 @@
-const debug = require('debug')('sonniesedge:controllers:utils:feed:feedGlobal')
-const config = require('../../../config')
+const debug = require('debug')('sonniesedge:controllers:utils:content:rssGet')
+const feedSettings = require('./feed.settings')
+const Feed = require('feed').Feed
+const { DateTime } = require("luxon");
 
-const feedGlobal = () => {
-  return {
-    title: config.siteTitle(),
-    description: config.siteDescription(),
-    id: config.siteUrl(),
-    link: config.siteUrl(),
-    language: 'en', // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-    image: `${config.siteUrl()}/whatever.jpg`,
-    favicon: `${config.siteUrl()}/favicon.ico`,
-    copyright: "All rights reserved 2020, Charlie Owen",
-    author: {
-      name: "Charlie Owen",
-      email: "herself+rss@sonniesedge.net",
-      link: `${config.siteUrl()}/about`
-    }
+
+const generateBaseFeed = async (model) => {
+  try {
+    let feed = new Feed(feedSettings())
+    let recents = await model.recent()
+  
+    recents.forEach(item => {
+      feed.addItem({
+        title: item.data.title,
+        description: item.rendered,
+        content: item.rendered,
+        id: item.fullUrl,
+        link: item.fullUrl,
+        date: new Date(DateTime.fromISO(item.data.created))
+      })
+    })
+
+    return feed
+  } catch (error) {
+    debug(error)
+    throw error
   }
 }
 
-module.exports = feedGlobal
+module.exports = generateBaseFeed
