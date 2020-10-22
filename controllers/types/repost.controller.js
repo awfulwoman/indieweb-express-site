@@ -8,7 +8,7 @@ const model = require('../../models/types/repost.model')
 const static = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper} = require('../utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
 
 
@@ -20,6 +20,11 @@ router.get(`/${model.modelDir}/:id/edit`, [], controllerContentHelper.updateGet(
 router.post(`/${model.modelDir}/:id/edit`, [], controllerContentHelper.updatePost(model))
 router.get(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deleteGet(model))
 router.post(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deletePost(model))
+
+// 🗼 Syndication routes
+router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))
+router.get(`/${model.modelDir}/json`, controllerFeedHelper.jsonGet(model))
+router.get(`/${model.modelDir}/atom`, controllerFeedHelper.atomGet(model))
 
 // 🔓 Public routes 
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {

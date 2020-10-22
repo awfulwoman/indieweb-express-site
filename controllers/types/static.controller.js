@@ -11,10 +11,7 @@ const model = require('../../models/types/static.model')
 // 🖕 Middleware
 const {controllerFileHelper, controllerContentHelper} = require('../utils')
 
-
-
 // 🔓 Public routes 
-
 router.get(`/`, [], controllerContentHelper.readGet(model, {
   id: 'root',
   index: true, 
