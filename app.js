@@ -62,7 +62,7 @@ app.use(renderDebug) // Make debug status available to every render
 // ROUTES
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
-app.use('/public', express.static(path.join(config.appRoot(), 'public'), { fallthrough: false }))
+app.use(express.static('public'))
 app.use('/login', routesLogin)
 app.use('/', [controllers])
 
