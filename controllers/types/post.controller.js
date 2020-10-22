@@ -11,7 +11,7 @@ const static = require('../../models/types/static.model')
 const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
 
-// 🔐 Protected routes 
+// 🔐 Protected admin routes 
 router.get(`/${model.modelDir}/create`, [], controllerContentHelper.createGet(model))
 router.post(`/${model.modelDir}/create`, [], controllerContentHelper.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [], controllerContentHelper.updateGet(model))
@@ -19,11 +19,12 @@ router.post(`/${model.modelDir}/:id/edit`, [], controllerContentHelper.updatePos
 router.get(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deleteGet(model))
 router.post(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deletePost(model))
 
-// 🔓 Public routes 
+// 🗼 Syndication routes
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))
 router.get(`/${model.modelDir}/json`, controllerFeedHelper.jsonGet(model))
-// router.get(`/${model.modelDir}/json`, controllerRssHelper.rssGet(model))
+router.get(`/${model.modelDir}/atom`, controllerFeedHelper.atomGet(model))
 
+// 🔓 Public routes 
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
   id: model.modelDir, 
   index: true, 
