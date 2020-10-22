@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controllers:utils:content:rssGet')
+const debug = require('debug')('sonniesedge:controllers:utils:feed:feedGlobal')
 const feedSettings = require('./feed.settings')
 const Feed = require('feed').Feed
 const { DateTime } = require("luxon")
@@ -9,6 +9,7 @@ const generateBaseFeed = async (model) => {
   try {
     if (!model) throw new Error('Model must be supplied')
     if (!model.recent) throw new Error('model must be a model object with a recent() function')
+    if (is.falsy(model.settings.generateOwnRssFeed)) throw new Error(`Not allowed to generate feed for ${model.modelDir}.`)
     let feed = new Feed(feedSettings()) 
     let recents = await model.recent()
   
