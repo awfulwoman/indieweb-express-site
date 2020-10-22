@@ -6,6 +6,7 @@ const jsonGet = (model, options) => {
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
     try {
+      if (!model) throw new Error('model must be supplied')
       let results = await generateBaseFeed(model)
       res.contentType('application/json')
       res.send(results.json1())

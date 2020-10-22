@@ -9,7 +9,12 @@ const models = require('../../models')
 const model = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper} = require('../utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
+
+// 🗼 Syndication routes
+router.get(`/rss`, controllerFeedHelper.rssGet(models))
+router.get(`/json`, controllerFeedHelper.jsonGet(models))
+router.get(`/atom`, controllerFeedHelper.atomGet(models))
 
 // 🔓 Public routes 
 router.get(`/`, [], controllerContentHelper.readGet(model, {

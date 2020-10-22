@@ -3,8 +3,6 @@ const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:bandname')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 
-
-
 let modelCache = new Nodecache()
 
 const modelDir = 'bandnames'
@@ -79,4 +77,7 @@ const warm = async () => {
   return await cache.warm(modelCache, modelDir)
 }
 
-module.exports = { modelDir, fields, create, read, update, del, settings, recent, warm }
+module.exports = { 
+  modelDir, fields, settings,
+  create, read, update, del, recent, warm 
+}

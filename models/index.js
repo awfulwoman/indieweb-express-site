@@ -51,13 +51,13 @@ const recent = async (limit=20) => {
       }
     }
   
-    let sorted = orderBy(
+    let recentItemsSorted = orderBy(
       recentItems, 
       [v => v.data.created],
       ['desc']
       )
   
-    return sorted.slice(0, limit)
+    return recentItemsSorted.slice(0, limit)
   } catch (error) {
     throw error
   }
