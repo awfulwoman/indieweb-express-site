@@ -31,7 +31,7 @@ const readGet = (model, options) => {
 
     } catch (error) {
       debug(error)
-      throw new ErrorHandler('404', error)
+      throw new ErrorHandler('404', 'Could not find this content. Have you tried looking under the sofa?')
     }
   })
 }
