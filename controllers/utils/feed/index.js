@@ -1,3 +1,4 @@
 const rssGet = require('./rss.get')
+const jsonGet = require('./json.get')
 
-module.exports = {rssGet}
+module.exports = {rssGet, jsonGet}

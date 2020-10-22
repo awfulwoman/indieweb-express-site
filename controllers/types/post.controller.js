@@ -21,6 +21,7 @@ router.post(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deleteP
 
 // 🔓 Public routes 
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))
+router.get(`/${model.modelDir}/json`, controllerFeedHelper.jsonGet(model))
 // router.get(`/${model.modelDir}/json`, controllerRssHelper.rssGet(model))
 
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
