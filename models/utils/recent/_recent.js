@@ -1,8 +1,8 @@
 const debug = require('debug')('sonniesedge:model:utils:recent:_recent')
 const {orderBy} = require('natural-orderby');
-const {modelsList} = require('../../../models')
+const {modelsList} = require('../../types')
 
-const recent = async () => {
+const _recent = async () => {
   try {
     let recentItems = []
     for (let index = 0; index < modelsList.length; index++) {
@@ -26,4 +26,4 @@ const recent = async () => {
   }
 }
 
-module.exports = recent
+module.exports = _recent
