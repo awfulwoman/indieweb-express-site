@@ -9,7 +9,10 @@ const getYear = (model, options) => {
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
     try {
-      res.send('get Year archive')
+      res.render(options.template || 'page', {
+        data: {title: 'View a specific year of the archive'},
+        content: req.params.year
+      })
     } catch (error) {
       debug(error)
       throw new ErrorHandler('404', 'Could not find this content. Have you tried looking under the sofa?')
