@@ -8,7 +8,7 @@ const model = require('../../models/types/note.model')
 const static = require('../../models/types/static.model')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper, controllerArchiveHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
 
 // 🔐 Protected routes 
@@ -23,6 +23,12 @@ router.post(`/${model.modelDir}/:id/delete`, [], controllerContentHelper.deleteP
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))
 router.get(`/${model.modelDir}/json`, controllerFeedHelper.jsonGet(model))
 router.get(`/${model.modelDir}/atom`, controllerFeedHelper.atomGet(model))
+
+// 📜 Archives routes
+// router.get(`/${model.modelDir}/archive`, controllerArchiveHelper.rssGet(model))
+// router.get(`/${model.modelDir}/archive/:year`, controllerArchiveHelper.rssGet(model))
+// router.get(`/${model.modelDir}/archive/:year/:month`, controllerArchiveHelper.rssGet(model))
+// router.get(`/${model.modelDir}/archive/:year/:month/:day`, controllerArchiveHelper.rssGet(model))
 
 // 🔓 Public routes 
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
