@@ -1,4 +1,6 @@
-<h1>{{data.title}}</h1>
+{{!-- A generic page, for generic people --}}
+
+<h1 class="c-page-title">{{data.title}}</h1>
 <p>{{date data.created "dddd Do MMMM, YYYY"}}</p>
 
 {{>strapline value=data.strapline}}
@@ -25,7 +27,7 @@
 
 {{#if data.images}}
 {{#each data.images}}
-<img src="/{{storage}}/{{../id}}/{{this.file}}" alt="{{this.alt}}">
+<img src="/{{../storage}}/{{../id}}/{{this.file}}" alt="{{this.alt}}">
 {{/each}}
 {{/if}}
 

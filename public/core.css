@@ -25,6 +25,7 @@
   box-sizing: border-box;
 }
 
+
 body {
   font-family: "Roboto Slab", "Courier New", Courier, monospace;
   color: var(--text-color);
@@ -32,6 +33,7 @@ body {
   line-height: 1.5;
   margin: 0;
   padding: 0;
+  font-size: larger;
 }
 
 a:link {
@@ -57,6 +59,31 @@ h4,
 h5,
 h6 {
   font-weight: normal;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
 }
 
 img {
@@ -70,7 +97,7 @@ img {
   overflow-x: scroll;
   border: 2px solid white;
   padding: 15px;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 .c-footer {
@@ -87,12 +114,16 @@ img {
   padding: 5px;
 }
 
-.c-form > * {
-  margin-bottom: 2rem;
+.c-main > * + * {
+  margin-top: 1rem;
+}
+
+.c-form > * + * {
+  margin-top: 1rem;
 }
 
 .c-form details > * {
-  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .c-form-row {
@@ -171,4 +202,8 @@ img {
 
 .c-note {
   font-size: 3rem;
+}
+
+.c-page-title {
+  font-size: 4em;
 }
