@@ -1,5 +1,5 @@
 const debug = require('debug')('sonniesedge:models:utils:cache:warmAll')
-const modelsList = require('../../list-models')
+const {modelsList} = require('../../../models')
 
 const warmAll = async () => {
   try {

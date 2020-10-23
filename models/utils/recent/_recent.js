@@ -1,6 +1,6 @@
 const debug = require('debug')('sonniesedge:model:utils:recent:_recent')
 const {orderBy} = require('natural-orderby');
-const modelsList = require('../../list-models')
+const {modelsList} = require('../../../models')
 
 const recent = async () => {
   try {
