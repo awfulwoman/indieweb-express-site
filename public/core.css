@@ -90,6 +90,12 @@ img {
   max-width: 100%;
 }
 
+blockquote {
+  border-left: 8px solid var(--text-color);
+  padding-left: 1rem;
+  margin-left: 0.5rem;
+}
+
 .l-debug {
   max-width: var(--content-width);
   margin-left: auto;
