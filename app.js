@@ -3,6 +3,7 @@ const debug = require('debug')('sonniesedge:app');
 const path = require('path')
 const config = require('./config')
 const models = require('./models')
+const modelsWarmAll = require('./models/utils/cache/warm-all')
 const controllers = require('./controllers')
 
 // 🆔 Passport
@@ -88,5 +89,5 @@ app.listen(config.sitePort(), () => {
 
   // WARM CACHES
   // ------
-  models.warmAll()
+  modelsWarmAll()
 })
