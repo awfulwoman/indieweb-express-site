@@ -20,7 +20,7 @@ router.get(`/atom`, controllerFeedHelper.atomGet(models))
 router.get(`/`, [], controllerContentHelper.readGet(model, {
   id: 'root',
   index: true, 
-  children: models.recent,
+  children: models.globalRecentIndex,
   template: 'index'
 }))
 router.get(`/:id`, [], controllerContentHelper.readGet(model))

@@ -2,40 +2,43 @@ const debug = require('debug')('sonniesedge:models:utils:cache')
 const is = require('is_js')
 const config = require('../../config')
 const path = require('path')
-// const markdown = require('../../drivers/markdown')
-// const matter = require('gray-matter')
 const ErrorHandler = require('../../utilities/error-handler')
 const naturalSort = require('javascript-natural-sort')
 const fg = require('fast-glob');
 const read = require('./read')
 const alias = require('./alias')
-// const models = require(../models)
 
 // TODO: Split into separate files
 
-const list = async (modelCache, modelDir, limit = 20) => {
+const list = async (modelCache, modelDir, options = {}) => {
+  if (!options.limit) options.limit = 20
+
   try {
-    if (!modelCache) throw new Error('You must supply all params')
+    if (!modelCache || !modelDir) throw new Error('You must supply all params')
+    if (is.not.string(modelDir)) throw new Error('modelDir must be a string')
     if (is.not.object(modelCache)) throw new Error('cache must be an object')
 
     let keyList = modelCache.keys().slice().sort(naturalSort).reverse()
-
-    keyList = keyList.slice(0, limit)
-
     let results = []
+
     for (let item = 0; item < keyList.length; item++) {
       let result = modelCache.get(keyList[item])
+
+      if (result.data.private) continue
+      if (options.honorHideFromIndex && result.data.hideFromIndex) continue
+      if (options.honorHideFromFeed && result.data.hideFromFeed) continue
+
       result.dir = modelDir
       result.id = keyList[item]
       results.push(result)
     }
-    // debug(results)
+    results = results.slice(0, options.limit)
     return results
 
   } catch (error) {
     // TODO Add to error log
     debug(error)
-    if (error.code === 'ENOENT') { throw new ErrorHandler('404', 'File not found on disk') }
+    // if (error.code === 'ENOENT') { throw new ErrorHandler('404', 'File not found on disk') }
     throw error
   }
 }

@@ -8,10 +8,10 @@ const is = require('is_js')
 const generateBaseFeed = async (model) => {
   try {
     if (!model) throw new Error('Model must be supplied')
-    if (!model.recent) throw new Error('model must be a model object with a recent() function')
+    if (!model.recentFeed) throw new Error('model must be a model object with a recentFeed() function')
     if (is.falsy(model.settings.generateOwnRssFeed)) throw new Error(`Not allowed to generate feed for ${model.modelDir}.`)
     let feed = new Feed(feedSettings()) 
-    let recents = await model.recent()
+    let recents = await model.recentFeed()
   
     recents.forEach(item => {
       feed.addItem({

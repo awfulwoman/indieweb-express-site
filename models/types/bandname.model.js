@@ -48,7 +48,7 @@ const settings = {
   rss: true,
   listed: true,
   public: true,
-  generateOwnRssFeed: true,
+  generateOwnRssFeed: false,
   includeInMainRssFeed: true,
 }
 
@@ -68,8 +68,18 @@ const del = async function (id) {
   return await modelDelete(modelDir, modelCache, id)
 }
 
-const recent = async () => {
-  return await cache.list(modelCache, modelDir)
+const recentIndex = async () => {
+  debug('recentIndex')
+  return await cache.list(modelCache, modelDir, {
+    honorHideFromIndex: true
+  })
+}
+
+const recentFeed = async () => {
+  debug('recentFeed')
+  return await cache.list(modelCache, modelDir, {
+    honorHideFromFeed: true
+  })
 }
 
 const warm = async () => {
@@ -79,5 +89,5 @@ const warm = async () => {
 
 module.exports = { 
   modelDir, fields, settings,
-  create, read, update, del, recent, warm 
+  create, read, update, del, recentFeed, recentIndex, warm 
 }

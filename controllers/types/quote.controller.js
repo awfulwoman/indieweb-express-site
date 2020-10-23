@@ -28,7 +28,7 @@ router.get(`/${model.modelDir}/atom`, controllerFeedHelper.atomGet(model))
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
   id: model.modelDir, 
   index: true, 
-  children: model.recent, 
+  children: model.recentIndex, 
   template: 'index'
 }));
 router.get(`/${model.modelDir}/:id`, controllerContentHelper.readGet(model))

@@ -60,8 +60,16 @@ const del = async function (id) {
   return await modelDelete(modelDir, modelCache, id)
 }
 
-const recent = async () => {
-  return await cache.list(modelCache, modelDir)
+const recentIndex = async () => {
+  return await cache.list(modelCache, modelDir, {
+    honorHideFromIndex: true
+  })
+}
+
+const recentFeed = async () => {
+  return await cache.list(modelCache, modelDir, {
+    honorHideFromFeed: true
+  })
 }
 
 const warm = async () => {
@@ -69,4 +77,4 @@ const warm = async () => {
   return await cache.warm(modelCache, modelDir)
 }
 
-module.exports = { modelDir, fields, create, read, update, del, settings, recent, warm }
+module.exports = { modelDir, fields, create, read, update, del, settings, recentIndex, recentFeed, warm }

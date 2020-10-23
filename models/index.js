@@ -39,13 +39,14 @@ const warmAll = async () => {
   }
 }
 
-const recent = async (limit=20) => {
+const recent = async () => {
   try {
+    debug('called recent')
     let recentItems = []
 
     for (let index = 0; index < modelsArray.length; index++) {
-      if(modelsArray[index].recent) {
-        for (let [key, value] of Object.entries(await modelsArray[index].recent())) {
+      if(modelsArray[index].recentIndex) {
+        for (let [key, value] of Object.entries(await modelsArray[index].recentIndex())) {
           recentItems.push(value)
         }      
       }
@@ -56,12 +57,32 @@ const recent = async (limit=20) => {
       [v => v.data.created],
       ['desc']
       )
-  
-    return recentItemsSorted.slice(0, limit)
+
+    return recentItemsSorted
   } catch (error) {
+    debug(error)
     throw error
   }
-
 }
 
-module.exports = { list, warmAll, recent}
+const globalRecentIndex = async (limit=20) => {
+  try {
+    let results = await recent()
+    return results.slice(0, limit)
+  } catch (error) {
+    debug(error)
+    throw error
+  }
+}
+
+const globalRecentFeed = async (limit=20) => {
+  try {
+    let results = await recent()
+    return results.slice(0, limit)
+  } catch (error) {
+    debug(error)
+    throw error
+  }
+}
+
+module.exports = { list, warmAll, globalRecentIndex, globalRecentFeed}

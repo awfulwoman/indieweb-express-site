@@ -21,6 +21,7 @@ const modelRead = async (dir, cache, id) => {
 
     // The item is present in cache. Read from filesystem
     let result = await markdown.read(dir, id)
+    // debug(dir, id)
     let resultObject = matter(result)
 
     if (resultObject && resultObject.content) {
