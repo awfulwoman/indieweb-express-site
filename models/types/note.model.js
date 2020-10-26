@@ -2,12 +2,18 @@ const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:note')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-
+const { DateTime } = require('luxon')
 
 
 let modelCache = new Nodecache()
 
 const modelDir = 'notes'
+
+const defaultTitle = (datestamp) => {
+  let relativeDate = DateTime.fromISO(datestamp).toRelative()
+  let parsedDate = DateTime.local().toLocaleString({ locale: 'en-gb' });
+  return `A note from ${parsedDate}`
+}
 
 const fields = { // merge with global fields
   content: {
@@ -54,7 +60,9 @@ const create = async function (data, content, id) {
 }
 
 const read = async function (id) {
-  return await modelRead(modelDir, modelCache, id)
+  return await modelRead(modelDir, modelCache, id, {
+    defaultTitle: defaultTitle
+  })
 }
 
 /** @description Update a note item
@@ -85,7 +93,7 @@ const recentFeed = async () => {
 
 const warm = async () => {
   debug(`Warming ${modelDir} cache.`)
-  return await cache.warm(modelCache, modelDir)
+  return await cache.warm(modelCache, modelDir, null, {defaultTitle: defaultTitle})
 }
 
 module.exports = { modelDir, fields, create, read, update, del, settings, recentIndex, recentFeed, warm }
