@@ -19,7 +19,6 @@ const get = async function(aliasCache, alias) {
 }
 
 const set = async function(aliasCache, id, alias) {
-  // debug(aliasCache, id, alias)
   try {
     if (is.falsy(id) || is.falsy(alias)) throw new Error('You must supply all params')
     if (is.not.string(alias)) throw new Error('alias must be a string')

@@ -39,7 +39,6 @@ const modelRead = async (dir, cache, id, options = {}) => {
     }
 
     if (!resultObject.data.title) {
-      debug(options.defaultTitle(resultObject.data.created))
       resultObject.data.title = options.defaultTitle ? options.defaultTitle(resultObject.data.created) : defaultTitle(resultObject.data.created)
     }
 

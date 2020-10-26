@@ -93,7 +93,9 @@ const recentFeed = async () => {
 
 const warm = async () => {
   debug(`Warming ${modelDir} cache.`)
-  return await cache.warm(modelCache, modelDir, null, {defaultTitle: defaultTitle})
+  return await cache.warm(modelCache, modelDir, {
+    defaultTitle: defaultTitle
+  })
 }
 
 module.exports = { modelDir, fields, create, read, update, del, settings, recentIndex, recentFeed, warm }

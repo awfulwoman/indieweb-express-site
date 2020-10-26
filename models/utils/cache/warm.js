@@ -10,7 +10,7 @@ const alias = require('../alias')
 const defaultTitle = require('../default-title')
 
 
-const warm = async (modelCache, type, modelAliasCache, options = {}) => {
+const warm = async (modelCache, type, options = {}) => {
   let result = []
   try {
     if (!modelCache || !type) throw new Error('You must supply all params')
@@ -32,12 +32,15 @@ const warm = async (modelCache, type, modelAliasCache, options = {}) => {
   for (let index = 0; index < result.length; index++) {
     try {
       // debug(`Warming ${type}/${path.basename(result[index])}`)
+
       let passThruOptions = {}
       if (options.defaultTitle) passThruOptions.defaultTitle = options.defaultTitle
       let readData = await read(type, modelCache, path.basename(result[index]), passThruOptions)
-      if (readData.data.slug && modelAliasCache) {
-        await alias.set(modelAliasCache, path.basename(result[index]), readData.data.slug)
+
+      if (readData.data.slug && options.modelAliasCache) {
+        await alias.set(options.modelAliasCache, path.basename(result[index]), readData.data.slug)
       }
+
     } catch (error) {
       debug(error)
       // debug(`Error warming /${type}/${path.basename(result[index])}. Skipping.%o`, error)
