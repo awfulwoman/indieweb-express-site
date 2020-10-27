@@ -26,9 +26,9 @@ router.get(`/${model.modelDir}/atom`, controllerFeedHelper.atomGet(model))
 
 // 📜 Archives routes
 // router.get(`/${model.modelDir}/archive`, controllerArchiveHelper.getOverview(model))
-router.get(`/${model.modelDir}/archive/:year`, controllerArchiveHelper.getYear(model))
-router.get(`/${model.modelDir}/archive/:year/:month`, controllerArchiveHelper.getMonth(model))
-router.get(`/${model.modelDir}/archive/:year/:month/:day`, controllerArchiveHelper.getDay(model))
+router.get(`/${model.modelDir}/archive/:year`, controllerArchiveHelper(model))
+router.get(`/${model.modelDir}/archive/:year/:month`, controllerArchiveHelper(model))
+router.get(`/${model.modelDir}/archive/:year/:month/:day`, controllerArchiveHelper(model))
 
 // 🔓 Public routes 
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {

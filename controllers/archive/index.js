@@ -9,8 +9,8 @@ const models = require('../../models')
 const {controllerArchiveHelper} = require('../utils')
 
 // 🔓 Public routes 
-router.get(`/archive/:year`, controllerArchiveHelper.getYear(models))
-router.get(`/archive/:year/:month`, controllerArchiveHelper.getMonth(models))
-router.get(`/archive/:year/:month/:day`, controllerArchiveHelper.getDay(models))
+router.get(`/archive/:year`, controllerArchiveHelper(models))
+router.get(`/archive/:year/:month`, controllerArchiveHelper(models))
+router.get(`/archive/:year/:month/:day`, controllerArchiveHelper(models))
 
-  module.exports = router
+module.exports = router

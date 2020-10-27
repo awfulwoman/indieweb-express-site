@@ -3,8 +3,6 @@ const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:checkin')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 
-
-
 let modelCache = new Nodecache()
 
 const modelDir = 'checkins'
@@ -82,9 +80,26 @@ const recentFeed = async () => {
   })
 }
 
+/** @description Get index-visible archive items for this model in a particular date range
+ * @param {object} dateObj An object describing the date required.
+ * @param {integer} dateObj.year An integer representing a year
+ * @param {integer} dateObj.month An integer representing a month
+ * @param {integer} dateObj.day An integer representing a day
+ * @return {Promise<Array>} An array of item objects for that date
+ */
+const archiveIndex = async (dateObj) => {
+  let options = {
+    dateObj: dateObj
+  }
+  return await cache.list(modelCache, modelDir, options)
+}
+
 const warm = async () => {
   debug(`Warming ${modelDir} cache.`)
   return await cache.warm(modelCache, modelDir)
 }
 
-module.exports = { modelDir, fields, create, read, update, del, settings, recentIndex, recentFeed, warm }
+module.exports = { 
+  modelDir, fields, settings,
+  create, read, update, del, recentIndex, recentFeed, warm, archiveIndex
+}

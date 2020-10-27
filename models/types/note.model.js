@@ -80,22 +80,42 @@ const del = async function (id) {
 }
 
 const recentIndex = async () => {
-  return await cache.list(modelCache, modelDir, {
+  let options = {
     honorHideFromIndex: true
-  })
+  }
+  return await cache.list(modelCache, modelDir, options)
 }
 
 const recentFeed = async () => {
-  return await cache.list(modelCache, modelDir, {
+  let options = {
     honorHideFromFeed: true
-  })
+  }
+  return await cache.list(modelCache, modelDir, options)
+}
+
+/** @description Get index-visible archive items for this model in a particular date range
+ * @param {object} dateObj An object describing the date required.
+ * @param {integer} dateObj.year An integer representing a year
+ * @param {integer} dateObj.month An integer representing a month
+ * @param {integer} dateObj.day An integer representing a day
+ * @return {Promise<Array>} An array of item objects for that date
+ */
+const archiveIndex = async (dateObj) => {
+  let options = {
+    dateObj: dateObj
+  }
+  return await cache.list(modelCache, modelDir, options)
 }
 
 const warm = async () => {
   debug(`Warming ${modelDir} cache.`)
-  return await cache.warm(modelCache, modelDir, {
+  let options = {
     defaultTitle: defaultTitle
-  })
+  }
+  return await cache.warm(modelCache, modelDir, options)
 }
 
-module.exports = { modelDir, fields, create, read, update, del, settings, recentIndex, recentFeed, warm }
+module.exports = { 
+  modelDir, fields, settings,
+  create, read, update, del, recentIndex, recentFeed, warm, archiveIndex
+}
