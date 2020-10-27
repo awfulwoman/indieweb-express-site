@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controllers:utils:feed:feedGlobal')
+const debug = require('debug')('sonniesedge:controllers:utils:feed:feedBase')
 const feedSettings = require('./feed.settings')
 const Feed = require('feed').Feed
 const { DateTime } = require("luxon")
@@ -6,7 +6,6 @@ const is = require('is_js')
 
 
 const generateBaseFeed = async (model) => {
-  debug(model)
   try {
     if (!model) throw new Error('Model must be supplied')
     if (!model.recentFeed && !model.globalRecentFeed) throw new Error('model must be a model object with a recentFeed() or globalRecentFeed() function')

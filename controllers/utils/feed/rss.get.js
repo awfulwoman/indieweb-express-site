@@ -1,6 +1,6 @@
 const debug = require('debug')('sonniesedge:controllers:utils:feed:rssGet')
 const asyncHandler = require('express-async-handler')
-const generateBaseFeed = require('./feed.global')
+const generateBaseFeed = require('./feed.base')
 const ErrorHandler = require('../../../utilities/error-handler')
 
 const rssGet = (model, options) => {
