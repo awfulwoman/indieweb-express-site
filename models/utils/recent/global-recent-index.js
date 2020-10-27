@@ -1,5 +1,6 @@
 
 const debug = require('debug')('sonniesedge:model:utils:recent:globalRecentIndex')
+const {orderBy} = require('natural-orderby')
 const {modelsList} = require('../../types')
 
 const globalRecentIndex = async (limit=20) => {

@@ -1,16 +1,29 @@
 <h1>{{data.title}}</h1>
 
-
 {{{content}}}
 
-
 {{#if children}}
-  <section>
-    <h2>Related nodes</h2>
-    <ul>
-      {{#each children}}
-      <li><a href="/{{this.dir}}/{{#if this.data.slug}}{{this.data.slug}}{{else}}{{this.id}}{{/if}}">{{this.data.title}}</a> - {{date this.data.created "dddd Do MMMM, YYYY"}}</li>
-      {{/each}}
-    </ul>
-  </section>
+  {{#forOwn children}}
+    <h2>Year: {{@key}}</h2>
+    {{#forOwn this}}
+    <div>
+      <h3>Month: {{@key}}</h3>
+
+      <div>
+        {{#forOwn this}}
+        <h4>Day: {{@key}}</h4>
+
+        <ul>
+        {{#forOwn this}}
+          <li>
+            {{this.dir}} - <a href="/{{this.dir}}/{{#if this.data.slug}}{{this.data.slug}}{{else}}{{this.id}}{{/if}}">{{this.data.title}}</a> | {{date this.data.created "dddd Do MMMM, YYYY"}}
+          </li>
+        {{/forOwn}}
+        </ul>
+
+        {{/forOwn}}
+      </div>
+    </div>
+    {{/forOwn}}
+  {{/forOwn}}
 {{/if}}

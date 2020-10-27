@@ -77,15 +77,16 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 
 // Boot app
 app.listen(config.sitePort(), () => {
-  debug(`-----------------------------------------------------`)
-  debug(`BOOTING`)
-  debug(`-----------------------------------------------------`)
+  console.log(`-----------------------------------------------------`)
+  console.log(`BOOTING`)
+  console.log(`-----------------------------------------------------`)
   // TODO: Check that content and data dirs exist at boot
-  debug(`App booted and running at ${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`)
+  console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
+  console.log(`App booted and running at ${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`)
   for (const [key, value] of Object.entries(config)) {
-    debug(`${key}: ${value()}`);
+    console.log(`${key}: ${value()}`);
   }
-  debug(`-----------------------------------------------------`)
+  console.log(`-----------------------------------------------------`)
 
   // WARM CACHES
   // ------

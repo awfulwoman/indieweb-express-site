@@ -3,7 +3,7 @@ const debug = require('debug')('sonniesedge:model:utils:recent:globalArchiveInde
 const {orderBy} = require('natural-orderby')
 const {modelsList} = require('../../types')
 
-const globalArchiveIndex = async (dateObj, limit=20) => {
+const globalArchiveIndex = async (dateObj) => {
   try {
     let recentItems = []
     for (let index = 0; index < modelsList.length; index++) {
@@ -20,7 +20,7 @@ const globalArchiveIndex = async (dateObj, limit=20) => {
       ['desc']
       )
 
-    return recentItemsSorted.slice(0, limit)
+    return recentItemsSorted
   } catch (error) {
     debug(error)
     throw error
