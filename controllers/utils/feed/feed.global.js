@@ -6,12 +6,12 @@ const is = require('is_js')
 
 
 const generateBaseFeed = async (model) => {
+  debug(model)
   try {
     if (!model) throw new Error('Model must be supplied')
-    if (!model.recentFeed) throw new Error('model must be a model object with a recentFeed() function')
-    if (is.falsy(model.settings.generateOwnRssFeed)) throw new Error(`Not allowed to generate feed for ${model.modelDir}.`)
+    if (!model.recentFeed && !model.globalRecentFeed) throw new Error('model must be a model object with a recentFeed() or globalRecentFeed() function')
     let feed = new Feed(feedSettings()) 
-    let recents = await model.recentFeed()
+    let recents = model.globalRecentFeed ? await model.globalRecentFeed() : await model.recentFeed()
   
     recents.forEach(item => {
       feed.addItem({

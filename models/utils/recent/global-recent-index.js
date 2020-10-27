@@ -1,13 +1,25 @@
 
 const debug = require('debug')('sonniesedge:model:utils:recent:globalRecentIndex')
-const _recent = require('./_recent')
+const {modelsList} = require('../../types')
 
 const globalRecentIndex = async (limit=20) => {
-  debug('globalRecentIndex called')
-  debug(_recent)
   try {
-    let results = await _recent()
-    return results.slice(0, limit)
+    let recentItems = []
+    for (let index = 0; index < modelsList.length; index++) {
+      if(modelsList[index].recentIndex) {
+        for (let [key, value] of Object.entries(await modelsList[index].recentIndex())) {
+          recentItems.push(value)
+        }      
+      }
+    }
+  
+    let recentItemsSorted = orderBy(
+      recentItems, 
+      [v => v.data.created],
+      ['desc']
+      )
+
+    return recentItemsSorted.slice(0, limit)
   } catch (error) {
     debug(error)
     throw error
