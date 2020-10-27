@@ -4,8 +4,9 @@ const {markdown} = require('../../drivers')
 const matter = require('gray-matter')
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
+const defaultTitle = require('../utils/default-title')
 
-const modelRead = async (dir, cache, id) => {
+const modelRead = async (dir, cache, id, options = {}) => {
   try {
     if (!dir || !id || !cache) throw new Error('You must supply all params')
     if (!id) throw new Error('id must be supplied')
@@ -35,6 +36,10 @@ const modelRead = async (dir, cache, id) => {
         sectionData.rendered = md.render(sectionData.content)
         resultObject.sections.push(sectionData)
       }
+    }
+
+    if (!resultObject.data.title) {
+      resultObject.data.title = options.defaultTitle ? options.defaultTitle(resultObject.data.created) : defaultTitle(resultObject.data.created)
     }
 
     resultObject.id = id
