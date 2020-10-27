@@ -3,35 +3,8 @@ const asyncHandler = require('express-async-handler')
 const ErrorHandler = require('../../../utilities/error-handler')
 const is = require('is_js')
 const { DateTime } = require('luxon')
-
-const arrayToDatedObj = (items) => {
-  // debug(items)
-  let datedObj = {}
-  for (const item of items) {
-    // debug('Item: ', `${item.dir}/${item.id}`)
-    if (is.falsy(item.data.created)) continue
-    let itemYear = DateTime.fromISO(item.data.created).toFormat('yyyy')
-    let itemMonth = DateTime.fromISO(item.data.created).toFormat('MM')
-    let itemDay = DateTime.fromISO(item.data.created).toFormat('dd')
-
-    if (!datedObj[itemYear]) {
-      // debug('Creating year: ', itemYear)
-      datedObj[itemYear] = {}
-    }
-    if (!datedObj[itemYear][itemMonth]) {
-      // debug('Creating month: ', `${itemYear}/${itemMonth}`)
-      datedObj[itemYear][itemMonth] = {}
-    }
-    if (!datedObj[itemYear][itemMonth][itemDay]) {
-      // debug('Creating day: ', `${itemYear}/${itemMonth}/${itemDay}`)
-      datedObj[itemYear][itemMonth][itemDay] = []
-    }
-
-    datedObj[itemYear][itemMonth][itemDay].push(item)
-
-  }
-  return datedObj
-}
+const arrayToArchive = require('../../../utilities/array-to-archive')
+const monthNameToMonthNumber = require('../../../utilities/month-name-to-month-number')
 
 const controllerArchiveHelper = (model, options) => {
   options || (options = {});
@@ -49,12 +22,9 @@ const controllerArchiveHelper = (model, options) => {
       if (is.existy(req.params.day) && is.not.integer(req.params.day) && is.not.string(req.params.day))
         throw new Error('day parameter must be an integer or string')
 
-      // debug(req.params.month)
-      // debug(DateTime.fromFormat(req.params.month, req.params.month.length === 3 ? 'LLL' : 'LLLL').toFormat('LL'))
-
       // Convert parameters to integers
       if (req.params.year) incomingDate.year = parseInt(req.params.year)
-      if (req.params.month) incomingDate.month = parseInt(DateTime.fromFormat(req.params.month, req.params.month.length === 3 ? 'LLL' : 'LLLL').toFormat('LL'))
+      if (req.params.month) incomingDate.month = monthNameToMonthNumber(req.params.month)
       if (req.params.day) incomingDate.day = parseInt(req.params.day)
 
       // Check converted values
@@ -62,17 +32,7 @@ const controllerArchiveHelper = (model, options) => {
       if (is.existy(incomingDate.month) && is.not.integer(incomingDate.month)) throw new Error(`month could be converted to an integer. Got ${incomingDate.month}`)
       if (is.existy(incomingDate.day) && is.not.integer(incomingDate.day)) throw new Error('day could not be converted to an integer')
 
-
-      // debug('incomingDate: ', incomingDate)
-
       let archiveResults = model.globalArchiveIndex ? await model.globalArchiveIndex(incomingDate, false) : await model.archiveIndex(incomingDate, false)
-      // debug(archiveResults)
-
-      // TODO: Transform array of archive items into object keyed with year objects,
-      // each year object has a key for each viable month
-      // each month has a key for each viable day
-
-
 
       // Build human-readable datestring
       let dateString = 'yyyy'
@@ -80,10 +40,7 @@ const controllerArchiveHelper = (model, options) => {
       if (incomingDate.day) dateString = 'd LLLL yyyy'
 
       let humanDateTime = DateTime.fromObject(incomingDate).toFormat(dateString)
-
-      // debug('archiveResults', archiveResults)
-      let resultsObj = arrayToDatedObj(archiveResults)
-      // debug('resultsObj', resultsObj)
+      let resultsObj = arrayToArchive(archiveResults)
 
       res.render(options.template || 'archive', {
         data: { title: `Archive results for ${humanDateTime}` },
