@@ -25,10 +25,10 @@ router.get(`/${model.modelDir}/json`, controllerFeedHelper.jsonGet(model))
 router.get(`/${model.modelDir}/atom`, controllerFeedHelper.atomGet(model))
 
 // 📜 Archives routes
-// router.get(`/${model.modelDir}/archive`, controllerArchiveHelper.rssGet(model))
-// router.get(`/${model.modelDir}/archive/:year`, controllerArchiveHelper.rssGet(model))
-// router.get(`/${model.modelDir}/archive/:year/:month`, controllerArchiveHelper.rssGet(model))
-// router.get(`/${model.modelDir}/archive/:year/:month/:day`, controllerArchiveHelper.rssGet(model))
+// router.get(`/${model.modelDir}/archive`, controllerArchiveHelper.getOverview(model))
+router.get(`/${model.modelDir}/archive/:year`, controllerArchiveHelper.getYear(model))
+router.get(`/${model.modelDir}/archive/:year/:month`, controllerArchiveHelper.getMonth(model))
+router.get(`/${model.modelDir}/archive/:year/:month/:day`, controllerArchiveHelper.getDay(model))
 
 // 🔓 Public routes 
 router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
