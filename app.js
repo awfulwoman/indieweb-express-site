@@ -1,5 +1,5 @@
 require('dotenv').config()
-const debug = require('debug')('sonniesedge:app');
+const debug = require('debug')('sonniesedge:app')
 const path = require('path')
 const chalk = require('chalk')
 const config = require('./config')
@@ -54,7 +54,6 @@ app.use(passport.session()) // Restore Passport's authentication state, if any, 
 
 app.use(renderUsers) // Make user info available to every render
 app.use(renderDebug) // Make debug status available to every render
-// app.use(renderNodeTypes);
 
 // LOGGING
 // ------

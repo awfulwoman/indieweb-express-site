@@ -7,14 +7,12 @@
       </svg>
     </div>
 
+
     <div>
       <ul class="c-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/posts/">Posts</a></li>
-        <li><a href="/notes/">Notes</a></li>
-        <li><a href="/bookmarks/">Bookmarks</a></li>
-        <li><a href="/contact/">Contact</a></li>
+        {{#each nav}}
+          <li><a href="{{this.path}}" class=" {{this.activeClass}}">{{this.text}}</a></li>
+        {{/each}}
       </ul>
     </div>
 
