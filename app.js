@@ -1,6 +1,7 @@
 require('dotenv').config()
 const debug = require('debug')('sonniesedge:app');
 const path = require('path')
+const chalk = require('chalk')
 const config = require('./config')
 const models = require('./models')
 const modelsWarmAll = require('./models/utils/cache/warm-all')
@@ -77,16 +78,18 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 
 // Boot app
 app.listen(config.sitePort(), () => {
-  console.log(`-----------------------------------------------------`)
-  console.log(`BOOTING`)
-  console.log(`-----------------------------------------------------`)
+  console.log(chalk.blue.bold(`----------------------------------------------------------`))
+  console.log(chalk.blue.bold(`| `) + chalk.bold(`BOOTING`))
+  console.log(chalk.blue.bold(`|---------------------------------------------------------`))
   // TODO: Check that content and data dirs exist at boot
-  console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
-  console.log(`App booted and running at ${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`)
+  console.log(chalk.blue.bold(`| `) + chalk.bold.green(`NODE_ENV: `) + chalk.bold(`${process.env.NODE_ENV}`))
+  
   for (const [key, value] of Object.entries(config)) {
-    console.log(`${key}: ${value()}`);
+    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`${key}: `) +  chalk(`${value()}`))
   }
-  console.log(`-----------------------------------------------------`)
+
+  console.log(chalk.blue.bold(`| `) + chalk.bold.green(`App URL: `) + chalk.bold(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`))
+  console.log(chalk.blue.bold(`----------------------------------------------------------`))
 
   // WARM CACHES
   // ------
