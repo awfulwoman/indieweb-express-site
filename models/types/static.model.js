@@ -36,4 +36,7 @@ const read = async function (id) {
   return await modelRead(modelDir, modelCache, id)
 }
 
-module.exports = { modelDir, fields, read, settings }
+module.exports = { 
+  modelDir, fields, settings,
+  read
+}
