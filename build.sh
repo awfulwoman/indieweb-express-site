@@ -2,7 +2,6 @@
 
 APPDIR=$1
 cd $APPDIR
-nvm use
 
 echo "Copying env vars..."
 cp ../.env .env
