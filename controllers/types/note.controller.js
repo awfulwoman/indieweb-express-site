@@ -38,7 +38,7 @@ router.get(`/${model.modelDir}`, [renderNav], controllerContentHelper.readGet(st
   children: model.recentIndex, 
   template: 'index'
 }));
-router.get(`/${model.modelDir}/:id`, controllerContentHelper.readGet(model, {template: 'types/note'}))
+router.get(`/${model.modelDir}/:id`, [renderNav], controllerContentHelper.readGet(model, {template: 'types/note'}))
 router.get(`/${model.modelDir}/:id/:file`, [], controllerFileHelper.readGet(model))
 router.get(`/${model.modelDir}/:id/:file/:size`, [], controllerFileHelper.readGet(model))
 
