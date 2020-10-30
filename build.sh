@@ -4,7 +4,7 @@ APPDIR=$1
 cd $APPDIR
 
 echo "Copying env vars..."
-cp ../.env .env
+# cp ../.env .env
 
 echo "Remove existing node_modules..."
 rm -rf node_modules
