@@ -3,15 +3,14 @@ const is = require('is_js')
 
 const get = async function(aliasCache, alias) {
   try {
-    debug('called')
     if (is.not.string(alias)) throw new Error('alias must be a string') 
     if(!aliasCache.has(alias)) {
       debug(`No id for ${alias} found.`)
       return alias
     }
-    let aliasEmitted = aliasCache.get(alias)
-    debug('alias emitted: ', aliasEmitted)
-    return aliasEmitted
+    let resolvedAlias = aliasCache.get(alias)
+    debug(`Id of ${resolvedAlias} found for '${alias}' alias`)
+    return resolvedAlias
   } catch (error) {
     throw error
   }
