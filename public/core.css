@@ -12,7 +12,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background-color: #111416;
-    --text-color: #ccc;
+    --text-color: #fff;
     --link-color: #f96;
     --link-color-visited: #82eb20;
     --link-color-hover: #c25309;
