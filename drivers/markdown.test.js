@@ -28,7 +28,7 @@ describe('Check for empty parameters ', () => {
     await expect(markdown.update()).rejects.toThrow('markdown.update: Missing parameters');
   });
   test('Delete: Empty params', async () => {
-    await expect(markdown.delete()).rejects.toThrow('markdown.delete: Missing parameters');
+    await expect(markdown.del()).rejects.toThrow('markdown.del: Missing parameters');
   });
 });
 
@@ -58,11 +58,11 @@ describe('Check for correct type of parameters ', () => {
   });
 
   test('Delete: non-string params', async () => {
-    await expect(markdown.delete({}, {}, {})).rejects.toThrow('markdown.delete: Parameters must be supplied as strings');
+    await expect(markdown.del({}, {}, {})).rejects.toThrow('markdown.del: Parameters must be supplied as strings');
   });
 
   test('Delete: non-string params', async () => {
-    await expect(markdown.delete(1, 1, 1)).rejects.toThrow('markdown.delete: Parameters must be supplied as strings');
+    await expect(markdown.del(1, 1, 1)).rejects.toThrow('markdown.del: Parameters must be supplied as strings');
   });
 
 });

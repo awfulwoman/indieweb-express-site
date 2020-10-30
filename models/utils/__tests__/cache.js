@@ -82,11 +82,11 @@ describe('Checking model cache', () => {
   })
 
   test('Test cache lists 10 entries in descending order', async () => {
-    await expect(cache.list(testCache1)).resolves.toMatchObject(testCache1Result)
+    await expect(cache.list(testCache1, 'testType')).resolves.toMatchObject(testCache1Result)
   });
 
   test('Test cache lists 10 complex entries in descending order', async () => {
-    await expect(cache.list(testCache2)).resolves.toMatchObject(testCache2Result)
+    await expect(cache.list(testCache2, 'testType')).resolves.toMatchObject(testCache2Result)
   });
 
 })

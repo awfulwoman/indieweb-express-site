@@ -1,5 +1,5 @@
 const mock = require('mock-fs')
-const note = require('../note.model');
+const note = require('../types/note.model');
 const path = require('path')
 const config = require('../../config')
 
