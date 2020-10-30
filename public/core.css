@@ -186,24 +186,22 @@ blockquote {
   flex-wrap: wrap;
 }
 
-.c-nav a:link {
+.c-nav-item {
   font-weight: bold;
   text-decoration: none;
   color: var(--link-color);
   padding: 5px;
+  border-bottom-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
 }
 
-.c-nav a:visited {
-  color: var(--link-color-visited);
-}
-
-.c-nav a:hover {
-  color: var(--link-color-hover);
-  text-decoration: underline;
-}
-
-.c-nav a:action {
-  color: var(--link-color-action);
+.c-nav-item__active {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--link-color);
+  padding: 5px;
+  border-bottom-color: var(--link-color);
 }
 
 .c-note {

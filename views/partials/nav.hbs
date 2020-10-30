@@ -13,7 +13,7 @@
     <div>
       <ul class="c-nav">
         {{#each nav}}
-          <li><a href="{{this.path}}" class=" {{this.activeClass}}">{{this.text}}</a></li>
+          <li><a href="{{this.path}}" class="c-nav-item {{#if this.active}}c-nav-item__active{{/if}}">{{this.text}}</a></li>
         {{/each}}
       </ul>
     </div>

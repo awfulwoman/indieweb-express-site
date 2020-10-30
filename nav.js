@@ -1,6 +1,7 @@
 const debug = require('debug')('sonniesedge:nav')
 
-const nav = (currentId) => {
+const nav = (originalUrl) => {
+
   let baseNavList = [
     {
       path: '/about',
@@ -24,11 +25,11 @@ const nav = (currentId) => {
     }
   ]
 
-for (const item of baseNavList) {
-  if (item.path === `/${currentId}`) {
-    item.activeClass = 'active'
+  let urlPathArray = originalUrl.substring(1).split('/')
+
+  for (const item of baseNavList) {
+    if (item.path == `/${urlPathArray[0]}`) item.active = true
   }
-}
 
   return baseNavList
 }
