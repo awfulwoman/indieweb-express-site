@@ -111,5 +111,5 @@ const warm = async () => {
 
 module.exports = { 
   modelDir, fields, settings,
-  create, read, update, del, recentIndex, recentFeed, warm, archiveIndex
+  create, read, update, del, recentIndex, recentFeed, warm, archiveIndex, resolveAlias
 }
