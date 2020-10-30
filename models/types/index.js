@@ -1,7 +1,7 @@
 
 let note = require('./note.model')
 let bookmark = require('./bookmark.model')
-let static = require('./static.model')
+let page = require('./page.model')
 let checkin = require('./checkin.model')
 let like = require('./like.model')
 let reply = require('./reply.model')
@@ -12,7 +12,7 @@ let photo = require('./photo.model')
 let post = require('./post.model')
 
 const modelsList = [
-  note, bookmark, static, checkin,
+  note, bookmark, page, checkin,
   like, reply, quote, bandname,
   repost, photo, post
 ]

@@ -5,7 +5,7 @@ const router = express.Router()
 
 // 💅 Models
 const model = require('../../models/types/note.model')
-const static = require('../../models/types/static.model')
+const page = require('../../models/types/page.model')
 const renderNav = require('../../middleware/render-nav')
 
 // 🖕 Middleware
@@ -32,7 +32,7 @@ router.get(`/${model.modelDir}/archive/:year/:month`, controllerArchiveHelper(mo
 router.get(`/${model.modelDir}/archive/:year/:month/:day`, controllerArchiveHelper(model))
 
 // 🔓 Public routes 
-router.get(`/${model.modelDir}`, [renderNav], controllerContentHelper.readGet(static, {
+router.get(`/${model.modelDir}`, [renderNav], controllerContentHelper.readGet(page, {
   id: model.modelDir, 
   index: true, 
   children: model.recentIndex, 

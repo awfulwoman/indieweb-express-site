@@ -1,6 +1,6 @@
 const bookmark = require('./types/bookmark.controller')
 const note = require('./types/note.controller')
-const static = require('./types/static.controller')
+const page = require('./types/page.controller')
 const bandname = require('./types/bandname.controller')
 const like = require('./types/like.controller')
 const photo = require('./types/photo.controller')
@@ -13,6 +13,6 @@ const archive = require('./archive')
 
 
 // Routes are applied in this order. 
-// Therefore static should always be last, as it operates at a higher path level than the others
+// Therefore page should always be last, as it operates at a higher path level than the others
 // e.g. /notes/1234 should take priority over /about/image.jpg
-module.exports = [bookmark, note, bandname, post, like, photo, quote, reply, repost, archive, static]
+module.exports = [bookmark, note, bandname, post, like, photo, quote, reply, repost, archive, page]

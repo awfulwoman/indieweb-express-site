@@ -5,7 +5,7 @@ const router = express.Router()
 
 // 💅 Models
 const model = require('../../models/types/reply.model')
-const static = require('../../models/types/static.model')
+const page = require('../../models/types/page.model')
 const renderNav = require('../../middleware/render-nav')
 
 // 🖕 Middleware
@@ -26,7 +26,7 @@ router.get(`/${model.modelDir}/json`, controllerFeedHelper.jsonGet(model))
 router.get(`/${model.modelDir}/atom`, controllerFeedHelper.atomGet(model))
 
 // 🔓 Public routes 
-router.get(`/${model.modelDir}`, controllerContentHelper.readGet(static, {
+router.get(`/${model.modelDir}`, controllerContentHelper.readGet(page, {
   id: model.modelDir, 
   index: true, 
   children: model.recentIndex, 

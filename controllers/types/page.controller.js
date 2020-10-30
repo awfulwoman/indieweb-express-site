@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controller:static')
+const debug = require('debug')('sonniesedge:controller:page')
 
 // 🏃‍♀️💨 Express
 const express = require('express')
@@ -6,7 +6,7 @@ const router = express.Router()
 
 // 💅 Models
 const models = require('../../models')
-const model = require('../../models/types/static.model')
+const model = require('../../models/types/page.model')
 const renderNav = require('../../middleware/render-nav')
 
 // 🖕 Middleware
