@@ -39,10 +39,11 @@ jobs:
       run: 'touch .env'
       shell: bash
     - name: Write environment secrets to app .env file
-      run: 'echo "DATA_DIR=$DATA_DIR" >> .env'
-      run: 'echo "CONTENT_DIR=$CONTENT_DIR" >> .env'
-      run: 'echo "TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY" >> .env'
-      run: 'echo "TWITTER_CONSUMER_SECRET=$TWITTER_CONSUMER_SECRET" >> .env'
+      run: 
+        'echo "DATA_DIR=$DATA_DIR" >> .env'
+        'echo "CONTENT_DIR=$CONTENT_DIR" >> .env'
+        'echo "TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY" >> .env'
+        'echo "TWITTER_CONSUMER_SECRET=$TWITTER_CONSUMER_SECRET" >> .env'
       shell: bash
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5
