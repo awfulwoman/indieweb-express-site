@@ -35,6 +35,9 @@ jobs:
     steps:
     - name: Checkout code from ${{ github.repository }}
       uses: actions/checkout@v2
+    - name: Write .env to file
+      run: 'echo "$APPDIR" > appdir.test.txt'
+      shell: bash
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
