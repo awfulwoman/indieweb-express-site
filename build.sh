@@ -16,6 +16,6 @@ npm ci
 
 
 # pm2 restart app
-pm2 start ecosystem.config.js
+# pm2 stop all
 pm2 save
-# pm2 restart
+pm2 restart ecosystem.config.js

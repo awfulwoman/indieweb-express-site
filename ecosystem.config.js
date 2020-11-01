@@ -2,7 +2,7 @@
 
 module.exports = {
   apps : [{
-    name   : 'Sonnie Site',
+    name   : 'whalecoiner',
     script : './app.js',
     'NODE_ENV': 'production' // set up as a production server
   }]
