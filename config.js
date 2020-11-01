@@ -3,8 +3,8 @@ const appRootPackage = require('app-root-path');
 const path = require('path')
 
 const appRoot = () => appRootPackage.path
-const dataRoot = () => process.env['DATAROOT'] || path.join(appRoot(), 'example', 'data')
-const contentRoot = () => process.env['CONTENTROOT'] || path.join(appRoot(), 'example', 'content')
+const dataRoot = () => process.env['DATA_DIR'] || path.join(appRoot(), 'example', 'data')
+const contentRoot = () => process.env['CONTENT_DIR'] || path.join(appRoot(), 'example', 'content')
 const siteTitle = () => 'sonniesedge'
 const siteDescription = () => 'Charlie Owen and her owned content'
 const sitePort = () => process.env['SITEPORT'] || '3000'
