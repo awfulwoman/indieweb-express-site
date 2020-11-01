@@ -114,9 +114,11 @@ try {
 
   const emergencyApp = express();
   emergencyApp.get('/', (req, res) => {
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'text/plain');
     res.send('Fatal server initialization error.')
   })
-  
+
   emergencyApp.listen(config.sitePort(), () => {
     console.log(`emergencyApp listening at http://localhost:${config.sitePort()}`)
   })
