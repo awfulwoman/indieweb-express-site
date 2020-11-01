@@ -116,7 +116,7 @@ try {
   emergencyApp.get('/', (req, res) => {
     res.statusCode = 500;
     res.setHeader('Content-Type', 'text/plain');
-    res.error(error)
+    res.json(error)
   })
 
   emergencyApp.listen(config.sitePort(), () => {
