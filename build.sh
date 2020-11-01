@@ -14,8 +14,7 @@ npm ci
 
 # Build assets like Sass
 
-
-# pm2 restart app
-# pm2 stop all
+pm2 stop ecosystem.config.js
+pm2 delete ecosystem.config.js
+pm2 start ecosystem.config.js
 pm2 save
-pm2 restart ecosystem.config.js
