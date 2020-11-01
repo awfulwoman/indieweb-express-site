@@ -1,6 +1,7 @@
 require('dotenv').config()
 const debug = require('debug')('sonniesedge:app')
 const path = require('path')
+const is = require('is_js')
 const chalk = require('chalk')
 const config = require('./config')
 const models = require('./models')
@@ -8,10 +9,10 @@ const modelsWarmAll = require('./models/utils/cache/warm-all')
 const controllers = require('./controllers')
 
 // 🆔 Passport
-const passport = require('./passport');
+const passport = require('./passport')
 
 // ⛩ Handlebars
-const hbs = require('express-handlebars');
+const hbs = require('express-handlebars')
 const customHelpers= require('./helpers')
 const hbsHelpers = require('handlebars-helpers')()
 
@@ -48,9 +49,12 @@ app.engine('hbs', hbs({
 
 // AUTHENTICATION + SESSIONS
 // -----------------------
-app.use(require('express-session')({ secret: '76tttrs3%tskn£%knjhbhcfdxsewaer4trytuiuhk$', resave: true, saveUninitialized: true }));
-app.use(passport.initialize()) // Initialize Passport in Express.
-app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
+app.use(require('express-session')({ secret: '76tttrs3%tskn£%knjhbhcfdxsewaer4trytuiuhk$', resave: true, saveUninitialized: true }))
+
+if (passport.initialize) {
+  app.use(passport.initialize()) // Initialize Passport in Express.
+  app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
+}
 
 app.use(renderUsers) // Make user info available to every render
 app.use(renderDebug) // Make debug status available to every render

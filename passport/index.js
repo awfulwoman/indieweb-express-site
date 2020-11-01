@@ -9,6 +9,7 @@ const constructOauthCallbackUrl = function (strategy) {
   return result;
 }
 
+if (!process.env['TWITTER_CONSUMER_KEY'] || !process.env['TWITTER_CONSUMER_SECRET']) return
 
 // Set options
 const passportTwitterOptions = {
