@@ -109,14 +109,14 @@ try {
     modelsWarmAll()
   })
 
-} catch (err) {
-  console.log(chalk.bold.red(`ERROR: `), err)
+} catch (error) {
+  console.log(chalk.bold.red(`ERROR: `), error)
 
   const emergencyApp = express();
   emergencyApp.get('/', (req, res) => {
     res.statusCode = 500;
     res.setHeader('Content-Type', 'text/plain');
-    res.send('Fatal server initialization error.')
+    res.error(error)
   })
 
   emergencyApp.listen(config.sitePort(), () => {
