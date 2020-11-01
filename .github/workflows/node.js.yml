@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      node_version: 14.15.0
+      NODE_VERSION: 14.15.0
       APPDIR: ${{ secrets.SERVER_DIR }}
 
     steps:
     - name: Checkout code from ${{ github.repository }}
       uses: actions/checkout@v2
-    - name: Use Node.js ${{ env.node_version }}
+    - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1.4.4
       with:
-        node_version: ${{ env.node_version }}
+        node-version: ${{ env.NODE_VERSION }}
     - name: Install app dependencies
       run: npm ci
     - name: Run app tests
