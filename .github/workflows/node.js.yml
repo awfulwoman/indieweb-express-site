@@ -30,6 +30,7 @@ jobs:
 
   # Job 2: Deploy the app
   deploy-app:
+    needs: run-tests
     runs-on: ubuntu-latest
 
     steps:
