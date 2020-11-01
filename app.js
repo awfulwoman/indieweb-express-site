@@ -2,6 +2,7 @@ require('dotenv').config()
 const debug = require('debug')('sonniesedge:app')
 const path = require('path')
 const is = require('is_js')
+const fs = require('fs')
 const chalk = require('chalk')
 const config = require('./config')
 const models = require('./models')
@@ -13,7 +14,7 @@ const passport = require('./passport')
 
 // ⛩ Handlebars
 const hbs = require('express-handlebars')
-const customHelpers= require('./helpers')
+const customHelpers = require('./helpers')
 const hbsHelpers = require('handlebars-helpers')()
 
 // 🏃‍♀️💨 Express
@@ -51,7 +52,7 @@ app.engine('hbs', hbs({
 // -----------------------
 app.use(require('express-session')({ secret: '76tttrs3%tskn£%knjhbhcfdxsewaer4trytuiuhk$', resave: true, saveUninitialized: true }))
 
-if (passport.initialize) {
+if (is.truthy(passport) && passport.initialize && passport.session) {
   app.use(passport.initialize()) // Initialize Passport in Express.
   app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
 }
@@ -78,23 +79,46 @@ app.use('/', [controllers])
 app.use((err, req, res, next) => handleErrors(err, req, res, next)) // Handle any custom errors
 app.use((req, res, next) => handle404(req, res, next)) // Handle anything else as a 404
 
-
-// Boot app
-app.listen(config.sitePort(), () => {
-  console.log(chalk.blue.bold(`----------------------------------------------------------`))
-  console.log(chalk.blue.bold(`| `) + chalk.bold(`BOOTING`))
-  console.log(chalk.blue.bold(`|---------------------------------------------------------`))
-  // TODO: Check that content and data dirs exist at boot
-  console.log(chalk.blue.bold(`| `) + chalk.bold.green(`NODE_ENV: `) + chalk.bold(`${process.env.NODE_ENV}`))
-  
-  for (const [key, value] of Object.entries(config)) {
-    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`${key}: `) +  chalk(`${value()}`))
+try {
+  // Check to make sure working dirs exist
+  if (!fs.existsSync(config.contentRoot())) {
+    throw new Error(`Could not find ${config.contentRoot()}`)
   }
 
-  console.log(chalk.blue.bold(`| `) + chalk.bold.green(`App URL: `) + chalk.bold(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`))
-  console.log(chalk.blue.bold(`----------------------------------------------------------`))
+  if (!fs.existsSync(config.dataRoot())) {
+    throw new Error(`Could not find ${config.dataRoot()}`)
+  }
 
-  // WARM CACHES
-  // ------
-  modelsWarmAll()
-})
+  // Boot app
+  app.listen(config.sitePort(), () => {
+    console.log(chalk.blue.bold(`----------------------------------------------------------`))
+    console.log(chalk.blue.bold(`| `) + chalk.bold(`BOOTING`))
+    console.log(chalk.blue.bold(`|---------------------------------------------------------`))
+    // TODO: Check that content and data dirs exist at boot
+    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`NODE_ENV: `) + chalk.bold(`${process.env.NODE_ENV}`))
+
+    for (const [key, value] of Object.entries(config)) {
+      console.log(chalk.blue.bold(`| `) + chalk.bold.green(`${key}: `) + chalk(`${value()}`))
+    }
+
+    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`App URL: `) + chalk.bold(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`))
+    console.log(chalk.blue.bold(`----------------------------------------------------------`))
+
+    // WARM CACHES
+    // ------
+    modelsWarmAll()
+  })
+
+} catch (err) {
+  console.log(chalk.bold.red(`ERROR: `), err)
+
+  const emergencyApp = express();
+  emergencyApp.get('/', (req, res) => {
+    res.send('Fatal server initialization error.')
+  })
+  
+  emergencyApp.listen(config.sitePort(), () => {
+    console.log(`emergencyApp listening at http://localhost:${config.sitePort()}`)
+  })
+}
+
