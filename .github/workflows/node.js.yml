@@ -41,6 +41,9 @@ jobs:
         REMOTE_HOST: ${{ secrets.SERVER_IP }}
         REMOTE_USER: ${{ secrets.SERVER_USER }}
         TARGET: ${{ secrets.SERVER_DIR }}
+    - name:
+      run: echo '${{ secrets.SERVER_DIR }}/build.sh'
+      shell: bash
     - name: Execute build script on remote server
       uses: appleboy/ssh-action@master        
       with:
