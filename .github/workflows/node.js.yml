@@ -39,7 +39,7 @@ jobs:
       run: 'touch .env'
       shell: bash
     - name: Write environment secrets to app .env file
-      run: 
+      run: |
         'echo "DATA_DIR=$DATA_DIR" >> .env'
         'echo "CONTENT_DIR=$CONTENT_DIR" >> .env'
         'echo "TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY" >> .env'
