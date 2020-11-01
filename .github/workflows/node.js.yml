@@ -1,19 +1,20 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Node.js CI tests and deployment
 
 on:
   push:
     branches: [ master, debug ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+env:
+  APPDIR: ${{ secrets.SERVER_DIR }}
+  NODE_VERSION: 14.15.0
 
-    env:
-      NODE_VERSION: 14.15.0
-      APPDIR: ${{ secrets.SERVER_DIR }}
+jobs:
+  # Job 1: Test the app
+  run-tests:
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code from ${{ github.repository }}
@@ -26,14 +27,20 @@ jobs:
       run: npm ci
     - name: Run app tests
       run: npm test
+
+  # Job 2: Deploy the app
+  deploy-app:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --stats"
-          REMOTE_HOST: ${{ secrets.SERVER_IP }}
-          REMOTE_USER: ${{ secrets.SERVER_USER }}
-          TARGET: ${{ secrets.SERVER_DIR }}
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --stats"
+        REMOTE_HOST: ${{ secrets.SERVER_IP }}
+        REMOTE_USER: ${{ secrets.SERVER_USER }}
+        TARGET: ${{ secrets.SERVER_DIR }}
     - name: Execute build script on remote server
       uses: appleboy/ssh-action@master        
       with:
