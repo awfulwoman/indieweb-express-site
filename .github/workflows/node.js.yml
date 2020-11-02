@@ -4,52 +4,62 @@
 name: Node.js CI tests and deployment
 
 on:
-  push:
-    branches: [ master, debug ]
-  repository_dispatch:
-    types: deploy-that-thing
+  push: # When new stuff is pushed to the repo
+    branches: [ master, debug ] # only on these brances
+  repository_dispatch: # respond to an external event
+    types: deploy-that-thing # a custom event name
+    # https://goobar.io/manually-trigger-a-github-actions-workflow/
+    # Responds to the following example curl command by running the job.
+    # Very useful for provisioning the host server after a rebuild.
+    # ```
+    # curl -H "Accept: application/vnd.github.everest-preview+json" \
+    # -H "Authorization: token <my_personal_github_token_which_is_not_being_shared_with_you_plebs>" \
+    # --request POST \
+    # --data '{"event_type": "deploy-that-thing"}' \
+    # https://api.github.com/repos/sonniesedge/site/dispatches
+    # ```
 
-env:
-  APPDIR: ${{ secrets.SERVER_DIR }}
+env: # set some environment variables (env vars) that last through the workflow
+  APPDIR: ${{ secrets.SERVER_DIR }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
   NODE_VERSION: 14.15.0
 
 jobs:
   # Job 1: Test the app
   run-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Run the following steps on a temporary instance of an Ubuntu virtual machine (VM)
 
     steps:
     - name: Checkout code from ${{ github.repository }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2 # This is an action provided by Github that checks out my repos code and adds it to the Ubuntu virtual machine
     - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1.4.4
+      uses: actions/setup-node@v1.4.4 # A Github Action (a chunk of scripting) that installs node on the VM. the "v1.4.4" refers to the version of the setup-node action found at https://github.com/actions/setup-node
       with:
-        node-version: ${{ env.NODE_VERSION }}
+        node-version: ${{ env.NODE_VERSION }} # I'm using the env var defined earlier to supply a parameter/argument to the setup-node action.
     - name: Install app dependencies
-      run: npm ci
+      run: npm ci # Runs this command inside the virutal machine where the repo was downloaded to
     - name: Run app tests
       run: npm test
 
   # Job 2: Deploy the app
   deploy-app:
-    needs: run-tests
+    needs: run-tests # Requires that "run-tests" completed first. Otherwise it will try to run in parallel. 
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code from ${{ github.repository }}
+    - name: Checkout code from ${{ github.repository }} # Github supplies a few variables that can be accessed by the workflow. They all start with 'github.'
       uses: actions/checkout@v2
     - name: Create .env file
       run: 'touch .env'
-      shell: bash
+      shell: bash # The above command uses this unix shell
     - name: Write environment secrets to app .env file
-      run: |
+      run: | # This is a multiline comment
         echo "DATA_DIR=$DATA_DIR" >> .env
         echo "CONTENT_DIR=$CONTENT_DIR" >> .env
         echo "TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY" >> .env
         echo "TWITTER_CONSUMER_SECRET=$TWITTER_CONSUMER_SECRET" >> .env
       shell: bash
     - name: Copy app to remote server
-      uses: easingthemes/ssh-deploy@v2.1.5
+      uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --stats"
@@ -58,7 +68,8 @@ jobs:
         TARGET: ${{ secrets.SERVER_DIR }}
     - name: Execute build script on remote server. Builds npm and runs pm2.
       uses: appleboy/ssh-action@master        
-      with:
+      with: # I can't lie - I haven't a clue why some actions use "with" and others use "env". 
+            # I'd GUESS that one supplies env vars and the others supply arguments directly to a script. But I don't KNOW. 🤷‍♀️
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
