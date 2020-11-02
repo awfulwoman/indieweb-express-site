@@ -14,7 +14,7 @@ name: "CodeQL"
 
 on:
   schedule:
-    - cron: '38 20 * * 6'
+    - cron: '30 23 * * *' # Run at 23:30 every day
 
 jobs:
   analyze:
