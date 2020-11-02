@@ -50,7 +50,7 @@ app.engine('hbs', hbs({
 
 // AUTHENTICATION + SESSIONS
 // -----------------------
-app.use(require('express-session')({ secret: '76tttrs3%tskn£%knjhbhcfdxsewaer4trytuiuhk$', resave: true, saveUninitialized: true }))
+app.use(require('express-session')({ secret: process.env['KEYBOARD_CAT'], resave: true, saveUninitialized: true }))
 
 if (is.truthy(passport) && passport.initialize && passport.session) {
   app.use(passport.initialize()) // Initialize Passport in Express.
