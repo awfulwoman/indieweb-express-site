@@ -6,6 +6,8 @@ name: Node.js CI tests and deployment
 on:
   push:
     branches: [ master, debug ]
+  repository_dispatch:
+    types: deploy-that-thing
 
 env:
   APPDIR: ${{ secrets.SERVER_DIR }}
