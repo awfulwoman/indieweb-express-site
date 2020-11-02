@@ -57,7 +57,7 @@ jobs:
         echo "CONTENT_DIR=$CONTENT_DIR" >> .env
         echo "TWITTER_CONSUMER_KEY=$TWITTER_CONSUMER_KEY" >> .env
         echo "TWITTER_CONSUMER_SECRET=$TWITTER_CONSUMER_SECRET" >> .env
-        echo "KEYBOARD_CAT=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)" >> .env
+        echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
       shell: bash
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
