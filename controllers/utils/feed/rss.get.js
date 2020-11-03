@@ -12,8 +12,7 @@ const rssGet = (model, options) => {
       res.contentType('application/rss+xml')
       res.send(results.rss2())
     } catch (error) {
-      debug(error)
-      throw new ErrorHandler('404', error)
+      throw new ErrorHandler('404', 'RSS feed not found', error)
     }
   })
 }

@@ -22,7 +22,6 @@ const update = async (type, id, fileContent) => {
 
     return await fs.promises.writeFile(destination, fileContent, 'utf8')
   } catch (error) {
-    debug(error)
     return Promise.reject(error)
   }
 }

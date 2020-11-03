@@ -19,7 +19,6 @@ const del = async (type, id) => {
 
     return await fs.promises.unlink(destination)
   } catch (error) {
-    debug(error)
     return Promise.reject(error)
   }
 }

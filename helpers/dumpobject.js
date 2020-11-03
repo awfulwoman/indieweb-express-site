@@ -1,5 +1,6 @@
-const debug = require('debug')('sonniesedge:helpers:dumpObject');
-const hljs = require('highlight.js');
+const debug = require('debug')('sonniesedge:helpers:dumpObject')
+const hljs = require('highlight.js')
+const ErrorHandler = require('../utilities/error-handler')
 
 const dumpObject = function(context) {
   try {
@@ -7,7 +8,6 @@ const dumpObject = function(context) {
     let output = hljs.highlight('json', stringified)
     return output.value
   } catch (error) {
-    debug(error)
     throw error
   }
 }

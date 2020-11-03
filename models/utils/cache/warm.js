@@ -42,10 +42,9 @@ const warm = async (modelCache, type, options = {}) => {
       }
 
     } catch (error) {
-      debug(error)
       // debug(`Error warming /${type}/${path.basename(result[index])}. Skipping.%o`, error)
       // TODO Add to error log
-      // throw error
+      throw error
     }
   }
 

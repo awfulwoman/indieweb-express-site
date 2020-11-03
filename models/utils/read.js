@@ -5,6 +5,7 @@ const matter = require('gray-matter')
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const defaultTitle = require('../utils/default-title')
+const ErrorHandler = require('../../utilities/error-handler')
 
 const modelRead = async (dir, cache, id, options = {}) => {
   try {

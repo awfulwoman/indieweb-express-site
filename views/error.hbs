@@ -1,3 +1,9 @@
 <h1>HTTP {{statusCode}}</h1>
 
 <p>{{statusIcon status}}{{#if message}}:{{/if}} {{message}}</p>
+
+{{#if rawError}}
+<pre>
+{{rawError}}
+</pre>
+{{/if}}

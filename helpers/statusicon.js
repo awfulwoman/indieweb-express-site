@@ -1,5 +1,5 @@
-const debug = require('debug')('sonniesedge:helpers:statusIcon');
-
+const debug = require('debug')('sonniesedge:helpers:statusIcon')
+const ErrorHandler = require('../utilities/error-handler')
 
 const statusIcon = function(context) {
   try {
@@ -13,7 +13,6 @@ const statusIcon = function(context) {
         break
     }
   } catch (error) {
-    debug(error)
     throw error
   }
 }

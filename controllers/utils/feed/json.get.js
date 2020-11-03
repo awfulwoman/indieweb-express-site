@@ -12,8 +12,7 @@ const jsonGet = (model, options) => {
       res.contentType('application/json')
       res.send(results.json1())
     } catch (error) {
-      debug(error)
-      throw new ErrorHandler('404', error)
+      throw new ErrorHandler('404', 'JSON feed not found', error)
     }
   })
 }

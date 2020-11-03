@@ -8,8 +8,7 @@ const ErrorHandler = require('../utilities/error-handler')
       if (lang && hljs.getLanguage(lang)) {
         try {
           return hljs.highlight(lang, str).value;
-        } catch (error) 
-        {
+        } catch (error) {
           throw error
         }
       }

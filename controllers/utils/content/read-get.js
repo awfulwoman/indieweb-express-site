@@ -4,7 +4,6 @@ const ErrorHandler = require('../../../utilities/error-handler')
 const is = require('is_js')
 const path = require('path')
 
-
 // READ
 const readGet = (model, options) => {
   options || (options = {});
@@ -14,11 +13,13 @@ const readGet = (model, options) => {
 
       let resolvedId = options.id || req.params.id
 
-      if (path.extname(resolvedId)) throw(`${model.modelDir}/${resolvedId} not found`)
+      if (path.extname(resolvedId)) throw(`File ${model.modelDir}/${resolvedId} not found`)
 
       if (model.resolveAlias) resolvedId = await model.resolveAlias(resolvedId)
       
       let itemObj = await model.read(resolvedId)
+
+      if (is.falsy(itemObj)) throw new Error(`Could not find ${resolvedId} in ${model.modelDir}.`)
 
       res.render(options.template || 'page', {
         content: itemObj.rendered,
@@ -30,8 +31,7 @@ const readGet = (model, options) => {
       })
 
     } catch (error) {
-      debug(error)
-      throw new ErrorHandler('404', 'Could not find this content. Have you tried looking under the sofa?')
+      throw new ErrorHandler('404', 'Could not find this page or content. Have you tried looking under the sofa?', error)
     }
   })
 }

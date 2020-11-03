@@ -29,7 +29,6 @@ const modelCreate = async (dir, cache, data, content, id) => {
     return cache.set(id)
   } catch (error) {
     // TODO Add to error log
-    debug(error)
     return Promise.reject(error)
   }
 }

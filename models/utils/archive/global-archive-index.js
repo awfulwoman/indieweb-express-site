@@ -2,6 +2,7 @@
 const debug = require('debug')('sonniesedge:model:utils:recent:globalArchiveIndex')
 const {orderBy} = require('natural-orderby')
 const {modelsList} = require('../../types')
+const ErrorHandler = require('../../../utilities/error-handler')
 
 const globalArchiveIndex = async (dateObj) => {
   try {
@@ -22,7 +23,6 @@ const globalArchiveIndex = async (dateObj) => {
 
     return recentItemsSorted
   } catch (error) {
-    debug(error)
     throw error
   }
 }

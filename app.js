@@ -8,6 +8,8 @@ const config = require('./config')
 const models = require('./models')
 const modelsWarmAll = require('./models/utils/cache/warm-all')
 const controllers = require('./controllers')
+const morgan = require('morgan')
+const ErrorHandler = require('./utilities/error-handler')
 
 // 🆔 Passport
 const passport = require('./passport')
@@ -59,6 +61,7 @@ if (is.truthy(passport) && passport.initialize && passport.session) {
 
 app.use(renderUsers) // Make user info available to every render
 app.use(renderDebug) // Make debug status available to every render
+// app.use(morgan('combined'))
 
 // LOGGING
 // ------
@@ -82,11 +85,11 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 try {
   // Check to make sure working dirs exist
   if (!fs.existsSync(config.contentRoot())) {
-    throw new Error(`Could not find ${config.contentRoot()}`)
+    throw new ErrorHandler('500', `Could not find ${config.contentRoot()}`)
   }
 
   if (!fs.existsSync(config.dataRoot())) {
-    throw new Error(`Could not find ${config.dataRoot()}`)
+    throw new ErrorHandler('500', `Could not find ${config.dataRoot()}`)
   }
 
   // Boot app

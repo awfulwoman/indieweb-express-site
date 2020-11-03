@@ -11,8 +11,7 @@ const atomGet = (model, options) => {
       res.contentType('application/json')
       res.send(results.atom1())
     } catch (error) {
-      debug(error)
-      throw new ErrorHandler('404', error)
+      throw new ErrorHandler('404', 'Atom feed not found', error)
     }
   })
 }

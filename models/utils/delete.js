@@ -13,7 +13,6 @@ const modelDelete = async (dir, cache, id) => {
     return markdown.del(dir, id)
   } catch (error) {
     // TODO Add to error log
-    debug(error)
     return Promise.reject(error)
   }
 }

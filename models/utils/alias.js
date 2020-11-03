@@ -1,5 +1,6 @@
 const debug = require('debug')('sonniesedge:models:utils:alias')
 const is = require('is_js')
+const ErrorHandler = require('../../utilities/error-handler')
 
 const get = async function(aliasCache, alias) {
   try {

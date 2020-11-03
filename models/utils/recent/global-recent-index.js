@@ -2,6 +2,7 @@
 const debug = require('debug')('sonniesedge:model:utils:recent:globalRecentIndex')
 const {orderBy} = require('natural-orderby')
 const {modelsList} = require('../../types')
+const ErrorHandler = require('../../../utilities/error-handler')
 
 const globalRecentIndex = async (limit=20) => {
   try {
@@ -22,7 +23,6 @@ const globalRecentIndex = async (limit=20) => {
 
     return recentItemsSorted.slice(0, limit)
   } catch (error) {
-    debug(error)
     throw error
   }
 }

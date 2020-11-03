@@ -15,7 +15,6 @@ const readSection = async (type, id, sectionId) => {
 
     return await fs.promises.readFile(destination, { encoding: 'utf8' })
   } catch (error) {
-    debug(error)
     throw error
   }
 }

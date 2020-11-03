@@ -1,5 +1,6 @@
 const debug = require('debug')('sonniesedge:models:utils:cache:warmAll')
 const {modelsList} = require('../../types')
+const ErrorHandler = require('../../../utilities/error-handler')
 
 const warmAll = async () => {
   try {
@@ -9,7 +10,6 @@ const warmAll = async () => {
       }
     }
   } catch (error) {
-    debug(error)
     throw error
   }
 

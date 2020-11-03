@@ -24,8 +24,6 @@ const modelUpdate = async (dir, modelCache, data, content, id) => {
     return markdown.update(dir, id, stringified)
   } catch (error) {
     // TODO Add to error log
-    debug(error)
-
     // debug('--------------------------------------')
     // debug('DEBUG INFO FOLLOWS:')
     // debug('--------------------------------------')

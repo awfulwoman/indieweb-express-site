@@ -21,8 +21,7 @@ const arrayToArchive = (items) => {
     }
     return datedObj
   } catch (error) {
-    debug(error)
-    throw new ErrorHandler('500', `Could not convert index results to an array object.`)
+    throw new Error(`Could not convert index results to an array object.`)
   }
 }
 

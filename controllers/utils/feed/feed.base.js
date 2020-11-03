@@ -3,6 +3,7 @@ const feedSettings = require('./feed.settings')
 const Feed = require('feed').Feed
 const { DateTime } = require("luxon")
 const is = require('is_js')
+const ErrorHandler = require('../../../utilities/error-handler')
 
 
 const generateBaseFeed = async (model) => {
@@ -25,7 +26,6 @@ const generateBaseFeed = async (model) => {
 
     return feed
   } catch (error) {
-    debug(error)
     throw error
   }
 }

@@ -28,8 +28,8 @@ const controllerArchiveHelper = (model, options) => {
       if (req.params.day) incomingDate.day = parseInt(req.params.day)
 
       // Check converted values
-      if (is.existy(incomingDate.year) && is.not.integer(incomingDate.year)) throw new Error('year could be converted to an integer')
-      if (is.existy(incomingDate.month) && is.not.integer(incomingDate.month)) throw new Error(`month could be converted to an integer. Got ${incomingDate.month}`)
+      if (is.existy(incomingDate.year) && is.not.integer(incomingDate.year)) throw new Error('year could not be converted to an integer')
+      if (is.existy(incomingDate.month) && is.not.integer(incomingDate.month)) throw new Error(`month could not be converted to an integer. Got ${incomingDate.month}`)
       if (is.existy(incomingDate.day) && is.not.integer(incomingDate.day)) throw new Error('day could not be converted to an integer')
 
       let archiveResults = model.globalArchiveIndex ? await model.globalArchiveIndex(incomingDate, false) : await model.archiveIndex(incomingDate, false)
@@ -47,15 +47,14 @@ const controllerArchiveHelper = (model, options) => {
         children: resultsObj
       }, (error, html) => {
         if(error) {
-          debug(error)
           res.send(`<img src="/error.gif">`)
+          throw new Error(error)
         } else {
             res.send(html);
         }
       })
     } catch (error) {
-      debug(error)
-      throw new ErrorHandler('404', `Could not find any archive entries for ${humanDateTime}.`)
+      throw new ErrorHandler('404', `Could not find any archive entries for ${humanDateTime}.`, error)
     }
   })
 }

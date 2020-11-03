@@ -20,7 +20,6 @@ const create = async (type, id, fileContent) => {
     return await fs.promises.writeFile(destination, message, 'utf8')
   } catch (error) {
     // TODO Add to error log
-    debug(error)
     return Promise.reject(error)
   }
 }

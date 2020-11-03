@@ -112,8 +112,6 @@ const list = async (modelCache, modelDir, options = {}) => {
     return results
   } catch (error) {
     // TODO Add to error log
-    debug(error)
-    // if (error.code === 'ENOENT') { throw new ErrorHandler('404', 'File not found on disk') }
     throw error
   }
 }
