@@ -5,6 +5,7 @@ const path = require('path')
 const appRoot = () => appRootPackage.path
 const dataRoot = () => process.env['DATA_DIR'] || path.join(appRoot(), 'example', 'data')
 const contentRoot = () => process.env['CONTENT_DIR'] || path.join(appRoot(), 'example', 'content')
+const logDir = () => process.env['LOG_DIR'] || path.join(appRoot(), 'log')
 const siteTitle = () => 'sonniesedge'
 const siteDescription = () => 'Charlie Owen and her owned content'
 const sitePort = () => process.env['SITE_PORT'] || '3000'
@@ -16,7 +17,7 @@ const fileDateFormat = () => `yyyyLLdd't'HHmm`
 
 
 module.exports = {
-  appRoot, dataRoot, contentRoot, 
+  appRoot, dataRoot, contentRoot, logDir,
   siteTitle, siteDescription, sitePort, sitePortExternal, 
   siteProtocol, siteDomain, siteUrl, fileDateFormat
 }

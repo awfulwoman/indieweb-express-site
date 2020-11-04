@@ -6,3 +6,4 @@ completer.hist
 .stignore
 .stversions
 /data
+/log

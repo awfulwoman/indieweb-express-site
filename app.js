@@ -8,8 +8,11 @@ const config = require('./config')
 const models = require('./models')
 const modelsWarmAll = require('./models/utils/cache/warm-all')
 const controllers = require('./controllers')
-const morgan = require('morgan')
 const ErrorHandler = require('./utilities/error-handler')
+
+// 📊 Logging
+const morgan = require('morgan')
+const rfs = require('rotating-file-stream')
 
 // 🆔 Passport
 const passport = require('./passport')
@@ -61,7 +64,11 @@ if (is.truthy(passport) && passport.initialize && passport.session) {
 
 app.use(renderUsers) // Make user info available to every render
 app.use(renderDebug) // Make debug status available to every render
-// app.use(morgan('combined'))
+var accessLogStream = rfs.createStream('access.log', {
+  interval: '1d', // rotate daily
+  path: config.logDir()
+})
+app.use(morgan('combined', { stream: accessLogStream }))
 
 // LOGGING
 // ------
