@@ -91,20 +91,15 @@ app.use((req, res, next) => handle404(req, res, next)) // Handle anything else a
 
 try {
   // Check to make sure working dirs exist
-  if (!fs.existsSync(config.contentRoot())) {
-    throw new ErrorHandler('500', `Could not find ${config.contentRoot()}`)
-  }
-
-  if (!fs.existsSync(config.dataRoot())) {
-    throw new ErrorHandler('500', `Could not find ${config.dataRoot()}`)
-  }
+  if (!fs.existsSync(config.contentRoot())) throw new ErrorHandler('500', `Could not find ${config.contentRoot()}`)
+  if (!fs.existsSync(config.dataRoot())) throw new ErrorHandler('500', `Could not find ${config.dataRoot()}`)
+  if (!fs.existsSync(config.logDir())) throw new ErrorHandler('500', `Could not find ${config.logDir()}`)
 
   // Boot app
   app.listen(config.sitePort(), () => {
     console.log(chalk.blue.bold(`----------------------------------------------------------`))
     console.log(chalk.blue.bold(`| `) + chalk.bold(`BOOTING`))
     console.log(chalk.blue.bold(`|---------------------------------------------------------`))
-    // TODO: Check that content and data dirs exist at boot
     console.log(chalk.blue.bold(`| `) + chalk.bold.green(`NODE_ENV: `) + chalk.bold(`${process.env.NODE_ENV}`))
 
     for (const [key, value] of Object.entries(config)) {
