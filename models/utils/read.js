@@ -48,7 +48,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
     const sanitizeDate = (dateInput) => {
       try {
         if (is.date(dateInput)) {
-          return DateTime.fromJSDate(dateInput)
+          return DateTime.fromJSDate(dateInput).toISO()
         } else {
           return DateTime.fromJSDate(chrono.parseDate(dateInput)).toISO()
         }
@@ -69,7 +69,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
       }
     }
 
-    // TODO: fucks sake, sort this mass of awful date
+    // // TODO: fucks sake, sort this mass of awful date
     if (resultObject.data.created) resultObject.data.created = sanitizeDate(resultObject.data.created)
     if (resultObject.data.modified) resultObject.data.modified = sanitizeDate(resultObject.data.modified)
     if (resultObject.data.changed) {
