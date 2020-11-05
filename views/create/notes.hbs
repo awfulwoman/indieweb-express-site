@@ -1,0 +1,101 @@
+<h1>Create a new note</h1>
+
+<p>Create a new note and then go out a get smashed.</p>
+
+<form method="POST" action="create" class="c-form">
+
+  <details>
+    <summary>Title</summary>
+  <div class="c-form-row">
+    <label for="title" class="c-form-title">Title</label>
+    <p class="c-form-example">A wonderful day in the park</p>
+    <input type="text" id="title" name="title" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
+      value="{{state.title}}" required>
+    <p class="c-form-description">Give your note a title</p>
+  </div>
+  </details>
+
+  <div class="c-form-row {{#if errors.content}}c-form-row--error{{/if}}">
+    <label for="content" class="c-form-title">Content</label>
+    <textarea rows="8" id="content" name="content" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
+      required>{{state.content}}</textarea>
+  </div>
+
+  <div class="c-form-row {{#if errors.tags}}c-form-row--error{{/if}}">
+    <label for="tags" class="c-form-title">Tags</label>
+    <textarea rows="2" id="tags" name="tags" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
+      required>{{state.tags}}</textarea>
+  </div>
+
+  <div class="c-form-section">
+
+    <h2>Place</h2>
+
+    <div class="c-form-row {{#if errors.place_latlng}}c-form-row--error{{/if}}">
+      <label for="place_lat" class="c-form-title">Latitude, Longitude</label>
+      <input type="text" id="place_latlng" name="place[latlng]"
+        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_latlng}}">
+    </div>
+
+    <div class="c-form-row {{#if errors.place_name}}c-form-row--error{{/if}}">
+      <label for="place_name" class="c-form-title">Place name</label>
+      <input type="text" id="place_name" name="place[name]"
+        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_name}}">
+    </div>
+
+    <div class="c-form-row {{#if errors.place_address}}c-form-row--error{{/if}}">
+      <label for="place_address" class="c-form-title">Address</label>
+      <input type="text" id="place_address" name="place[address]"
+        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_address}}">
+    </div>
+
+    {{!-- <label for="place_lat">Google Place ID</label> --}}
+    <input type="hidden" id="place_googleid" name="place[googleid]" value="{{this.place_googleid}}">
+  </div>
+
+  <details>
+    <summary>Meta</summary>
+
+    <div class="c-form-row">
+      <h2>Privacy</h2>
+      <p>Should this be public to anyone with the URL?</p>
+      <div class="c-checkbox-group">
+        <input type="radio" value="false" id="private_false" name="private"><label for="">Public</label>
+        <input type="radio" value="true" id="private_true" name="private" {{#if state.private}}checked{{/if}}><label for="">Private</label>
+      </div>
+    </div>
+
+    <div class="c-form-row">
+      <h2>Feed syndication</h2>
+      <p>Should this item be available in the notes and global RSS, Atom, and JSON feeds?</p>
+      <div class="c-checkbox-group">
+        <input type="radio" value="false" id="rss_false" name="rss"><label for="">Hidden</label>
+        <input type="radio" value="true" id="rss_true" name="rss" {{#if state.private}}checked{{/if}}><label
+          for="">Visible</label>
+      </div>
+    </div>
+
+    <div class="c-form-row">
+      <h2>Indexing</h2>
+      <p>Should this be available in the recent indexes and archives?</p>
+      <div class="c-checkbox-group">
+        <input type="radio" value="false" id="index_false" name="indexed"><label for="">Hidden</label>
+        <input type="radio" value="true" id="index_false" name="indexed" {{#if state.private}}checked{{/if}}><label
+          for="">Visible</label>
+      </div>
+    </div>
+
+  </details>
+
+
+
+
+
+
+
+  <div class="c-form-row">
+    <button class="c-button c-button--primary">Create a new note!</button>
+  </div>
+
+
+</form>

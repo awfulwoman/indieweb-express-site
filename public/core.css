@@ -138,18 +138,27 @@ blockquote {
   max-width: 100%;
 }
 
+.c-form-row--error {
+  border-left: 4px solid red;
+}
+
+.c-form-row__inline {
+  display: flex; 
+  column-gap: 20px;
+}
+
 .c-form-title {
   display: block;
   font-weight: bold;
   width: 100%;
 }
 
-.c-form-textarea {
+/* .c-form-textarea {
   width: 100%;
   border: 1px solid black;
   padding: 10px;
   font-size: 21px;
-}
+} */
 
 .c-form-texty {
   width: 100%;

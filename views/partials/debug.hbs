@@ -3,6 +3,17 @@
 <div class="l-debug">
   <h1>Handlebars template debugging 🐜 </h1>
 
+
+  {{#if errors}}
+  <h2>Errors</h2>
+  <pre class="hljs"><code>{{{dumpObject errors}}}</code></pre>
+  {{/if}}
+ 
+  {{#if state}}
+  <h2>State</h2>
+  <pre class="hljs"><code>{{{dumpObject state}}}</code></pre>
+  {{/if}}
+
   {{#if id}}
   <h2>ID</h2>
   <pre class="hljs"><code>{{{dumpObject id}}}</code></pre>
@@ -33,8 +44,13 @@
   <pre class="hljs"><code>{{{dumpObject children}}}</code></pre>
   {{/if}}
 
+  {{#if fields}}
+  <h2>Fields</h2>
+  <pre class="hljs"><code>{{{dumpObject fields}}}</code></pre>
+  {{/if}}
+
   {{#if raw}}
-  <h2>raw</h2>
+  <h2>Raw</h2>
   <pre class="hljs"><code>{{{dumpObject raw}}}</code></pre>
   {{/if}}
 </div>

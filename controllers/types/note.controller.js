@@ -2,6 +2,7 @@ const debug = require('debug')('sonniesedge:controller:note')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
+const { body } = require('express-validator')
 
 // 💅 Models
 const model = require('../../models/types/note.model')
@@ -11,14 +12,21 @@ const renderNav = require('../../middleware/render-nav')
 // 🖕 Middleware
 const {controllerFileHelper, controllerContentHelper, controllerFeedHelper, controllerArchiveHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
+const bodyParser = require('body-parser')
+const urlencodedParser = bodyParser.urlencoded({ extended: true })
+
+let createValidators = [
+  body('content').notEmpty().trim(),
+  body('place[latlng]').isLatLong()
+]
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav], controllerContentHelper.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav], controllerContentHelper.createPost(model))
+router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators], controllerContentHelper.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [renderNav], controllerContentHelper.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav], controllerContentHelper.updatePost(model))
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser], controllerContentHelper.updatePost(model))
 router.get(`/${model.modelDir}/:id/delete`, [renderNav], controllerContentHelper.deleteGet(model))
-router.post(`/${model.modelDir}/:id/delete`, [renderNav], controllerContentHelper.deletePost(model))
+router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser], controllerContentHelper.deletePost(model))
 
 // 🗼 Syndication routes
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))
