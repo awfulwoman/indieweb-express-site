@@ -48,31 +48,28 @@
 
     <div class="c-form-row">
       <h2>Privacy</h2>
-      <p>Should this be public to anyone with the URL?</p>
+      <p>Should this item be hidden from everyone, even if they know the URL? (HTTP404)</p>
       <div class="c-checkbox-group">
-        <input type="radio" value="false" id="private_false" name="private"><label for="">Public</label>
-        <input type="radio" value="true" id="private_true" name="private" {{#if state.private}}checked{{/if}}><label
-          for="">Private</label>
+        <input type="checkbox" value="true" id="private_true" name="private" {{#if state.private}}checked{{/if}}><label
+          for="">Make it private</label>
       </div>
     </div>
 
     <div class="c-form-row">
       <h2>Feed syndication</h2>
-      <p>Should this item be available in the notes and global RSS, Atom, and JSON feeds?</p>
+      <p>Should this item be hidden from the local and global RSS/Atom/JSON syndication feeds?</p>
       <div class="c-checkbox-group">
-        <input type="radio" value="false" id="rss_false" name="rss"><label for="">Hidden</label>
-        <input type="radio" value="true" id="rss_true" name="rss" {{#if state.private}}checked{{/if}}><label
-          for="">Visible</label>
+        <input type="checkbox" value="true" id="hide_from_rss" name="hide_from_feed" {{#if state.private}}checked{{/if}}><label
+          for="">Hide from feeds</label>
       </div>
     </div>
 
     <div class="c-form-row">
       <h2>Indexing</h2>
-      <p>Should this be available in the recent indexes and archives?</p>
+      <p>Should this be available in the recent indexes and archives? Someone who has the item URL will still be able to view it.</p>
       <div class="c-checkbox-group">
-        <input type="radio" value="false" id="index_false" name="indexed"><label for="">Hidden</label>
-        <input type="radio" value="true" id="index_false" name="indexed" {{#if state.private}}checked{{/if}}><label
-          for="">Visible</label>
+        <input type="checkbox" value="true" id="hide_from_indexes" name="hide_from_indexes" {{#if state.private}}checked{{/if}}><label
+          for="">Hide from indexes</label>
       </div>
     </div>
 
