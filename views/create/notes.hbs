@@ -4,27 +4,17 @@
 
 <form method="POST" action="create" class="c-form">
 
-  <details>
-    <summary>Title</summary>
-  <div class="c-form-row">
-    <label for="title" class="c-form-title">Title</label>
-    <p class="c-form-example">A wonderful day in the park</p>
-    <input type="text" id="title" name="title" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
-      value="{{state.title}}" required>
-    <p class="c-form-description">Give your note a title</p>
-  </div>
-  </details>
 
   <div class="c-form-row {{#if errors.content}}c-form-row--error{{/if}}">
     <label for="content" class="c-form-title">Content</label>
-    <textarea rows="8" id="content" name="content" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
-      required>{{state.content}}</textarea>
+    <textarea rows="8" id="content" name="content"
+      class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}">{{state.content}}</textarea>
   </div>
 
   <div class="c-form-row {{#if errors.tags}}c-form-row--error{{/if}}">
     <label for="tags" class="c-form-title">Tags</label>
-    <textarea rows="2" id="tags" name="tags" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
-      required>{{state.tags}}</textarea>
+    <textarea rows="2" id="tags" name="tags"
+      class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}">{{state.tags}}</textarea>
   </div>
 
   <div class="c-form-section">
@@ -61,7 +51,8 @@
       <p>Should this be public to anyone with the URL?</p>
       <div class="c-checkbox-group">
         <input type="radio" value="false" id="private_false" name="private"><label for="">Public</label>
-        <input type="radio" value="true" id="private_true" name="private" {{#if state.private}}checked{{/if}}><label for="">Private</label>
+        <input type="radio" value="true" id="private_true" name="private" {{#if state.private}}checked{{/if}}><label
+          for="">Private</label>
       </div>
     </div>
 
@@ -87,10 +78,16 @@
 
   </details>
 
-
-
-
-
+  <details>
+    <summary>Optional</summary>
+    <div class="c-form-row">
+      <label for="title" class="c-form-title">Title</label>
+      <p class="c-form-example">A wonderful day in the park</p>
+      <input type="text" id="title" name="title" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
+        value="{{state.title}}">
+      <p class="c-form-description">Give your note a title</p>
+    </div>
+  </details>
 
 
   <div class="c-form-row">

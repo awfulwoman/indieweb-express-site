@@ -7,7 +7,7 @@ const is = require('is_js')
 const createPost = (model, options) => {
   options || (options = {});
   return asyncHandler((req, res, next) => {
-     debug('req.body: ', req.body)
+     debug('req.body: %O', req.body)
     const errors = validationResult(req);
     debug('Errors: ', errors.array())
 
@@ -26,15 +26,10 @@ const createPost = (model, options) => {
       }
     }
 
-    for (const error of errors.array()) {
-      let replacedParam = error.param.replace('.', '_')
-        form_errors[replacedParam]  = error.msg
-
-    }
-
-
-    debug('Form state: ', form_state)
-    debug('Form errors: ', form_errors)
+    // for (const error of errors.array()) {
+    //   let replacedParam = error.param.replace('.', '_')
+    //   form_errors[replacedParam]  = error.msg
+    // }
 
     if(errors) {
       res.render(`create/notes`, {
@@ -42,13 +37,12 @@ const createPost = (model, options) => {
         content: md.render('Get creating, or something.'),
         fields: model.fields,
         state: form_state,
-        errors: form_errors
+        errors: errors.array()
       }) 
     } else {
+      // model.create()
       res.render('page', {
-        data: { title: 'Under construction' },
-        content: req.body,
-        errors: errors.array() || null
+        data: { title: 'Note created!' }
       })
     }
   })

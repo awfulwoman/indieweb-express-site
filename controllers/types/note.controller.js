@@ -16,8 +16,8 @@ const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 let createValidators = [
-  body('content').notEmpty().trim(),
-  body('place[latlng]').isLatLong()
+  body('content').notEmpty().withMessage(`You need to write some content`),
+  body('place.latlng').if(body('place.latlng').notEmpty()).isLatLong()
 ]
 
 // 🔐 Protected routes 
