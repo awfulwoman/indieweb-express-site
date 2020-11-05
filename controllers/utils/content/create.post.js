@@ -26,10 +26,10 @@ const createPost = (model, options) => {
       }
     }
 
-    // for (const error of errors.array()) {
-    //   let replacedParam = error.param.replace('.', '_')
-    //   form_errors[replacedParam]  = error.msg
-    // }
+    for (const error of errors.array()) {
+      let replacedParam = error.param.replace('.', '_')
+      form_errors[replacedParam]  = error.msg
+    }
 
     if(errors) {
       res.render(`create/notes`, {
@@ -37,7 +37,7 @@ const createPost = (model, options) => {
         content: md.render('Get creating, or something.'),
         fields: model.fields,
         state: form_state,
-        errors: errors.array()
+        errors: form_errors
       }) 
     } else {
       // model.create()
