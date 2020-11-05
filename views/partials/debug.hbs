@@ -1,4 +1,3 @@
-
 {{#if debug}}
 
 <div class="l-debug">
@@ -32,6 +31,11 @@
   {{#if children}}
   <h2>Children</h2>
   <pre class="hljs"><code>{{{dumpObject children}}}</code></pre>
+  {{/if}}
+
+  {{#if raw}}
+  <h2>raw</h2>
+  <pre class="hljs"><code>{{{dumpObject raw}}}</code></pre>
   {{/if}}
 </div>
 {{/if}}
