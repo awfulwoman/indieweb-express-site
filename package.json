@@ -17,6 +17,7 @@
     "app-root-path": "^3.0.0",
     "async-middleware": "^1.2.1",
     "chalk": "^4.1.0",
+    "chrono-node": "^2.1.9",
     "connect-ensure-login": "^0.1.1",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",

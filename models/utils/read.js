@@ -1,11 +1,13 @@
 const debug = require('debug')('sonniesedge:models:utils:read')
 const is = require('is_js')
-const {markdown} = require('../../drivers')
+const { markdown } = require('../../drivers')
 const matter = require('gray-matter')
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const defaultTitle = require('../utils/default-title')
 const ErrorHandler = require('../../utilities/error-handler')
+const chrono = require('chrono-node')
+const { DateTime } = require('luxon')
 
 const modelRead = async (dir, cache, id, options = {}) => {
   try {
@@ -42,6 +44,23 @@ const modelRead = async (dir, cache, id, options = {}) => {
     if (!resultObject.data.title) {
       resultObject.data.title = options.defaultTitle ? options.defaultTitle(resultObject.data.created) : defaultTitle(resultObject.data.created)
     }
+
+    const sanitizeDate = (dateInput) => {
+      try {
+        if (is.date(resultObject.data.created)) {
+          return DateTime.fromJSDate(resultObject.data.created)
+        } else {
+          return DateTime.fromJSDate(chrono.parseDate(resultObject.data.created)).toISO()
+        }
+      } catch (error) {
+        return dateInput
+        debug(error)
+      }
+    }
+
+    if (resultObject.data.created) resultObject.data.created = sanitizeDate(resultObject.data.created)
+    if (resultObject.data.modified) resultObject.data.modified = sanitizeDate(resultObject.data.modified)
+    if (resultObject.data.changed) resultObject.data.changed = sanitizeDate(resultObject.data.changed)
 
     resultObject.id = id
     resultObject.storage = dir
