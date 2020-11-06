@@ -5,6 +5,7 @@ const md = require('../../../utilities/markdown-it')
 const is = require('is_js')
 const config = require('../../../config')
 const { DateTime } = require('luxon')
+const ErrorHandler = require('../../../utilities/error-handler')
 
 const createPost = (model, options) => {
   options || (options = {});
@@ -64,8 +65,11 @@ const createPost = (model, options) => {
         })
       }
     } catch (error) {
-      debug(error)
-      throw error
+      throw new ErrorHandler(
+      '409', 
+      '"The request could not be completed due to a conflict with the current state of the resource". \n\n Could not create this item. \n\n Better luck next time old bean.', 
+      error
+      )
     }
 
   })
