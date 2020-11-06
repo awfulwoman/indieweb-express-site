@@ -14,23 +14,19 @@ const create = async (type, id, fileContent) => {
     let destinationPathAndFile = path.join(destinationPath, 'index.md')
 
     await fs.promises.mkdir(destinationPath)
-      .catch((err) => {
-        debug('markdown.create: debug: Item folder already exists')
-        throw new Error('markdown.create: debug: Item folder already exists')
+      .catch((error) => {
+        throw new Error(`Item ${type}/${id} already exists`)
       })
 
-      debug('markdown.create: should never get here after error')
     await fs.promises.writeFile(destinationPathAndFile, fileContent)
-      .catch((err) => {
-        debug('markdown.create: debug: Could not create file')
-        throw new Error('markdown.create: debug: Could not create file')
+      .catch((error) => {
+        throw new Error(`Could not create ${type}/${id}.`)
       })
-    
+
   } catch (error) {
     // TODO Add to error log
-    debug('Error caught!')
-    debug('Markdown create error: ', error)
-    // throw error
+    // debug('Markdown create error: ', error)
+    throw error
   }
 }
 

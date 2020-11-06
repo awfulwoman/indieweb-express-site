@@ -48,8 +48,14 @@ const createPost = (model, options) => {
 
         let id = DateTime.local().toFormat(config.fileDateFormat())
 
-        await model.create(data, content, id)
-        
+        await model.create(data, content, id).catch((error) => {
+          throw error
+        })
+
+        // Read to set up cache
+        await model.read(id)
+
+        debug(`/${model.modelDir}/${id} created!`)
 
         res.render('page', {
           data: { title: 'Created!' },
