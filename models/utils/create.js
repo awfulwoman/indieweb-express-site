@@ -10,26 +10,19 @@ const modelCreate = async (dir, cache, data, content, id) => {
     if (is.not.string(content)) throw new Error('Content must be a string')
     if (is.not.string(id)) throw new Error('The file ID must be a string')
 
+    // // Check all property names match those in schema
+    // for (const field of data) {
+    //   if (!globalFields.fields.hasOwnProperty(data[field])) throw new Error('Illegal property name')
+    //   if (!this.fields.hasOwnProperty(data[field])) throw new Error('Illegal property name')
+    // }
 
-    // Add globals if they are not present 
-    for (const [key, value] of Object.entries(globalFields.fields)) {
-      // console.log(`${key}: ${value}`)
-      if (!data[key]) {
-        data[key] = value.default
-      }
-    }
+    await markdown.create(dir, id, matter.stringify(content, data))
+    await markdown.read(dir, id)
 
-    // Check all property names match those in schema
-    for (const field of data) {
-      if (!globalFields.fields.hasOwnProperty(data[field])) throw new Error('Illegal property name')
-      if (!this.fields.hasOwnProperty(data[field])) throw new Error('Illegal property name')
-    }
-
-    await markdown.create(dir, matter.stringify(data, content), id)
-    return cache.set(id)
   } catch (error) {
     // TODO Add to error log
-    return Promise.reject(error)
+    // return Promise.reject(error)
+    throw error
   }
 }
 

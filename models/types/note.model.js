@@ -1,4 +1,3 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:note')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
