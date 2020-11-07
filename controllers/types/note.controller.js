@@ -21,12 +21,12 @@ let createValidators = [
 ]
 
 // 🔐 Protected routes 
-router.get(`/${model.modelDir}/create`, [renderNav], controllerContentHelper.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators], controllerContentHelper.createPost(model))
-router.get(`/${model.modelDir}/:id/edit`, [renderNav], controllerContentHelper.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser], controllerContentHelper.updatePost(model))
-router.get(`/${model.modelDir}/:id/delete`, [renderNav], controllerContentHelper.deleteGet(model))
-router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser], controllerContentHelper.deletePost(model))
+router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
+router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators, checkAuthentication], controllerContentHelper.createPost(model))
+router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], controllerContentHelper.updateGet(model))
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.updatePost(model))
+router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], controllerContentHelper.deleteGet(model))
+router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.deletePost(model))
 
 // 🗼 Syndication routes
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))
