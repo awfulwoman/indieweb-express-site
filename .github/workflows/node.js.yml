@@ -63,7 +63,7 @@ jobs:
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-        ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --exclude '.env' --stats"
+        ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP }}
         REMOTE_USER: ${{ secrets.SERVER_USER }}
         TARGET: ${{ secrets.SERVER_DIR }}
