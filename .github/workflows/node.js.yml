@@ -52,11 +52,16 @@ jobs:
       run: 'touch .env'
       shell: bash # The above command uses this unix shell
     - name: Write environment secrets to app .env file
+      env:
+      DATA_DIR: ${{ secrets.DATA_DIR }}
+      CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
+      TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+      TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
       run: | # This is a multiline comment
-        echo "DATA_DIR={{ secrets.DATA_DIR }}" >> .env
-        echo "CONTENT_DIR={{ secrets.CONTENT_DIR }}" >> .env
-        echo "TWITTER_CONSUMER_KEY={{ secrets.TWITTER_CONSUMER_KEY }}" >> .env
-        echo "TWITTER_CONSUMER_SECRET={{ secrets.TWITTER_CONSUMER_SECRET }}" >> .env
+        echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
+        echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
+        echo "TWITTER_CONSUMER_KEY=${{ env.TWITTER_CONSUMER_KEY }}" >> .env
+        echo "TWITTER_CONSUMER_SECRET=${{ env.TWITTER_CONSUMER_SECRET }}" >> .env
         echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
       shell: bash
     - name: Copy app to remote server
