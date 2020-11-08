@@ -1,11 +1,13 @@
 const debug = require('debug')('sonniesedge:models:utils:read')
 const is = require('is_js')
-const {markdown} = require('../../drivers')
+const { markdown } = require('../../drivers')
 const matter = require('gray-matter')
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const defaultTitle = require('../utils/default-title')
 const ErrorHandler = require('../../utilities/error-handler')
+const chrono = require('chrono-node')
+const { DateTime } = require('luxon')
 
 const modelRead = async (dir, cache, id, options = {}) => {
   try {
@@ -43,9 +45,49 @@ const modelRead = async (dir, cache, id, options = {}) => {
       resultObject.data.title = options.defaultTitle ? options.defaultTitle(resultObject.data.created) : defaultTitle(resultObject.data.created)
     }
 
+    const sanitizeDate = (dateInput) => {
+      try {
+        if (is.date(dateInput)) {
+          return DateTime.fromJSDate(dateInput).toISO()
+        } else {
+          return DateTime.fromJSDate(chrono.parseDate(dateInput)).toISO()
+        }
+      } catch (error) {
+        debug(dateInput)
+        debug(error)
+        return dateInput
+      }
+    }
+
+    const createHumanDate = (dateInput) => {
+      try {
+        return DateTime.fromISO(dateInput).toLocaleString()
+      } catch (error) {
+        debug(dateInput)
+        debug(error)
+        return dateInput
+      }
+    }
+
+    // // TODO: fucks sake, sort this mass of awful date
+    if (resultObject.data.created) resultObject.data.created = sanitizeDate(resultObject.data.created)
+    if (resultObject.data.modified) resultObject.data.modified = sanitizeDate(resultObject.data.modified)
+    if (resultObject.data.changed) {
+      // debug('unclean data')
+      resultObject.data.changed = sanitizeDate(resultObject.data.changed)
+    }
+    if (resultObject.data.updated) {
+      // debug('unclean data')
+      resultObject.data.updated = sanitizeDate(resultObject.data.updated)
+    }
+
+    resultObject.data.created_human = createHumanDate(resultObject.data.created)
+    resultObject.data.modified_human = createHumanDate(resultObject.data.modified || resultObject.data.changed || resultObject.data.updated)
+
     resultObject.id = id
     resultObject.storage = dir
     resultObject.fullUrl = `${config.siteProtocol()}${config.siteDomain()}/${dir}/${resultObject.data.slug || id}`
+    if (process.env.DEBUG) resultObject.raw = result
 
     let cachingActionResult = cache.set(id, resultObject)
     if (is.falsy(cachingActionResult)) { debug(`Did not store ${id} in ${dir} cache!`) }

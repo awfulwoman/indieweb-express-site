@@ -1,8 +1,8 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:note')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 const { DateTime } = require('luxon')
+const chrono = require('chrono-node')
 
 
 let modelCache = new Nodecache()
@@ -10,40 +10,39 @@ let modelCache = new Nodecache()
 const modelDir = 'notes'
 
 const defaultTitle = (datestamp) => {
-  let relativeDate = DateTime.fromISO(datestamp).toRelative()
-  let parsedDate = DateTime.local().toLocaleString({ locale: 'en-gb' });
+  let parsedDate = DateTime.fromJSDate(chrono.parseDate(datestamp)).toLocaleString({ locale: 'en-gb' });
   return `A note from ${parsedDate}`
 }
 
 const fields = { // merge with global fields
+  title: {
+    type: 'string',
+    required: true,
+    description: 'A title for this note, if so desired',
+  },
   content: {
     type: 'string',
     required: true,
-    description: 'Make a note',
-    formFieldRender: 'textarea'
+    description: 'Make a note'
   },
   tags: {
     type: 'array',
     description: 'Tags related to this note',
     extendedDescription: 'Tags should be comma separated',
-    example: 'apple, banana, cherry',
-    formFieldRender: 'tags'
+    example: 'apple, banana, cherry'
   },
   images: {
     type: 'object',
     description: 'Images',
-    extendedDescription: 'Photos and stuff',
-    formFieldRender: 'images'
+    extendedDescription: 'Photos and stuff'
   },
   creation_geo: {
     type: 'string',
-    description: 'Where this was created',
-    formFieldRender: 'geo'
+    description: 'Where this was created'
   },
   place: {
     type: 'object', // contains: gps, name, address, google_maps_id
-    description: 'The place this relates to',
-    formFieldRender: 'place'
+    description: 'The place this relates to'
   }
 }
 

@@ -2,6 +2,7 @@ const debug = require('debug')('sonniesedge:controller:repost')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
+const { body } = require('express-validator')
 
 // 💅 Models
 const model = require('../../models/types/repost.model')
@@ -12,15 +13,22 @@ const renderNav = require('../../middleware/render-nav')
 const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
 
+const bodyParser = require('body-parser')
+const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
+let createValidators = [
+  body('content').notEmpty().withMessage(`You need to write some content`),
+  body('place.latlng').if(body('place.latlng').notEmpty()).isLatLong()
+]
 
 // 🔐 Protected routes 
-router.get(`/${model.modelDir}/create`, [renderNav], controllerContentHelper.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav], controllerContentHelper.createPost(model))
-router.get(`/${model.modelDir}/:id/edit`, [renderNav], controllerContentHelper.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav], controllerContentHelper.updatePost(model))
-router.get(`/${model.modelDir}/:id/delete`, [renderNav], controllerContentHelper.deleteGet(model))
-router.post(`/${model.modelDir}/:id/delete`, [renderNav], controllerContentHelper.deletePost(model))
+router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
+router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators, checkAuthentication], controllerContentHelper.createPost(model))
+router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], controllerContentHelper.updateGet(model))
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.updatePost(model))
+router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], controllerContentHelper.deleteGet(model))
+router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.deletePost(model))
+
 
 // 🗼 Syndication routes
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))

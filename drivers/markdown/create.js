@@ -10,17 +10,23 @@ const create = async (type, id, fileContent) => {
     if (!type || !fileContent || !id) throw new Error('markdown.create: Missing parameters')
     if (is.not.string(type) || is.not.string(id)) throw new Error('markdown.create: Parameters must be supplied as strings')
 
-    let destination = path.join(config.contentRoot(), type, id, 'index.md')
-    debug('destination: ', destination)
+    let destinationPath = path.join(config.contentRoot(), type, id)
+    let destinationPathAndFile = path.join(destinationPath, 'index.md')
 
-    fs.stat(destination, (err, stat) => {
-      if (is.not.falsy(err)) throw new Error('markdown.create: File already exists')
-    });
+    await fs.promises.mkdir(destinationPath)
+      .catch((error) => {
+        throw new Error(`Item ${type}/${id} already exists`)
+      })
 
-    return await fs.promises.writeFile(destination, message, 'utf8')
+    await fs.promises.writeFile(destinationPathAndFile, fileContent)
+      .catch((error) => {
+        throw new Error(`Could not create ${type}/${id}.`)
+      })
+
   } catch (error) {
     // TODO Add to error log
-    return Promise.reject(error)
+    // debug('Markdown create error: ', error)
+    throw error
   }
 }
 
