@@ -12,7 +12,7 @@ let expectedNodeData = {
     id: '0000',
     title: 'This is a note',
     created: '2019-08-26T13:12:22.000+02:00',
-    changed: '2019-09-24T21:20:44.000+02:00',
+    changed: '2019-09-24T21:20:44.000+02:00'
   }
 }
 
