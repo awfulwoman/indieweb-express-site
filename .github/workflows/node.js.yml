@@ -53,10 +53,10 @@ jobs:
       shell: bash # The above command uses this unix shell
     - name: Write environment secrets to app .env file
       env:
-      DATA_DIR: ${{ secrets.DATA_DIR }}
-      CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
-      TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
-      TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+        DATA_DIR: ${{ secrets.DATA_DIR }}
+        CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
+        TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+        TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
       run: | # This is a multiline comment
         echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
         echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
