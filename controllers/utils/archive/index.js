@@ -42,7 +42,7 @@ const controllerArchiveHelper = (model, options) => {
       let humanDateTime = DateTime.fromObject(incomingDate).toFormat(dateString)
       let resultsObj = arrayToArchive(archiveResults)
 
-      res.render(options.template || 'archive', {
+      res.render(options.template || 'archive/default', {
         data: { title: `Archive results for ${humanDateTime}` },
         children: resultsObj
       }, (error, html) => {

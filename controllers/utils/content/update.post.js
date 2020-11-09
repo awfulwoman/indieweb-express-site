@@ -36,14 +36,14 @@ const updatePost = (model, options) => {
       note.create(data, content, id)
 
       // Render
-      res.render('create/note/', {
+      res.render(options.template || 'create-content/note', {
         success: true,
         flash: { type: 'success', message: `Note created` },
         content: `Your new Note has been created!`,
         url: `/notes/${req.body.data.id}/`
       });
     } catch (error) {
-      res.render('create/note', {
+      res.render(options.template || 'create-content/note', {
         flash: { type: 'error', message: `Note creation failed`, additional: error.toString() },
         content: `Something went wrong and the note wasn't created. 😭`,
         errors: errors.toArray()

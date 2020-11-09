@@ -1,9 +1,0 @@
-<div>
-  {{>user value=user}}
-  <ul class="c-nav c-nav--admin">
-    <li><a href="/admin/">Admin overview</a></li>
-    {{#each nodeTypes}}
-    <li><a href="/admin/{{this.id}}/">{{sentence this.englishPlural}}</a></li>
-    {{/each}}
-  </ul>
-</div>

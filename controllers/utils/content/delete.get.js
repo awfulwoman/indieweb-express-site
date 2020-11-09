@@ -13,7 +13,7 @@ const is = require('is_js');
 const deleteGet = (model, options) => {
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
-    res.render('page', {
+    res.render(options.template || 'default', {
       data: { title: 'Under construction' },
       content: 'TODO: Implement'
     })

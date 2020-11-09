@@ -22,7 +22,7 @@ router.get(`/`, [renderNav], controllerContentHelper.readGet(model, {
   id: 'root',
   index: true, 
   children: models.globalRecentIndex,
-  template: 'index'
+  template: 'content-public/index'
 }))
 router.get(`/:id`, [renderNav], controllerContentHelper.readGet(model))
 router.get(`/:id/:file`, [], controllerFileHelper.readGet(model))

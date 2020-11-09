@@ -11,7 +11,7 @@ const is = require('is_js');
 const deletePost = (model, options) => {
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
-    res.render('page', {
+    res.render(options.template || 'default', {
       data: { title: 'Under construction' },
       content: 'TODO: Implement'
     })

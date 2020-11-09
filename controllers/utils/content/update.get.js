@@ -13,7 +13,7 @@ const is = require('is_js');
 const updateGet = (model, options) => {
   options || (options = {});
   return asyncHandler((req, res, next) => {
-    res.render('create/note', {
+    res.render(options.template || 'create-content/note', {
       content: `Start creating your note!`,
       fields: model.fields
     });

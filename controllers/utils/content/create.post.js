@@ -34,7 +34,7 @@ const createPost = (model, options) => {
       }
 
       if (errors.array().length > 0) {
-        res.render(`create/notes`, {
+        res.render(options.template || `content-create/default`, {
           data: { title: `${model.modelDir} creation` },
           content: md.render('Get creating, or something.'),
           fields: model.fields,
@@ -58,7 +58,7 @@ const createPost = (model, options) => {
 
         debug(`/${model.modelDir}/${id} created!`)
 
-        res.render('page', {
+        res.render(options.template || 'content-create/default', {
           data: { title: 'Created!' },
           // content: result
           url: `/${model.modelDir}/${id}`
