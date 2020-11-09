@@ -30,7 +30,7 @@ const renderDebug = require('./middleware/render-debug')
 const handleErrors = require('./middleware/handle-errors')
 const handle404 = require('./middleware/handle-404')
 
-const routesLogin = require('./routes/login')
+const routesLogin = require('./controllers/login')
 const app = express();
 
 // ⛑ Configure Helmet headers
