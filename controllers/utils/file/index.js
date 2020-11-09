@@ -1,8 +1,8 @@
 const debug = require('debug')('sonniesedge:controllers:base:file');
 const mime = require('mime-types');
 const asyncHandler = require('express-async-handler');
-const ErrorHandler = require('../../utilities/error-handler')
-const files = require('../../drivers/files')
+const ErrorHandler = require('../../../utilities/error-handler')
+const files = require('../../../drivers/files')
 
 exports.readGet = function(model, options) {
   if (!model) {throw new Error('No model specified')}
