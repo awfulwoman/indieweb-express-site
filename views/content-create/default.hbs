@@ -1,3 +1,7 @@
-<h1>Generic create handling page</h1>
+<h1 class="c-page-title">{{data.title}}</h1>
 
-<p>NOT YET IMPLEMENTED.</p>
+{{content}}
+
+{{#if url}}
+<p><a href="{{url}}">{{url}}</a>.</p>
+{{/if}}

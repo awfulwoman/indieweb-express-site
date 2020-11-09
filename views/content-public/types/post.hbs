@@ -1,3 +1,16 @@
-<h1>{{data.title}}</h1>
+<h1 class="c-page-title">{{data.title}}</h1>
 
-<p>NOT YET IMPLEMENTED.</p>
+<p>{{date data.created "dddd Do MMMM, YYYY"}}</p>
+
+{{>strapline value=data.strapline}}
+
+<div class="c-post">
+  {{{content}}}
+</div>
+
+
+{{#if sections}}
+{{#each sections}}
+{{>section id=../id storage=../storage data=this.data content=this.content}}
+{{/each}}
+{{/if}}

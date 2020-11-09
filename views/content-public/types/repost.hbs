@@ -1,3 +1,11 @@
-<h1>{{data.title}}</h1>
+<h1 class="c-page-title">{{data.title}}</h1>
 
-<p>NOT YET IMPLEMENTED.</p>
+{{data.created}}
+
+<div class="c-repost">
+  {{{content}}}
+</div>
+
+{{#if data.repost_of}}
+<p><a href="{{data.repost_of}}">{{data.repost_of}}</a>.</p>
+{{/if}}

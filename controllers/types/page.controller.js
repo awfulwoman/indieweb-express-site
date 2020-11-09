@@ -22,9 +22,9 @@ router.get(`/`, [renderNav], controllerContentHelper.readGet(model, {
   id: 'root',
   index: true, 
   children: models.globalRecentIndex,
-  template: 'content-public/index'
+  template: 'homepage'
 }))
-router.get(`/:id`, [renderNav], controllerContentHelper.readGet(model))
+router.get(`/:id`, [renderNav], controllerContentHelper.readGet(model, {template: 'content-public/types/page'}))
 router.get(`/:id/:file`, [], controllerFileHelper.readGet(model))
 router.get(`/:id/:file/:size`, [], controllerFileHelper.readGet(model))
 

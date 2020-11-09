@@ -1,3 +1,9 @@
-<h1>{{data.title}}</h1>
+<h1 class="c-page-title">{{data.title}}</h1>
 
-<p>NOT YET IMPLEMENTED.</p>
+<p>{{date data.created "dddd Do MMMM, YYYY"}}</p>
+
+<div class="c-reply">
+  {{{content}}}
+</div>
+
+<p>In reply to <a href="{{data.reply_to}}">{{data.reply_to}}</a></p>
