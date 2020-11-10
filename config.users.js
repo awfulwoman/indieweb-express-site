@@ -24,7 +24,7 @@ module.exports = [
       },
       {
         type: 'email',
-        userName: 'charlie@sonniesedge.net'
+        userName: 'herself+whalecoiner@sonniesedge.net'
       }
     ]
   }

@@ -9,6 +9,7 @@ const models = require('./models')
 const modelsWarmAll = require('./models/utils/cache/warm-all')
 const controllers = require('./controllers')
 const ErrorHandler = require('./utilities/error-handler')
+const users = require('./models/user')
 
 // 📊 Logging
 const morgan = require('morgan')

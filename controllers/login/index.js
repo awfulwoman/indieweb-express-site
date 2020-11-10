@@ -4,14 +4,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: true });
-const passport = require('passport');
-const userList = require('../../config.users');
-
-app.enable('strict routing');
-const router = express.Router({
-    caseSensitive: app.get('case sensitive routing'),
-    strict: app.get('strict routing')
-});
+const passport = require('passport')
+const userList = require('../../config.users')
+const router = express.Router()
 
 // Default login page
 router.get('/', function(req, res){
@@ -44,7 +39,7 @@ router.get('/github', passport.authenticate('github'));
 // app.get('/email', passport.authenticate('easypassword'));
 
 // Twitter oauth callback
-router.get('/twitter/callback', passport.authenticate('twitter', {successRedirect : '/admin', failureRedirect: '/youdidntsaythemagicword'}));
+router.get('/twitter/callback', passport.authenticate('twitter', {successRedirect : '/', failureRedirect: '/youdidntsaythemagicword'}));
 
 // Github oauth callback
 router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/' }), function(req, res) {
