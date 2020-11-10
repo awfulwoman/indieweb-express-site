@@ -11,7 +11,7 @@ const createGet = (model, options) => {
   options || (options = {});
 
   return asyncHandler((req, res, next) => {
-    res.render(options.template || `content-create/default`, {
+    res.render(options.template || `content-create/types/${model.modelDir}`, {
       data: { title: `${model.modelDir} creation` },
       errors: null
     })

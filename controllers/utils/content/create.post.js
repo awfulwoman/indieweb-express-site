@@ -34,7 +34,7 @@ const createPost = (model, options) => {
       }
 
       if (errors.array().length > 0) {
-        res.render(options.template || `content-create/default`, {
+        res.render(options.template || `content-create/types/${model.modelDir}`, {
           data: { title: `${model.modelDir} creation` },
           content: md.render('Get creating, or something.'),
           fields: model.fields,
