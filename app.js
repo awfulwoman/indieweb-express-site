@@ -120,6 +120,12 @@ var accessLogStream = rfs.createStream('access.log', {
   interval: '1d', // rotate daily
   path: config.logDir()
 })
+
+// log only 4xx and 5xx responses to console
+app.use(morgan('dev', {
+  skip: function (req, res) { return res.statusCode < 400 }
+}))
+
 app.use(morgan('combined', { stream: accessLogStream }))
 
 // LOGGING
