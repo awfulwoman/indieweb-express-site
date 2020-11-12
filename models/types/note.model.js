@@ -10,7 +10,7 @@ let modelCache = new Nodecache()
 const modelDir = 'notes'
 
 const defaultTitle = (datestamp) => {
-  let parsedDate = DateTime.fromJSDate(chrono.parseDate(datestamp)).toLocaleString({ locale: 'en-gb' });
+  let parsedDate = DateTime.fromJSDate(chrono.parseDate(datestamp)).toUTC().toISODate();
   return `A note from ${parsedDate}`
 }
 

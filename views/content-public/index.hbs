@@ -7,7 +7,7 @@
   <h2>Related nodes</h2>
   <ul>
     {{#each children}}
-     <li><a href="/{{this.dir}}/{{#if this.data.slug}}{{this.data.slug}}{{else}}{{this.id}}{{/if}}">{{this.data.title}}</a> - {{this.data.created}}</li>
+     <li><a href="{{this.path}}">{{this.data.title}}</a> - {{date data.created "dddd Do MMMM, YYYY"}}</li>
     {{/each}}
   </ul>
 </section>
