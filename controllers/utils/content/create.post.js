@@ -47,7 +47,12 @@ const createPost = (model, options) => {
         let content = req.body.content
         delete data.content
 
-        let id = DateTime.local().toFormat(config.fileDateFormat())
+        let tempCurrentDate = DateTime.utc()
+
+        if (!data.created) data.created = tempCurrentDate.toISO()
+        if (!data.modified) data.modified = tempCurrentDate.toISO()
+
+        let id = DateTime.fromISO(data.created).toUTC().toFormat(config.fileDateFormat())
 
         await model.create(data, content, id).catch((error) => {
           throw error

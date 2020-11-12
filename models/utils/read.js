@@ -48,9 +48,9 @@ const modelRead = async (dir, cache, id, options = {}) => {
     const sanitizeDate = (dateInput) => {
       try {
         if (is.date(dateInput)) {
-          return DateTime.fromJSDate(dateInput).toISO()
+          return DateTime.fromJSDate(dateInput).toUTC().toISO()
         } else {
-          return DateTime.fromJSDate(chrono.parseDate(dateInput)).toISO()
+          return DateTime.fromJSDate(chrono.parseDate(dateInput)).toUTC().toISO()
         }
       } catch (error) {
         debug(dateInput)
@@ -59,15 +59,6 @@ const modelRead = async (dir, cache, id, options = {}) => {
       }
     }
 
-    const createHumanDate = (dateInput) => {
-      try {
-        return DateTime.fromISO(dateInput).toLocaleString()
-      } catch (error) {
-        debug(dateInput)
-        debug(error)
-        return dateInput
-      }
-    }
 
     // // TODO: fucks sake, sort this mass of awful date
     if (resultObject.data.created) resultObject.data.created = sanitizeDate(resultObject.data.created)
@@ -80,9 +71,6 @@ const modelRead = async (dir, cache, id, options = {}) => {
       // debug('unclean data')
       resultObject.data.updated = sanitizeDate(resultObject.data.updated)
     }
-
-    resultObject.data.created_human = createHumanDate(resultObject.data.created)
-    resultObject.data.modified_human = createHumanDate(resultObject.data.modified || resultObject.data.changed || resultObject.data.updated)
 
     resultObject.id = id
     resultObject.storage = dir

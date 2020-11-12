@@ -1,7 +1,7 @@
 ---
 guid: e09e7eeb-da6d-4c83-9ff9-709d9ad4b300
-created: '2018-10-20T11:11:27+00:00'
-changed: '2018-11-24T19:20:44+00:00'
+created: '2018-10-20T11:11:27.000Z'
+changed: '2018-11-24T19:20:44.000Z'
 images:
   - width: 365
     height: 273
