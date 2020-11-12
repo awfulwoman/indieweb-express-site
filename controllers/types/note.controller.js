@@ -44,7 +44,7 @@ router.get(`/${model.modelDir}`, [renderNav], controllerContentHelper.readGet(pa
   id: model.modelDir, 
   index: true, 
   children: model.recentIndex, 
-  template: 'content-public/index'
+  template: 'content-public/index-notes'
 }));
 router.get(`/${model.modelDir}/:id`, [renderNav], controllerContentHelper.readGet(model, {template: 'content-public/types/note'}))
 router.get(`/${model.modelDir}/:id/:file`, [], controllerFileHelper.readGet(model))

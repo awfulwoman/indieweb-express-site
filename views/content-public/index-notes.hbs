@@ -1,0 +1,24 @@
+<h1 class="c-page-title">{{data.title}}</h1>
+
+{{{content}}}
+
+{{#if children}}
+<div class="c-card-grid">
+{{#each children}}
+<section class="c-note-card">
+  <header class="sr-only">
+    <h2><a href="{{this.path}}">📝 {{this.data.title}}</a></h2>
+  </header>
+
+  <div class="c-content">
+  {{{this.content}}}
+  </div>
+
+  <footer>
+    <p class="c-date">{{date data.created "dddd Do MMMM, YYYY"}}</p>
+  </footer>
+
+</section>
+{{/each}}
+</div>
+{{/if}}
