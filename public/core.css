@@ -221,6 +221,10 @@ blockquote {
   font-size: 4em;
 }
 
+.c-date--small {
+  font-size: x-small
+}
+
 
 .c-note-card {
   /* border: 2px solid white; */
