@@ -17,21 +17,37 @@ exports.readGet = function(model, options) {
 
     try {
 
-      let cacheKey = `${model.modelDir}/${req.params.id}/${req.params.file}${req.params.size ? '/' + req.params.size : null}`
+      let cacheKey = `${model.modelDir}/${req.params.id}/${req.params.file}${req.params.size ? '/' + req.params.size : ''}`
 
+      let fileType = mime.lookup(req.params.file) || 'application/octet-stream'
+      if (fileType) res.set('Content-Type', fileType)
 
+      let imageWidth = req.params.size ? parseInt(req.params.size) : 100
+      switch (fileCache.has(cacheKey)) {
+        case true:
+          debug(`calling ${cacheKey} from cache`)
+
+          res.end(fileCache.get(cacheKey))
+          break;
+        case false:
+          let readStream = await files.read(model.modelDir, req.params.id, req.params.file)
+          
+          const generatedImage = await sharp(readStream)
+          .resize({width: imageWidth})
+          .toBuffer()
+          fileCache.set(cacheKey, generatedImage)
+          res.end(generatedImage)
+          break;
+        default:
+          break;
+      }
       // If :size specified, try to get that file size from cache
-
       // If no size specified, get smallest file size from cache
 
       // if image not available in cache, retrieve from disk
 
           // generate requested size with sharp
-          let readStream = await files.read(model.modelDir, req.params.id, req.params.file)
-          
-          const generatedImage = await sharp(readStream)
-          .resize({height: 600})
-          .toBuffer()
+
           // store size in cache
 
           // serve from memory
@@ -44,9 +60,7 @@ exports.readGet = function(model, options) {
       // store retrieved stream in cache
 
 
-      let fileType = mime.lookup(req.params.file) || 'application/octet-stream'
-      if(fileType){res.set('Content-Type', fileType)}
-      res.end(generatedImage)
+
     } catch (error) {
       throw new ErrorHandler(404, 'File not found', error)
     }
