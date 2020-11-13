@@ -4,7 +4,8 @@ const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../../utilities/error-handler')
 const files = require('../../../drivers/files')
 const Nodecache = require('node-cache')
-const sharp = require('sharp')
+const sharp = require('sharp');
+const is = require('is_js');
 let fileCache = new Nodecache()
 
 
@@ -17,12 +18,15 @@ exports.readGet = function(model, options) {
 
     try {
 
+      let allowedImageSizes = [100, 300, 600, 900]
+
       let cacheKey = `${model.modelDir}/${req.params.id}/${req.params.file}${req.params.size ? '/' + req.params.size : ''}`
 
       let fileType = mime.lookup(req.params.file) || 'application/octet-stream'
       if (fileType) res.set('Content-Type', fileType)
 
-      let imageWidth = req.params.size ? parseInt(req.params.size) : 100
+      let imageWidth = req.params.size && is.inArray(parseInt(req.params.size), allowedImageSizes) ? parseInt(req.params.size) : 100
+      
       switch (fileCache.has(cacheKey)) {
         case true:
           debug(`calling ${cacheKey} from cache`)
