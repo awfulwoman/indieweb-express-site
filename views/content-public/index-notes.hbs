@@ -9,26 +9,26 @@
 {{#if children}}
 <div class="c-card-grid">
   {{#each children}}
-  <section class="c-note-card">
-    <header class="sr-only">
-      <h2><a href="{{this.path}}">{{this.data.title}}</a></h2>
-    </header>
+    <section class="c-note-card">
+      {{!-- <header class="sr-only"> --}}
+        <h2><a href="{{this.path}}">{{this.data.title}}</a></h2>
+      {{!-- </header> --}}
 
-    <div class="c-content">
-      {{{this.rendered}}}
+      <div class="c-content">
+        {{{this.rendered}}}
 
-      {{#if data.images}}
-      {{#each data.images}}
-      <img src="/notes/{{../id}}/{{this.file}}/300" alt="{{this.alt}}">
-      {{/each}}
-      {{/if}}
-    </div>
+        {{#if data.images}}
+        {{#each data.images}}
+        <a href="/notes/{{../id}}/{{this.file}}/900"><img src="/notes/{{../id}}/{{this.file}}/300" alt="{{this.alt}}"></a>
+        {{/each}}
+        {{/if}}
+      </div>
 
-    <footer>
-      <p class="c-date--small"><a href="{{this.path}}">{{date data.created "dddd Do MMMM, YYYY"}}</a></p>
-    </footer>
+      <footer>
+        <p class="c-date--small"><a href="{{this.path}}">{{date data.created "dddd Do MMMM, YYYY"}}</a></p>
+      </footer>
 
-  </section>
+    </section>
   {{/each}}
 </div>
 {{/if}}
