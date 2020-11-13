@@ -26,13 +26,14 @@ exports.readGet = function(model, options) {
       if (fileType) res.set('Content-Type', fileType)
 
       let imageWidth = req.params.size && is.inArray(parseInt(req.params.size), allowedImageSizes) ? parseInt(req.params.size) : 100
-      
+
       switch (fileCache.has(cacheKey)) {
         case true:
           debug(`calling ${cacheKey} from cache`)
 
           res.end(fileCache.get(cacheKey))
-          break;
+          break
+
         case false:
           let readStream = await files.read(model.modelDir, req.params.id, req.params.file)
           
@@ -41,29 +42,12 @@ exports.readGet = function(model, options) {
           .toBuffer()
           fileCache.set(cacheKey, generatedImage)
           res.end(generatedImage)
-          break;
+          break
+
         default:
-          break;
+          throw new Error('Should never get here')
+          break
       }
-      // If :size specified, try to get that file size from cache
-      // If no size specified, get smallest file size from cache
-
-      // if image not available in cache, retrieve from disk
-
-          // generate requested size with sharp
-
-          // store size in cache
-
-          // serve from memory
-
-
-          // console.log(readStream)
-
-      
-
-      // store retrieved stream in cache
-
-
 
     } catch (error) {
       throw new ErrorHandler(404, 'File not found', error)
