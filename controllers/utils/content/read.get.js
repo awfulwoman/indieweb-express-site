@@ -26,6 +26,7 @@ const readGet = (model, options) => {
         data: itemObj.data,
         children: options.children ? await options.children() : null,
         id: itemObj.id,
+        admin: req.isAuthenticated(),
         storage: itemObj.storage,
         sections: itemObj.sections ? itemObj.sections : null
       })

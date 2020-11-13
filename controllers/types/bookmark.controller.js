@@ -12,13 +12,10 @@ const renderNav = require('../../middleware/render-nav')
 // 🖕 Middleware
 const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
-
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 let createValidators = [
-  body('content').notEmpty().withMessage(`You need to write some content`),
-  body('place.latlng').if(body('place.latlng').notEmpty()).isLatLong()
 ]
 
 // 🔐 Protected routes 
@@ -28,7 +25,6 @@ router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], cont
 router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.updatePost(model))
 router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], controllerContentHelper.deleteGet(model))
 router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.deletePost(model))
-
 
 // 🗼 Syndication routes
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))

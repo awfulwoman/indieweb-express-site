@@ -1,0 +1,74 @@
+<h1>Create a new bookmark</h1>
+
+<p>Link to something interesting.</p>
+
+<form method="POST" action="create" class="c-form">
+
+  <div class="c-form-row">
+    <label for="title" class="c-form-title">Title</label>
+    <input type="text" id="title" name="title" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
+      value="{{state.title}}">
+  </div>
+
+  <div class="c-form-row">
+    <label for="title" class="c-form-title">Bookmark URL</label>
+    <input type="text" id="bookmark_of" name="bookmark_of"
+      class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}" value="{{state.title}}">
+  </div>
+
+
+
+  <div class="c-form-row {{#if errors.tags}}c-form-row--error{{/if}}">
+    <label for="tags" class="c-form-title">Tags</label>
+    <textarea rows="2" id="tags" name="tags"
+      class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}">{{state.tags}}</textarea>
+  </div>
+
+  <details>
+    <summary>Optional</summary>
+    <div class="c-form-row {{#if errors.content}}c-form-row--error{{/if}}">
+      <label for="content" class="c-form-title">Content</label>
+      <textarea rows="8" id="content" name="content"
+        class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}">{{state.content}}</textarea>
+    </div>
+  </details>
+
+  <details>
+    <summary>Meta</summary>
+
+    <div class="c-form-row">
+      <h2>Privacy</h2>
+      <p>Should this item be hidden from everyone, even if they know the URL? (HTTP 404)</p>
+      <div class="c-checkbox-group">
+        <input type="checkbox" value="true" id="private_true" name="private" {{#if state.private}}checked{{/if}}><label
+          for="">Make it private</label>
+      </div>
+    </div>
+
+    <div class="c-form-row">
+      <h2>Feed syndication</h2>
+      <p>Should this item be hidden from the local and global RSS/Atom/JSON syndication feeds?</p>
+      <div class="c-checkbox-group">
+        <input type="checkbox" value="true" id="hide_from_rss" name="hide_from_feed"
+          {{#if state.private}}checked{{/if}}><label for="">Hide from feeds</label>
+      </div>
+    </div>
+
+    <div class="c-form-row">
+      <h2>Indexing</h2>
+      <p>Should this be available in the recent indexes and archives? Someone who has the item URL will still be able to
+        view it.</p>
+      <div class="c-checkbox-group">
+        <input type="checkbox" value="true" id="hide_from_indexes" name="hide_from_indexes"
+          {{#if state.private}}checked{{/if}}><label for="">Hide from indexes</label>
+      </div>
+    </div>
+
+  </details>
+
+  <div class="c-form-row">
+    <button class="c-button c-button--primary">Create a new note!</button>
+  </div>
+
+
+</form>
