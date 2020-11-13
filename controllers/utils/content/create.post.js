@@ -44,10 +44,10 @@ const createPost = (model, options) => {
       } else {
 
         let data = req.body
-        let content = req.body.content
+        let content = req.body.content ? req.body.content : ' '
         delete data.content
 
-        let tempCurrentDate = DateTime.utc()
+        let tempCurrentDate = DateTime.local().toUTC()
 
         if (!data.created) data.created = tempCurrentDate.toISO()
         if (!data.modified) data.modified = tempCurrentDate.toISO()
