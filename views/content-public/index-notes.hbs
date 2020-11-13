@@ -7,7 +7,7 @@
 {{#each children}}
 <section class="c-note-card">
   <header class="sr-only">
-    <h2><a href="{{this.path}}">📝 {{this.data.title}}</a></h2>
+    <h2><a href="{{this.path}}">{{this.data.title}}</a></h2>
   </header>
 
   <div class="c-content">
@@ -23,7 +23,7 @@
   
 
   <footer>
-    <p class="c-date--small">{{date data.created "dddd Do MMMM, YYYY"}}</p>
+    <p class="c-date--small"><a href="{{this.path}}">{{date data.created "dddd Do MMMM, YYYY"}}</a></p>
   </footer>
 
 </section>
