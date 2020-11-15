@@ -4,6 +4,7 @@ const Feed = require('feed').Feed
 const { DateTime } = require("luxon")
 const is = require('is_js')
 const ErrorHandler = require('../../../utilities/error-handler')
+const md = require('../../../utilities/markdown-it')
 
 
 const generateBaseFeed = async (model) => {
