@@ -14,10 +14,20 @@ const generateBaseFeed = async (model) => {
     let recents = model.globalRecentFeed ? await model.globalRecentFeed() : await model.recentFeed()
   
     recents.forEach(item => {
+
+      let renderedContentWithAdditionalData = item.content
+      renderedContentWithAdditionalData += '\n\n'
+      if (item.data.bookmark_of) renderedContentWithAdditionalData += '[View bookmarked URL](' +  item.data.bookmark_of + ') \n\n'
+      if (item.data.like_of) renderedContentWithAdditionalData += '[View liked URL](' +  item.data.like_of + ') \n\n'
+      if (item.data.repost_of) renderedContentWithAdditionalData += '[View reposted URL](' +  item.data.repost_of + ') \n\n'
+      if (item.data.quote_of) renderedContentWithAdditionalData += '[View quoted URL](' +  item.data.quote_of + ') \n\n'
+      if (item.data.reply_to) renderedContentWithAdditionalData += '[View URL being replied to](' +  item.data.reply_to + ') \n\n'
+      
+      
       feed.addItem({
         title: item.data.title,
         description: item.rendered,
-        content: item.rendered,
+        content: md.render(renderedContentWithAdditionalData),
         id: item.fullUrl,
         link: item.fullUrl,
         date: new Date(DateTime.fromISO(item.data.created))
