@@ -15,18 +15,13 @@ const checkAuthentication = require('../../middleware/check-authentication')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-const tagsToArray = require('../../utilities/tags-to-array')
+const createValidators = require('../validators')
+const createSanitizers = require('../sanitizers')
 
-let createValidators = [
-  body('content').notEmpty().withMessage(`You need to write some content`),
-  body('place.latlng').if(body('place.latlng').notEmpty()).isLatLong()
+const localValidators = [
+  body('content').notEmpty().withMessage(`You need to write some content`)
 ]
-
-let createSanitizers = [
-  body('tags').customSanitizer((value) => {
-    return tagsToArray(value)
-  })
-]
+createValidators.push(...localValidators)
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))

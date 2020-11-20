@@ -12,11 +12,12 @@ const renderNav = require('../../middleware/render-nav')
 // 🖕 Middleware
 const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
 const checkAuthentication = require('../../middleware/check-authentication')
+
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-let createValidators = [
-]
+const createValidators = require('../validators')
+const createSanitizers = require('../sanitizers')
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
