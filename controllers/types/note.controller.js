@@ -15,14 +15,17 @@ const checkAuthentication = require('../../middleware/check-authentication')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-let createValidators = [
-  body('content').notEmpty().withMessage(`You need to write some content`),
-  body('place.latlng').if(body('place.latlng').notEmpty()).isLatLong()
+const createValidators = require('../validators')
+const createSanitizers = require('../sanitizers')
+
+const localValidators = [
+  body('content').notEmpty().withMessage(`You need to write some content`)
 ]
+createValidators.push(...localValidators)
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators, checkAuthentication], controllerContentHelper.createPost(model))
+router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators, createSanitizers, checkAuthentication], controllerContentHelper.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], controllerContentHelper.updateGet(model))
 router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.updatePost(model))
 router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], controllerContentHelper.deleteGet(model))

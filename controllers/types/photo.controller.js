@@ -16,10 +16,8 @@ const checkAuthentication = require('../../middleware/check-authentication')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-let createValidators = [
-  body('content').notEmpty().withMessage(`You need to write some content`),
-  body('place.latlng').if(body('place.latlng').notEmpty()).isLatLong()
-]
+const createValidators = require('../validators')
+const createSanitizers = require('../sanitizers')
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
