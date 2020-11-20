@@ -7,45 +7,31 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true });
 const passport = require('passport')
 const userList = require('../../config.users')
 const router = express.Router()
+const config = require('../../config')
+const constructOauth = require('../../utilities/construct-oauth-callback')
 
 // Default login page
-router.get('/', function(req, res){
-  res.render('auth/login', {
-    data: {title: 'Log in'},
-    username: req.query.username || null,
-    content: req.query.message || null
-  });
-});
-
-// Not really protection, but more to put people off
-router.post('/method', urlencodedParser, function(req, res){
-  if(userList.some(user => user.userName === req.body.username)) {
-    res.render('auth/method', {
-      username: req.body.username,
-      data: {title: 'Choose authentication method'},
-      content: null,
-    });
-  } else {
-    const query = querystring.stringify({
-      'username': req.body.username
-    });
-    res.redirect('/?' + query);
-  }
-});
+router.get(config.siteLoginPath(), function(req, res){
+  res.render('auth/method', {
+    data: {title: 'Choose authentication method'},
+    content: null,
+    siteLoginPath: config.siteLoginPath()
+  })
+})
 
 // Twitter authentication route
-router.get('/twitter', passport.authenticate('twitter'));
-router.get('/github', passport.authenticate('github'));
-// app.get('/email', passport.authenticate('easypassword'));
+router.get(`${config.siteLoginPath()}/twitter`, passport.authenticate('twitter'))
+router.get(`${config.siteLoginPath()}/github`, passport.authenticate('github'))
+// app.get('/email', passport.authenticate('easypassword'))
 
 // Twitter oauth callback
-router.get('/twitter/callback', passport.authenticate('twitter', {successRedirect : '/', failureRedirect: '/youdidntsaythemagicword'}));
+router.get(constructOauth.oaPath('twitter'), passport.authenticate('twitter', {successRedirect : '/', failureRedirect: '/youdidntsaythemagicword'}))
 
 // Github oauth callback
-router.get('/github/callback', passport.authenticate('github', { failureRedirect: '/' }), function(req, res) {
-  // Successful authentication, redirect home.
-  res.redirect('/');
-});
+// router.get(constructOauthCallbackPath('github'), passport.authenticate('github', { failureRedirect: '/' }), function(req, res) {
+//   // Successful authentication, redirect home.
+//   res.redirect('/')
+// });
 
 // Destroy logged-in session
 router.get('/end',

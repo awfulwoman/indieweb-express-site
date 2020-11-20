@@ -30,6 +30,7 @@ const renderUsers = require('./middleware/render-users')
 const renderDebug = require('./middleware/render-debug')
 const handleErrors = require('./middleware/handle-errors')
 const handle404 = require('./middleware/handle-404')
+const constructOauth = require('./utilities/construct-oauth-callback')
 
 const routesLogin = require('./controllers/login')
 const app = express();
@@ -58,18 +59,9 @@ app.engine('hbs', hbs({
 // -----------------------
 app.use(require('express-session')({ secret: process.env['KEYBOARD_CAT'], resave: true, saveUninitialized: true }))
 
-
-
-
-
 const TwitterStrategy = require('passport-twitter').Strategy
 // const GitHubStrategy = require('passport-github2').Strategy;
 
-
-const constructOauthCallbackUrl = function (strategy) {
-  let result = `${config.siteProtocol()}${config.siteDomain()}${(config.sitePortExternal() && config.sitePortExternal() != 80 ? ':' + config.sitePortExternal() : '')}/login/${strategy}/callback`;
-  return result;
-}
 
 if (!process.env['TWITTER_CONSUMER_KEY'] || !process.env['TWITTER_CONSUMER_SECRET']) return
 
@@ -77,13 +69,13 @@ if (!process.env['TWITTER_CONSUMER_KEY'] || !process.env['TWITTER_CONSUMER_SECRE
 const passportTwitterOptions = {
   consumerKey: process.env['TWITTER_CONSUMER_KEY'],
   consumerSecret: process.env['TWITTER_CONSUMER_SECRET'],
-  callbackURL: constructOauthCallbackUrl('twitter')
+  callbackURL: constructOauth.oaUrl('twitter')
 };
 
 // const passportGithubOptions = {
 //   clientID: process.env['GITHUB_CLIENT_ID'],
 //   clientSecret: process.env['GITHUB_CLIENT_SECRET'],
-//   callbackURL: constructOauthCallbackUrl('github')
+//   callbackURL: constructOauth.oaUrl('github')
 // }
 
 // Use Twitter passport strategy
@@ -137,7 +129,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(express.static('public'))
-app.use(config.siteLoginPath(), routesLogin)
+app.use('/', routesLogin)
 app.use('/', [controllers])
 
 
@@ -167,7 +159,7 @@ try {
     console.log(chalk.blue.bold(`| `) + chalk.bold.green(`App URL: `) + chalk.bold(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`))
     console.log(chalk.blue.bold(`----------------------------------------------------------`))
 
-    debug(constructOauthCallbackUrl('twitter'))
+    debug(constructOauth.oaUrl('twitter'))
 
     // WARM CACHES
     // ------
