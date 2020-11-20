@@ -111,13 +111,14 @@ blockquote {
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
+  padding: 1rem;
 }
 
 .c-main {
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 5px;
+  padding: 1rem;
 }
 
 .c-main > * + * {
@@ -179,6 +180,7 @@ blockquote {
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
+  padding: 1rem;
 }
 
 .c-header-layout {
