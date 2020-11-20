@@ -24,8 +24,8 @@ const localValidators = [
 createValidators.push(...localValidators)
 
 // 🔐 Protected routes 
-router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators, createSanitizers, checkAuthentication], controllerContentHelper.createPost(model))
+router.get(`/${model.modelDir}/create`, [renderNav], controllerContentHelper.createGet(model))
+router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, createValidators, createSanitizers], controllerContentHelper.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], controllerContentHelper.updateGet(model))
 router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.updatePost(model))
 router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], controllerContentHelper.deleteGet(model))
