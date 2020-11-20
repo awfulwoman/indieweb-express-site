@@ -57,6 +57,7 @@ jobs:
         CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
         TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
         TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+        SITE_LOGIN_PATH: ${{ secrets.SITE_LOGIN_PATH }}
       run: | # This is a multiline comment
         echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
         echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
@@ -66,6 +67,7 @@ jobs:
         echo "LOG_DIR=${{ env.LOG_DIR }}" >> .env
         echo "SITE_PROTOCOL=https" >> .env
         echo "SITE_DOMAIN=whalecoiner.com" >> .env
+        echo "SITE_LOGIN_PATH=${{ env.SITE_LOGIN_PATH }}" >> .env
       shell: bash
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy

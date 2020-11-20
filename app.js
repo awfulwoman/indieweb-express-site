@@ -137,7 +137,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(express.static('public'))
-app.use('/login', routesLogin)
+app.use(config.siteLoginPath(), routesLogin)
 app.use('/', [controllers])
 
 
