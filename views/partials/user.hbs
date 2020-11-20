@@ -1,5 +1,3 @@
-{{#if user}}
-  <p style="text-align: right;">Logged in as {{user.userName}} (<a href="/login/end">Sign out</a>)</p>
-  {{else}}
-  <p style="text-align: right;">Not logged in.</p>
+{{#if admin}}
+  <p>Logged in. (<a href="/end">Sign out</a>)</p>
 {{/if}}

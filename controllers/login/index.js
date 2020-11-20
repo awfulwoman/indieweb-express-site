@@ -9,9 +9,10 @@ const userList = require('../../config.users')
 const router = express.Router()
 const config = require('../../config')
 const constructOauth = require('../../utilities/construct-oauth-callback')
+const renderNav = require('../../middleware/render-nav')
 
 // Default login page
-router.get(config.siteLoginPath(), function(req, res){
+router.get(config.siteLoginPath(), renderNav, function(req, res){
   res.render('auth/method', {
     data: {title: 'Choose authentication method'},
     content: null,
