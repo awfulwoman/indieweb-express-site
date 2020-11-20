@@ -1,6 +1,6 @@
 const debug = require('debug')('sonniesedge:controllers:utils:content:createPost')
 const asyncHandler = require('express-async-handler')
-const { validationResult } = require('express-validator')
+const { validationResult, matchedData } = require('express-validator')
 const md = require('../../../utilities/markdown-it')
 const is = require('is_js')
 const config = require('../../../config')
@@ -43,8 +43,8 @@ const createPost = (model, options) => {
         })
       } else {
 
-        let data = req.body
-        let content = req.body.content ? req.body.content : ' '
+        let data = matchedData(req)
+        let content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
 
         let tempCurrentDate = DateTime.local().toUTC()
@@ -72,7 +72,7 @@ const createPost = (model, options) => {
     } catch (error) {
       throw new ErrorHandler(
       '409', 
-      '"The request could not be completed due to a conflict with the current state of the resource". \n\n Could not create this item. \n\n Better luck next time old bean.', 
+      '"The request could not be completed due to a conflict with the current state of the resource (i.e. it already exists)". \n\n Could not create this item. \n\n Better luck next time old bean.', 
       error
       )
     }
