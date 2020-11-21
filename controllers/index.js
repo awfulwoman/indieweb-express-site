@@ -1,3 +1,4 @@
+const disambiguation = require('./disambiguation')
 const bookmark = require('./types/bookmark.controller')
 const note = require('./types/note.controller')
 const page = require('./types/page.controller')
@@ -15,4 +16,4 @@ const archive = require('./archive')
 // Routes are applied in this order. 
 // Therefore page should always be last, as it operates at a higher path level than the others
 // e.g. /notes/1234 should take priority over /about/image.jpg
-module.exports = [bookmark, note, bandname, post, like, photo, quote, reply, repost, archive, page]
+module.exports = [disambiguation, bookmark, note, bandname, post, like, photo, quote, reply, repost, archive, page]

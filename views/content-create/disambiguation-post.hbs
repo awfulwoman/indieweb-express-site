@@ -1,0 +1,11 @@
+<h1 class="c-page-title">{{data.title}}</h1>
+
+{{content}}
+
+{{#if params}}
+<pre class="hljs"><code>{{{dumpObject params}}}</code></pre>
+{{/if}}
+
+{{#if body}}
+<pre class="hljs"><code>{{{dumpObject body}}}</code></pre>
+{{/if}}

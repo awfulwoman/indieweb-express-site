@@ -1,0 +1,24 @@
+<h1 class="c-page-title">{{data.title}}</h1>
+
+{{content}}
+
+<form action="/disambiguation" enctype="multipart/form-data" method="POST">
+
+  <div class="c-form-row">
+    <label for="title" class="c-form-title">Title</label>
+    <input type="text" id="title" name="title" class="c-form-texty">
+  </div>
+
+  <div class="c-form-row">
+    <label for="url" class="c-form-title">URL</label>
+    <input type="text" id="url" name="url" class="c-form-texty">
+  </div>
+
+
+  <div class="c-form-row">
+    <label for="url" class="c-form-title">Body</label>
+    <textarea id="body" name="body" class="c-form-texty"></textarea>
+  </div>
+
+  <button class="c-button c-button--primary">Submit</button>
+</form>
