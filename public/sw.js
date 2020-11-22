@@ -5,6 +5,8 @@
 
 (function () {
 
+  console.log('Service worker script invoked')
+
   // A cache for core files like CSS and JavaScript
   var staticCacheName = 'static';
   // A cache for pages to store for offline
@@ -12,12 +14,13 @@
   // A cache for images to store for offline
   var imagesCacheName = 'images';
   // Update 'version' if you need to refresh the caches
-  var version = 'v1::';
+  var version = 'v2::';
 
   // Store core files in a cache (including a page to display when offline)
   var updateStaticCache = function () {
     return caches.open(version + staticCacheName)
       .then(function (cache) {
+        console.log('Updating static cache')
         return cache.addAll([
           '/core.css',
           '/android-chrome-192x192.png',
@@ -32,6 +35,7 @@
   var stashInCache = function (cacheName, request, response) {
     caches.open(cacheName)
       .then(function (cache) {
+        console.log(`Putting ${request} into cache`)
         cache.put(request, response);
       });
   };
@@ -66,6 +70,7 @@
   };
 
   self.addEventListener('install', function (event) {
+    console.log('Installing sw')
     event.waitUntil(updateStaticCache()
       .then(function () {
         return self.skipWaiting();
@@ -74,6 +79,7 @@
   });
 
   self.addEventListener('activate', function (event) {
+    console.log('Activating sw')
     event.waitUntil(clearOldCaches()
       .then(function () {
         return self.clients.claim();
@@ -90,6 +96,7 @@
   });
 
   self.addEventListener('fetch', function (event) {
+    console.log('Fetch sw')
     var request = event.request;
     // For non-GET requests, try the network first, fall back to the offline page
     if (request.method !== 'GET') {
