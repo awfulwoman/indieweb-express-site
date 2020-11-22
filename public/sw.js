@@ -96,7 +96,7 @@
   });
 
   self.addEventListener('fetch', function (event) {
-    console.log('Fetch sw')
+    console.log('Installing sw')
     var request = event.request;
     // For non-GET requests, try the network first, fall back to the offline page
     if (request.method !== 'GET') {
