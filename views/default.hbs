@@ -1,7 +1,7 @@
 {{!-- A generic page, for generic people --}}
 
 <h1 class="c-page-title">{{data.title}}</h1>
-<p>{{date data.created "dddd Do MMMM, YYYY"}}</p>
+{{#if data.created}}<p>{{date data.created "dddd Do MMMM, YYYY"}}</p>{{/if}}
 
 {{#if data.place_name}}at {{data.place_name}}{{/if}}
 

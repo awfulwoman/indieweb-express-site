@@ -10,7 +10,7 @@ const models = require('../../models')
 // 🔓 Public routes 
 router.get(`/offline`, asyncHandler(async (req, res, next) => {
   try {
-    res.render('content-create/disambiguation-get', {
+    res.render('default', {
       data: { title: 'Du bist Offline' },
       content: md.render("Looks like you're offline."),
     })
