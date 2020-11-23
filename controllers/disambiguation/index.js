@@ -2,6 +2,8 @@ const debug = require('debug')('sonniesedge:controller:disambiguation')
 const asyncHandler = require('express-async-handler')
 const renderNav = require('../../middleware/render-nav')
 const checkAuthentication = require('../../middleware/check-authentication')
+const multer  = require('multer')
+const upload = multer()
 
 // 🏃‍♀️💨 Express
 const express = require('express')
@@ -25,14 +27,12 @@ router.get(`/disambiguation`, [renderNav, checkAuthentication], asyncHandler(asy
   }
 }))
 
-router.post(`/disambiguation`, [urlencodedParser, renderNav, checkAuthentication], asyncHandler(async (req, res, next) => {
+router.post(`/disambiguation`, [upload.none(), renderNav, checkAuthentication], asyncHandler(async (req, res, next) => {
   try {
     
-    debug('body: ', req.body)
-    debug('params: ', req.params)
+    // debug('body: ', req.body)
     res.render('content-create/disambiguation-post', {
       data: { title: 'Disambiguation page - POST' },
-      params: req.params,
       body: req.body
     })
   } catch (error) {
