@@ -12,10 +12,22 @@ const is = require('is_js');
 
 const updateGet = (model, options) => {
   options || (options = {});
-  return asyncHandler((req, res, next) => {
-    res.render(options.template || 'create-content/note', {
+  return asyncHandler(async (req, res, next) => {
+
+    // read existing note
+    let existingItem = await model.read(req.params.id)
+
+    debug('Existing: ', existingItem)
+
+    let formState = {...existingItem, ...existingItem.data}
+    delete formState.data
+    
+
+    // place state
+
+    res.render(options.template || 'content-create/types/notes', {
       content: `Start creating your note!`,
-      fields: model.fields
+      state: formState
     });
   })
 }
