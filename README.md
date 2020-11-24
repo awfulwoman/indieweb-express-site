@@ -2,7 +2,7 @@
 
 Express server-side app, using Markdown for data storage.  
 
-![Node.js CI](https://github.com/sonniesedge/site/workflows/Node.js%20CI/badge.svg)
+![Node.js CI](https://github.com/sonniesedge/site/workflows/Node.js%20CI/badge.svg) ![CodeQL](https://github.com/sonniesedge/site/workflows/CodeQL/badge.svg)
 
 ## Installation
 
