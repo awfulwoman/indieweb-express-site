@@ -11,8 +11,15 @@ const config = require('../../config')
 const constructOauth = require('../../utilities/construct-oauth-callback')
 const renderNav = require('../../middleware/render-nav')
 
+let original
+
 // Default login page
 router.get(config.siteLoginPath(), renderNav, function(req, res){
+
+  if (req.query && req.query.original) {
+    original = req.query.original
+  }
+
   res.render('auth/method', {
     data: {title: 'Choose authentication method'},
     content: null,
@@ -27,7 +34,8 @@ router.get(`${config.siteLoginPath()}/github`, passport.authenticate('github'))
 
 // Twitter oauth callback
 router.get(constructOauth.oaPath('twitter'), passport.authenticate('twitter', {failureRedirect: '/youdidntsaythemagicword'}), (req, res) => {
-  res.redirect(req.query ? req.query.original : '/')
+  console.log(req.query)
+  res.redirect(original ? original : '/')
 })
 
 // Github oauth callback
