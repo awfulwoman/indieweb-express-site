@@ -4,6 +4,7 @@ const renderNav = require('../../middleware/render-nav')
 const checkAuthentication = require('../../middleware/check-authentication')
 const multer = require('multer')
 const upload = multer()
+const tall = require('tall')
 
 // 🏃‍♀️💨 Express
 const express = require('express')
@@ -37,6 +38,8 @@ router.post(`/disambiguation`, [upload.none(), checkAuthentication], asyncHandle
     form_state['title'] = req.query && req.query.title ? req.query.title : req.body.title || ''
     form_state['text'] = req.query && req.query.text ? req.query.text : req.body.text || ''
     form_state['url'] = req.query && req.query.url ? req.query.url : req.body.url || ''
+
+    form_state['url'] = await(form_state['url'])
 
     res.render('content-create/disambiguation-post', {
       data: { title: 'Disambiguation' },
