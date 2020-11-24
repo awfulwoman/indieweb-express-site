@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "express-handlebars": "^5.1.0",
+    "express-rate-limit": "^5.2.3",
     "express-session": "^1.17.0",
     "express-validator": "^6.6.1",
     "fast-glob": "^3.2.4",

@@ -31,6 +31,7 @@ const renderDebug = require('./middleware/render-debug')
 const handleErrors = require('./middleware/handle-errors')
 const handle404 = require('./middleware/handle-404')
 const constructOauth = require('./utilities/construct-oauth-callback')
+const rateLimit = require("express-rate-limit");
 
 const routesLogin = require('./controllers/login')
 const app = express();
@@ -47,6 +48,12 @@ app.use(helmet({
     }
   }
 }));
+
+// Configure rate limits
+const apiLimiterLogin = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100
+});
 
 // Templates
 app.set('view engine', '.hbs')
@@ -130,7 +137,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(express.static('public'))
-app.use('/', routesLogin)
+app.use('/', [apiLimiterLogin, routesLogin])
 app.use('/', [controllers])
 
 
