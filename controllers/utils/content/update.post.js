@@ -10,7 +10,7 @@ const is = require('is_js');
 
 const updatePost = (model, options) => {
   options || (options = {});
-  return asyncHandler((req, res, next) => {
+  return asyncHandler(async (req, res, next) => {
 
     // Errors?
     const errors = validationResult(req);
@@ -38,14 +38,13 @@ const updatePost = (model, options) => {
       // Render
       res.render(options.template || 'create-content/note', {
         success: true,
-        flash: { type: 'success', message: `Note created` },
-        content: `Your new Note has been created!`,
+        flash: { type: 'success', message: `Note updated` },
+        content: `Your Note has been updated!`,
         url: `/notes/${req.body.data.id}/`
       });
     } catch (error) {
       res.render(options.template || 'create-content/note', {
-        flash: { type: 'error', message: `Note creation failed`, additional: error.toString() },
-        content: `Something went wrong and the note wasn't created. 😭`,
+        content: `Something went wrong and the note wasn't updated. 😭`,
         errors: errors.toArray()
       });
     }
