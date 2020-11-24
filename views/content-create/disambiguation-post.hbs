@@ -16,8 +16,8 @@
 
 
   <div class="c-form-row">
-    <label for="url" class="c-form-title">Body</label>
-    <textarea id="body" name="body" class="c-form-texty">{{state.body}}</textarea>
+    <label for="url" class="c-form-title">text</label>
+    <textarea id="text" name="text" class="c-form-texty">{{state.text}}</textarea>
   </div>
   
   <div class="c-button-group">
@@ -30,10 +30,7 @@
   </div>
 </form>
 
-{{#if params}}
-<pre class="hljs"><code>{{{dumpObject params}}}</code></pre>
-{{/if}}
-
 {{#if body}}
-<pre class="hljs"><code>{{{dumpObject body}}}</code></pre>
+<h2>State</h2>
+<pre class="hljs"><code>{{{dumpObject state}}}</code></pre>
 {{/if}}
