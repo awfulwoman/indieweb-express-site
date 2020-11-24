@@ -2,6 +2,32 @@
 
 {{content}}
 
+<form method="GET">
+
+  <div class="c-form-row">
+    <label for="title" class="c-form-title">Title</label>
+    <input type="text" id="title" name="title" class="c-form-texty" value="{{payload_title}}">
+  </div>
+
+  <div class="c-form-row">
+    <label for="url" class="c-form-title">URL</label>
+    <input type="text" id="url" name="url" class="c-form-texty" value="{{payload_url}}">
+  </div>
+
+
+  <div class="c-form-row">
+    <label for="url" class="c-form-title">Body</label>
+    <textarea id="body" name="body" class="c-form-texty">{{payload_body}}</textarea>
+  </div>
+  
+  <button formaction="/bookmarks/create" class="c-button c-button-primary">Use in bookmarks</button>
+  <button formaction="/notes/create" class="c-button c-button-primary">Use in notes</button>
+  <button formaction="/likes/create" class="c-button c-button-primary">Use in likes</button>
+  <button formaction="/replies/create" class="c-button c-button-primary">Use in reply</button>
+  <button formaction="/quotes/create" class="c-button c-button-primary">Use in quotes</button>
+  <button formaction="/reposts/create" class="c-button c-button-primary">Use in reposts</button>
+</form>
+
 {{#if params}}
 <pre class="hljs"><code>{{{dumpObject params}}}</code></pre>
 {{/if}}

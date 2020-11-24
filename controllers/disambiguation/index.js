@@ -20,7 +20,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true })
 router.get(`/disambiguation`, [renderNav, checkAuthentication], asyncHandler(async (req, res, next) => {
   try {
     res.render('content-create/disambiguation-get', {
-      data: { title: 'Disambiguation page - GET' }
+      data: { title: 'Disambiguation page' }
     })
   } catch (error) {
     debug(error)
@@ -32,8 +32,11 @@ router.post(`/disambiguation`, [upload.none(), renderNav, checkAuthentication], 
     
     // debug('body: ', req.body)
     res.render('content-create/disambiguation-post', {
-      data: { title: 'Disambiguation page - POST' },
-      body: req.body
+      data: { title: 'Disambiguation page' },
+      body: req.body,
+      payload_title: req.body.title,
+      payload_url: req.body.url,
+      payload_body: req.body.body
     })
   } catch (error) {
     debug(error)
