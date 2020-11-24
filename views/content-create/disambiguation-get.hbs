@@ -6,18 +6,18 @@
 
   <div class="c-form-row">
     <label for="title" class="c-form-title">Title</label>
-    <input type="text" id="title" name="title" class="c-form-texty">
+    <input type="text" id="title" name="title" class="c-form-texty" value="{{state.title}}">
   </div>
 
   <div class="c-form-row">
     <label for="url" class="c-form-title">URL</label>
-    <input type="text" id="url" name="url" class="c-form-texty">
+    <input type="text" id="url" name="url" class="c-form-texty" value="{{state.url}}">
   </div>
 
 
   <div class="c-form-row">
     <label for="url" class="c-form-title">Body</label>
-    <textarea id="body" name="body" class="c-form-texty"></textarea>
+    <textarea id="body" name="body" class="c-form-texty">{{state.body}}</textarea>
   </div>
 
   <button class="c-button c-button--primary">Submit</button>
