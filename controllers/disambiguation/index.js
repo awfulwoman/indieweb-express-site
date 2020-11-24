@@ -22,8 +22,6 @@ router.get(`/disambiguation`, [checkAuthentication], asyncHandler(async (req, re
 
     let form_state = {}
 
-    console.log(req.query)
-
     form_state['title'] = req.query ? req.query.title : ''
     form_state['body'] = req.query ? req.query.body : ''
     form_state['url'] = req.query ? req.query.url : ''
