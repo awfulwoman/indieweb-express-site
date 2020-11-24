@@ -26,7 +26,9 @@ router.get(`${config.siteLoginPath()}/github`, passport.authenticate('github'))
 // app.get('/email', passport.authenticate('easypassword'))
 
 // Twitter oauth callback
-router.get(constructOauth.oaPath('twitter'), passport.authenticate('twitter', {successRedirect : `req.query ? req.query.original : '/'`, failureRedirect: '/youdidntsaythemagicword'}))
+router.get(constructOauth.oaPath('twitter'), passport.authenticate('twitter', {failureRedirect: '/youdidntsaythemagicword'}), (req, res) => {
+  res.redirect(req.query ? req.query.original : '/')
+})
 
 // Github oauth callback
 // router.get(constructOauthCallbackPath('github'), passport.authenticate('github', { failureRedirect: '/' }), function(req, res) {
