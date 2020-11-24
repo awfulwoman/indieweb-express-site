@@ -23,8 +23,6 @@ const createGet = (model, options) => {
     form_state['reply_to'] = req.query.url
     form_state['repost_of'] = req.query.url
 
-    debug('Form state: ', form_state)
-
     res.render(options.template || `content-create/types/${model.modelDir}`, {
       data: { title: `${model.modelDir} creation` },
       state: form_state,

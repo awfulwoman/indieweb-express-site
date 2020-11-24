@@ -17,7 +17,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true })
 // const {controllerArchiveHelper} = require('../utils')
 
 // 🔓 Public routes 
-router.get(`/disambiguation`, [renderNav, checkAuthentication], asyncHandler(async (req, res, next) => {
+router.get(`/disambiguation`, [checkAuthentication], asyncHandler(async (req, res, next) => {
   try {
 
     let form_state = {}
@@ -26,10 +26,8 @@ router.get(`/disambiguation`, [renderNav, checkAuthentication], asyncHandler(asy
     form_state['body'] = req.query ? req.query.body : ''
     form_state['url'] = req.query ? req.query.url : ''
 
-    debug('Form state: ', form_state)
-
     res.render('content-create/disambiguation-get', {
-      data: { title: 'Disambiguation page' },
+      data: { title: 'Disambiguation' },
       state: form_state
     })
   } catch (error) {
@@ -37,7 +35,7 @@ router.get(`/disambiguation`, [renderNav, checkAuthentication], asyncHandler(asy
   }
 }))
 
-router.post(`/disambiguation`, [upload.none(), renderNav, checkAuthentication], asyncHandler(async (req, res, next) => {
+router.post(`/disambiguation`, [upload.none(), checkAuthentication], asyncHandler(async (req, res, next) => {
   try {
 
     let form_state = {}
@@ -46,11 +44,8 @@ router.post(`/disambiguation`, [upload.none(), renderNav, checkAuthentication], 
     form_state['body'] = req.query.body || req.body.body || ''
     form_state['url'] = req.query.url || req.body.url || ''
 
-    debug('Form state: ', form_state)
-
-    // debug('body: ', req.body)
     res.render('content-create/disambiguation-post', {
-      data: { title: 'Disambiguation page' },
+      data: { title: 'Disambiguation' },
       state: form_state
     })
   } catch (error) {

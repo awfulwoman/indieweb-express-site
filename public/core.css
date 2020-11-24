@@ -168,6 +168,12 @@ blockquote {
   font-size: 21px;
 }
 
+.c-button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .c-button {
   border: 1px solid green;
   background-color: green;

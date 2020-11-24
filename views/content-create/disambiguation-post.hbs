@@ -20,12 +20,14 @@
     <textarea id="body" name="body" class="c-form-texty">{{state.body}}</textarea>
   </div>
   
-  <button formaction="/bookmarks/create" class="c-button c-button-primary">Use in bookmarks</button>
-  <button formaction="/notes/create" class="c-button c-button-primary">Use in notes</button>
-  <button formaction="/likes/create" class="c-button c-button-primary">Use in likes</button>
-  <button formaction="/replies/create" class="c-button c-button-primary">Use in reply</button>
-  <button formaction="/quotes/create" class="c-button c-button-primary">Use in quotes</button>
-  <button formaction="/reposts/create" class="c-button c-button-primary">Use in reposts</button>
+  <div class="c-button-group">
+    <button formaction="/bookmarks/create" class="c-button c-button-primary">Use in bookmarks</button>
+    <button formaction="/notes/create" class="c-button c-button-primary">Use in notes</button>
+    <button formaction="/likes/create" class="c-button c-button-primary">Use in likes</button>
+    <button formaction="/replies/create" class="c-button c-button-primary">Use in reply</button>
+    <button formaction="/quotes/create" class="c-button c-button-primary">Use in quotes</button>
+    <button formaction="/reposts/create" class="c-button c-button-primary">Use in reposts</button>
+  </div>
 </form>
 
 {{#if params}}
