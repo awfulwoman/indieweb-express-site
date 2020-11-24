@@ -14,7 +14,7 @@ const createGet = (model, options) => {
     let form_state = {}
 
     form_state['title'] = req.query.title
-    form_state['content'] = req.query.body
+    form_state['content'] = req.query.text
     form_state['url'] = req.query.url
     
     form_state['bookmark_of'] = req.query.url
