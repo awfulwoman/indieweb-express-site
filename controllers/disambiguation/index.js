@@ -5,6 +5,7 @@ const checkAuthentication = require('../../middleware/check-authentication')
 const multer = require('multer')
 const upload = multer()
 const tall = require('tall').tall
+const md = require('../../utilities/markdown-it')
 
 // 🏃‍♀️💨 Express
 const express = require('express')
@@ -23,6 +24,7 @@ router.get(`/disambiguation`, [checkAuthentication], asyncHandler(async (req, re
 
     res.render(req.query.title || req.query.text || req.query.url ? 'content-create/disambiguation-post' : 'content-create/disambiguation-get', {
       data: { title: 'Disambiguation' },
+      content: md.render('Just used for manual testing.'),
       state: form_state
     })
   } catch (error) {
@@ -33,8 +35,8 @@ router.get(`/disambiguation`, [checkAuthentication], asyncHandler(async (req, re
 router.post(`/disambiguation`, [upload.none(), checkAuthentication], asyncHandler(async (req, res, next) => {
   try {
 
-    console.log('req.query: ', req.query)
-    console.log('req.body: ', req.body)
+    // console.log('req.query: ', req.query)
+    // console.log('req.body: ', req.body)
 
     let form_state = {}
 
@@ -42,12 +44,12 @@ router.post(`/disambiguation`, [upload.none(), checkAuthentication], asyncHandle
     form_state['text'] = req.query && req.query.text ? req.query.text : req.body.text || ''
     form_state['url'] = req.query && req.query.url ? req.query.url : req.body.url || ''
 
-    console.log('form_state: ', form_state)
+    // console.log('form_state: ', form_state)
 
-    // Unshorten any shortened URLs
-    form_state['url'] = await tall(form_state['url'])
+    // // Unshorten any shortened URLs
+    // form_state['url'] = await tall(form_state['url'])
 
-    console.log('form_state (post-tall): ', form_state)
+    // console.log('form_state (post-tall): ', form_state)
     
     res.render('content-create/disambiguation-post', {
       data: { title: 'Disambiguation' },
