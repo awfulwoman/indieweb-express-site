@@ -11,7 +11,7 @@ const createPost = (model, options) => {
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
     try {
-
+      debug(req.body)
       const errors = validationResult(req);
       let form_state = {}
       let form_errors = {}
@@ -47,9 +47,11 @@ const createPost = (model, options) => {
       } else {
 
         let data = matchedData(req)
-        debug(data)
+        debug('data (pre):', data)
         let content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
+        debug('data:', data)
+        debug('content:', content)
 
         let tempCurrentDate = DateTime.local().toUTC()
 
