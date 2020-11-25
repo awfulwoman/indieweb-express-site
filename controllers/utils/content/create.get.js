@@ -14,12 +14,8 @@ const createGet = (model, options) => {
   return asyncHandler(async (req, res, next) => {
     let form_state = {}
 
-
-    // // Unshorten any shortened URLs
-    
+    // Unshorten any shortened URLs
     let resolvedUrl = await tall(form_state['url'])
-
-
 
     form_state['title'] = req.query.title
     form_state['content'] = req.query.text
