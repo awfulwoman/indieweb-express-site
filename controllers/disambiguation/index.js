@@ -42,14 +42,19 @@ router.post(`/disambiguation`, [upload.none(), checkAuthentication], asyncHandle
     form_state['text'] = req.query && req.query.text ? req.query.text : req.body.text || ''
     form_state['url'] = req.query && req.query.url ? req.query.url : req.body.url || ''
 
+    console.log('form_state: ', form_state)
+
     // Unshorten any shortened URLs
     form_state['url'] = await tall(form_state['url'])
+
+    console.log('form_state (post-tall): ', form_state)
     
     res.render('content-create/disambiguation-post', {
       data: { title: 'Disambiguation' },
       state: form_state
     })
   } catch (error) {
+    console.log('error!: ', error)
     debug(error)
   }
 }))
