@@ -30,6 +30,7 @@ const renderUsers = require('./middleware/render-users')
 const renderDebug = require('./middleware/render-debug')
 const handleErrors = require('./middleware/handle-errors')
 const handle404 = require('./middleware/handle-404')
+const renderBuildTime = require('./middleware/render-buildtime')
 const constructOauth = require('./utilities/construct-oauth-callback')
 const rateLimit = require("express-rate-limit");
 
@@ -116,6 +117,7 @@ app.use(passport.initialize()) // Initialize Passport in Express.
 app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
 app.use(renderUsers) // Make user info available to every render
 app.use(renderDebug) // Make debug status available to every render
+app.use(renderBuildTime)
 var accessLogStream = rfs.createStream('access.log', {
   interval: '1d', // rotate daily
   path: config.logDir()
