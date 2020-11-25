@@ -47,11 +47,11 @@ const createPost = (model, options) => {
       } else {
 
         let data = matchedData(req)
-        debug('data (pre):', data)
+        // debug('data (pre):', data)
         let content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
-        debug('data:', data)
-        debug('content:', content)
+        // debug('data:', data)
+        // debug('content:', content)
 
         let tempCurrentDate = DateTime.local().toUTC()
 
