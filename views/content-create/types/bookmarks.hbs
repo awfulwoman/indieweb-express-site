@@ -4,13 +4,13 @@
 
 <form method="POST" action="create" class="c-form">
 
-  <div class="c-form-row">
+  <div class="c-form-row {{#if errors.title}}c-form-row--error{{/if}}">
     <label for="title" class="c-form-title">Title</label>
     <input type="text" id="title" name="title" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
       value="{{state.title}}">
   </div>
 
-  <div class="c-form-row">
+  <div class="c-form-row {{#if errors.bookmark_of}}c-form-row--error{{/if}}">
     <label for="title" class="c-form-title">Bookmark URL</label>
     <input type="text" id="bookmark_of" name="bookmark_of"
       class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}" value="{{state.bookmark_of}}">

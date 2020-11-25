@@ -34,6 +34,9 @@ const createPost = (model, options) => {
       }
 
       if (errors.array().length > 0) {
+        debug('errors!')
+        debug(errors.array())
+        debug(form_errors)
         res.render(options.template || `content-create/types/${model.modelDir}`, {
           data: { title: `${model.modelDir} creation` },
           content: md.render('Get creating, or something.'),
@@ -44,6 +47,7 @@ const createPost = (model, options) => {
       } else {
 
         let data = matchedData(req)
+        debug(data)
         let content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
 
