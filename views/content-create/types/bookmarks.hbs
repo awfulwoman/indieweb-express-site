@@ -6,14 +6,14 @@
 
   <div class="c-form-row {{#if errors.title}}c-form-row--error{{/if}}">
     <label for="title" class="c-form-title">Title</label>
-    <input type="text" id="title" name="title" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
+    <input type="text" id="title" name="title" class="c-form-texty {{#if errors.title}}c-form-texty--error{{/if}}"
       value="{{state.title}}">
   </div>
 
   <div class="c-form-row {{#if errors.bookmark_of}}c-form-row--error{{/if}}">
     <label for="title" class="c-form-title">Bookmark URL</label>
     <input type="text" id="bookmark_of" name="bookmark_of"
-      class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}" value="{{state.bookmark_of}}">
+      class="c-form-texty {{#if errors.bookmark_of}}c-form-texty--error{{/if}}" value="{{state.bookmark_of}}">
   </div>
 
 
@@ -29,7 +29,7 @@
     <div class="c-form-row {{#if errors.content}}c-form-row--error{{/if}}">
       <label for="content" class="c-form-title">Content</label>
       <textarea rows="8" id="content" name="content"
-        class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}">{{state.content}}</textarea>
+        class="c-form-texty {{#if errors.content}}c-form-texty--error{{/if}}">{{state.content}}</textarea>
     </div>
   </details>
 
