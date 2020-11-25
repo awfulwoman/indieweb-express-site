@@ -33,6 +33,9 @@ router.get(`/disambiguation`, [checkAuthentication], asyncHandler(async (req, re
 router.post(`/disambiguation`, [upload.none(), checkAuthentication], asyncHandler(async (req, res, next) => {
   try {
 
+    console.log('req.query: ', req.query)
+    console.log('req.body: ', req.body)
+
     let form_state = {}
 
     form_state['title'] = req.query && req.query.title ? req.query.title : req.body.title || ''
