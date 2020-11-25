@@ -16,6 +16,8 @@ const checkAuthentication = require('../../middleware/check-authentication')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
+const createValidators = require('../validators')
+const createSanitizers = require('../sanitizers')
 const localValidators = [
   body('title').notEmpty().withMessage(`You need to supply a title`),
   body('bookmark_of').notEmpty().withMessage(`You need to supply a bookmark URL`)
