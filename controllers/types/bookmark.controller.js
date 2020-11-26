@@ -18,6 +18,11 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 const createValidators = require('../validators')
 const createSanitizers = require('../sanitizers')
+const localValidators = [
+  body('title').notEmpty().withMessage(`You need to supply a title`),
+  body('bookmark_of').notEmpty().withMessage(`You need to supply a bookmark URL`)
+]
+createValidators.push(...localValidators)
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))

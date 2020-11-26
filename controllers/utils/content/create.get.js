@@ -15,7 +15,7 @@ const createGet = (model, options) => {
     let form_state = {}
 
     // Unshorten any shortened URLs
-    let resolvedUrl = req.query.url ? await tall(req.query.url) : ''
+    let resolvedUrl = req.query.url ? await tall(req.query.url) : undefined
 
     form_state['title'] = req.query.title
     form_state['content'] = req.query.text

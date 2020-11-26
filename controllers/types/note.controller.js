@@ -17,7 +17,6 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 const createValidators = require('../validators')
 const createSanitizers = require('../sanitizers')
-
 const localValidators = [
   body('content').notEmpty().withMessage(`You need to write some content`)
 ]
