@@ -31,7 +31,9 @@ const renderDebug = require('./middleware/render-debug')
 const handleErrors = require('./middleware/handle-errors')
 const handle404 = require('./middleware/handle-404')
 const constructOauth = require('./utilities/construct-oauth-callback')
-const rateLimit = require("express-rate-limit");
+const rateLimit = require('express-rate-limit')
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
 
 const routesLogin = require('./controllers/login')
 const app = express();
@@ -65,13 +67,16 @@ app.engine('hbs', hbs({
 
 // AUTHENTICATION + SESSIONS
 // -----------------------
-app.use(require('express-session')({ 
+app.use(session({ 
   secret: process.env['KEYBOARD_CAT'], 
   resave: true, 
   saveUninitialized: true,
   cookie: {
     maxAge: 60000000
-  }
+  },
+  // store: new FileStore({
+  //   path: config.dataRoot() + '/sessions'
+  // })
 }))
 
 const TwitterStrategy = require('passport-twitter').Strategy
