@@ -65,7 +65,14 @@ app.engine('hbs', hbs({
 
 // AUTHENTICATION + SESSIONS
 // -----------------------
-app.use(require('express-session')({ secret: process.env['KEYBOARD_CAT'], resave: true, saveUninitialized: true }))
+app.use(require('express-session')({ 
+  secret: process.env['KEYBOARD_CAT'], 
+  resave: true, 
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 60000000
+  }
+}))
 
 const TwitterStrategy = require('passport-twitter').Strategy
 // const GitHubStrategy = require('passport-github2').Strategy;
