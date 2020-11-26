@@ -2,94 +2,30 @@
 
 <p>Create a new note and then go out and get smashed.</p>
 
-<form method="POST" action="create" class="c-form">
+<form method="POST" class="c-form">
 
+  {{> fields/content}}
+  {{> fields/tags}}
 
-  <div class="c-form-row {{#if errors.content}}c-form-row--error{{/if}}">
-    <label for="content" class="c-form-title">Content</label>
-    <textarea rows="8" id="content" name="content"
-      class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}">{{state.content}}</textarea>
-  </div>
-
-  <div class="c-form-row {{#if errors.tags}}c-form-row--error{{/if}}">
-    <label for="tags" class="c-form-title">Tags</label>
-    <textarea rows="2" id="tags" name="tags"
-      class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}">{{state.tags}}</textarea>
-  </div>
-
-  <div class="c-form-section">
-
-    <h2>Place</h2>
-
-    <div class="c-form-row {{#if errors.place_latlng}}c-form-row--error{{/if}}">
-      <label for="place_lat" class="c-form-title">Latitude, Longitude</label>
-      <input type="text" id="place_latlng" name="place[latlng]"
-        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_latlng}}">
-    </div>
-
-    <div class="c-form-row {{#if errors.place_name}}c-form-row--error{{/if}}">
-      <label for="place_name" class="c-form-title">Place name</label>
-      <input type="text" id="place_name" name="place[name]"
-        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_name}}">
-    </div>
-
-    <div class="c-form-row {{#if errors.place_address}}c-form-row--error{{/if}}">
-      <label for="place_address" class="c-form-title">Address</label>
-      <input type="text" id="place_address" name="place[address]"
-        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_address}}">
-    </div>
-
-    {{!-- <label for="place_lat">Google Place ID</label> --}}
-    <input type="hidden" id="place_googleid" name="place[googleid]" value="{{this.place_googleid}}">
-  </div>
+  <details>
+    <summary>Place</summary>
+    {{> fields/place}}
+  </details>
 
   <details>
     <summary>Meta</summary>
-
-    <div class="c-form-row">
-      <h2>Privacy</h2>
-      <p>Should this item be hidden from everyone, even if they know the URL? (HTTP404)</p>
-      <div class="c-checkbox-group">
-        <input type="checkbox" value="true" id="private_true" name="private" {{#if state.private}}checked{{/if}}><label
-          for="">Make it private</label>
-      </div>
-    </div>
-
-    <div class="c-form-row">
-      <h2>Feed syndication</h2>
-      <p>Should this item be hidden from the local and global RSS/Atom/JSON syndication feeds?</p>
-      <div class="c-checkbox-group">
-        <input type="checkbox" value="true" id="hide_from_rss" name="hide_from_feed" {{#if state.private}}checked{{/if}}><label
-          for="">Hide from feeds</label>
-      </div>
-    </div>
-
-    <div class="c-form-row">
-      <h2>Indexing</h2>
-      <p>Should this be available in the recent indexes and archives? Someone who has the item URL will still be able to view it.</p>
-      <div class="c-checkbox-group">
-        <input type="checkbox" value="true" id="hide_from_indexes" name="hide_from_indexes" {{#if state.private}}checked{{/if}}><label
-          for="">Hide from indexes</label>
-      </div>
-    </div>
-
+    {{> fields/privacy}}
+    {{> fields/feed}}
+    {{> fields/index}}
   </details>
 
   <details>
     <summary>Optional</summary>
-    <div class="c-form-row">
-      <label for="title" class="c-form-title">Title</label>
-      <p class="c-form-example">A wonderful day in the park</p>
-      <input type="text" id="title" name="title" class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
-        value="{{state.title}}">
-      <p class="c-form-description">Give your note a title</p>
-    </div>
+    {{> fields/title}}
   </details>
-
 
   <div class="c-form-row">
     <button class="c-button c-button--primary">Create a new note!</button>
   </div>
-
 
 </form>

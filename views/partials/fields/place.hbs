@@ -1,0 +1,20 @@
+    <div class="c-form-row {{#if errors.place_latlng}}c-form-row--error{{/if}}">
+      <label for="place_lat" class="c-form-title">Latitude, Longitude</label>
+      <input type="text" id="place_latlng" name="place[latlng]"
+        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_latlng}}">
+    </div>
+
+    <div class="c-form-row {{#if errors.place_name}}c-form-row--error{{/if}}">
+      <label for="place_name" class="c-form-title">Place name</label>
+      <input type="text" id="place_name" name="place[name]"
+        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_name}}">
+    </div>
+
+    <div class="c-form-row {{#if errors.place_address}}c-form-row--error{{/if}}">
+      <label for="place_address" class="c-form-title">Address</label>
+      <input type="text" id="place_address" name="place[address]"
+        class="c-form-texty {{#if errors.place_latlng}}c-form-texty--error{{/if}}" value="{{state.place_address}}">
+    </div>
+
+    {{!-- <label for="place_lat">Google Place ID</label> --}}
+    <input type="hidden" id="place_googleid" name="place[googleid]" value="{{this.place_googleid}}">
