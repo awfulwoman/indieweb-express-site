@@ -4,15 +4,15 @@
 
 <script>
   function swapValuesTitleAndUrl() {
-    var tmp = document.getElementById("title").value;
-    document.getElementById("title").value = document.getElementById("url").value;
-    document.getElementById("url").value = tmp;
+    var tmp = document.getElementById('title').value;
+    document.getElementById('title').value = document.getElementById('url').value;
+    document.getElementById('url').value = tmp;
   }
 
   function swapValuesUrlAndText() {
-    var tmp = document.getElementById("url").value;
-    document.getElementById("url").value = document.getElementById("text").value;
-    document.getElementById("text").value = tmp;
+    var tmp = document.getElementById('url').value;
+    document.getElementById('url').value = document.getElementById('text').value;
+    document.getElementById('text').value = tmp;
   }
 </script>
 
@@ -20,8 +20,8 @@
 
   <div class="c-form-row">
     <label for="title" class="c-form-title">Received Title</label>
-    <p>This will be sent to the 'title' field of the selected item type.</p>
     <textarea id="title" name="title" class="c-form-texty">{{state.title}}</textarea>
+    <p>This will be sent to the 'title' field of the selected item type.</p>
   </div>
 
   <input type="button" onclick="swapValuesTitleAndUrl()" value="Swap title and Url fields" class="c-button">
@@ -49,8 +49,3 @@
     <button formaction="/reposts/create" class="c-button c-button-primary">Repost</button>
   </div>
 </form>
-
-{{#if body}}
-<h2>State</h2>
-<pre class="hljs"><code>{{{dumpObject state}}}</code></pre>
-{{/if}}
