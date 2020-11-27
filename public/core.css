@@ -25,6 +25,12 @@
   box-sizing: border-box;
 }
 
+address, article, aside, blockquote, details, dialog, 
+dd, div, dl, dt, fieldset, figcaption, figure, footer, 
+form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, li, 
+main, nav, ol, p, pre, section, table, ul {
+  margin: 0 0 1rem 0;
+}
 
 body {
   font-family: "Roboto Slab", "Courier New", Courier, monospace;
@@ -59,7 +65,7 @@ h4,
 h5,
 h6 {
   font-weight: normal;
-  margin: 0;
+  /* margin: 0; */
 }
 
 h1 {
@@ -88,6 +94,20 @@ h6 {
 
 img {
   max-width: 100%;
+}
+
+.c-collapse {
+  border: 2px solid white;
+}
+
+.c-title {
+  margin: 0;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.c-revealed {
+  padding: 15px;
 }
 
 blockquote {
@@ -129,9 +149,9 @@ blockquote {
   margin-top: 1rem;
 }
 
-.c-form details > * {
+/* .c-form details > * {
   margin-top: 1rem;
-}
+} */
 
 .c-form-row {
   display: block;
@@ -150,7 +170,8 @@ blockquote {
 
 .c-form-title {
   display: block;
-  font-weight: bold;
+  font-weight: normal;
+  font-size: 1.6rem;
   width: 100%;
 }
 

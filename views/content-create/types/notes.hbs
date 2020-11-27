@@ -7,21 +7,30 @@
   {{> fields/content}}
   {{> fields/tags}}
 
-  <details>
-    <summary>Place</summary>
-    {{> fields/place}}
+  <details class="c-collapse">
+    <summary class="c-title">Place</summary>
+    <div class="c-revealed">
+      {{> fields/place}}
+    </div>
   </details>
 
-  <details>
-    <summary>Meta</summary>
-    {{> fields/privacy}}
-    {{> fields/feed}}
-    {{> fields/index}}
+  <details class="c-collapse">
+    <summary class="c-title">Meta</summary>
+    <div class="c-revealed">
+      {{> fields/privacy}}
+      {{> fields/feed}}
+      {{> fields/index}}
+      {{> fields/created}}
+      {{> fields/modified}}
+      {{> fields/uuid}}
+    </div>
   </details>
 
-  <details>
-    <summary>Optional</summary>
-    {{> fields/title}}
+  <details class="c-collapse">
+    <summary class="c-title">Optional</summary>
+    <div class="c-revealed">
+      {{> fields/title}}
+    </div>
   </details>
 
   <div class="c-form-row">

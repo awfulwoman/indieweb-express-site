@@ -17,7 +17,7 @@ const updateGet = (model, options) => {
     // read existing note
     let existingItem = await model.read(req.params.id)
 
-    debug('Existing: ', existingItem)
+    debug('Existing item: ', existingItem)
 
     let formState = {...existingItem, ...existingItem.data}
     delete formState.data

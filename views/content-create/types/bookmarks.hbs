@@ -8,20 +8,27 @@
   {{> fields/bookmark-of}}
   {{> fields/tags}}
 
-  <details>
-    <summary>Optional</summary>
-    {{> fields/content}}
+  <details class="c-collapse">
+    <summary class="c-title">Optional</summary>
+    <div class="c-revealed">
+      {{> fields/content}}
+    </div>
   </details>
 
-  <details>
-    <summary>Meta</summary>
-    {{> fields/privacy}}
-    {{> fields/feed}}
-    {{> fields/index}}
+  <details class="c-collapse">
+    <summary class="c-title">Meta</summary>
+    <div class="c-revealed">
+      {{> fields/privacy}}
+      {{> fields/feed}}
+      {{> fields/index}}
+      {{> fields/created}}
+      {{> fields/modified}}
+      {{> fields/uuid}}
+    </div>
   </details>
 
   <div class="c-form-row">
-    <button class="c-button c-button--primary">Create a new note!</button>
+    <button class="c-button c-button--primary">Create a new bookmark!</button>
   </div>
 
 </form>
