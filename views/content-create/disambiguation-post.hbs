@@ -3,13 +3,13 @@
 {{{content}}}
 
 <script>
-  function swapValuesTitleAndUrl(){
+  function swapValuesTitleAndUrl() {
     var tmp = document.getElementById("title").value;
     document.getElementById("title").value = document.getElementById("url").value;
     document.getElementById("url").value = tmp;
   }
 
-    function swapValuesUrlAndText(){
+  function swapValuesUrlAndText() {
     var tmp = document.getElementById("url").value;
     document.getElementById("url").value = document.getElementById("text").value;
     document.getElementById("text").value = tmp;
@@ -21,27 +21,25 @@
   <div class="c-form-row">
     <label for="title" class="c-form-title">Received Title</label>
     <p>This will be sent to the 'title' field of the selected item type.</p>
-     <textarea id="title" name="title" class="c-form-texty">{{state.title}}</textarea>
+    <textarea id="title" name="title" class="c-form-texty">{{state.title}}</textarea>
   </div>
 
-  <input type="button" onclick="swapValuesTitleAndUrl()" value="Swap title and Url fields">
+  <input type="button" onclick="swapValuesTitleAndUrl()" value="Swap title and Url fields" class="c-button">
 
   <div class="c-form-row">
     <label for="url" class="c-form-title">Received URL</label>
-    <p>This will be sent to the 'url' or Indieweb verb field of the selected item type.</p>
     <textarea id="url" name="url" class="c-form-texty">{{state.url}}</textarea>
+    <p>This will be sent to the 'url' or Indieweb verb field of the selected item type.</p>
   </div>
 
-  <input type="button" onclick="swapValuesUrlAndText()" value="Swap URL and text fields">
+  <input type="button" onclick="swapValuesUrlAndText()" value="Swap URL and text fields" class="c-button">
 
   <div class="c-form-row">
     <label for="url" class="c-form-title">Received Text</label>
-    <p>This will be sent to the 'content' field of selected item type.</p>
     <textarea id="text" name="text" class="c-form-texty">{{state.text}}</textarea>
+    <p>This will be sent to the 'content' field of selected item type.</p>
   </div>
 
-
-  
   <div class="c-button-group">
     <button formaction="/bookmarks/create" class="c-button c-button-primary">Bookmark</button>
     <button formaction="/notes/create" class="c-button c-button-primary">Note</button>
