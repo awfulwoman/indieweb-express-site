@@ -50,7 +50,9 @@ const createPost = (model, options = {}) => {
         })
 
         // Read to set up cache
-        await model.read(id)
+        await model.read(id).catch((error) => {
+          throw error
+        })
 
         debug(`/${model.modelDir}/${id} created!`)
 

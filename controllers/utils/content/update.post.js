@@ -16,7 +16,8 @@ const updatePost = (model, options = {}) => {
 
   return asyncHandler(async (req, res, next) => {
     try {
-      // TODO: Sanitize req.body.id
+      if (!req.params.id) throw new Error('All paramters must be supplied!')
+
       let id = req.params.id
 
       formState = normalizeFormState(req)
@@ -45,12 +46,13 @@ const updatePost = (model, options = {}) => {
         if (!data.modified) data.modified = tempCurrentDate.toISO()
 
         await model.update(data, content, id).catch((error) => {
-          debug('error while updating via model.update()')
           throw error
         })
 
         // Read to set up cache
-        await model.read(id)
+        await model.read(id).catch((error) => {
+          throw error
+        })
 
         debug(`/${model.modelDir}/${id} updated!`)
 
