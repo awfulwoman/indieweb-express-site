@@ -1,63 +1,48 @@
 const debug = require('debug')('sonniesedge:controllers:utils:content:createPost')
 const asyncHandler = require('express-async-handler')
 const { validationResult, matchedData } = require('express-validator')
+const normalizeFormState = require('../../../utilities/form-normalize-state')
+const normalizeFormErrors = require('../../../utilities/form-normalize-errors')
 const md = require('../../../utilities/markdown-it')
 const is = require('is_js')
 const config = require('../../../config')
 const { DateTime } = require('luxon')
 const ErrorHandler = require('../../../utilities/error-handler')
 
-const createPost = (model, options) => {
-  options || (options = {});
+const createPost = (model, options = {}) => {
+  
+  let formState = {}
+  let formErrors = {}
+
   return asyncHandler(async (req, res, next) => {
     try {
-      debug(req.body)
-      const errors = validationResult(req);
-      let form_state = {}
-      let form_errors = {}
 
-      for (const key in req.body) {
-        if (req.body.hasOwnProperty(key)) {        // debug(key, req.body[key])
-          if (is.object(req.body[key])) {
-            for (const keyChild in req.body[key]) {
-              form_state[`${key}_${keyChild}`] = req.body[key][keyChild]
-            }
-          } else {
-            form_state[key] = req.body[key]
-          }
-        }
-      }
+      formState = normalizeFormState(req)
+      formErrors = normalizeFormErrors(req)
 
-      for (const error of errors.array()) {
-        let replacedParam = error.param.replace('.', '_')
-        form_errors[replacedParam] = error.msg
-      }
+      // debug('formState: ', formState)
+      // debug('formErrors: ', formErrors)
 
-      if (errors.array().length > 0) {
-        debug('errors!')
-        debug(errors.array())
-        debug(form_errors)
+      if (is.not.empty(formErrors)) {
         res.render(options.template || `content-create/types/${model.modelDir}`, {
-          data: { title: `${model.modelDir} creation` },
-          content: md.render('Get creating, or something.'),
-          fields: model.fields,
-          state: form_state,
-          errors: form_errors
+          data: { title: `${model.modelDir} creation error` },
+          content: md.render('There was an error while creating the item.'),
+          fields: model.fields, // TODO: remove?
+          state: formState,
+          errors: formErrors
         })
       } else {
 
         let data = matchedData(req)
-        // debug('data (pre):', data)
         let content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
-        // debug('data:', data)
-        // debug('content:', content)
 
         let tempCurrentDate = DateTime.local().toUTC()
 
         if (!data.created) data.created = tempCurrentDate.toISO()
         if (!data.modified) data.modified = tempCurrentDate.toISO()
 
+        // Create an item ID from the current date
         let id = DateTime.fromISO(data.created).toUTC().toFormat(config.fileDateFormat())
 
         await model.create(data, content, id).catch((error) => {

@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controllers:base:markdown');
+const debug = require('debug')('sonniesedge:controllers:utils:content:updateGet')
 const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../../utilities/error-handler')
 const md = require('../../../utilities/markdown-it')
@@ -10,25 +10,27 @@ const is = require('is_js');
 
 // UPDATE
 
-const updateGet = (model, options) => {
-  options || (options = {});
+const updateGet = (model, options = {}) => {
+
   return asyncHandler(async (req, res, next) => {
+    try {
+      // read existing note
+      let existingItem = await model.read(req.params.id)
 
-    // read existing note
-    let existingItem = await model.read(req.params.id)
+      // Smoosh .content and .data together
+      let formState = { ...existingItem, ...existingItem.data }
+      delete formState.data
 
-    debug('Existing item: ', existingItem)
+      debug('Existing item: ', formState)
 
-    let formState = {...existingItem, ...existingItem.data}
-    delete formState.data
-    
-
-    // place state
-
-    res.render(options.template || 'content-create/types/notes', {
-      content: `Start creating your note!`,
-      state: formState
-    });
+      res.render(options.template || `content-create/types/${model.modelDir}`, {
+        data: { title: `${model.modelDir} editing` },
+        content: `Start editing your ${model.modelDir}!`,
+        state: formState
+      })
+    } catch (error) {
+      throw error
+    }
   })
 }
 

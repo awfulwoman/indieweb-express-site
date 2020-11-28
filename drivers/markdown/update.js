@@ -15,10 +15,9 @@ const update = async (type, id, fileContent) => {
 
     let destination = path.join(config.contentRoot(), type, id, 'index.md')
 
-    debug(destination)
     fs.stat(destination, (err, stat) => {
       if (is.truthy(err)) throw new Error(`markdown.update: No file exists to update.`)
-    });
+    })
 
     return await fs.promises.writeFile(destination, fileContent, 'utf8')
   } catch (error) {

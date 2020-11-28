@@ -1,62 +1,72 @@
-const debug = require('debug')('sonniesedge:controllers:base:markdown')
+const debug = require('debug')('sonniesedge:controllers:utils:content:updatePost')
 const asyncHandler = require('express-async-handler')
-const ErrorHandler = require('../../../utilities/error-handler')
+const { validationResult, matchedData } = require('express-validator')
 const normalizeFormState = require('../../../utilities/form-normalize-state')
 const normalizeFormErrors = require('../../../utilities/form-normalize-errors')
 const md = require('../../../utilities/markdown-it')
-const { validationResult, matchedData } = require('express-validator')
-
-const bodyParser = require('body-parser')
-const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const is = require('is_js')
+const config = require('../../../config')
+const { DateTime } = require('luxon')
+const ErrorHandler = require('../../../utilities/error-handler')
 
+const updatePost = (model, options = {}) => {
 
-const updatePost = (model, options) => {
-  options || (options = {})
-
-  debug('Update via POST')
+  let formState = {}
+  let formErrors = {}
 
   return asyncHandler(async (req, res, next) => {
-
-    let formState = {}
-    let formErrors = {}
-
-    formState = normalizeFormState(req)
-    formErrors = normalizeFormErrors(req)
-
     try {
+      // TODO: Sanitize req.body.id
+      let id = req.params.id
 
+      formState = normalizeFormState(req)
+      formErrors = normalizeFormErrors(req)
 
       debug('formState: ', formState)
       debug('formErrors: ', formErrors)
 
-      // add any missing data
-      // ensureDefaultData() ??
-      if (is.falsy(req.body.data.created))
-        req.body.data.created = _global.fields.created.default
-      // if (is.falsy(req.body.data.updated))
-        req.body.data.updated = _global.fields.updated.default 
-      if (is.falsy(req.body.data.uuid))
-        req.body.data.uuid = _global.fields.uuid.default
-      if (is.falsy(req.body.data.id))
-        req.body.data.id = id || _global.fields.id.default
+      if (is.not.empty(formErrors)) {
+        res.render(options.template || `content-create/types/${model.modelDir}`, {
+          data: { title: `${model.modelDir} update error` },
+          content: md.render('There was an error while updating the item.'),
+          fields: model.fields, // TODO: remove?
+          state: formState,
+          errors: formErrors
+        })
+      } else {
 
-      // save
-      // note.create(data, content, id)
+        let data = matchedData(req)
+        let content = matchedData(req).content ? matchedData(req).content : ' '
+        delete data.content
 
-      // Render
-      res.render(options.template || 'content-create/types/notes', {
-        success: true,
-        state: formState,
-        content: `Your Note has been updated!`,
-        url: `/notes/${req.body.data.id}/`
-      });
+        let tempCurrentDate = DateTime.local().toUTC()
+
+        if (!data.created) data.created = tempCurrentDate.toISO()
+        if (!data.modified) data.modified = tempCurrentDate.toISO()
+
+        await model.update(data, content, id).catch((error) => {
+          debug('error while updating via model.update()')
+          throw error
+        })
+
+        // Read to set up cache
+        await model.read(id)
+
+        debug(`/${model.modelDir}/${id} updated!`)
+
+        res.render(options.template || 'content-create/default', {
+          data: { title: 'Edited note!' },
+          // content: result
+          url: `/${model.modelDir}/${id}`
+        })
+      }
     } catch (error) {
       res.render(options.template || 'content-create/types/notes', {
         content: `Something went wrong and the note wasn't updated. 😭`,
         errors: formErrors,
         state: formState
-      });
+      })
+      throw error
     }
   })
 }

@@ -53,6 +53,8 @@ const read = async function (id) {
 }
 
 const update = async function (data, content, id) {
+  debug('bookmark.update():')
+  // debug(modelDir, modelCache, data, content, id)
   return await modelUpdate(modelDir, modelCache, data, content, id)
 }
 

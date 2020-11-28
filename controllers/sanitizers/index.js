@@ -1,7 +1,9 @@
+const debug = require('debug')('sonniesedge:controllers:sanitizers')
 const { body } = require('express-validator')
 
 module.exports = [
   body('tags').optional({checkFalsy: true}).customSanitizer(value => {
+    debug('tags')
     return value.split(',').map(tag => {
       return tag.trim()
     })
