@@ -4,9 +4,9 @@ const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../
 const { DateTime } = require('luxon')
 const chrono = require('chrono-node')
 
-
 let modelCache = new Nodecache()
 
+const id = 'note'
 const modelDir = 'notes'
 
 const defaultTitle = (datestamp) => {
@@ -115,6 +115,6 @@ const warm = async () => {
 }
 
 module.exports = { 
-  modelDir, fields, settings,
+  id, modelDir, fields, settings,
   create, read, update, del, recentIndex, recentFeed, warm, archiveIndex
 }

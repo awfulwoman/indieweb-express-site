@@ -7,6 +7,7 @@ const is = require('is_js')
 let modelCache = new Nodecache()
 let aliasCache = new Nodecache()
 
+const id = 'article'
 const modelDir = 'articles'
 
 const fields = { // merge with global fields
@@ -108,6 +109,6 @@ const warm = async () => {
 }
 
 module.exports = { 
-  modelDir, fields, settings,
+  id, modelDir, fields, settings,
   create, read, update, del, recentIndex, recentFeed, warm, archiveIndex, resolveAlias
 }

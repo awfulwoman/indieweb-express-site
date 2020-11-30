@@ -3,10 +3,9 @@ const Nodecache = require('node-cache')
 const debug = require('debug')('sonniesedge:models:repost')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
 
-
-
 let modelCache = new Nodecache()
 
+const id = 'repost'
 const modelDir = 'reposts'
 
 const fields = { // merge with global fields
@@ -102,6 +101,6 @@ const warm = async () => {
 }
 
 module.exports = { 
-  modelDir, fields, settings,
+  id, modelDir, fields, settings,
   create, read, update, del, recentIndex, recentFeed, warm, archiveIndex
 }

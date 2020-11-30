@@ -5,6 +5,7 @@ const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../
 
 let modelCache = new Nodecache()
 
+const id = 'photo'
 const modelDir = 'photos'
 
 const fields = { // merge with global fields
@@ -100,6 +101,6 @@ const warm = async () => {
 }
 
 module.exports = { 
-  modelDir, fields, settings,
+  id, modelDir, fields, settings,
   create, read, update, del, recentIndex, recentFeed, warm, archiveIndex
 }
