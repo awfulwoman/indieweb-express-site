@@ -149,7 +149,8 @@ app.use(morgan('combined', { stream: accessLogStream }))
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(staticify.middleware)
-app.use('/', [apiLimiterLogin, routesLogin])
+// app.use('/', [apiLimiterLogin, routesLogin])
+app.use('/', [routesLogin])
 app.use('/', [controllers])
 
 
