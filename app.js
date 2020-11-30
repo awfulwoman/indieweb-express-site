@@ -1,11 +1,9 @@
 require('dotenv').config()
 const debug = require('debug')('sonniesedge:app')
 const path = require('path')
-const is = require('is_js')
 const fs = require('fs')
 const chalk = require('chalk')
 const config = require('./config')
-const models = require('./models')
 const modelsWarmAll = require('./models/utils/cache/warm-all')
 const controllers = require('./controllers')
 const ErrorHandler = require('./utilities/error-handler')
@@ -24,23 +22,19 @@ const customHelpers = require('./helpers')
 const hbsHelpers = require('handlebars-helpers')()
 
 // 🏃‍♀️💨 Express
-const express = require('express');
-const helmet = require('helmet');
-const renderUsers = require('./middleware/render-users')
-const renderDebug = require('./middleware/render-debug')
-const handleErrors = require('./middleware/handle-errors')
-const handle404 = require('./middleware/handle-404')
-const renderBuildTime = require('./middleware/render-buildtime')
-const constructOauth = require('./utilities/construct-oauth-callback')
+const express = require('express')
+const helmet = require('helmet')
 const rateLimit = require('express-rate-limit')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
-const staticify = require('staticify')(path.join(__dirname, 'public'));
+const staticify = require('staticify')(path.join(__dirname, 'public'))
 
+const {renderBuildTime, renderDebug, renderUsers, handle404, handleErrors} = require('./middleware')
+const constructOauth = require('./utilities/construct-oauth-callback')
 const routesLogin = require('./controllers/login')
-const app = express();
+const app = express()
 
-// ⛑ Configure Helmet headers
+// ⛑ Configure CSP headers
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -51,18 +45,22 @@ app.use(helmet({
       connectSrc: ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"]
     }
   }
-}));
+}))
 
 // Configure rate limits
 const apiLimiterLogin = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100
-});
+})
 
 // Templates
 app.set('view engine', '.hbs')
 app.engine('hbs', hbs({
-  helpers: { ...hbsHelpers, ...customHelpers, getVersionedPath: staticify.getVersionedPath },
+  helpers: { 
+    ...hbsHelpers, 
+    ...customHelpers, 
+    getVersionedPath: staticify.getVersionedPath
+  },
   extname: '.hbs',
   defaultLayout: 'default'
 }))
@@ -82,7 +80,7 @@ app.use(session({
 }))
 
 const TwitterStrategy = require('passport-twitter').Strategy
-// const GitHubStrategy = require('passport-github2').Strategy;
+// const GitHubStrategy = require('passport-github2').Strategy
 
 
 if (!process.env['TWITTER_CONSUMER_KEY'] || !process.env['TWITTER_CONSUMER_SECRET']) return
@@ -92,7 +90,7 @@ const passportTwitterOptions = {
   consumerKey: process.env['TWITTER_CONSUMER_KEY'],
   consumerSecret: process.env['TWITTER_CONSUMER_SECRET'],
   callbackURL: constructOauth.oaUrl('twitter')
-};
+}
 
 // const passportGithubOptions = {
 //   clientID: process.env['GITHUB_CLIENT_ID'],
@@ -102,28 +100,28 @@ const passportTwitterOptions = {
 
 // Use Twitter passport strategy
 passport.use(new TwitterStrategy(passportTwitterOptions, function (token, tokenSecret, profile, cb) {
-  debug('Someone trying to login with following Twitter profile: ', profile.username);
-  let appUserProfile = users.getAppUserObjFromTwitterId(profile.id);
-  return cb(null, appUserProfile);
-}));
+  debug('Someone trying to login with following Twitter profile: ', profile.username)
+  let appUserProfile = users.getAppUserObjFromTwitterId(profile.id)
+  return cb(null, appUserProfile)
+}))
 
 // Use Github passport strategy
 // passport.use(new GitHubStrategy(passportGithubOptions, function(accessToken, refreshToken, profile, cb) {
 //   // debug(passportGithubOptions)
-//   // debug('Passport Github profile:', profile);
-//   return cb(null, profile);
-// }));
+//   // debug('Passport Github profile:', profile)
+//   return cb(null, profile)
+// }))
 
 // Configure Passport authenticated session persistence.
 passport.serializeUser(function (userAppObj, callback) {
   // serialize into session token - only need to store user ID in here
-  callback(null, userAppObj.id);
-});
+  callback(null, userAppObj.id)
+})
 
 passport.deserializeUser(function (userAppId, callback) {
   // deserialize out of session token and into a full user object
-  callback(null, users.getAppUserObjFromAppId(userAppId));
-});
+  callback(null, users.getAppUserObjFromAppId(userAppId))
+})
 
 
 app.use(passport.initialize()) // Initialize Passport in Express.
@@ -136,16 +134,15 @@ var accessLogStream = rfs.createStream('access.log', {
   path: config.logDir()
 })
 
+
+// LOGGING
+// ------
 // log only 4xx and 5xx responses to console
 app.use(morgan('dev', {
   skip: function (req, res) { return res.statusCode < 400 }
 }))
 
 app.use(morgan('combined', { stream: accessLogStream }))
-
-// LOGGING
-// ------
-// app.use(logger('dev'));
 
 //
 // ROUTES
@@ -192,10 +189,10 @@ try {
 } catch (error) {
   console.log(chalk.bold.red(`ERROR: `), error)
 
-  const emergencyApp = express();
+  const emergencyApp = express()
   emergencyApp.get('/', (req, res) => {
-    res.statusCode = 500;
-    res.setHeader('Content-Type', 'text/plain');
+    res.statusCode = 500
+    res.setHeader('Content-Type', 'text/plain')
     res.json(error)
   })
 

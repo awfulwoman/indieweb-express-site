@@ -1,7 +1,7 @@
 const debug = require('debug')('sonniesedge:middleware:handleErrors')
 const md = require('../utilities/markdown-it')
 
-const errors = (err, req, res, next) => {
+const handleErrors = (err, req, res, next) => {
   if (process.env['DEBUG']) debug(err)
   const { statusCode, message, rawError } = err;
   res.status(statusCode || 500);
@@ -13,4 +13,4 @@ const errors = (err, req, res, next) => {
   })
 }
 
-module.exports = errors
+module.exports = handleErrors
