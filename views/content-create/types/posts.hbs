@@ -1,0 +1,41 @@
+<h1>{{data.title}}</h1>
+
+{{{content}}}
+
+<form method="POST" class="c-form">
+
+  {{> fields/title}}
+  {{> fields/content}}
+  {{> fields/tags}}
+
+  <details class="c-collapse">
+    <summary class="c-title">Place</summary>
+    <div class="c-revealed">
+      {{> fields/place}}
+    </div>
+  </details>
+
+  <details class="c-collapse">
+    <summary class="c-title">Meta</summary>
+    <div class="c-revealed">
+      {{> fields/privacy}}
+      {{> fields/feed}}
+      {{> fields/index}}
+      {{> fields/created}}
+      {{> fields/modified}}
+      {{> fields/uuid}}
+    </div>
+  </details>
+
+  {{!-- <details class="c-collapse">
+    <summary class="c-title">Optional</summary>
+    <div class="c-revealed">
+      <p>nowt</p>
+    </div>
+  </details> --}}
+
+  <div class="c-form-row">
+    <button class="c-button c-button--primary">Create this post!</button>
+  </div>
+
+</form>
