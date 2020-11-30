@@ -1,19 +1,22 @@
-<h1 class="c-page-title">{{data.title}}</h1>
+<article class="h-entry">
 
-<p>{{date data.created "dddd Do MMMM, YYYY"}}</p>
+  <h1 class="c-page-title p-name">{{data.title}}</h1>
 
-{{>strapline value=data.strapline}}
+  <p>Written by <a class="p-author h-card" href="https://whalecoiner.com">Charlie</a> on <time class="dt-published" datetime="{{data.title}}">{{date data.created "dddd Do MMMM, YYYY"}}</time></p>
 
-<div class="c-post">
-  {{{content}}}
-</div>
+  {{>strapline value=data.strapline}}
 
+  <div class="c-post e-content">
+    {{{content}}}
 
-{{#if sections}}
-{{#each sections}}
-{{>section id=../id storage=../storage data=this.data content=this.content}}
-{{/each}}
-{{/if}}
+    {{#if sections}}
+      {{#each sections}}
+      {{>section id=../id storage=../storage data=this.data content=this.content}}
+      {{/each}}
+    {{/if}}
+  </div>
 
-{{> tags}}
-{{> edit}}
+  {{> tags}}
+  {{> edit}}
+
+</article>
