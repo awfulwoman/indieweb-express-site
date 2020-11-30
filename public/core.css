@@ -26,7 +26,7 @@
 }
 
 address, article, aside, blockquote, details, dialog, 
-dd, div, dl, dt, fieldset, figcaption, figure, footer, 
+dd, dl, dt, fieldset, figcaption, figure, footer, 
 form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, li, 
 main, nav, ol, p, pre, section, table, ul {
   margin: 0 0 1rem 0;
@@ -131,14 +131,16 @@ blockquote {
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .c-main {
   max-width: 80rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .c-main > * + * {
@@ -205,15 +207,19 @@ blockquote {
 
 .c-header {
   max-width: 80rem;
+  margin-top: 0;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
+  margin-bottom: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .c-header-layout {
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(406px, 1fr) );
   grid-gap: 25px;
+  align-items: center;
 }
 
 .c-nav {
@@ -222,9 +228,15 @@ blockquote {
   padding-left: 0;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin: 0;
+  align-items: center;
 }
 
 .c-nav-item {
+  margin: 0;
+}
+
+.c-nav-link {
   font-weight: bold;
   text-decoration: none;
   color: var(--link-color);
@@ -232,6 +244,7 @@ blockquote {
   border-bottom-color: transparent;
   border-bottom-style: solid;
   border-bottom-width: 2px;
+  margin: 0;
 }
 
 .c-nav-item__active {
@@ -303,4 +316,13 @@ blockquote {
   overflow: hidden;
   clip: rect(0,0,0,0);
   border: 0;
+}
+
+.c-site-title {
+  font-size: 2rem;
+  font-size: clamp(3rem, 2.5vw, 4rem);
+  text-decoration: none;
+}
+a.c-site-title {
+  color: var(--text-color)
 }

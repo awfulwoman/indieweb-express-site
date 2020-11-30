@@ -2,19 +2,19 @@
   <div class="c-header-layout">
 
     <div>
-      <a href="/">
-      <svg class="icon" width="406px" height="78px" viewBox="0 0 406 78">
+      <a href="/" class="c-site-title">Whalecoiner</a>
+      {{!-- <svg class="icon" width="406px" height="78px" viewBox="0 0 406 78">
         <use xlink:href="/sprites.svg#mainlogo" />
-      </svg>
-      </a>
+      </svg> --}}
+
     </div>
 
 
     <div>
       <ul class="c-nav">
-        <li><a class="sr-only" href="/">Home</a></li>
+        <li class="sr-only"><a href="/">Home</a></li>
         {{#each nav}}
-          <li><a href="{{this.path}}" class="c-nav-item {{#if this.active}}c-nav-item__active{{/if}}">{{this.text}}</a></li>
+          <li class="c-nav-item"><a href="{{this.path}}" class="c-nav-link {{#if this.active}}c-nav-link__active{{/if}}">{{this.text}}</a></li>
         {{/each}}
       </ul>
     </div>
