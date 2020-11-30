@@ -4,8 +4,8 @@ const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
 const config = require('./config')
+const models = require('./models')
 const modelsWarmAll = require('./models/utils/cache/warm-all')
-const controllers = require('./controllers')
 const ErrorHandler = require('./utilities/error-handler')
 const users = require('./models/user')
 
@@ -22,15 +22,20 @@ const customHelpers = require('./helpers')
 const hbsHelpers = require('handlebars-helpers')()
 
 // 🏃‍♀️💨 Express
-const express = require('express')
-const helmet = require('helmet')
-
+const express = require('express');
+const helmet = require('helmet');
+const renderUsers = require('./middleware/render-users')
+const renderDebug = require('./middleware/render-debug')
+const handleErrors = require('./middleware/handle-errors')
+const handle404 = require('./middleware/handle-404')
+const renderBuildTime = require('./middleware/render-buildtime')
+const constructOauth = require('./utilities/construct-oauth-callback')
+const rateLimit = require('express-rate-limit')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 const staticify = require('staticify')(path.join(__dirname, 'public'))
+const controllers = require('./controllers')
 
-const {renderBuildTime, renderDebug, renderUsers, handle404, handleErrors} = require('./middleware')
-const constructOauth = require('./utilities/construct-oauth-callback')
 const routesLogin = require('./controllers/login')
 const app = express()
 
@@ -128,9 +133,6 @@ var accessLogStream = rfs.createStream('access.log', {
   path: config.logDir()
 })
 
-
-// LOGGING
-// ------
 // log only 4xx and 5xx responses to console
 app.use(morgan('dev', {
   skip: function (req, res) { return res.statusCode < 400 }
@@ -138,12 +140,15 @@ app.use(morgan('dev', {
 
 app.use(morgan('combined', { stream: accessLogStream }))
 
+// LOGGING
+// ------
+// app.use(logger('dev'));
+
 //
 // ROUTES
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(staticify.middleware)
-// app.use('/', [apiLimiterLogin, routesLogin])
 app.use('/', [routesLogin])
 app.use('/', [controllers])
 

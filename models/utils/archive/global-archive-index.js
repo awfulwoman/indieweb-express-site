@@ -1,15 +1,15 @@
 
 const debug = require('debug')('sonniesedge:model:utils:recent:globalArchiveIndex')
 const {orderBy} = require('natural-orderby')
-const {modelsList} = require('../../types')
+const {modelsArray} = require('../../types')
 const ErrorHandler = require('../../../utilities/error-handler')
 
 const globalArchiveIndex = async (dateObj) => {
   try {
     let recentItems = []
-    for (let index = 0; index < modelsList.length; index++) {
-      if(modelsList[index].recentIndex) {
-        for (let [key, value] of Object.entries(await modelsList[index].archiveIndex(dateObj))) {
+    for (let index = 0; index < modelsArray.length; index++) {
+      if(modelsArray[index].recentIndex) {
+        for (let [key, value] of Object.entries(await modelsArray[index].archiveIndex(dateObj))) {
           recentItems.push(value)
         }      
       }

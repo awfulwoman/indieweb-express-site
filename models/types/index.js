@@ -11,10 +11,18 @@ let repost = require('./repost.model')
 let photo = require('./photo.model')
 let article = require('./article.model')
 
-const modelsList = [
+const modelsArray = [
   note, bookmark, page, checkin,
   like, reply, quote, bandname,
   repost, photo, article
 ]
 
-module.exports = {modelsList}
+const arrayToObject = (array) =>
+   array.reduce((obj, item) => {
+     obj[item.id] = item
+     return obj
+   }, {})
+
+let models  = arrayToObject(modelsArray)
+
+module.exports = {modelsArray, models}

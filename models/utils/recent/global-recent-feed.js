@@ -1,14 +1,14 @@
 const debug = require('debug')('sonniesedge:model:utils:recent:globalRecentFeed')
 const {orderBy} = require('natural-orderby')
-const {modelsList} = require('../../types')
+const {modelsArray} = require('../../types')
 const ErrorHandler = require('../../../utilities/error-handler')
 
 const globalRecentFeed = async (limit=20) => {
   try {
     let recentItems = []
-    for (let index = 0; index < modelsList.length; index++) {
-      if(modelsList[index].recentIndex) {
-        for (let [key, value] of Object.entries(await modelsList[index].recentFeed())) {
+    for (let index = 0; index < modelsArray.length; index++) {
+      if(modelsArray[index].recentIndex) {
+        for (let [key, value] of Object.entries(await modelsArray[index].recentFeed())) {
           recentItems.push(value)
         }      
       }

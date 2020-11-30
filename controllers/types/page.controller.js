@@ -6,8 +6,9 @@ const router = express.Router()
 
 // 💅 Models
 const models = require('../../models')
-const model = require('../../models/types/page.model')
 const renderNav = require('../../middleware/render-nav')
+
+debug('Models: ', models)
 
 // 🖕 Middleware
 const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
@@ -18,14 +19,14 @@ router.get(`/json`, controllerFeedHelper.jsonGet(models))
 router.get(`/atom`, controllerFeedHelper.atomGet(models))
 
 // 🔓 Public routes 
-router.get(`/`, [renderNav], controllerContentHelper.readGet(model, {
+router.get(`/`, [renderNav], controllerContentHelper.readGet(models.page, {
   id: 'root',
   index: true, 
   children: models.globalRecentIndex,
   template: 'homepage'
 }))
-router.get(`/:id`, [renderNav], controllerContentHelper.readGet(model, {template: 'content-public/types/page'}))
-router.get(`/:id/:file`, [], controllerFileHelper.readGet(model))
-router.get(`/:id/:file/:size`, [], controllerFileHelper.readGet(model))
+router.get(`/:id`, [renderNav], controllerContentHelper.readGet(models.page, {template: 'content-public/types/page'}))
+router.get(`/:id/:file`, [], controllerFileHelper.readGet(models.page))
+router.get(`/:id/:file/:size`, [], controllerFileHelper.readGet(models.page))
 
 module.exports = router;
