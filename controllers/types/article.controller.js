@@ -1,11 +1,11 @@
-const debug = require('debug')('sonniesedge:controller:post')
+const debug = require('debug')('sonniesedge:controller:article')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
 
 // 💅 Models
-const model = require('../../models/types/post.model')
+const model = require('../../models/types/article.model')
 const page = require('../../models/types/page.model')
 const renderNav = require('../../middleware/render-nav')
 
@@ -44,7 +44,7 @@ router.get(`/${model.modelDir}`, [renderNav], controllerContentHelper.readGet(pa
   children: model.recentIndex, 
   template: 'content-public/index'
 }));
-router.get(`/${model.modelDir}/:id`, [renderNav], controllerContentHelper.readGet(model, {template: 'content-public/types/post'}))
+router.get(`/${model.modelDir}/:id`, [renderNav], controllerContentHelper.readGet(model, {template: 'content-public/types/article'}))
 router.get(`/${model.modelDir}/:id/:file`, [], controllerFileHelper.readGet(model))
 router.get(`/${model.modelDir}/:id/:file/:size`, [], controllerFileHelper.readGet(model))
 

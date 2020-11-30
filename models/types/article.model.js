@@ -1,15 +1,13 @@
 const globalFields = require('../_global')
 const Nodecache = require('node-cache')
-const debug = require('debug')('sonniesedge:models:post')
+const debug = require('debug')('sonniesedge:models:article')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache, aliasUtil } = require('../utils')
 const is = require('is_js')
-
-
 
 let modelCache = new Nodecache()
 let aliasCache = new Nodecache()
 
-const modelDir = 'posts'
+const modelDir = 'articles'
 
 const fields = { // merge with global fields
   content: {

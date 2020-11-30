@@ -8,8 +8,8 @@ const nav = (originalUrl) => {
       text: 'About'
     },
     {
-      path: '/posts',
-      text: 'Posts'
+      path: '/articles',
+      text: 'Articles'
     },
     {
       path: '/notes',

@@ -9,12 +9,12 @@ let quote = require('./quote.model')
 let bandname = require('./bandname.model')
 let repost = require('./repost.model')
 let photo = require('./photo.model')
-let post = require('./post.model')
+let article = require('./article.model')
 
 const modelsList = [
   note, bookmark, page, checkin,
   like, reply, quote, bandname,
-  repost, photo, post
+  repost, photo, article
 ]
 
 module.exports = {modelsList}
