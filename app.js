@@ -35,6 +35,7 @@ const constructOauth = require('./utilities/construct-oauth-callback')
 const rateLimit = require('express-rate-limit')
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
+const staticify = require('staticify')(path.join(__dirname, 'public'));
 
 const routesLogin = require('./controllers/login')
 const app = express();
@@ -61,7 +62,7 @@ const apiLimiterLogin = rateLimit({
 // Templates
 app.set('view engine', '.hbs')
 app.engine('hbs', hbs({
-  helpers: { ...hbsHelpers, ...customHelpers },
+  helpers: { ...hbsHelpers, ...customHelpers, getVersionedPath: staticify.getVersionedPath },
   extname: '.hbs',
   defaultLayout: 'default'
 }))
@@ -150,7 +151,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 // ROUTES
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
-app.use(express.static('public'))
+app.use(staticify.middleware)
 app.use('/', [apiLimiterLogin, routesLogin])
 app.use('/', [controllers])
 

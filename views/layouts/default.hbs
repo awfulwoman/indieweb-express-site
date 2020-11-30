@@ -4,15 +4,15 @@
 <head>
   <meta charset="utf-8" />
   <title>{{data.title}}</title>
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/core.css">
-  {{#if debug}}<link rel="stylesheet" href="/highlight.css">{{/if}}
+  <link href="${getVersionedPath('/site.webmanifest')}" rel="manifest">
+  <link href="${getVersionedPath('/core.css')}" rel="stylesheet">
+  {{#if debug}}<link href="${getVersionedPath('/highlight.css')}" rel="stylesheet">{{/if}}
   <meta name="HandheldFriendly" content="True" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
   {{!-- <script nomodule src="old.browsers.js"></script>
   <script type="module" src="new.browsers.js"></script> --}}
-  <script src="/admin.js" async /></script>
+  {{#if admin}}<script src="${getVersionedPath('/admin.js')}" async /></script>{{/if}}
   <meta name="theme-color" content="#ffffff"/>
   <link rel="webmention" href="https://webmention.io/whalecoiner/webmention" />
   <link rel="pingback" href="https://webmention.io/whalecoiner/xmlrpc" />
