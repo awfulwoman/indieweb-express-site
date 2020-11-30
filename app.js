@@ -24,7 +24,7 @@ const hbsHelpers = require('handlebars-helpers')()
 // 🏃‍♀️💨 Express
 const express = require('express')
 const helmet = require('helmet')
-const rateLimit = require('express-rate-limit')
+
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 const staticify = require('staticify')(path.join(__dirname, 'public'))
@@ -46,12 +46,6 @@ app.use(helmet({
     }
   }
 }))
-
-// Configure rate limits
-const apiLimiterLogin = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100
-})
 
 // Templates
 app.set('view engine', '.hbs')

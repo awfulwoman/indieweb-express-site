@@ -10,11 +10,19 @@ const router = express.Router()
 const config = require('../../config')
 const constructOauth = require('../../utilities/construct-oauth-callback')
 const renderNav = require('../../middleware/render-nav')
+const rateLimit = require('express-rate-limit')
+
+
+// Configure rate limits
+const apiLimiterLogin = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100
+})
 
 let original
 
 // Default login page
-router.get(config.siteLoginPath(), renderNav, function(req, res){
+router.get(config.siteLoginPath(), [apiLimiterLogin, renderNav], function(req, res){
 
   if (req.query && req.query.original) {
     original = req.query.original
@@ -28,12 +36,12 @@ router.get(config.siteLoginPath(), renderNav, function(req, res){
 })
 
 // Twitter authentication route
-router.get(`${config.siteLoginPath()}/twitter`, passport.authenticate('twitter'))
-router.get(`${config.siteLoginPath()}/github`, passport.authenticate('github'))
+router.get(`${config.siteLoginPath()}/twitter`, [apiLimiterLogin], passport.authenticate('twitter'))
+router.get(`${config.siteLoginPath()}/github`, [apiLimiterLogin], passport.authenticate('github'))
 // app.get('/email', passport.authenticate('easypassword'))
 
 // Twitter oauth callback
-router.get(constructOauth.oaPath('twitter'), passport.authenticate('twitter', {failureRedirect: '/youdidntsaythemagicword'}), (req, res) => {
+router.get(constructOauth.oaPath('twitter'), [apiLimiterLogin], passport.authenticate('twitter', {failureRedirect: '/youdidntsaythemagicword'}), (req, res) => {
   console.log(req.query)
   res.redirect(original ? original : '/')
 })
