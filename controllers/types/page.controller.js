@@ -8,8 +8,6 @@ const router = express.Router()
 const models = require('../../models')
 const renderNav = require('../../middleware/render-nav')
 
-debug('Models: ', models)
-
 // 🖕 Middleware
 const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
 

@@ -18,11 +18,11 @@ const modelsArray = [
 ]
 
 const arrayToObject = (array) =>
-   array.reduce((obj, item) => {
-     obj[item.id] = item
-     return obj
-   }, {})
+  array.reduce((obj, item) => {
+    obj[item.id] = item
+    return obj
+  }, {})
 
-let models  = arrayToObject(modelsArray)
+let models = arrayToObject(modelsArray)
 
-module.exports = {modelsArray, models}
+module.exports = { modelsArray, models }
