@@ -14,14 +14,23 @@ const matter = require('gray-matter')
 const modelUpdate = async (dir, modelCache, data, content, id) => {
 
   try {
-    if (!data || !content || !id) throw new Error('You must supply all params')
+    if (!dir || !modelCache || !data || !content || !id) throw new Error('You must supply all params')
     if (is.not.object(data)) throw new Error('data must be an object')
     if (is.not.string(content)) throw new Error('Content must be a string')
     if (is.not.string(id)) throw new Error('The file ID must be a string')
+    if (is.not.string(dir)) throw new Error('The dir must be a string')
     // IF data PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
-    let stringified = matter.stringify(content, data)
+    let fileContentAsMarkdown = matter.stringify(content, data)
 
-    return markdown.update(dir, id, stringified)
+    // debug(data)
+    // debug(content)
+
+    // debug(fileContent)
+
+
+    markdown.update(dir, id, fileContentAsMarkdown)
+    modelCache.del(id)
+    modelCache.set(id, {data: data, content: content})
   } catch (error) {
     // TODO Add to error log
     // debug('--------------------------------------')
@@ -34,6 +43,7 @@ const modelUpdate = async (dir, modelCache, data, content, id) => {
     // debug('Param id: ', id)
     // debug('--------------------------------------')
     // debug('')
+    // TODO: This should be a simple return error as it's an async function?
     return Promise.reject(error)
   }
 }

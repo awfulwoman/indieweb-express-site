@@ -45,12 +45,11 @@ const updatePost = (model, options = {}) => {
         if (!data.created) data.created = tempCurrentDate.toISO()
         if (!data.modified) data.modified = tempCurrentDate.toISO()
 
-        await model.update(data, content, id).catch((error) => {
-          throw error
-        })
 
-        // Read to set up cache
-        await model.read(id).catch((error) => {
+        debug('Data to update with: ', data)
+        debug('Content to update with: ', content)
+
+        await model.update(data, content, id).catch((error) => {
           throw error
         })
 

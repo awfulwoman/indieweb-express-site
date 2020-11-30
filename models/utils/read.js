@@ -76,7 +76,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
     resultObject.storage = dir
     resultObject.path = `/${dir}/${resultObject.data.slug || id}`
     resultObject.fullUrl = `${config.siteProtocol()}${config.siteDomain()}/${dir}/${resultObject.data.slug || id}`
-    if (process.env.DEBUG) resultObject.raw = result
+    // if (process.env.DEBUG) resultObject.raw = result
 
     let cachingActionResult = cache.set(id, resultObject)
     if (is.falsy(cachingActionResult)) { debug(`Did not store ${id} in ${dir} cache!`) }
