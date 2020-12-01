@@ -75,7 +75,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
     resultObject.id = id
     resultObject.storage = dir
     resultObject.path = `/${dir}/${resultObject.data.slug || id}`
-    resultObject.fullUrl = `${config.siteProtocol()}${config.siteDomain()}/${dir}/${resultObject.data.slug || id}`
+    resultObject.url = `${config.siteProtocol()}${config.siteDomain()}/${dir}/${resultObject.data.slug || id}`
     // if (process.env.DEBUG) resultObject.raw = result
 
     let cachingActionResult = cache.set(id, resultObject)

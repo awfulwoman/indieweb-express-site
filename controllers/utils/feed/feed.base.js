@@ -29,8 +29,8 @@ const generateBaseFeed = async (model) => {
         title: item.data.title,
         description: item.rendered,
         content: md.render(renderedContentWithAdditionalData),
-        id: item.fullUrl,
-        link: item.fullUrl,
+        id: item.url,
+        link: item.url,
         date: new Date(DateTime.fromISO(item.data.created))
       })
     })

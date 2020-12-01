@@ -18,9 +18,12 @@ exports.readGet = function(model, options) {
 
     try {
 
-      let allowedImageSizes = [100, 300, 600, 900]
+      let allowedImageSizes = [100, 300, 600, 900, 1200]
 
-      let cacheKey = `${model.modelDir}/${req.params.id}/${req.params.file}${req.params.size ? '/' + req.params.size : ''}`
+      let resolvedId = req.params.id
+      if (model.resolveAlias) resolvedId = await model.resolveAlias(resolvedId)
+
+      let cacheKey = `${model.modelDir}/${resolvedId}/${req.params.file}${req.params.size ? '/' + req.params.size : ''}`
 
       let fileType = mime.lookup(req.params.file) || 'application/octet-stream'
       if (fileType) res.set('Content-Type', fileType)
@@ -35,7 +38,7 @@ exports.readGet = function(model, options) {
           break
 
         case false:
-          let readStream = await files.read(model.modelDir, req.params.id, req.params.file)
+          let readStream = await files.read(model.modelDir, resolvedId, req.params.file)
           
           const generatedImage = await sharp(readStream)
           .resize({width: imageWidth})

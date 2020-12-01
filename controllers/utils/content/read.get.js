@@ -22,6 +22,7 @@ const readGet = (model, options) => {
       if (is.falsy(itemObj)) throw new Error(`Could not find ${resolvedId} in ${model.modelDir}.`)
 
       debug(options.template)
+      debug(itemObj)
 
       res.render(options.template || 'default', {
         content: itemObj.rendered,
@@ -30,7 +31,8 @@ const readGet = (model, options) => {
         id: itemObj.id,
         admin: process.env['DEBUG'] || req.isAuthenticated(),
         storage: itemObj.storage,
-        sections: itemObj.sections ? itemObj.sections : null
+        sections: itemObj.sections ? itemObj.sections : null,
+        url: itemObj.url
       })
 
     } catch (error) {
