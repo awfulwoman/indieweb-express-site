@@ -52,4 +52,4 @@ router.get(`/${model.modelDir}/:id`, [renderNav], controllerContentHelper.readGe
 router.get(`/${model.modelDir}/:id/:file`, [], controllerFileHelper.readGet(model))
 router.get(`/${model.modelDir}/:id/:file/:size`, [], controllerFileHelper.readGet(model))
 
-module.exports = router;
+module.exports = router

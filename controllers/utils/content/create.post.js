@@ -24,7 +24,7 @@ const createPost = (model, options = {}) => {
       // debug('formErrors: ', formErrors)
 
       if (is.not.empty(formErrors)) {
-        res.render(options.template || `content-create/types/${model.modelDir}`, {
+        res.render(options.template || `content-create/types/${model.id}`, {
           data: { title: `${model.modelDir} creation error` },
           content: md.render('There was an error while creating the item.'),
           fields: model.fields, // TODO: remove?

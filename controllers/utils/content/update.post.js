@@ -16,7 +16,7 @@ const updatePost = (model, options = {}) => {
 
   return asyncHandler(async (req, res, next) => {
     try {
-      if (!req.params.id) throw new Error('All paramters must be supplied!')
+      if (!req.params.id) throw new Error('All parameters must be supplied!')
 
       let id = req.params.id
 
@@ -27,10 +27,9 @@ const updatePost = (model, options = {}) => {
       debug('formErrors: ', formErrors)
 
       if (is.not.empty(formErrors)) {
-        res.render(options.template || `content-create/types/${model.modelDir}`, {
+        res.render(options.template || `content-create/types/${model.id}`, {
           data: { title: `${model.modelDir} update error` },
-          content: md.render('There was an error while updating the item.'),
-          fields: model.fields, // TODO: remove?
+          content: md.render('There were errors while updating the item.'),
           state: formState,
           errors: formErrors
         })
@@ -45,9 +44,8 @@ const updatePost = (model, options = {}) => {
         if (!data.created) data.created = tempCurrentDate.toISO()
         if (!data.modified) data.modified = tempCurrentDate.toISO()
 
-
-        debug('Data to update with: ', data)
-        debug('Content to update with: ', content)
+        // debug('Data to update with: ', data)
+        // debug('Content to update with: ', content)
 
         await model.update(data, content, id).catch((error) => {
           throw error
@@ -56,18 +54,17 @@ const updatePost = (model, options = {}) => {
         debug(`/${model.modelDir}/${id} updated!`)
 
         res.render(options.template || 'content-create/default', {
-          data: { title: 'Edited note!' },
+          data: { title: 'Edited item!' },
           // content: result
           url: `/${model.modelDir}/${id}`
         })
       }
     } catch (error) {
-      res.render(options.template || 'content-create/types/notes', {
-        content: `Something went wrong and the note wasn't updated. 😭`,
-        errors: formErrors,
-        state: formState
-      })
-      throw error
+      throw new ErrorHandler(
+        '500', 
+        'Something went wrong amigo', 
+        error
+        )
     }
   })
 }

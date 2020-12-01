@@ -23,9 +23,9 @@ const updateGet = (model, options = {}) => {
 
       debug('Existing item: ', formState)
 
-      res.render(options.template || `content-create/types/${model.modelDir}`, {
+      res.render(options.template || `content-create/types/${model.id}`, {
         data: { title: `${model.modelDir} editing` },
-        content: `Start editing your ${model.modelDir}!`,
+        content: `Start editing your ${model.id}!`,
         state: formState
       })
     } catch (error) {

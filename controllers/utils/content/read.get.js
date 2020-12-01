@@ -21,7 +21,7 @@ const readGet = (model, options) => {
 
       if (is.falsy(itemObj)) throw new Error(`Could not find ${resolvedId} in ${model.modelDir}.`)
 
-      // debug(itemObj)
+      debug(options.template)
 
       res.render(options.template || 'default', {
         content: itemObj.rendered,

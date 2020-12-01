@@ -22,13 +22,13 @@ const localValidators = [
   body('title').notEmpty().withMessage(`You need to supply a title`),
   body('bookmark_of').notEmpty().withMessage(`You need to supply a bookmark URL`)
 ]
-createValidators.push(...localValidators)
+
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, checkAuthentication, createValidators, createSanitizers], controllerContentHelper.createPost(model))
+router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, checkAuthentication, createValidators, localValidators, createSanitizers], controllerContentHelper.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], controllerContentHelper.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication, createValidators, createSanitizers], controllerContentHelper.updatePost(model))
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication, createValidators, localValidators, createSanitizers], controllerContentHelper.updatePost(model))
 // router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], controllerContentHelper.deleteGet(model))
 // router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.deletePost(model))
 
@@ -44,7 +44,7 @@ router.get(`/${model.modelDir}`, [renderNav], controllerContentHelper.readGet(pa
   children: model.recentIndex, 
   template: 'content-public/index'
 }));
-router.get(`/${model.modelDir}/:id`, [renderNav], controllerContentHelper.readGet(model, {template: 'content-public/types/bookmark'}))
+router.get(`/${model.modelDir}/:id`, [renderNav], controllerContentHelper.readGet(model, {template: `content-public/types/${model.id}`}))
 router.get(`/${model.modelDir}/:id/:file`, [], controllerFileHelper.readGet(model))
 router.get(`/${model.modelDir}/:id/:file/:size`, [], controllerFileHelper.readGet(model))
 

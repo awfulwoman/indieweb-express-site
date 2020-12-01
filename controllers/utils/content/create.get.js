@@ -27,8 +27,8 @@ const createGet = (model, options) => {
     form_state['reply_to'] = resolvedUrl
     form_state['repost_of'] = resolvedUrl
 
-    res.render(options.template || `content-create/types/${model.modelDir}`, {
-      data: { title: `${model.modelDir} creation` },
+    res.render(options.template || `content-create/types/${model.id}`, {
+      data: { title: `${model.id} creation` },
       state: form_state,
     })
   })
