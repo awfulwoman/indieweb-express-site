@@ -2,7 +2,7 @@
 
   <h1 class="c-page-title p-name">{{data.title}}</h1>
 
-  <p>Written by <a class="p-author h-card" href="https://whalecoiner.com">Charlie Owen</a> on <time class="dt-published" datetime="{{data.created}}">{{date data.created "dddd Do MMMM, YYYY"}}</time></p>
+  <p><a href="{{url}}" class="u-url">This article</a> written by <a class="p-author h-card" href="https://whalecoiner.com"><img src="https://whalecoiner.com/charlie.jpg"> Charlie Owen</a> on <time class="dt-published" datetime="{{data.created}}">{{date data.created "dddd Do MMMM, YYYY"}}</time></p>
 
   {{>strapline value=data.strapline}}
 
@@ -17,12 +17,13 @@
   </div>
 
   <div class="p-bridgy-twitter-content u-bridgy-omit-link">
-    Long form is the new short form.
-
-    New line.
+    {{#if data.twitter.text}}
+    {{data.twitter.text}}
+    {{else}}
+    {{data.strapline}}
+    {{/if}}
   </div>
 
   {{> tags}}
   {{> edit}}
-
 </article>
