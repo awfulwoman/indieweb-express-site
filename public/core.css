@@ -334,3 +334,7 @@ a.c-site-title {
   vertical-align: middle;
   display: inline;
 }
+
+.util-display-none {
+  display: none;
+}
