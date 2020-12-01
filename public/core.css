@@ -326,3 +326,10 @@ blockquote {
 a.c-site-title {
   color: var(--text-color)
 }
+
+.u-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  display: inline;
+}
