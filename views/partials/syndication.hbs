@@ -1,0 +1,8 @@
+{{#if data.syndication}}
+  <h2>Found elsewhere</h2>
+  <ul>
+    {{#each data.syndication}}
+      <li><a href="{{this}}" class="u-syndication">{{@key}}</a></li>
+    {{/each}}
+  </ul>
+{{/if}}
