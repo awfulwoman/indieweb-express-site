@@ -12,7 +12,11 @@ rm -rf node_modules
 echo "Building app..."
 npm ci
 
-# Build assets like Sass
+# Build assets
+
+npm run build:css
+
+# Handle server process
 
 pm2 stop ecosystem.config.js
 pm2 delete ecosystem.config.js
