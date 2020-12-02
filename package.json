@@ -9,8 +9,8 @@
     "start:dev": "npx nodemon app.js",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "build:css": "sass ./assets/scss/core.scss ./public/core.css",
-    "build:css:watch": "sass --watch input.scss output.css"
+    "build:css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
+    "build:css:watch": "sass --watch ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css"
   },
   "author": "",
   "license": "ISC",
