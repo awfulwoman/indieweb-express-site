@@ -1,0 +1,340 @@
+:root {
+    --content-width: 80rem;
+    --form-item-width: 40rem;
+    --background-color: #fff;
+    --text-color: #333;
+    --link-color: darkblue;
+    --link-color-visited: #1b204d;
+    --link-color-hover: #314e9c;
+    --link-color-action: #773333;
+    --accent-background: #e4e4e4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background-color: #111416;
+      --text-color: #fff;
+      --link-color: #f96;
+      --link-color-visited: #82eb20;
+      --link-color-hover: #c25309;
+      --link-color-action: #c42b2b;
+      --accent-background: #1e2327;
+    }
+  }
+  
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+  
+  address, article, aside, blockquote, details, dialog, 
+  dd, dl, dt, fieldset, figcaption, figure, footer, 
+  form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, li, 
+  main, nav, ol, p, pre, section, table, ul {
+    margin: 0 0 1rem 0;
+  }
+  
+  body {
+    font-family: "Roboto Slab", "Courier New", Courier, monospace;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    font-size: 26px;
+  }
+  
+  a:link {
+    color: var(--link-color);
+  }
+  
+  a:visited {
+    color: var(--link-color-visited);
+  }
+  
+  a:hover {
+    color: var(--link-color-hover);
+  }
+  
+  a:action {
+    color: var(--link-color-action);
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: normal;
+    /* margin: 0; */
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.2rem;
+  }
+  
+  h5 {
+    font-size: 1.1rem;
+  }
+  
+  h6 {
+    font-size: 1rem;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  .c-collapse {
+    border: 2px solid white;
+  }
+  
+  .c-title {
+    margin: 0;
+    padding: 15px;
+    cursor: pointer;
+  }
+  
+  .c-revealed {
+    padding: 15px;
+  }
+  
+  blockquote {
+    border-left: 8px solid var(--text-color);
+    padding-left: 1rem;
+    margin-left: 0.5rem;
+  }
+  
+  .l-debug {
+    max-width: var(--content-width);
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: scroll;
+    border: 2px solid white;
+    padding: 15px;
+    /* margin-bottom: 1rem; */
+  }
+  
+  .c-footer {
+    border-top: 2px solid #e4e4e4;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .c-main {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .c-main > * + * {
+    margin-top: 1rem;
+  }
+  
+  .c-form > * + * {
+    margin-top: 1rem;
+  }
+  
+  /* .c-form details > * {
+    margin-top: 1rem;
+  } */
+  
+  .c-form-row {
+    display: block;
+    width: var(--form-item-width);
+    max-width: 100%;
+  }
+  
+  .c-form-row--error {
+    border-left: 4px solid red;
+  }
+  
+  .c-form-row__inline {
+    display: flex; 
+    column-gap: 20px;
+  }
+  
+  .c-form-title {
+    display: block;
+    font-weight: normal;
+    font-size: 1.6rem;
+    width: 100%;
+  }
+  
+  /* .c-form-textarea {
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 21px;
+  } */
+  
+  .c-form-texty {
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+  
+  .c-button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .c-button {
+    border: 1px solid green;
+    background-color: green;
+    color: white;
+    padding: 0.8rem;
+    font-size: 1.2rem;
+  }
+  
+  .c-header {
+    max-width: 80rem;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .c-header-layout {
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(406px, 1fr) );
+    grid-gap: 25px;
+    align-items: center;
+  }
+  
+  .c-nav {
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0;
+    align-items: center;
+  }
+  
+  .c-nav-item {
+    margin: 0;
+  }
+  
+  .c-nav-link {
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--link-color);
+    padding: 5px;
+    border-bottom-color: transparent;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    margin: 0;
+  }
+  
+  .c-nav-item__active {
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--link-color);
+    padding: 5px;
+    border-bottom-color: var(--link-color);
+  }
+  
+  .c-note {
+    font-size: 3rem;
+    font-size: clamp(1rem, 2.5vw, 3rem);
+  }
+  
+  .c-page-title {
+    font-size: 2rem;
+    font-size: clamp(3rem, 2.5vw, 4rem);
+  }
+  
+  .c-date--small {
+    font-size: x-small
+  }
+  
+  
+  .c-note-card {
+    /* border: 2px solid white; */
+    background-color: var(--accent-background);
+    padding: 1rem;
+    font-size: 1.5rem;
+    overflow-wrap: break-word;
+  }
+  
+  
+  .c-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+    grid-gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .c-content {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+  
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  
+  
+  
+  
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+  
+  .c-site-title {
+    font-size: 2rem;
+    font-size: clamp(3rem, 2.5vw, 4rem);
+    text-decoration: none;
+  }
+  a.c-site-title {
+    color: var(--text-color)
+  }
+  
+  .util-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    display: inline;
+  }
+  
+  .util-display-none {
+    display: none;
+  }
