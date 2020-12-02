@@ -1,18 +1,20 @@
-<h1 class="c-page-title">{{data.title}}</h1>
+<article class="h-entry">
+  <h1 class="c-page-title p-name">{{data.title}}</h1>
 
-<p>{{date data.created "dddd Do MMMM, YYYY"}}</p>
+  <p>Written by <a class="p-author h-card" href="https://whalecoiner.com"><img src="https://whalecoiner.com/charlie.jpg" class="util-icon u-photo"> Charlie Owen</a> on <a href="{{url}}" class="u-url"><time class="dt-published" datetime="{{data.created}}">{{date data.created "dddd Do MMMM, YYYY"}}</time></a></p>
 
-<div class="c-quote">
-  {{{content}}}
-</div>
+  <div class="c-quote e-content">
+    {{{content}}}
+  </div>
 
-<div class="c-quote-text">
-  {{{data.quote}}}
-</div>
+  <div class="c-quote-text">
+    {{{data.quote}}}
+  </div>
 
-{{#if data.quote_of}}
-<p><a href="{{data.quote_of}}">{{data.quote_of}}</a>.</p>
-{{/if}}
+  {{#if data.quote_of}}
+  <p><a href="{{data.quote_of}}">{{data.quote_of}}</a>.</p>
+  {{/if}}
 
-{{> tags}}
-{{> edit}}
+  {{> tags}}
+  {{> edit}}
+</article>

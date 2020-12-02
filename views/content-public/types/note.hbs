@@ -1,15 +1,18 @@
+<article class="h-entry">
+  <h1 class="c-page-title">{{date data.created "dddd Do MMMM, YYYY"}}</h1>
 
-<h1>{{date data.created "dddd Do MMMM, YYYY"}}</h1>
+  <div class="c-note e-content">
+    {{{content}}}
+  </div>
 
-<div class="c-note">
-  {{{content}}}
-</div>
+  <p>Noted by <a class="p-author h-card" href="https://whalecoiner.com"><img src="https://whalecoiner.com/charlie.jpg" class="util-icon u-photo"> Charlie Owen</a> on <a href="{{url}}" class="u-url"><time class="dt-published" datetime="{{data.created}}">{{date data.created "dddd Do MMMM, YYYY"}}</time></a></p>
 
-{{#if data.images}}
+  {{#if data.images}}
   {{#each data.images}}
-    <img src="/notes/{{../id}}/{{this.file}}/900" alt="{{this.alt}}" >
+  <img src="/notes/{{../id}}/{{this.file}}/900" alt="{{this.alt}}">
   {{/each}}
-{{/if}}
+  {{/if}}
 
-{{> tags}}
-{{> edit}}
+  {{> tags}}
+  {{> edit}}
+</article>
