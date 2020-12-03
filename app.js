@@ -36,7 +36,7 @@ const FileStore = require('session-file-store')(session)
 const staticify = require('staticify')(path.join(__dirname, 'public'))
 const controllers = require('./controllers')
 
-const routesLogin = require('./controllers/login')
+const authentication = require('./routes/auth')
 const app = express()
 
 // ⛑ Configure CSP headers
@@ -149,7 +149,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 // ------
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(staticify.middleware)
-app.use('/', [routesLogin])
+app.use('/', [authentication])
 app.use('/', [controllers])
 
 

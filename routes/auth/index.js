@@ -1,9 +1,9 @@
 
-const debug = require('debug')('sonniesedge:controllers:login')
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const urlencodedParser = bodyParser.urlencoded({ extended: true });
+const debug = require('debug')('sonniesedge:routes:auth')
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const passport = require('passport')
 const userList = require('../../config.users')
 const router = express.Router()
