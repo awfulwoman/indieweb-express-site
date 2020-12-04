@@ -1,0 +1,21 @@
+.util-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  display: inline;
+}
+
+.util-display-none {
+  display: none;
+}
+
+.util-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

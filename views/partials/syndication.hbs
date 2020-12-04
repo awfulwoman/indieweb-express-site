@@ -1,8 +1,8 @@
 {{#if data.syndication}}
-  <h2>Found elsewhere</h2>
+  <h2>This is being talked about elsewhere!</h2>
   <ul>
     {{#each data.syndication}}
-      <li><a href="{{this}}" class="u-syndication">{{@key}}</a></li>
+      <li><a href="{{this}}" class="u-syndication">Continue the conversation on {{@key}}</a></li>
     {{/each}}
   </ul>
 {{/if}}
