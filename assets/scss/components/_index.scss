@@ -13,6 +13,7 @@
   margin: 0;
   padding: 15px;
   cursor: pointer;
+  font-weight: title;
 }
 
 .c-revealed {
@@ -47,6 +48,7 @@
   font-weight: normal;
   font-size: 1.6rem;
   width: 100%;
+  font-weight: bold;
 }
 
 /* .c-form-textarea {
@@ -135,6 +137,7 @@
 .c-page-title {
   font-size: 2rem;
   font-size: clamp(3rem, 2.5vw, 4rem);
+  font-weight: bold;
 }
 
 .c-date--small {
@@ -178,6 +181,7 @@
   font-size: 2rem;
   font-size: clamp(3rem, 2.5vw, 4rem);
   text-decoration: none;
+  font-weight: bold;
 }
 a.c-site-title {
   color: var(--text-color);
