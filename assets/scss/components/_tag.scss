@@ -1,0 +1,10 @@
+.comp-tag {
+  display: inline;
+}
+
+.comp-tag__link {
+  &::before {
+    content:'#';
+    display: inline-block;
+  }
+}
