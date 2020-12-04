@@ -16,9 +16,9 @@ describe('Webmention.rocks conformance tests', () => {
   // This post advertises its Webmention endpoint with an HTTP Link header. 
   // The URL is relative, so this will also test whether your discovery code properly resolves the relative URL.
   // https://webmention.rocks/test/1
-  test('Empty params', async () => {
-    await expect(resolveEndpoint('https://webmention.rocks/test/1')).rejects.toThrow('Required parameter not supplied: destination')
-  })
+  // test('Empty params', async () => {
+    // await expect(resolveEndpoint('https://webmention.rocks/test/1')).rejects.toThrow('Required parameter not supplied: destination')
+  // })
 
   // Discovery Test #2
   // This post advertises its Webmention endpoint with an HTTP Link header. The Webmention endpoint is listed as an absolute URL.
