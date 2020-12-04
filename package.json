@@ -12,6 +12,12 @@
     "build:css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
     "build:css:watch": "sass --watch ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css"
   },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,6 +25,7 @@
     "app-root-path": "^3.0.0",
     "async-middleware": "^1.2.1",
     "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
     "chrono-node": "^2.1.9",
     "connect-ensure-login": "^0.1.1",
     "debug": "^4.1.1",
@@ -39,6 +46,7 @@
     "highlight.js": "^10.3.1",
     "is_js": "^0.9.0",
     "javascript-natural-sort": "^0.7.1",
+    "jest-fetch-mock": "^3.0.3",
     "js-yaml": "^3.14.0",
     "json-size": "^1.0.0",
     "luxon": "^1.25.0",
