@@ -1,0 +1,27 @@
+<h1>{{data.title}}</h1>
+
+{{{content}}}
+
+<form method="POST" class="c-form">
+
+  {{> fields/title}}
+  {{> fields/repost-of}}
+  {{> fields/tags}}
+
+  <details>
+    <summary>Optional</summary>
+    {{> fields/content}}
+  </details>
+
+  <details>
+    <summary>Meta</summary>
+    {{> fields/privacy}}
+    {{> fields/feed}}
+    {{> fields/index}}
+  </details>
+
+  <div class="c-form-row">
+    <button class="c-button c-button--primary">Create a new repost!</button>
+  </div>
+
+</form>
