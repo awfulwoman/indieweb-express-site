@@ -1,3 +1,5 @@
+@use 'settings';
+
 :root {
   --content-width: 80rem;
   --form-item-width: 40rem;
@@ -73,6 +75,10 @@ body {
   margin: 0;
   padding: 0;
   font-size: 21px;
+}
+
+a {
+  font-weight: bold;
 }
 
 a:link {
