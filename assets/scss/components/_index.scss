@@ -3,8 +3,8 @@
 @use  'debug';
 @use  'main';
 @use  'form-row';
-
-
+@use  'button';
+@use  'button-group';
 
 .c-collapse {
   border: 2px solid white;
@@ -20,8 +20,6 @@
 .c-revealed {
   padding: 15px;
 }
-
-
 
 .c-footer {
   border-top: 2px solid #e4e4e4;
@@ -66,19 +64,7 @@
   font-size: 1.2rem;
 }
 
-.c-button-group {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
 
-.c-button {
-  border: 1px solid green;
-  background-color: green;
-  color: white;
-  padding: 0.8rem;
-  font-size: 1.2rem;
-}
 
 .c-header {
   max-width: 80rem;
