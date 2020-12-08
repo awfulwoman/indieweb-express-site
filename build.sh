@@ -10,7 +10,7 @@ echo "Building app..."
 npm ci
 
 echo "Building assets..."
-npm run build:css
+npm run css
 
 echo "Restarting server process..."
 pm2 stop ecosystem.config.js
