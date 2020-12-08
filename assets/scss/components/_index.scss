@@ -1,25 +1,16 @@
+@use  'button-group';
+@use  'button';
+@use  'debug';
+@use  'form';
+@use  'form-row';
+@use  'form-texty';
+@use  'form-title';
+@use  'main';
+@use  'reveal';
+@use  'reveal-content';
+@use  'reveal-title';
 @use  'tag';
 @use  'tags';
-@use  'debug';
-@use  'main';
-@use  'form-row';
-@use  'button';
-@use  'button-group';
-
-.c-collapse {
-  border: 2px solid white;
-}
-
-.c-title {
-  margin: 0;
-  padding: 15px;
-  cursor: pointer;
-  font-weight: title;
-}
-
-.c-revealed {
-  padding: 15px;
-}
 
 .c-footer {
   border-top: 2px solid #e4e4e4;
@@ -32,9 +23,6 @@
 
 
 
-.c-form > * + * {
-  margin-top: 1rem;
-}
 
 /* .c-form details > * {
     margin-top: 1rem;
@@ -42,13 +30,7 @@
 
 
 
-.c-form-title {
-  display: block;
-  font-weight: normal;
-  font-size: 1.6rem;
-  width: 100%;
-  font-weight: bold;
-}
+
 
 /* .c-form-textarea {
     width: 100%;
@@ -57,12 +39,6 @@
     font-size: 21px;
   } */
 
-.c-form-texty {
-  width: 100%;
-  border: 1px solid black;
-  padding: 10px;
-  font-size: 1.2rem;
-}
 
 
 
