@@ -3,12 +3,12 @@
 
   {{> author}}
 
-  <div class="c-repost e-content">
+  <div class="comp-repost e-content">
     {{{content}}}
   </div>
 
   {{#if data.repost_of}}
-  <p><a href="{{data.repost_of}}" class="u-repost-of comp-button comp-button--primary">Visit reposted URL</a></p>
+  <p><a href="{{data.repost_of}}" class="u-repost-of comp-button comp-button--primary">Visit reposted URL</a><span class="util-sr-only">.</span></p>
   {{/if}}
 
   {{> tags}}

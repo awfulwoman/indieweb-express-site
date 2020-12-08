@@ -11,5 +11,6 @@ module.exports = [
   body('content').optional({checkFalsy: true}).trim(),
   body('private').optional({checkFalsy: true}).toBoolean(),
   body('hide_from_feed').optional({checkFalsy: true}).toBoolean(),
-  body('hide_from_index').optional({checkFalsy: true}).toBoolean()  
+  body('hide_from_index').optional({checkFalsy: true}).toBoolean(),
+  body('add_like').optional({checkFalsy: true}).toBoolean()
 ]

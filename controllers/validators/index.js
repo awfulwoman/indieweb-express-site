@@ -9,5 +9,6 @@ module.exports = [
   body('like_of').optional({checkFalsy: true}).isURL(),
   body('quote_of').optional({checkFalsy: true}).isURL(),
   body('repost_of').optional({checkFalsy: true}).isURL(),
-  body('reply_to').optional({checkFalsy: true}).isURL()
+  body('reply_to').optional({checkFalsy: true}).isURL(),
+  body('add_like').optional({checkFalsy: true})
 ]

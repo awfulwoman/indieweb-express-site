@@ -3,12 +3,12 @@
 
    {{> author}}
 
-  <div class="c-like e-content">
+  <div class="comp-like e-content">
     {{{content}}}
   </div>
 
   {{#if data.like_of}}
-  <p><a href="{{data.like_of}}" class="u-like comp-button comp-button--primary">Visit liked URL</a>.</p>
+  <p><a href="{{data.like_of}}" class="u-like comp-button comp-button--primary">Visit liked URL</a><span class="util-sr-only">.</span></p>
   {{/if}}
 
   {{> tags}}
