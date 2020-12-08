@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controllers:webmentions:send')
+const debug = require('debug')('sonniesedge:controllers:webmentions:dispatch')
 const fetch = require('node-fetch')
 const is = require('is_js')
 
