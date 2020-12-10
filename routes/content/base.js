@@ -17,6 +17,7 @@ router.get(`/json`, feedController.jsonGet(models))
 router.get(`/atom`, feedController.atomGet(models))
 
 // 🔓 Public routes 
+// Handles all markdown-derived content not covered by a type
 router.get(`/`, [renderNav], contentController.readGet(models.page, {
   id: 'root',
   index: true, 
