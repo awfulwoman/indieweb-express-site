@@ -34,7 +34,7 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
   }
 
   // If no created date, add one now
-  if (!resultObject.data.created) resultObject.data.created = DateTime.now().toUTC().toISO()
+  if (!resultObject.data.created) resultObject.data.created = DateTime.local().toUTC().toISO()
 
   // Make sure dates aren't in JS Date format
   // TODO: fucks sake, sort this mass of awful date
