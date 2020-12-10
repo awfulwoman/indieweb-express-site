@@ -1,7 +1,9 @@
 const debug = require('debug')('sonniesedge:models:utils:update')
 const is = require('is_js')
-const { markdown } = require('../../drivers')
 const matter = require('gray-matter')
+
+const { markdown } = require('../../drivers')
+const normalizeItemObject = require('./normalize-item')
 
 /** @description Generic function for updating any model content item.
  * @param {string} dir Storage directory for this kind of content. e.g. 'notes' 
@@ -11,7 +13,7 @@ const matter = require('gray-matter')
  * @param {string} id The file storage ID.
  * @return {Promise}
  */
-const modelUpdate = async (dir, modelCache, data, content, id) => {
+const modelUpdate = async (dir, modelCache, data, content, id, options = {}) => {
 
   try {
     if (!dir || !modelCache || !data || !content || !id) throw new Error('You must supply all params')
@@ -20,17 +22,22 @@ const modelUpdate = async (dir, modelCache, data, content, id) => {
     if (is.not.string(id)) throw new Error('The file ID must be a string')
     if (is.not.string(dir)) throw new Error('The dir must be a string')
     // IF data PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
+   
+
     let fileContentAsMarkdown = matter.stringify(content, data)
-
-    // debug(data)
-    // debug(content)
-
-    // debug(fileContent)
-
-
     markdown.update(dir, id, fileContentAsMarkdown)
     modelCache.del(id)
-    modelCache.set(id, {data: data, content: content})
+
+
+    let resultObject = {data: data, content: content}
+    resultObject = await normalizeItemObject(resultObject, id, dir, options)
+
+
+    debug('Caching this object at update: ', resultObject)
+
+    modelCache.set(id, resultObject)
+
+    modelCache.get(id)
   } catch (error) {
     // TODO Add to error log
     // debug('--------------------------------------')
