@@ -9,7 +9,7 @@ const models = require('../../models')
 const renderNav = require('../../middleware/render-nav')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers/utils')
 
 // 🗼 Syndication routes
 router.get(`/rss`, controllerFeedHelper.rssGet(models))

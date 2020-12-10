@@ -10,14 +10,14 @@ const page = require('../../models/types/page.model')
 const renderNav = require('../../middleware/render-nav')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers/utils')
 const checkAuthentication = require('../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-const createValidators = require('../validators')
-const createSanitizers = require('../sanitizers')
+const createValidators = require('../../controllers/validators')
+const createSanitizers = require('../../controllers/sanitizers')
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
