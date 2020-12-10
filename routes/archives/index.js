@@ -6,11 +6,11 @@ const router = express.Router()
 const models = require('../../models')
 
 // 🖕 Middleware
-const controllerArchiveHelper = require('../../controllers/archive')
+const archiveController = require('../../controllers/archive')
 
 // 🔓 Public routes 
-router.get(`/archive/:year`, controllerArchiveHelper(models))
-router.get(`/archive/:year/:month`, controllerArchiveHelper(models))
-router.get(`/archive/:year/:month/:day`, controllerArchiveHelper(models))
+router.get(`/archive/:year`, archiveController(models))
+router.get(`/archive/:year/:month`, archiveController(models))
+router.get(`/archive/:year/:month/:day`, archiveController(models))
 
 module.exports = router

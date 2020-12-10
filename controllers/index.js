@@ -1,6 +1,6 @@
-const controllerFileHelper = require('./file')
-const controllerContentHelper = require('./content')
-const controllerFeedHelper = require('./feed')
-const controllerArchiveHelper = require('./archive')
+const fileController = require('./file')
+const contentController = require('./content')
+const feedController = require('./feed')
+const archiveController = require('./archive')
 
-module.exports = {controllerFileHelper, controllerContentHelper, controllerFeedHelper, controllerArchiveHelper}
+module.exports = {fileController, contentController, feedController, archiveController}

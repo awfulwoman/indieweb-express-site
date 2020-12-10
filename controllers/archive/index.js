@@ -6,7 +6,7 @@ const { DateTime } = require('luxon')
 const arrayToArchive = require('../../utilities/array-to-archive')
 const monthNameToMonthNumber = require('../../utilities/month-name-to-month-number')
 
-const controllerArchiveHelper = (model, options) => {
+const archiveController = (model, options) => {
   options || (options = {});
   return asyncHandler(async (req, res, next) => {
     try {
@@ -59,4 +59,4 @@ const controllerArchiveHelper = (model, options) => {
   })
 }
 
-module.exports = controllerArchiveHelper
+module.exports = archiveController
