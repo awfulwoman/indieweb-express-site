@@ -1,5 +1,5 @@
-const debug = require('debug')('sonniesedge:controllers:feed:feedBase')
-const feedSettings = require('./feed.settings')
+const debug = require('debug')('sonniesedge:controllers:feed:base')
+const feedSettings = require('./settings')
 const Feed = require('feed').Feed
 const { DateTime } = require("luxon")
 const is = require('is_js')

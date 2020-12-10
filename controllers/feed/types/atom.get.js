@@ -1,7 +1,7 @@
-const debug = require('debug')('sonniesedge:controllers:feed:atomGet')
+const debug = require('debug')('sonniesedge:controllers:feed:types:atom')
 const asyncHandler = require('express-async-handler')
-const generateBaseFeed = require('./feed.base')
-const ErrorHandler = require('../../utilities/error-handler')
+const generateBaseFeed = require('../base')
+const ErrorHandler = require('../../../utilities/error-handler')
 
 const atomGet = (model, options) => {
   options || (options = {});
