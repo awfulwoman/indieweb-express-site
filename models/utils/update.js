@@ -30,6 +30,8 @@ const modelUpdate = async (dir, modelCache, data, content, id, options = {}) => 
 
 
     let resultObject = {data: data, content: content}
+
+    debug('resultObject: ', resultObject)
     resultObject = await normalizeItemObject(resultObject, id, dir, options)
 
 
