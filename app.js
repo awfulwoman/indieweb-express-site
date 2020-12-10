@@ -37,6 +37,7 @@ const staticify = require('staticify')(path.join(__dirname, 'public'))
 const controllers = require('./controllers')
 const archives = require('./routes/archives')
 const disambiguation = require('./routes/disambiguation')
+const offline = require('./routes/offline')
 const {send} = require('./routes/webmentions')
 
 const authentication = require('./routes/auth')
@@ -153,7 +154,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 app.use('/webmention', [send])
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(staticify.middleware)
-app.use('/', [disambiguation, archives, authentication, controllers])
+app.use('/', [offline, disambiguation, archives, authentication, controllers])
 
 
 
