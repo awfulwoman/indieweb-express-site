@@ -10,7 +10,7 @@ const page = require('../../models/types/page.model')
 const renderNav = require('../../middleware/render-nav')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers/utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers')
 const checkAuthentication = require('../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')

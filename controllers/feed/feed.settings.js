@@ -1,5 +1,5 @@
-const debug = require('debug')('sonniesedge:controllers:utils:feed:feedSettings')
-const config = require('../../../config')
+const debug = require('debug')('sonniesedge:controllers:feed:feedSettings')
+const config = require('../../config')
 
 const settings = () => {
   return {

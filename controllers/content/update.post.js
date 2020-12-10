@@ -1,13 +1,13 @@
-const debug = require('debug')('sonniesedge:controllers:utils:content:updatePost')
+const debug = require('debug')('sonniesedge:controllers:content:updatePost')
 const asyncHandler = require('express-async-handler')
 const { validationResult, matchedData } = require('express-validator')
-const normalizeFormState = require('../../../utilities/form-normalize-state')
-const normalizeFormErrors = require('../../../utilities/form-normalize-errors')
-const md = require('../../../utilities/markdown-it')
+const normalizeFormState = require('../../utilities/form-normalize-state')
+const normalizeFormErrors = require('../../utilities/form-normalize-errors')
+const md = require('../../utilities/markdown-it')
 const is = require('is_js')
-const config = require('../../../config')
+const config = require('../../config')
 const { DateTime } = require('luxon')
-const ErrorHandler = require('../../../utilities/error-handler')
+const ErrorHandler = require('../../utilities/error-handler')
 
 const updatePost = (model, options = {}) => {
 

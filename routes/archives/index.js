@@ -6,7 +6,7 @@ const router = express.Router()
 const models = require('../../models')
 
 // 🖕 Middleware
-const {controllerArchiveHelper} = require('../../controllers/utils')
+const controllerArchiveHelper = require('../../controllers/archive')
 
 // 🔓 Public routes 
 router.get(`/archive/:year`, controllerArchiveHelper(models))

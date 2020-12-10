@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controller:page')
+const debug = require('debug')('sonniesedge:controller:base')
 
 // 🏃‍♀️💨 Express
 const express = require('express')
@@ -9,7 +9,7 @@ const models = require('../../models')
 const renderNav = require('../../middleware/render-nav')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers/utils')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers')
 
 // 🗼 Syndication routes
 router.get(`/rss`, controllerFeedHelper.rssGet(models))

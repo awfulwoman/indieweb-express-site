@@ -1,7 +1,7 @@
-const debug = require('debug')('sonniesedge:controllers:utils:feed:jsonGet')
+const debug = require('debug')('sonniesedge:controllers:feed:jsonGet')
 const asyncHandler = require('express-async-handler')
 const generateBaseFeed = require('./feed.base')
-const ErrorHandler = require('../../../utilities/error-handler')
+const ErrorHandler = require('../../utilities/error-handler')
 
 const jsonGet = (model, options) => {
   options || (options = {});

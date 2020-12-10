@@ -1,10 +1,10 @@
-const debug = require('debug')('sonniesedge:controllers:utils:archive')
+const debug = require('debug')('sonniesedge:controllers:archive')
 const asyncHandler = require('express-async-handler')
-const ErrorHandler = require('../../../utilities/error-handler')
+const ErrorHandler = require('../../utilities/error-handler')
 const is = require('is_js')
 const { DateTime } = require('luxon')
-const arrayToArchive = require('../../../utilities/array-to-archive')
-const monthNameToMonthNumber = require('../../../utilities/month-name-to-month-number')
+const arrayToArchive = require('../../utilities/array-to-archive')
+const monthNameToMonthNumber = require('../../utilities/month-name-to-month-number')
 
 const controllerArchiveHelper = (model, options) => {
   options || (options = {});

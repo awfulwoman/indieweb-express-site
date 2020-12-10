@@ -1,6 +1,6 @@
-const debug = require('debug')('sonniesedge:controllers:utils:content:readGet')
+const debug = require('debug')('sonniesedge:controllers:content:readGet')
 const asyncHandler = require('express-async-handler')
-const ErrorHandler = require('../../../utilities/error-handler')
+const ErrorHandler = require('../../utilities/error-handler')
 const is = require('is_js')
 const path = require('path')
 

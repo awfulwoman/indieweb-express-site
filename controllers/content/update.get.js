@@ -1,7 +1,7 @@
-const debug = require('debug')('sonniesedge:controllers:utils:content:updateGet')
+const debug = require('debug')('sonniesedge:controllers:content:updateGet')
 const asyncHandler = require('express-async-handler');
-const ErrorHandler = require('../../../utilities/error-handler')
-const md = require('../../../utilities/markdown-it')
+const ErrorHandler = require('../../utilities/error-handler')
+const md = require('../../utilities/markdown-it')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
