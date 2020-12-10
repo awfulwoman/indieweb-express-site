@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controller:archive')
+const debug = require('debug')('sonniesedge:routes:archive')
 
 // 🏃‍♀️💨 Express
 const express = require('express')
@@ -6,7 +6,7 @@ const router = express.Router()
 const models = require('../../models')
 
 // 🖕 Middleware
-const {controllerArchiveHelper} = require('../utils')
+const {controllerArchiveHelper} = require('../../controllers/utils')
 
 // 🔓 Public routes 
 router.get(`/archive/:year`, controllerArchiveHelper(models))
