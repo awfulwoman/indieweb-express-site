@@ -21,25 +21,15 @@ const modelUpdate = async (dir, modelCache, data, content, id, options = {}) => 
     if (is.not.string(content)) throw new Error('Content must be a string')
     if (is.not.string(id)) throw new Error('The file ID must be a string')
     if (is.not.string(dir)) throw new Error('The dir must be a string')
-    // IF data PROPERTIES DO NOT ALL MATCH NOTE FIELDS OR LOCAL FIELDS
    
-
     let fileContentAsMarkdown = matter.stringify(content, data)
     markdown.update(dir, id, fileContentAsMarkdown)
-    modelCache.del(id)
-
-
+    
     let resultObject = {data: data, content: content}
-
-    debug('resultObject: ', resultObject)
     resultObject = await normalizeItemObject(resultObject, id, dir, options)
 
-
-    debug('Caching this object at update: ', resultObject)
-
+    // modelCache.del(id)
     modelCache.set(id, resultObject)
-
-    modelCache.get(id)
   } catch (error) {
     // TODO Add to error log
     // debug('--------------------------------------')

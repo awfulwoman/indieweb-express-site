@@ -15,20 +15,18 @@ const modelRead = async (dir, cache, id, options = {}) => {
 
     // Item is present in the model cache
     if (cache.has(id)) {
-      debug(`Calling ${id} from ${dir} cache`)
-      debug(cache.get(id))
+      debug(`Reading ${dir}/${id} from cache.`)
       return cache.get(id)
     }
 
     // The item is present in cache. Read from filesystem
     let result = await markdown.read(dir, id)
-    // debug(dir, id)
     let resultObject = matter(result)
 
     resultObject = await normalizeItemObject(resultObject, id, dir, options)
 
     let cachingActionResult = cache.set(id, resultObject)
-    if (is.falsy(cachingActionResult)) { debug(`Did not store ${id} in ${dir} cache!`) }
+    if (is.falsy(cachingActionResult)) { debug(`ERROR: Could not store ${dir}/${id} in cache!`) }
     
     return resultObject
   } catch (error) {

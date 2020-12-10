@@ -56,11 +56,7 @@ const createPost = (model, options = {}) => {
 
         debug(`/${model.modelDir}/${id} created!`)
 
-        res.render(options.template || 'content-create/default', {
-          data: { title: 'Created!' },
-          // content: result
-          url: `/${model.modelDir}/${id}`
-        })
+        res.redirect(`/${model.modelDir}/${id}`)
       }
     } catch (error) {
       throw new ErrorHandler(

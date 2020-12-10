@@ -53,11 +53,7 @@ const updatePost = (model, options = {}) => {
 
         debug(`/${model.modelDir}/${id} updated!`)
 
-        res.render(options.template || 'content-create/default', {
-          data: { title: 'Edited item!' },
-          // content: result
-          url: `/${model.modelDir}/${id}`
-        })
+        res.redirect(`/${model.modelDir}/${id}`)
       }
     } catch (error) {
       throw new ErrorHandler(
