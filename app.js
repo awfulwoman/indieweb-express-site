@@ -36,6 +36,7 @@ const FileStore = require('session-file-store')(session)
 const staticify = require('staticify')(path.join(__dirname, 'public'))
 const controllers = require('./controllers')
 const archives = require('./routes/archives')
+const disambiguation = require('./routes/disambiguation')
 const {send} = require('./routes/webmentions')
 
 const authentication = require('./routes/auth')
@@ -152,7 +153,7 @@ app.use(morgan('combined', { stream: accessLogStream }))
 app.use('/webmention', [send])
 app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
 app.use(staticify.middleware)
-app.use('/', [archives, authentication, controllers])
+app.use('/', [disambiguation, archives, authentication, controllers])
 
 
 

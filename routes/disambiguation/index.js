@@ -1,4 +1,4 @@
-const debug = require('debug')('sonniesedge:controller:disambiguation')
+const debug = require('debug')('sonniesedge:routes:disambiguation')
 const asyncHandler = require('express-async-handler')
 const renderNav = require('../../middleware/render-nav')
 const checkAuthentication = require('../../middleware/check-authentication')
