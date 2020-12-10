@@ -5,19 +5,19 @@ const router = express.Router()
 const { body } = require('express-validator')
 
 // 💅 Models
-const model = require('../../models/types/bookmark.model')
-const page = require('../../models/types/page.model')
-const renderNav = require('../../middleware/render-nav')
+const model = require('../../../models/types/bookmark.model')
+const page = require('../../../models/types/page.model')
+const renderNav = require('../../../middleware/render-nav')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers/utils')
-const checkAuthentication = require('../../middleware/check-authentication')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../../controllers/utils')
+const checkAuthentication = require('../../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-const createValidators = require('../../controllers/validators')
-const createSanitizers = require('../../controllers/sanitizers')
+const createValidators = require('../../../controllers/validators')
+const createSanitizers = require('../../../controllers/sanitizers')
 const localValidators = [
   body('title').notEmpty().withMessage(`You need to supply a title`),
   body('bookmark_of').notEmpty().withMessage(`You need to supply a bookmark URL`)

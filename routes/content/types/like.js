@@ -1,36 +1,32 @@
-const debug = require('debug')('sonniesedge:controller:article')
+const debug = require('debug')('sonniesedge:controller:like')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
 
 // 💅 Models
-const model = require('../../models/types/article.model')
-const page = require('../../models/types/page.model')
-const renderNav = require('../../middleware/render-nav')
+const model = require('../../../models/types/like.model')
+const page = require('../../../models/types/page.model')
+const renderNav = require('../../../middleware/render-nav')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers/utils')
-const checkAuthentication = require('../../middleware/check-authentication')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../../controllers/utils')
+const checkAuthentication = require('../../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-const createValidators = require('../../controllers/validators')
-const createSanitizers = require('../../controllers/sanitizers')
+const createValidators = require('../../../controllers/validators')
+const createSanitizers = require('../../../controllers/sanitizers')
 
-const localValidators = [
-  body('content').notEmpty().withMessage(`You need to write some content`)
-]
-createValidators.push(...localValidators)
-
-// 🔐 Protected admin routes 
+// 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
 router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, checkAuthentication, createValidators, createSanitizers], controllerContentHelper.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], controllerContentHelper.updateGet(model))
 router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, checkAuthentication, createValidators, createSanitizers], controllerContentHelper.updatePost(model))
 // router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], controllerContentHelper.deleteGet(model))
 // router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], controllerContentHelper.deletePost(model))
+
 
 // 🗼 Syndication routes
 router.get(`/${model.modelDir}/rss`, controllerFeedHelper.rssGet(model))

@@ -1,28 +1,23 @@
-const debug = require('debug')('sonniesedge:controller:reply')
+const debug = require('debug')('sonniesedge:controller:repost')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
 const { body } = require('express-validator')
 
 // 💅 Models
-const model = require('../../models/types/reply.model')
-const page = require('../../models/types/page.model')
-const renderNav = require('../../middleware/render-nav')
+const model = require('../../../models/types/repost.model')
+const page = require('../../../models/types/page.model')
+const renderNav = require('../../../middleware/render-nav')
 
 // 🖕 Middleware
-const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../controllers/utils')
-const checkAuthentication = require('../../middleware/check-authentication')
+const {controllerFileHelper, controllerContentHelper, controllerFeedHelper} = require('../../../controllers/utils')
+const checkAuthentication = require('../../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-const createValidators = require('../../controllers/validators')
-const createSanitizers = require('../../controllers/sanitizers')
-
-const localValidators = [
-  body('content').notEmpty().withMessage(`You need to write some content`)
-]
-createValidators.push(...localValidators)
+const createValidators = require('../../../controllers/validators')
+const createSanitizers = require('../../../controllers/sanitizers')
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], controllerContentHelper.createGet(model))
