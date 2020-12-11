@@ -5,7 +5,18 @@ const flatten = require('flat')
 const normalizeFormState = (request) => {
   try {
     if (request.body) request = request.body
-    return flatten(request, {delimiter: '_', safe: true})
+
+    // flatten object to keyed array
+    let flattened = flatten(request, {delimiter: '_', safe: true})
+
+    // convert any arrays to nicely-formatted strings
+    for (const item in flattened) {
+      if (flattened.hasOwnProperty(item)) {
+        if (is.array(flattened[item])) flattened[item] = flattened[item].join(', ')
+      }
+    }
+
+    return flattened
   } catch (error) {
     throw error
   }

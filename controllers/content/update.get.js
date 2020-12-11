@@ -8,9 +8,6 @@ const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const is = require('is_js');
 
-
-// UPDATE
-
 const updateGet = (model, options = {}) => {
 
   return asyncHandler(async (req, res, next) => {
@@ -18,13 +15,16 @@ const updateGet = (model, options = {}) => {
       // read existing note
       let existingItem = await model.read(req.params.id)
 
+      debug('Existing item: ', existingItem)
+
       // Smoosh .content and .data together
       let formState = { ...existingItem, ...existingItem.data }
       delete formState.data
 
+      // Flatten everything into an array compatible with the forms
       formState = normalizeFormState(formState)
 
-      debug('Existing item: ', formState)
+      debug('Flattened item: ', formState)
 
       res.render(options.template || `content-create/types/${model.id}`, {
         data: { title: `${model.modelDir} editing` },
