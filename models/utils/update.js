@@ -21,12 +21,11 @@ const modelUpdate = async (dir, modelCache, data, content, id, options = {}) => 
     if (is.not.string(content)) throw new Error('Content must be a string')
     if (is.not.string(id)) throw new Error('The file ID must be a string')
     if (is.not.string(dir)) throw new Error('The dir must be a string')
-   
+
     let fileContentAsMarkdown = matter.stringify(content, data)
     markdown.update(dir, id, fileContentAsMarkdown)
     
-    let resultObject = {data: data, content: content}
-    resultObject = await normalizeItemObject(resultObject, id, dir, options)
+    resultObject = await normalizeItemObject({data: data, content: content}, id, dir, options)
 
     // modelCache.del(id)
     modelCache.set(id, resultObject)
