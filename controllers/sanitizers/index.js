@@ -10,7 +10,7 @@ module.exports = [
       return tag.trim()
     })
   }).optional({checkFalsy: true}),
-  body('content').optional({checkFalsy: true}).trim(),
+  body('content').optional({checkFalsy: true}).trim().stripLow(true),
   body('private').optional({checkFalsy: true}).toBoolean(),
   body('hide_from_feed').optional({checkFalsy: true}).toBoolean(),
   body('hide_from_index').optional({checkFalsy: true}).toBoolean(),

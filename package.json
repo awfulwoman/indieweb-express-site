@@ -40,6 +40,7 @@
     "express-validator": "^6.6.1",
     "fast-glob": "^3.2.4",
     "feed": "^4.2.1",
+    "flat": "^5.0.2",
     "glob": "^7.1.6",
     "gray-matter": "^4.0.2",
     "handlebars-helpers": "^0.10.0",

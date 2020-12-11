@@ -2,6 +2,7 @@ const debug = require('debug')('sonniesedge:controllers:content:updateGet')
 const asyncHandler = require('express-async-handler');
 const ErrorHandler = require('../../utilities/error-handler')
 const md = require('../../utilities/markdown-it')
+const normalizeFormState = require('../../utilities/form-normalize-state')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
@@ -20,6 +21,8 @@ const updateGet = (model, options = {}) => {
       // Smoosh .content and .data together
       let formState = { ...existingItem, ...existingItem.data }
       delete formState.data
+
+      formState = normalizeFormState(formState)
 
       debug('Existing item: ', formState)
 
