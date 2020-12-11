@@ -1,0 +1,23 @@
+<div class="c-form-row {{#if errors.opengraph_title}}c-form-row--error{{/if}}">
+  <label for="opengraph_title" class="c-form-title">Title</label>
+  <input type="text" id="opengraph_title" name="opengraph[title]"
+    class="c-form-texty {{#if errors.opengraph_title}}c-form-texty--error{{/if}}" value="{{state.opengraph_title}}">
+</div>
+
+<div class="c-form-row {{#if errors.opengraph_description}}c-form-row--error{{/if}}">
+  <label for="opengraph_description" class="c-form-title">Description</label>
+  <input type="text" id="opengraph_description" name="opengraph[description]"
+    class="c-form-texty {{#if errors.opengraph_description}}c-form-texty--error{{/if}}" value="{{state.opengraph_description}}">
+</div>
+
+<div class="c-form-row {{#if errors.opengraph_image_filename}}c-form-row--error{{/if}}">
+  <label for="opengraph_image_filename" class="c-form-title">Image filename</label>
+  <input type="text" id="opengraph_image_filename" name="opengraph[image][filename]"
+    class="c-form-texty {{#if errors.opengraph_image_filename}}c-form-texty--error{{/if}}" value="{{state.opengraph_image_filename}}">
+</div>
+
+<div class="c-form-row {{#if errors.opengraph_image_alt}}c-form-row--error{{/if}}">
+  <label for="opengraph_image_alt" class="c-form-title">Image alt</label>
+  <input type="text" id="opengraph_image_alt" name="opengraph[image][alt]"
+    class="c-form-texty {{#if errors.opengraph_image_alt}}c-form-texty--error{{/if}}" value="{{state.opengraph_image_alt}}">
+</div>
