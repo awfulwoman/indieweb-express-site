@@ -16,6 +16,8 @@ const normalizeFormState = (request) => {
       }
     }
 
+    debug('Flattened content: %o', flattened.content)
+
     return flattened
   } catch (error) {
     throw error

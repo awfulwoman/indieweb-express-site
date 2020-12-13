@@ -15,7 +15,7 @@ const updateGet = (model, options = {}) => {
       // read existing note
       let existingItem = await model.read(req.params.id)
 
-      debug('Existing item: ', existingItem)
+      // debug('Existing item: ', existingItem)
 
       // Smoosh .content and .data together
       let formState = { ...existingItem, ...existingItem.data }
@@ -29,6 +29,7 @@ const updateGet = (model, options = {}) => {
       res.render(options.template || `content-create/types/${model.id}`, {
         data: { title: `${model.modelDir} editing` },
         content: `Start editing your ${model.id}!`,
+        markdown: formState.content,
         state: formState
       })
     } catch (error) {

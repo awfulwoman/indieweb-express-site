@@ -2,9 +2,14 @@
 
 {{{content}}}
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+
+
 <form method="POST" class="c-form">
 
-  {{> fields/content}}
+  {{> fields/content }}
   {{> fields/tags}}
 
   <details class="comp-reveal">
@@ -38,3 +43,9 @@
   </div>
 
 </form>
+
+<script async>
+  var simplemde = new SimpleMDE({
+    element: document.getElementById('content')
+  });
+</script>
