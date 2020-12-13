@@ -65,7 +65,10 @@ app.engine('hbs', hbs({
     getVersionedPath: staticify.getVersionedPath
   },
   extname: '.hbs',
-  defaultLayout: 'default'
+  defaultLayout: 'default',
+  compilerOptions: {
+    preventIndent: true
+  }
 }))
 
 // AUTHENTICATION + SESSIONS
