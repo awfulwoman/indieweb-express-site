@@ -2,7 +2,7 @@
 
 {{{content}}}
 
-<form method="POST" class="c-form">
+<form method="POST" class="c-form" encType="multipart/form-data">
 
   {{> fields/content }}
   {{> fields/tags}}
@@ -30,6 +30,7 @@
     <summary class="comp-reveal-title">Optional</summary>
     <div class="comp-reveal-content">
       {{> fields/title}}
+      {{> fields/photos}}
     </div>
   </details>
 

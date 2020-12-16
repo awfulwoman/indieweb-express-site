@@ -68,6 +68,7 @@
     "passport": "^0.4.1",
     "passport-github2": "^0.1.12",
     "passport-twitter": "^1.0.4",
+    "qs": "^6.9.4",
     "rand-token": "^1.0.1",
     "remove-markdown": "^0.3.0",
     "rotating-file-stream": "^2.1.3",

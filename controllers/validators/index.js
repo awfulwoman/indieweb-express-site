@@ -13,5 +13,6 @@ module.exports = [
   body('quote_of').optional({checkFalsy: true}).isURL(),
   body('repost_of').optional({checkFalsy: true}).isURL(),
   body('reply_to').optional({checkFalsy: true}).isURL(),
-  body('add_like').optional({checkFalsy: true})
+  body('add_like').optional({checkFalsy: true}),
+  body('photos.*.alt').optional({checkFalsy: true})
 ]
