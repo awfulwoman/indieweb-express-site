@@ -27,10 +27,8 @@ const normalizeFormState = (request) => {
           if (is.object(element)) isComplexArrayOfObjects = true
         })
 
-        // A complex array of objects
+        // A simple array of strings or integers
         if (!isComplexArrayOfObjects) {
-          // Is a simple index array of values
-          // debug('item to flatten is a simple indexed array', flattened[item])
           flattened[item] = flattened[item].join(', ')
         }
 
