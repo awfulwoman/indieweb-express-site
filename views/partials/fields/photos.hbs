@@ -1,0 +1,19 @@
+<div class="c-form-row {{#if errors.photos}}c-form-row--error{{/if}}">
+  <h3 class="c-form-title">Attached photos</h3>
+
+  <label for="photos[0][file]" class="c-form-title">Photo 0: File</label>
+  <input type="file" id="photos[0][file]" name="photos[0][file]"
+    class="c-form-texty {{#if errors.photos.0.file}}c-form-texty--error{{/if}}" value="{{state.photos.0.file}}">
+  <label for="photos[0][alt]" class="c-form-title">Photo 0: Alt text</label>
+  <input type="text" id="photos[0][alt]" name="photos[0][alt]"
+    class="c-form-texty {{#if errors.photos.0.alt}}c-form-texty--error{{/if}}" value="{{state.photos.0.alt}}">
+
+  <hr>
+
+ <label for="photos[1][file]" class="c-form-title">Photo 1: File</label>
+  <input type="file" id="photos[1][file]" name="photos[1][file]"
+    class="c-form-texty {{#if errors.photos.1.file}}c-form-texty--error{{/if}}" value="{{state.photos.1.file}}">
+  <label for="photos[1][alt]" class="c-form-title">Photo 1: Alt text</label>
+  <input type="text" id="photos[1][alt]" name="photos[1][alt]"
+    class="c-form-texty {{#if errors.photos.1.alt}}c-form-texty--error{{/if}}" value="{{state.photos.1.alt}}">
+</div>

@@ -10,12 +10,15 @@ const { DateTime } = require('luxon')
 const ErrorHandler = require('../../utilities/error-handler')
 
 const createPost = (model, options = {}) => {
-  
+
   let formState = {}
   let formErrors = {}
 
   return asyncHandler(async (req, res, next) => {
     try {
+
+      debug('FILES:')
+      debug(req.files)
 
       formState = normalizeFormState(req)
       formErrors = normalizeFormErrors(req)
@@ -33,9 +36,14 @@ const createPost = (model, options = {}) => {
         })
       } else {
 
+        debug('formstate: ', formState)
+        debug('matchedData: ', matchedData(req))
+
         let data = matchedData(req)
         let content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
+
+        
 
         let tempCurrentDate = DateTime.local().toUTC()
 
@@ -48,6 +56,8 @@ const createPost = (model, options = {}) => {
         await model.create(data, content, id).catch((error) => {
           throw error
         })
+
+        // Move uploaded files to dir
 
         // Read to set up cache
         await model.read(id).catch((error) => {
