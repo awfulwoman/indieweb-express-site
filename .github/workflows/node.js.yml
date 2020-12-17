@@ -57,6 +57,8 @@ jobs:
         CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
         TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
         TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+        GH_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
+        GH_CLIENT_SECRET: ${{ secrets.GH_CLIENT_SECRET }}
         SITE_LOGIN_PATH: ${{ secrets.SITE_LOGIN_PATH }}
       run: | # This is a multiline comment
         echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
