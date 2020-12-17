@@ -74,7 +74,7 @@ app.engine('hbs', hbs({
 // AUTHENTICATION + SESSIONS
 // -----------------------
 app.use(session({ 
-  secret: process.env['KEYBOARD_CAT'], 
+  secret: process.env['KEYBOARD_CAT'] || 'keyboardcatgetoffyoubastard', 
   resave: true, 
   saveUninitialized: true,
   cookie: {
