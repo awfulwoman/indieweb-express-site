@@ -69,6 +69,8 @@ jobs:
         echo "SITE_DOMAIN=whalecoiner.com" >> .env
         echo "SITE_LOGIN_PATH=${{ env.SITE_LOGIN_PATH }}" >> .env
         echo "LAST_DEPLOY=$(TZ=GMT date -d now)" >> .env
+        echo "GH_CLIENT_ID=${{ env.GH_CLIENT_ID }}" >> .env
+        echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
       shell: bash
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
