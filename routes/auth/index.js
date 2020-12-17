@@ -11,6 +11,7 @@ const config = require('../../config')
 const constructOauth = require('../../utilities/construct-oauth-callback')
 const renderNav = require('../../middleware/render-nav')
 const rateLimit = require('express-rate-limit')
+const isValidPath = require('is-valid-path')
 
 
 // Configure rate limits
@@ -19,13 +20,13 @@ const apiLimiterLogin = rateLimit({
   max: 100
 })
 
-let original
+let redirectPath = '/'
 
 // Default login page
 router.get(config.siteLoginPath(), [apiLimiterLogin, renderNav], function(req, res){
 
-  if (req.query && req.query.original) {
-    original = req.query.original
+  if (req.query && req.query.redirectPath) {
+    if (isValidPath(req.query.redirectPath)) redirectPath = req.query.redirectPath
   }
 
   res.render('auth/method', {
@@ -43,7 +44,7 @@ router.get(`${config.siteLoginPath()}/github`, [apiLimiterLogin], passport.authe
 // Twitter oauth callback
 router.get(constructOauth.oaPath('twitter'), [apiLimiterLogin], passport.authenticate('twitter', {failureRedirect: '/youdidntsaythemagicword'}), (req, res) => {
   console.log(req.query)
-  res.redirect(original ? original : '/')
+  res.redirect(redirectPath)
 })
 
 // Github oauth callback
