@@ -90,7 +90,7 @@ const GitHubStrategy = require('passport-github2').Strategy
 
 
 if (!process.env['TWITTER_CONSUMER_KEY'] || !process.env['TWITTER_CONSUMER_SECRET']) return
-if (!process.env['GITHUB_CLIENT_ID'] || !process.env['GITHUB_CLIENT_SECRET']) return
+if (!process.env['GH_CLIENT_ID'] || !process.env['GH_CLIENT_SECRET']) return
 
 // Set options
 const passportTwitterOptions = {
@@ -100,8 +100,8 @@ const passportTwitterOptions = {
 }
 
 const passportGithubOptions = {
-  clientID: process.env['GITHUB_CLIENT_ID'],
-  clientSecret: process.env['GITHUB_CLIENT_SECRET'],
+  clientID: process.env['GH_CLIENT_ID'],
+  clientSecret: process.env['GH_CLIENT_SECRET'],
   callbackURL: constructOauth.oaUrl('github')
 }
 
