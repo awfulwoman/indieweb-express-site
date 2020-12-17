@@ -86,10 +86,11 @@ app.use(session({
 }))
 
 const TwitterStrategy = require('passport-twitter').Strategy
-// const GitHubStrategy = require('passport-github2').Strategy
+const GitHubStrategy = require('passport-github2').Strategy
 
 
 if (!process.env['TWITTER_CONSUMER_KEY'] || !process.env['TWITTER_CONSUMER_SECRET']) return
+if (!process.env['GITHUB_CLIENT_ID'] || !process.env['GITHUB_CLIENT_SECRET']) return
 
 // Set options
 const passportTwitterOptions = {
@@ -98,25 +99,25 @@ const passportTwitterOptions = {
   callbackURL: constructOauth.oaUrl('twitter')
 }
 
-// const passportGithubOptions = {
-//   clientID: process.env['GITHUB_CLIENT_ID'],
-//   clientSecret: process.env['GITHUB_CLIENT_SECRET'],
-//   callbackURL: constructOauth.oaUrl('github')
-// }
+const passportGithubOptions = {
+  clientID: process.env['GITHUB_CLIENT_ID'],
+  clientSecret: process.env['GITHUB_CLIENT_SECRET'],
+  callbackURL: constructOauth.oaUrl('github')
+}
 
 // Use Twitter passport strategy
 passport.use(new TwitterStrategy(passportTwitterOptions, function (token, tokenSecret, profile, cb) {
   debug('Someone trying to login with following Twitter profile: ', profile.username)
-  let appUserProfile = users.getAppUserObjFromTwitterId(profile.id)
+  let appUserProfile = users.getAppUserObjFromExternalId(profile.id, 'twitter')
   return cb(null, appUserProfile)
 }))
 
 // Use Github passport strategy
-// passport.use(new GitHubStrategy(passportGithubOptions, function(accessToken, refreshToken, profile, cb) {
-//   // debug(passportGithubOptions)
-//   // debug('Passport Github profile:', profile)
-//   return cb(null, profile)
-// }))
+passport.use(new GitHubStrategy(passportGithubOptions, function(accessToken, refreshToken, profile, cb) {
+  debug('Someone trying to login with following Github profile: ', profile.username)
+  let appUserProfile = users.getAppUserObjFromExternalId(profile.id, 'github')
+  return cb(null, appUserProfile)
+}))
 
 // Configure Passport authenticated session persistence.
 passport.serializeUser(function (userAppObj, callback) {

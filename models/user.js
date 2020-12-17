@@ -1,19 +1,19 @@
 const e = require('express');
 const users = require('../config.users');
 
-const getAppUserObjFromTwitterId = function(twitterId) {
+const getAppUserObjFromExternalId = function(ExternalId, ExternalApp) {
   // users filtered down to where id matches
-  // console.log('getAppUserObjFromTwitterId param twitterId: ', twitterId)
+  // console.log('getAppUserObjFromExternalId param ExternalId: ', ExternalId)
   // for each user
 
   for (let i = 0; i < users.length; i++) {
     const user = users[i];
     let result = user.authMethods.filter(function (authMethod) {
-      return authMethod.id == twitterId && authMethod.type === 'twitter';
+      return authMethod.id == ExternalId && authMethod.type === ExternalApp;
     });
 
     if (result.length > 0) {
-      // console.log('getAppUserFromTwitterId valid user:', user);
+      // console.log('getAppUserFromExternalId valid user:', user);
       return user
     } else {
       return false
@@ -32,24 +32,4 @@ const getAppUserObjFromAppId = function(appId) {
   return result[0];
 }
 
-const getAppUserIdFromTwitterUsername = function(twitterUsername) {
-  for (let i = 0; i < users.length; i++) {
-    const user = users[i];
-    let result = user.authMethods.filter(function (authMethod) {
-      return authMethod.username == twitterUsername && authMethod.type === 'twitter';
-    });
-
-    if (result.length > 0) {
-      return user
-    } else {
-      return false
-    }
-    
-  }
-}
-
-module.exports = {
-  getAppUserObjFromTwitterId,
-  getAppUserObjFromAppId,
-  getAppUserIdFromTwitterUsername
-}
+module.exports = { getAppUserObjFromExternalId, getAppUserObjFromAppId }
