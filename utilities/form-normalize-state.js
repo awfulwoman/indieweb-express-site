@@ -1,9 +1,45 @@
 const debug = require('debug')('sonniesedge:utilities:formNormalizeState')
 const is = require('is_js')
 const flatten = require('flat')
+const qs = require('qs')
+const merge = require('deepmerge')
+
+const combineMerge = (target, source, options) => {
+  const destination = target.slice()
+
+  source.forEach((item, index) => {
+      if (typeof destination[index] === 'undefined') {
+          destination[index] = options.cloneUnlessOtherwiseSpecified(item, options)
+      } else if (options.isMergeableObject(item)) {
+          destination[index] = merge(target[index], item, options)
+      } else if (target.indexOf(item) === -1) {
+          destination.push(item)
+      }
+  })
+  return destination
+}
 
 const normalizeFormState = (request) => {
   try {
+
+
+
+    debug('FILES:')
+    debug(request.files)
+    debug('expanded name: ', qs.parse(request.files))
+
+    debug('BODY:')
+    debug(request.body)
+
+    let tempBodyObj = {}
+    
+    for (const file of request.files) {
+      let result = qs.parse(`${file['fieldname']}=${file['originalname']}`)
+      tempBodyObj = merge(tempBodyObj, result)
+    }
+
+    request.body.photos = merge(request.body.photos, tempBodyObj.photos, { arrayMerge: combineMerge })
+
     if (request.body) request = request.body
 
     // flatten object to keyed array
