@@ -17,6 +17,9 @@ const createPost = (model, options = {}) => {
   return asyncHandler(async (req, res, next) => {
     try {
 
+      debug('FILES:')
+      debug(req.files)
+
       formState = normalizeFormState(req)
       formErrors = normalizeFormErrors(req)
 
