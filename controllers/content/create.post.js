@@ -8,6 +8,7 @@ const is = require('is_js')
 const config = require('../../config')
 const { DateTime } = require('luxon')
 const ErrorHandler = require('../../utilities/error-handler')
+const files = require('../../drivers/files')
 
 const createPost = (model, options = {}) => {
 
@@ -52,8 +53,15 @@ const createPost = (model, options = {}) => {
           throw error
         })
 
+        // Get list of all files to save
+
+
+        for (const file of req.files) {
+          await files.create(model.modelDir, id, file.originalname, file.buffer)
+        }
+
         // Move uploaded files to dir
-        
+        // await files.create(model.modelDir, id, req.file)
 
         // Read to set up cache
         await model.read(id).catch((error) => {
