@@ -23,9 +23,6 @@ const createPost = (model, options = {}) => {
       formState = normalizeFormState(req)
       formErrors = normalizeFormErrors(req)
 
-      // debug('formState: ', formState)
-      // debug('formErrors: ', formErrors)
-
       if (is.not.empty(formErrors)) {
         res.render(options.template || `content-create/types/${model.id}`, {
           data: { title: `${model.modelDir} creation error` },
@@ -43,8 +40,6 @@ const createPost = (model, options = {}) => {
         let content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
 
-        
-
         let tempCurrentDate = DateTime.local().toUTC()
 
         if (!data.created) data.created = tempCurrentDate.toISO()
@@ -58,6 +53,7 @@ const createPost = (model, options = {}) => {
         })
 
         // Move uploaded files to dir
+        
 
         // Read to set up cache
         await model.read(id).catch((error) => {

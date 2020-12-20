@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
-const config = require('../config')
+const config = require('../../config')
 const is = require('is_js')
 const debug = require('debug')('sonniesedge:drivers:files');
-const ErrorHandler = require('../utilities/error-handler')
+const ErrorHandler = require('../../utilities/error-handler')
 
 const read = async (type, id, filename) => {
   try {
