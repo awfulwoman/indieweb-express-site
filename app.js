@@ -20,6 +20,7 @@ const passport = require('passport')
 const hbs = require('express-handlebars')
 const customHelpers = require('./helpers')
 const hbsHelpers = require('handlebars-helpers')()
+const repeat = require('handlebars-helper-repeat')
 
 // 🏃‍♀️💨 Express
 const express = require('express');
@@ -62,7 +63,8 @@ app.engine('hbs', hbs({
   helpers: { 
     ...hbsHelpers, 
     ...customHelpers, 
-    getVersionedPath: staticify.getVersionedPath
+    getVersionedPath: staticify.getVersionedPath,
+    repeat
   },
   extname: '.hbs',
   defaultLayout: 'default',
