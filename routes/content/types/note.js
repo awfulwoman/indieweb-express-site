@@ -17,6 +17,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const multer = require('multer')
 const multerMemoryStorage = multer.memoryStorage()
 const processUploadedFiles = multer({ storage: multerMemoryStorage })
+const normalizeFiles = require('../../../middleware/form-normalize-files')
 
 const createValidators = require('../../../controllers/validators')
 const createSanitizers = require('../../../controllers/sanitizers')
@@ -27,9 +28,9 @@ createValidators.push(...localValidators)
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], contentController.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, processUploadedFiles.any(), urlencodedParser, checkAuthentication, createValidators, createSanitizers], contentController.createPost(model))
+router.post(`/${model.modelDir}/create`, [renderNav, processUploadedFiles.any(), urlencodedParser, checkAuthentication, normalizeFiles, createValidators, createSanitizers], contentController.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], contentController.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav, processUploadedFiles.any(), urlencodedParser, checkAuthentication, createValidators, createSanitizers], contentController.updatePost(model))
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, processUploadedFiles.any(), urlencodedParser, checkAuthentication, normalizeFiles, createValidators, createSanitizers], contentController.updatePost(model))
 // router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], contentController.deleteGet(model))
 // router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], contentController.deletePost(model))
 
