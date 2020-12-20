@@ -1,17 +1,29 @@
-<div class="c-form-row {{#if errors.images}}c-form-row--error{{/if}}">
-  <label for="images[0][file]" class="c-form-title">Photo 0: File</label>
-  <input type="file" id="images[0][file]" name="images[0][file]"
-    class="c-form-texty {{#if errors.images.0.file}}c-form-texty--error{{/if}}" value="{{state.images.0.file}}">
-  <label for="images[0][alt]" class="c-form-title">Photo 0: Alt text</label>
-  <input type="text" id="images[0][alt]" name="images[0][alt]"
-    class="c-form-texty {{#if errors.images.0.alt}}c-form-texty--error{{/if}}" value="{{state.images.0.alt}}">
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images.0.file}}c-form-row--error{{/if}}">
+    <label for="images[0][file]" class="c-form-title">Image File</label>
+    <input type="file" id="images[0][file]" name="images[0][file]"
+      class="c-form-texty {{#if errors.images.0.file}}c-form-texty--error{{/if}}" value="{{state.images.0.file}}">
+  </div>
+
+  <div class="c-form-row {{#if errors.images.0.alt}}c-form-row--error{{/if}}">
+    <label for="images[0][alt]" class="c-form-title">Image Alt</label>
+    <input type="text" id="images[0][alt]" name="images[0][alt]"
+      class="c-form-texty {{#if errors.images.0.alt}}c-form-texty--error{{/if}}" value="{{state.images.0.alt}}">
+  </div>
 </div>
-  
-<div class="c-form-row {{#if errors.images}}c-form-row--error{{/if}}"></div>
- <label for="images[1][file]" class="c-form-title">Photo 1: File</label>
-  <input type="file" id="images[1][file]" name="images[1][file]"
-    class="c-form-texty {{#if errors.images.1.file}}c-form-texty--error{{/if}}" value="{{state.images.1.file}}">
-  <label for="images[1][alt]" class="c-form-title">Photo 1: Alt text</label>
-  <input type="text" id="images[1][alt]" name="images[1][alt]"
-    class="c-form-texty {{#if errors.images.1.alt}}c-form-texty--error{{/if}}" value="{{state.images.1.alt}}">
+
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images.1.file}}c-form-row--error{{/if}}">
+    <label for="images[1][file]" class="c-form-title">Image File</label>
+    <input type="file" id="images[1][file]" name="images[1][file]"
+      class="c-form-texty {{#if errors.images.1.file}}c-form-texty--error{{/if}}" value="{{state.images.1.file}}">
+  </div>
+
+
+  <div class="c-form-row {{#if errors.images.1.alt}}c-form-row--error{{/if}}">
+    <label for="images[1][alt]" class="c-form-title">Image Alt</label>
+    <input type="text" id="images[1][alt]" name="images[1][alt]"
+      class="c-form-texty {{#if errors.images.1.alt}}c-form-texty--error{{/if}}" value="{{state.images.1.alt}}">
+  </div>
 </div>
