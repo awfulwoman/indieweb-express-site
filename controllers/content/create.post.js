@@ -8,20 +8,21 @@ const is = require('is_js')
 const config = require('../../config')
 const { DateTime } = require('luxon')
 const ErrorHandler = require('../../utilities/error-handler')
+const files = require('../../drivers/files')
 
 const createPost = (model, options = {}) => {
-  
+
   let formState = {}
   let formErrors = {}
 
   return asyncHandler(async (req, res, next) => {
     try {
 
+      debug('FILES:')
+      debug(req.files)
+
       formState = normalizeFormState(req)
       formErrors = normalizeFormErrors(req)
-
-      // debug('formState: ', formState)
-      // debug('formErrors: ', formErrors)
 
       if (is.not.empty(formErrors)) {
         res.render(options.template || `content-create/types/${model.id}`, {
@@ -32,6 +33,9 @@ const createPost = (model, options = {}) => {
           errors: formErrors
         })
       } else {
+
+        debug('formstate: ', formState)
+        debug('matchedData: ', matchedData(req))
 
         let data = matchedData(req)
         let content = matchedData(req).content ? matchedData(req).content : ' '
@@ -48,6 +52,16 @@ const createPost = (model, options = {}) => {
         await model.create(data, content, id).catch((error) => {
           throw error
         })
+
+        // Get list of all files to save
+
+
+        for (const file of req.files) {
+          await files.create(model.modelDir, id, file.originalname, file.buffer)
+        }
+
+        // Move uploaded files to dir
+        // await files.create(model.modelDir, id, req.file)
 
         // Read to set up cache
         await model.read(id).catch((error) => {
