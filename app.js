@@ -48,8 +48,8 @@ const app = express()
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
+      defaultSrc: ["'self'", "blob:", "blob"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: ["'self'"],
       fontSrc: ["'self'"],
       connectSrc: ["'self'"]
