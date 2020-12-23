@@ -15,5 +15,8 @@ module.exports = [
   body('reply_to').optional({checkFalsy: true}).isURL(),
   body('add_like').optional({checkFalsy: true}),
   body('images.*.alt').optional({checkFalsy: true}),
-  body('images.*.file').optional({checkFalsy: true})
+  body('images.*.file').optional({checkFalsy: true}),
+  body('images.*.width').optional({checkFalsy: true}),
+  body('images.*.height').optional({checkFalsy: true}),
+  body('images.*.size').optional({checkFalsy: true})
 ]

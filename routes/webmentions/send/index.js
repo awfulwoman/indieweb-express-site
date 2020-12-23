@@ -20,7 +20,7 @@ router.post(`/send`, [checkAuthentication, urlencodedParser], asyncHandler(async
 
   // An app endpoint which receives a POSTed destination and a key-value pairs of target and source. 
   // It POSTs a webmention to the target with the payload as url-encoded form data.
-  // Responds with promise of success or failure
+  // Responds with success or failure
   // No form interface needed
 
   try {

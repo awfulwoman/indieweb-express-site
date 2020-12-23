@@ -10,12 +10,18 @@
     <div class="comp-form-row-group">
       <div class="c-form-row {{#if errors.images.[index].file}}c-form-row--error{{/if}}">
         <label for="images[{{@index}}][file]" class="c-form-title">Image File {{@index}}</label>
-        <input type="file" id="images[{{@index}}][file]" name="images[{{@index}}][file]"
+        {{#if state.images.[index].file}}
+        <input type="text" id="images[{{@index}}][file]" name="images[{{@index}}][file]"
           class="c-form-texty {{#if errors.images.[index].file}}c-form-texty--error{{/if}}"
-          value="{{state.images.[index].file}}">
+          value="{{state.images.[index].file}}" disabled>
+        {{else}}
+        <input type="file" id="images[{{@index}}][file]" name="images[{{@index}}][file]"
+          class="c-form-texty {{#if errors.images.[index].file}}c-form-texty--error{{/if}}">
         <div class="preview">
           <p>No files currently selected for upload</p>
         </div>
+        {{/if}}
+
       </div>
 
       <div class="c-form-row {{#if errors.images.[index].alt}}c-form-row--error{{/if}}">

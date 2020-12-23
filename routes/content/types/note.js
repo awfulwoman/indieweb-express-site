@@ -14,9 +14,8 @@ const {fileController, contentController, feedController, archiveController} = r
 const checkAuthentication = require('../../../middleware/check-authentication')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
-const multer = require('multer')
-const multerMemoryStorage = multer.memoryStorage()
-const processUploadedFiles = multer({ storage: multerMemoryStorage })
+const processUploadedFiles = require('../../../middleware/process-files')
+const processUploadedImageFiles = require('../../../middleware/process-image-files')
 const normalizeFiles = require('../../../middleware/form-normalize-files')
 
 const createValidators = require('../../../controllers/validators')
@@ -28,9 +27,9 @@ createValidators.push(...localValidators)
 
 // 🔐 Protected routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], contentController.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, processUploadedFiles.any(), urlencodedParser, checkAuthentication, normalizeFiles, createValidators, createSanitizers], contentController.createPost(model))
+router.post(`/${model.modelDir}/create`, [renderNav, processUploadedFiles.any(), processUploadedImageFiles, urlencodedParser, checkAuthentication, normalizeFiles, createValidators, createSanitizers], contentController.createPost(model))
 router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], contentController.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav, processUploadedFiles.any(), urlencodedParser, checkAuthentication, normalizeFiles, createValidators, createSanitizers], contentController.updatePost(model))
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, processUploadedFiles.any(), processUploadedImageFiles, urlencodedParser, checkAuthentication, normalizeFiles, createValidators, createSanitizers], contentController.updatePost(model))
 // router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], contentController.deleteGet(model))
 // router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], contentController.deletePost(model))
 

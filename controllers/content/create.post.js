@@ -7,8 +7,10 @@ const md = require('../../utilities/markdown-it')
 const is = require('is_js')
 const config = require('../../config')
 const { DateTime } = require('luxon')
+const moveFile = require('move-file')
 const ErrorHandler = require('../../utilities/error-handler')
 const files = require('../../drivers/files')
+const path = require('path')
 
 const createPost = (model, options = {}) => {
 
@@ -18,9 +20,10 @@ const createPost = (model, options = {}) => {
   return asyncHandler(async (req, res, next) => {
     try {
 
-      debug('FILES:')
-      debug(req.files)
+      // debug('FILES:')
+      // debug(req.files)
 
+      // These will go back to the form if there are errors
       formState = normalizeFormState(req)
       formErrors = normalizeFormErrors(req)
 
@@ -49,15 +52,19 @@ const createPost = (model, options = {}) => {
         // Create an item ID from the current date
         let id = DateTime.fromISO(data.created).toUTC().toFormat(config.fileDateFormat())
 
+        // for (const file of req.uploads) {
+        //   debug(file)
+        // }
+
         await model.create(data, content, id).catch((error) => {
           throw error
         })
 
         // Get list of all files to save
-
-
         for (const file of req.files) {
-          await files.create(model.modelDir, id, file.originalname, file.buffer)
+          await moveFile(file.path, path.join(config.contentRoot(), model.modelDir, id, 'files', file.filename)).catch((error) => {
+            throw error
+          })
         }
 
         // Move uploaded files to dir
@@ -74,9 +81,9 @@ const createPost = (model, options = {}) => {
       }
     } catch (error) {
       throw new ErrorHandler(
-      '409', 
-      '"The request could not be completed due to a conflict with the current state of the resource (i.e. it already exists)". \n\n Could not create this item. \n\n Better luck next time old bean.', 
-      error
+        '409',
+        '"The request could not be completed due to a conflict with the current state of the resource (i.e. it already exists)". \n\n Could not create this item. \n\n Better luck next time old bean.',
+        error
       )
     }
 
