@@ -3,8 +3,9 @@ const sizeOf = require('image-size')
 const isImage = require('is-image')
 const qs = require('qs')
 const merge = require('deepmerge')
+const combineMerge = require('../utilities/combine-merge')
 
-const processImageFiles = (req, res, next) => {
+const processFiles = (req, res, next) => {
   if (!req.files) next()
   if (!req.uploads) req.uploads = {}
   // let uploadsObj = {}
@@ -37,10 +38,20 @@ const processImageFiles = (req, res, next) => {
     req.uploads = merge(req.uploads, parsedFilesObj)
   }
 
+  for (const uploadGroup in req.uploads) {
+    if (Object.hasOwnProperty.call(req.uploads, uploadGroup)) {
+      debug(uploadGroup)
+      debug(req.uploads[uploadGroup])
+
+      if (req['body'][uploadGroup]) req['body'][uploadGroup] = merge(req['body'][uploadGroup], req.uploads[uploadGroup], { arrayMerge: combineMerge })
+      
+    }
+  }
+
   // req.uploads.push(uploadsObj)
 
 
   next()
 }
 
-module.exports = processImageFiles
+module.exports = processFiles
