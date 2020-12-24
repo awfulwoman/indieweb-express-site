@@ -190,7 +190,8 @@ try {
     console.log(chalk.blue.bold(`| `) + chalk.bold.green(`App URL: `) + chalk.bold(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`))
     console.log(chalk.blue.bold(`----------------------------------------------------------`))
 
-    debug(constructOauth.oaUrl('twitter'))
+    console.log(constructOauth.oaUrl('twitter'))
+    console.log(constructOauth.oaUrl('github'))
 
     // WARM CACHES
     // ------
