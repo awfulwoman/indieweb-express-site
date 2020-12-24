@@ -57,10 +57,12 @@ const createPost = (model, options = {}) => {
         })
 
         // Get list of all files to save
-        for (const file of req.files) {
-          await moveFile(file.path, path.join(config.contentRoot(), model.modelDir, id, 'files', file.filename)).catch((error) => {
-            throw error
-          })
+        if (req.files) {
+          for (const file of req.files) {
+            await moveFile(file.path, path.join(config.contentRoot(), model.modelDir, id, 'files', file.filename)).catch((error) => {
+              throw error
+            })
+          }
         }
 
         // Move uploaded files to dir
