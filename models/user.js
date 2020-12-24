@@ -13,7 +13,7 @@ const getAppUserObjFromExternalId = function(ExternalId, ExternalApp) {
     });
 
     if (result.length > 0) {
-      // console.log('getAppUserFromExternalId valid user:', user);
+      console.log('getAppUserFromExternalId valid user:', user);
       return user
     } else {
       return false
@@ -23,9 +23,9 @@ const getAppUserObjFromExternalId = function(ExternalId, ExternalApp) {
 }
 
 const getAppUserObjFromAppId = function(appId) {
-  // console.log('getAppUserObjFromAppId: ', appId)
+  console.log('getAppUserObjFromAppId: ', appId)
   let result = users.filter(function (user) {
-    // console.log('getAppUserObjFromAppId: ', user)
+    console.log('getAppUserObjFromAppId: ', user)
     return user.id === appId;
   });
 
