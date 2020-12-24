@@ -20,11 +20,13 @@ module.exports = [
       },
       {
         type: 'github',
-        userName: 'whalecoiner'
+        userName: 'whalecoiner',
+        id: '74922321'
       },
       {
         type: 'github',
-        userName: 'sonniesedge'
+        userName: 'sonniesedge',
+        id: '41983'
       },
       {
         type: 'email',
