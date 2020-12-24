@@ -20,11 +20,11 @@ module.exports = [
       },
       {
         type: 'github',
-        userName: 'sonniesedge'
+        userName: 'whalecoiner'
       },
       {
         type: 'github',
-        userName: 'whalecoiner'
+        userName: 'sonniesedge'
       },
       {
         type: 'email',
