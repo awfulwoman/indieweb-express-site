@@ -5,12 +5,13 @@
   <div class="c-form-row {{#if errors.images_0_file}}c-form-row--error{{/if}}">
     <label for="images_0_file" class="c-form-title">Image File 0</label>
     {{#if state.images_0_file}}
-    <input type="text" id="images_0_file" name="images[0][file]" class="c-form-texty {{#if errors.images_0_file}}c-form-texty--error{{/if}}" value="{{state.images_0_file}}" disabled>
-    <input type="text" id="images_0_file" name="images[0][width]" class="c-form-texty {{#if errors.images_0_width}}c-form-texty--error{{/if}}" value="{{state.images_0_width}}" disabled>
-    <input type="text" id="images_0_file" name="images[0][height]" class="c-form-texty {{#if errors.images_0_height}}c-form-texty--error{{/if}}" value="{{state.images_0_height}}" disabled>
+    <img src="/{{storage}}/{{id}}/{{state.images_0_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_0_file" name="images[0][file]" class="c-form-texty {{#if errors.images_0_file}}c-form-texty--error{{/if}}" value="{{state.images_0_file}}">
+    <input type="hidden" id="images_0_file" name="images[0][width]" class="c-form-texty {{#if errors.images_0_width}}c-form-texty--error{{/if}}" value="{{state.images_0_width}}">
+    <input type="hidden" id="images_0_file" name="images[0][height]" class="c-form-texty {{#if errors.images_0_height}}c-form-texty--error{{/if}}" value="{{state.images_0_height}}">
     {{else}}
     <input type="file" id="images_0_file" name="images[0][file]" class="c-form-texty {{#if errors.images_0_file}}c-form-texty--error{{/if}}">
-    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
     {{/if}}
   </div>
   <div class="c-form-row {{#if errors.images_0_alt}}c-form-row--error{{/if}}">
@@ -25,12 +26,13 @@
   <div class="c-form-row {{#if errors.images_1_file}}c-form-row--error{{/if}}">
     <label for="images_1_file" class="c-form-title">Image File 1</label>
     {{#if state.images_1_file}}
-    <input type="text" id="images_1_file" name="images[1][file]" class="c-form-texty {{#if errors.images_1_file}}c-form-texty--error{{/if}}" value="{{state.images_1_file}}" disabled>
-    <input type="text" id="images_1_file" name="images[1][width]" class="c-form-texty {{#if errors.images_1_width}}c-form-texty--error{{/if}}" value="{{state.images_1_width}}" disabled>
-    <input type="text" id="images_1_file" name="images[1][height]" class="c-form-texty {{#if errors.images_1_height}}c-form-texty--error{{/if}}" value="{{state.images_1_height}}" disabled>
+    <img src="/{{storage}}/{{id}}/{{state.images_1_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_1_file" name="images[1][file]" class="c-form-texty {{#if errors.images_1_file}}c-form-texty--error{{/if}}" value="{{state.images_1_file}}">
+    <input type="hidden" id="images_1_file" name="images[1][width]" class="c-form-texty {{#if errors.images_1_width}}c-form-texty--error{{/if}}" value="{{state.images_1_width}}">
+    <input type="hidden" id="images_1_file" name="images[1][height]" class="c-form-texty {{#if errors.images_1_height}}c-form-texty--error{{/if}}" value="{{state.images_1_height}}">
     {{else}}
     <input type="file" id="images_1_file" name="images[0][file]" class="c-form-texty {{#if errors.images_1_file}}c-form-texty--error{{/if}}">
-    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
     {{/if}}
   </div>
   <div class="c-form-row {{#if errors.images_1_alt}}c-form-row--error{{/if}}">
@@ -45,12 +47,13 @@
   <div class="c-form-row {{#if errors.images_2_file}}c-form-row--error{{/if}}">
     <label for="images_2_file" class="c-form-title">Image File 2</label>
     {{#if state.images_2_file}}
-    <input type="text" id="images_2_file" name="images[2][file]" class="c-form-texty {{#if errors.images_2_file}}c-form-texty--error{{/if}}" value="{{state.images_2_file}}" disabled>
-    <input type="text" id="images_2_file" name="images[2][width]" class="c-form-texty {{#if errors.images_2_width}}c-form-texty--error{{/if}}" value="{{state.images_2_width}}" disabled>
-    <input type="text" id="images_2_file" name="images[2][height]" class="c-form-texty {{#if errors.images_2_height}}c-form-texty--error{{/if}}" value="{{state.images_2_height}}" disabled>
+    <img src="/{{storage}}/{{id}}/{{state.images_2_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_2_file" name="images[2][file]" class="c-form-texty {{#if errors.images_2_file}}c-form-texty--error{{/if}}" value="{{state.images_2_file}}">
+    <input type="hidden" id="images_2_file" name="images[2][width]" class="c-form-texty {{#if errors.images_2_width}}c-form-texty--error{{/if}}" value="{{state.images_2_width}}">
+    <input type="hidden" id="images_2_file" name="images[2][height]" class="c-form-texty {{#if errors.images_2_height}}c-form-texty--error{{/if}}" value="{{state.images_2_height}}">
     {{else}}
     <input type="file" id="images_2_file" name="images[2][file]" class="c-form-texty {{#if errors.images_2_file}}c-form-texty--error{{/if}}">
-    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
     {{/if}}
   </div>
   <div class="c-form-row {{#if errors.images_2_alt}}c-form-row--error{{/if}}">
@@ -65,12 +68,13 @@
   <div class="c-form-row {{#if errors.images_3_file}}c-form-row--error{{/if}}">
     <label for="images_3_file" class="c-form-title">Image File 3</label>
     {{#if state.images_3_file}}
-    <input type="text" id="images_3_file" name="images[3][file]" class="c-form-texty {{#if errors.images_3_file}}c-form-texty--error{{/if}}" value="{{state.images_3_file}}" disabled>
-    <input type="text" id="images_3_file" name="images[3][width]" class="c-form-texty {{#if errors.images_3_width}}c-form-texty--error{{/if}}" value="{{state.images_3_width}}" disabled>
-    <input type="text" id="images_3_file" name="images[3][height]" class="c-form-texty {{#if errors.images_3_height}}c-form-texty--error{{/if}}" value="{{state.images_3_height}}" disabled>
+    <img src="/{{storage}}/{{id}}/{{state.images_3_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_3_file" name="images[3][file]" class="c-form-texty {{#if errors.images_3_file}}c-form-texty--error{{/if}}" value="{{state.images_3_file}}">
+    <input type="hidden" id="images_3_file" name="images[3][width]" class="c-form-texty {{#if errors.images_3_width}}c-form-texty--error{{/if}}" value="{{state.images_3_width}}">
+    <input type="hidden" id="images_3_file" name="images[3][height]" class="c-form-texty {{#if errors.images_3_height}}c-form-texty--error{{/if}}" value="{{state.images_3_height}}">
     {{else}}
     <input type="file" id="images_3_file" name="images[3][file]" class="c-form-texty {{#if errors.images_3_file}}c-form-texty--error{{/if}}">
-    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
     {{/if}}
   </div>
   <div class="c-form-row {{#if errors.images_3_alt}}c-form-row--error{{/if}}">

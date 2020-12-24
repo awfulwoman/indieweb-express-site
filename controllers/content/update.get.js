@@ -39,7 +39,9 @@ const updateGet = (model, options = {}) => {
         data: { title: `${model.modelDir} editing` },
         content: `Start editing your ${model.id}!`,
         markdown: formState.content,
-        state: formState
+        state: formState,
+        id: req.params.id, 
+        storage: model.modelDir
       })
     } catch (error) {
       throw error
