@@ -6,6 +6,9 @@ const getAppUserObjFromExternalId = function(ExternalId, ExternalApp) {
   // console.log('getAppUserObjFromExternalId param ExternalId: ', ExternalId)
   // for each user
 
+  console.log('getAppUserFromExternalId ExternalId:', ExternalId);
+  console.log('getAppUserFromExternalId ExternalApp:', ExternalApp);
+
   for (let i = 0; i < users.length; i++) {
     const user = users[i];
     let result = user.authMethods.filter(function (authMethod) {
