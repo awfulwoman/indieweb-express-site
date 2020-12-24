@@ -47,11 +47,12 @@ router.get(constructOauth.oaPath('twitter'), [apiLimiterLogin], passport.authent
   res.redirect(redirectPath)
 })
 
-// Github oauth callback
-// router.get(constructOauthCallbackPath('github'), passport.authenticate('github', { failureRedirect: '/' }), function(req, res) {
-//   // Successful authentication, redirect home.
-//   res.redirect('/')
-// });
+Github oauth callback
+router.get(constructOauthCallbackPath('github'), passport.authenticate('github', { failureRedirect: '/youdidntsaythemagicword' }), (req, res) => {
+  // Successful authentication, redirect home.
+  console.log(req.query)
+  res.redirect(redirectPath)
+});
 
 // Destroy logged-in session
 router.get('/end',
