@@ -23,6 +23,10 @@ module.exports = [
         userName: 'sonniesedge'
       },
       {
+        type: 'github',
+        userName: 'whalecoiner'
+      },
+      {
         type: 'email',
         userName: 'herself+whalecoiner@sonniesedge.net'
       }
