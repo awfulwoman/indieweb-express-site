@@ -4,6 +4,8 @@ const { body } = require('express-validator')
 // A field MUST be specified here or in the type controller if it is to be used
 module.exports = [
   body('title').optional({checkFalsy: true}),
+  body('created').optional({checkFalsy: true}),
+  body('modified').optional({checkFalsy: true}),
   body('content').optional({checkFalsy: true}),
   body('slug').optional({checkFalsy: true}),
   body('strapline').optional({checkFalsy: true}),

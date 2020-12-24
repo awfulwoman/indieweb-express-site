@@ -20,6 +20,9 @@ const updatePost = (model, options = {}) => {
 
       let id = req.params.id
 
+      // debug('req.body: ')
+      // debug(req.body)
+
       formState = normalizeFormState(req)
       formErrors = normalizeFormErrors(req)
 
@@ -44,7 +47,7 @@ const updatePost = (model, options = {}) => {
         if (!data.created) data.created = tempCurrentDate.toISO()
         if (!data.modified) data.modified = tempCurrentDate.toISO()
 
-        // debug('Data to update with: ', data)
+        debug('Data to update with: ', data)
         // debug('Content to update with: ', content)
 
         await model.update(data, content, id).catch((error) => {
