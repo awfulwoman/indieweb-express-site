@@ -18,5 +18,6 @@ module.exports = [
   body('images.*.file').optional({checkFalsy: true}),
   body('images.*.width').optional({checkFalsy: true}),
   body('images.*.height').optional({checkFalsy: true}),
-  body('images.*.size').optional({checkFalsy: true})
+  body('images.*.size').optional({checkFalsy: true}),
+  body('guid').optional({checkFalsy: true})
 ]
