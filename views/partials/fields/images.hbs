@@ -1,45 +1,91 @@
 
+{{!-- Images 0 --}}
 
-
-{{#repeat 4}}
-
-<details class="comp-reveal">
-  <summary class="comp-reveal-title">Images</summary>
-  <div class="comp-reveal-content">
-
-    <div class="comp-form-row-group">
-      <div class="c-form-row {{#if errors.images.[index].file}}c-form-row--error{{/if}}">
-        <label for="images[{{@index}}][file]" class="c-form-title">Image File {{@index}}</label>
-        {{#if state.images.[index].file}}
-        <input type="text" id="images[{{@index}}][file]" name="images[{{@index}}][file]"
-          class="c-form-texty {{#if errors.images.[index].file}}c-form-texty--error{{/if}}"
-          value="{{state.images.[index].file}}" disabled>
-        {{else}}
-        <input type="file" id="images[{{@index}}][file]" name="images[{{@index}}][file]"
-          class="c-form-texty {{#if errors.images.[index].file}}c-form-texty--error{{/if}}">
-        <div class="preview">
-          <p>No files currently selected for upload</p>
-        </div>
-        {{/if}}
-
-      </div>
-
-      <div class="c-form-row {{#if errors.images.[index].alt}}c-form-row--error{{/if}}">
-        <label for="images[{{@index}}][alt]" class="c-form-title">Image Alt {{@index}}</label>
-        <input type="text" id="images[{{@index}}][alt]" name="images[{{@index}}][alt]"
-          class="c-form-texty {{#if errors.images.[index].alt}}c-form-texty--error{{/if}}"
-          value="{{state.images.[index].alt}}">
-      </div>
-    </div>
-
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_0_file}}c-form-row--error{{/if}}">
+    <label for="images_0_file" class="c-form-title">Image File 0</label>
+    {{#if state.images_0_file}}
+    <input type="text" id="images_0_file" name="images[0][file]" class="c-form-texty {{#if errors.images_0_file}}c-form-texty--error{{/if}}" value="{{state.images_0_file}}" disabled>
+    <input type="text" id="images_0_file" name="images[0][width]" class="c-form-texty {{#if errors.images_0_width}}c-form-texty--error{{/if}}" value="{{state.images_0_width}}" disabled>
+    <input type="text" id="images_0_file" name="images[0][height]" class="c-form-texty {{#if errors.images_0_height}}c-form-texty--error{{/if}}" value="{{state.images_0_height}}" disabled>
+    {{else}}
+    <input type="file" id="images_0_file" name="images[0][file]" class="c-form-texty {{#if errors.images_0_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
   </div>
-</details>
+  <div class="c-form-row {{#if errors.images_0_alt}}c-form-row--error{{/if}}">
+    <label for="images_0_alt" class="c-form-title">Image Alt 0</label>
+    <input type="text" id="images_0_alt" name="images[0][alt]" class="c-form-texty {{#if errors.images_0_alt}}c-form-texty--error{{/if}}" value="{{state.images_0_alt}}">
+  </div>
+</div>
 
-{{/repeat}}
+{{!-- Images 1 --}}
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_1_file}}c-form-row--error{{/if}}">
+    <label for="images_1_file" class="c-form-title">Image File 1</label>
+    {{#if state.images_1_file}}
+    <input type="text" id="images_1_file" name="images[1][file]" class="c-form-texty {{#if errors.images_1_file}}c-form-texty--error{{/if}}" value="{{state.images_1_file}}" disabled>
+    <input type="text" id="images_1_file" name="images[1][width]" class="c-form-texty {{#if errors.images_1_width}}c-form-texty--error{{/if}}" value="{{state.images_1_width}}" disabled>
+    <input type="text" id="images_1_file" name="images[1][height]" class="c-form-texty {{#if errors.images_1_height}}c-form-texty--error{{/if}}" value="{{state.images_1_height}}" disabled>
+    {{else}}
+    <input type="file" id="images_1_file" name="images[0][file]" class="c-form-texty {{#if errors.images_1_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
+  </div>
+  <div class="c-form-row {{#if errors.images_1_alt}}c-form-row--error{{/if}}">
+    <label for="images_1_alt" class="c-form-title">Image Alt 1</label>
+    <input type="text" id="images_1_alt" name="images[1][alt]" class="c-form-texty {{#if errors.images_1_alt}}c-form-texty--error{{/if}}" value="{{state.images_1_alt}}">
+  </div>
+</div>
+
+{{!-- Images 2 --}}
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_2_file}}c-form-row--error{{/if}}">
+    <label for="images_2_file" class="c-form-title">Image File 2</label>
+    {{#if state.images_2_file}}
+    <input type="text" id="images_2_file" name="images[2][file]" class="c-form-texty {{#if errors.images_2_file}}c-form-texty--error{{/if}}" value="{{state.images_2_file}}" disabled>
+    <input type="text" id="images_2_file" name="images[2][width]" class="c-form-texty {{#if errors.images_2_width}}c-form-texty--error{{/if}}" value="{{state.images_2_width}}" disabled>
+    <input type="text" id="images_2_file" name="images[2][height]" class="c-form-texty {{#if errors.images_2_height}}c-form-texty--error{{/if}}" value="{{state.images_2_height}}" disabled>
+    {{else}}
+    <input type="file" id="images_2_file" name="images[2][file]" class="c-form-texty {{#if errors.images_2_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
+  </div>
+  <div class="c-form-row {{#if errors.images_2_alt}}c-form-row--error{{/if}}">
+    <label for="images_2_alt" class="c-form-title">Image Alt 2</label>
+    <input type="text" id="images_2_alt" name="images[2][alt]" class="c-form-texty {{#if errors.images_2_alt}}c-form-texty--error{{/if}}" value="{{state.images_2_alt}}">
+  </div>
+</div>
+
+{{!-- Images 3 --}}
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_3_file}}c-form-row--error{{/if}}">
+    <label for="images_3_file" class="c-form-title">Image File 3</label>
+    {{#if state.images_3_file}}
+    <input type="text" id="images_3_file" name="images[3][file]" class="c-form-texty {{#if errors.images_3_file}}c-form-texty--error{{/if}}" value="{{state.images_3_file}}" disabled>
+    <input type="text" id="images_3_file" name="images[3][width]" class="c-form-texty {{#if errors.images_3_width}}c-form-texty--error{{/if}}" value="{{state.images_3_width}}" disabled>
+    <input type="text" id="images_3_file" name="images[3][height]" class="c-form-texty {{#if errors.images_3_height}}c-form-texty--error{{/if}}" value="{{state.images_3_height}}" disabled>
+    {{else}}
+    <input type="file" id="images_3_file" name="images[3][file]" class="c-form-texty {{#if errors.images_3_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
+  </div>
+  <div class="c-form-row {{#if errors.images_3_alt}}c-form-row--error{{/if}}">
+    <label for="images_3_alt" class="c-form-title">Image Alt 3</label>
+    <input type="text" id="images_3_alt" name="images[3][alt]" class="c-form-texty {{#if errors.images_3_alt}}c-form-texty--error{{/if}}" value="{{state.images_3_alt}}">
+  </div>
+</div>
+
+
+
+
 
 <script>
   const input = document.querySelector('input[type="file"]')
-  const preview = document.querySelector('.preview');
+  const preview = document.querySelector('[data-image-preview]');
 
   input.addEventListener('change', updateImageDisplay);
 

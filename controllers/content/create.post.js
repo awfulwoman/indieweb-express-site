@@ -52,10 +52,6 @@ const createPost = (model, options = {}) => {
         // Create an item ID from the current date
         let id = DateTime.fromISO(data.created).toUTC().toFormat(config.fileDateFormat())
 
-        // for (const file of req.uploads) {
-        //   debug(file)
-        // }
-
         await model.create(data, content, id).catch((error) => {
           throw error
         })

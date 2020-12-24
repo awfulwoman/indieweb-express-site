@@ -24,6 +24,15 @@ const updateGet = (model, options = {}) => {
       // Flatten everything into an array compatible with the forms
       formState = normalizeFormState(formState)
 
+      // Get list of all files to save
+      if (req.files) {
+        for (const file of req.files) {
+          await moveFile(file.path, path.join(config.contentRoot(), model.modelDir, id, 'files', file.filename)).catch((error) => {
+            throw error
+          })
+        }
+      }
+
       debug('Flattened item: ', formState)
 
       res.render(options.template || `content-create/types/${model.id}`, {
