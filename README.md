@@ -1,6 +1,6 @@
-# whalecoiner
+# Indieweb Express Site
 
-Express server-side app, using Markdown for data storage.  
+Express server-side app, using Markdown for data storage.
 
 ![Node.js CI](https://github.com/whalecoiner/indieweb-express-site/workflows/Node.js%20CI/badge.svg) ![CodeQL](https://github.com/whalecoiner/indieweb-express-site/workflows/CodeQL/badge.svg)
 
