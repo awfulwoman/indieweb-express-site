@@ -1,0 +1,26 @@
+<article class="h-entry">
+  <h1 class="c-page-title p-name">{{data.title}}</h1>
+
+   {{> author}}
+
+  {{>strapline value=data.strapline}}
+
+  <div class="c-post e-content">
+    {{{content}}}
+
+    {{#if sections}}
+      {{#each sections}}
+      {{>section id=../id storage=../storage data=this.data content=this.content}}
+      {{/each}}
+    {{/if}}
+  </div>
+
+  <div class="p-bridgy-twitter-content u-bridgy-omit-link util-display-none">
+  {{#if data.twitter.text}}{{data.twitter.text}}{{else}}{{data.strapline}}{{/if}} {{url}}
+  </div>
+
+  {{> tags}}
+  {{> syndications}}
+  {{> edit}}
+  {{> bridgy}}
+</article>

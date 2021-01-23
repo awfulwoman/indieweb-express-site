@@ -1,0 +1,16 @@
+.c-form-row {
+  display: block;
+  width: var(--form-item-width);
+  max-width: 100%;
+  background-color: var(--accent-background);
+  padding: 1rem;
+}
+
+.c-form-row--error {
+  border-left: 5px solid red;
+}
+
+.c-form-row__inline {
+  display: flex;
+  column-gap: 20px;
+}

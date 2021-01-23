@@ -1,0 +1,9 @@
+/node_modules
+.env
+.vscode
+completer.hist
+.DS_Store
+.stignore
+.stversions
+/data
+/log

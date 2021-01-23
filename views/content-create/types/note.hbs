@@ -1,0 +1,43 @@
+<h1>{{data.title}}</h1>
+
+{{{content}}}
+
+<form method="POST" class="c-form" encType="multipart/form-data">
+
+  {{> fields/content }}
+  {{> fields/tags}}
+
+  <details class="comp-reveal">
+    <summary class="comp-reveal-title">Place</summary>
+    <div class="comp-reveal-content">
+      {{> fields/place}}
+    </div>
+  </details>
+
+  <details class="comp-reveal">
+    <summary class="comp-reveal-title">Meta</summary>
+    <div class="comp-reveal-content">
+      {{> fields/privacy}}
+      {{> fields/feed}}
+      {{> fields/index}}
+      {{> fields/created}}
+      {{> fields/modified}}
+      {{> fields/guid}}
+    </div>
+  </details>
+
+  <details class="comp-reveal">
+    <summary class="comp-reveal-title">Optional</summary>
+    <div class="comp-reveal-content">
+      {{> fields/title}}
+      {{> fields/images}}
+    </div>
+  </details>
+
+  {{> fields/syndication}}
+
+  <div class="c-form-row">
+    <button class="comp-button comp-button--primary">Save</button>
+  </div>
+
+</form>

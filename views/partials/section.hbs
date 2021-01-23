@@ -1,0 +1,17 @@
+
+{{#if data.title}}
+<h2>{{data.title}}</h2>
+{{/if}}
+
+{{#each data.image}}
+<img src="/{{../storage}}/{{../id}}/{{this.file}}" alt="{{this.alt}}">
+{{/each}}
+
+{{{content}}}
+
+{{#if data.aside}}
+<div>
+  <hr>
+  {{data.aside}}
+</div>
+{{/if}}

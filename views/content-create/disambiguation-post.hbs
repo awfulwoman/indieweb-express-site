@@ -1,0 +1,51 @@
+<h1 class="c-page-title">{{data.title}}</h1>
+
+{{{content}}}
+
+<script>
+  function swapValuesTitleAndUrl() {
+    var tmp = document.getElementById('title').value;
+    document.getElementById('title').value = document.getElementById('url').value;
+    document.getElementById('url').value = tmp;
+  }
+
+  function swapValuesUrlAndText() {
+    var tmp = document.getElementById('url').value;
+    document.getElementById('url').value = document.getElementById('text').value;
+    document.getElementById('text').value = tmp;
+  }
+</script>
+
+<form method="GET">
+
+  <div class="c-form-row">
+    <label for="title" class="c-form-title">Received Title</label>
+    <textarea id="title" name="title" class="c-form-texty">{{state.title}}</textarea>
+    <p>This will be sent to the 'title' field of the selected item type.</p>
+  </div>
+
+  <input type="button" onclick="swapValuesTitleAndUrl()" value="Swap title and Url fields" class="comp-button">
+
+  <div class="c-form-row">
+    <label for="url" class="c-form-title">Received URL</label>
+    <textarea id="url" name="url" class="c-form-texty">{{state.url}}</textarea>
+    <p>This will be sent to the 'url' or Indieweb verb field of the selected item type.</p>
+  </div>
+
+  <input type="button" onclick="swapValuesUrlAndText()" value="Swap URL and text fields" class="comp-button">
+
+  <div class="c-form-row">
+    <label for="url" class="c-form-title">Received Text</label>
+    <textarea id="text" name="text" class="c-form-texty">{{state.text}}</textarea>
+    <p>This will be sent to the 'content' field of selected item type.</p>
+  </div>
+
+  <div class="comp-button-group">
+    <button formaction="/bookmarks/create" class="comp-button comp-button-primary">Bookmark</button>
+    <button formaction="/notes/create" class="comp-button comp-button-primary">Note</button>
+    <button formaction="/likes/create" class="comp-button comp-button-primary">Like</button>
+    <button formaction="/replies/create" class="comp-button comp-button-primary">Reply</button>
+    <button formaction="/quotes/create" class="comp-button comp-button-primary">Quote</button>
+    <button formaction="/reposts/create" class="comp-button comp-button-primary">Repost</button>
+  </div>
+</form>

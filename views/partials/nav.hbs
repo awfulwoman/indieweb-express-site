@@ -1,0 +1,31 @@
+<nav>
+  <div class="c-header-layout">
+
+    <div>
+      <a href="/" class="c-site-title">Whalecoiner</a>
+      {{!-- <svg class="icon" width="406px" height="78px" viewBox="0 0 406 78">
+        <use xlink:href="/sprites.svg#mainlogo" />
+      </svg> --}}
+
+    </div>
+
+
+    <div>
+      <ul class="c-nav">
+        <li class="util-sr-only"><a href="/">Home</a></li>
+        {{#each nav}}
+          <li class="c-nav-item"><a href="{{this.path}}" class="c-nav-link {{#if this.active}}c-nav-link__active{{/if}}">{{this.text}}</a></li>
+        {{/each}}
+      </ul>
+    </div>
+
+  </div>
+
+  {{!-- Next row --}}
+  {{!-- {{#if admin}}
+  <div>
+    {{>navadmin}}
+  </div>
+  {{/if}} --}}
+
+</nav>

@@ -1,0 +1,13 @@
+<article class="h-entry">
+  <h1 class="c-page-title p-name">{{data.title}}</h1>
+
+  {{> author}}
+
+  {{#if data.repost_of}}
+  <p><a href="{{data.repost_of}}" class="u-repost-of {{#if data.add_like}}u-like-of {{/if}}comp-button comp-button--primary">Visit reposted URL</a><span class="util-sr-only">.</span></p>
+  {{/if}}
+
+  {{> tags}}
+  {{> edit}}
+  {{> bridgy}}
+</article>

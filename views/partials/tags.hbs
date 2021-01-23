@@ -1,0 +1,8 @@
+{{#if data.tags}}
+  <h2 class="util-sr-only">Tags</h2>
+  <ul class="comp-tags">
+    {{#each data.tags}}
+      <li class="comp-tag"><a href="/tags/{{this}}" class="p-category comp-tag__link">{{this}}</a></li>
+    {{/each}}
+  </ul>
+{{/if}}

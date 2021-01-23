@@ -1,0 +1,18 @@
+<h1 class="c-page-title">{{data.title}}</h1>
+
+{{#if admin}}
+<a href="/{{id}}/create">Create</a>.
+{{/if}}
+
+{{{content}}}
+
+{{#if children}}
+<section>
+  <h2>Latest stuff and things</h2>
+  <ul>
+    {{#each children}}
+     <li><a href="{{this.path}}">{{this.data.title}}</a> - {{formatDate data.created "cccc dd LLLL, yyyy"}}</li>
+    {{/each}}
+  </ul>
+</section>
+{{/if}}

@@ -1,0 +1,18 @@
+{{#if syndications}}
+  <h2>This is being talked about elsewhere!</h2>
+  <ul>
+    {{#each syndications}}
+      <li><a href="{{this.url}}" class="u-syndication">Continue the conversation on {{this.silo}}</a></li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+
+{{#if data.syndication}}  {{!-- TODO: remove eventually --}}
+  <h2>This is being talked about elsewhere!</h2>
+  <ul>
+    {{#each data.syndication}}
+      <li><a href="{{this}}" class="u-syndication">Continue the conversation on {{@key}}</a></li>
+    {{/each}}
+  </ul>
+{{/if}}

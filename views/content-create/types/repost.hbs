@@ -1,0 +1,27 @@
+<h1>{{data.title}}</h1>
+
+{{{content}}}
+
+<form method="POST" class="c-form">
+
+  {{> fields/repost-of}}
+  {{> fields/tags}}
+  {{> fields/add-like}}
+
+  <details>
+    <summary>Meta</summary>
+      {{> fields/privacy}}
+      {{> fields/feed}}
+      {{> fields/index}}
+      {{> fields/created}}
+      {{> fields/modified}}
+      {{> fields/guid}}
+  </details>
+
+  {{> fields/syndication}}
+
+  <div class="c-form-row">
+    <button class="comp-button comp-button--primary">Save</button>
+  </div>
+
+</form>

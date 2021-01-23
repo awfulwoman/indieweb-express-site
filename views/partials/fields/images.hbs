@@ -1,0 +1,158 @@
+
+{{!-- Images 0 --}}
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_0_file}}c-form-row--error{{/if}}">
+    <label for="images_0_file" class="c-form-title">Image File 0</label>
+    {{#if state.images_0_file}}
+    <img src="/{{storage}}/{{id}}/{{state.images_0_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_0_file" name="images[0][file]" class="c-form-texty {{#if errors.images_0_file}}c-form-texty--error{{/if}}" value="{{state.images_0_file}}">
+    <input type="hidden" id="images_0_file" name="images[0][width]" class="c-form-texty {{#if errors.images_0_width}}c-form-texty--error{{/if}}" value="{{state.images_0_width}}">
+    <input type="hidden" id="images_0_file" name="images[0][height]" class="c-form-texty {{#if errors.images_0_height}}c-form-texty--error{{/if}}" value="{{state.images_0_height}}">
+    {{else}}
+    <input type="file" id="images_0_file" name="images[0][file]" class="c-form-texty {{#if errors.images_0_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
+  </div>
+  <div class="c-form-row {{#if errors.images_0_alt}}c-form-row--error{{/if}}">
+    <label for="images_0_alt" class="c-form-title">Image Alt 0</label>
+    <input type="text" id="images_0_alt" name="images[0][alt]" class="c-form-texty {{#if errors.images_0_alt}}c-form-texty--error{{/if}}" value="{{state.images_0_alt}}">
+  </div>
+</div>
+
+{{!-- Images 1 --}}
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_1_file}}c-form-row--error{{/if}}">
+    <label for="images_1_file" class="c-form-title">Image File 1</label>
+    {{#if state.images_1_file}}
+    <img src="/{{storage}}/{{id}}/{{state.images_1_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_1_file" name="images[1][file]" class="c-form-texty {{#if errors.images_1_file}}c-form-texty--error{{/if}}" value="{{state.images_1_file}}">
+    <input type="hidden" id="images_1_file" name="images[1][width]" class="c-form-texty {{#if errors.images_1_width}}c-form-texty--error{{/if}}" value="{{state.images_1_width}}">
+    <input type="hidden" id="images_1_file" name="images[1][height]" class="c-form-texty {{#if errors.images_1_height}}c-form-texty--error{{/if}}" value="{{state.images_1_height}}">
+    {{else}}
+    <input type="file" id="images_1_file" name="images[0][file]" class="c-form-texty {{#if errors.images_1_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
+  </div>
+  <div class="c-form-row {{#if errors.images_1_alt}}c-form-row--error{{/if}}">
+    <label for="images_1_alt" class="c-form-title">Image Alt 1</label>
+    <input type="text" id="images_1_alt" name="images[1][alt]" class="c-form-texty {{#if errors.images_1_alt}}c-form-texty--error{{/if}}" value="{{state.images_1_alt}}">
+  </div>
+</div>
+
+{{!-- Images 2 --}}
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_2_file}}c-form-row--error{{/if}}">
+    <label for="images_2_file" class="c-form-title">Image File 2</label>
+    {{#if state.images_2_file}}
+    <img src="/{{storage}}/{{id}}/{{state.images_2_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_2_file" name="images[2][file]" class="c-form-texty {{#if errors.images_2_file}}c-form-texty--error{{/if}}" value="{{state.images_2_file}}">
+    <input type="hidden" id="images_2_file" name="images[2][width]" class="c-form-texty {{#if errors.images_2_width}}c-form-texty--error{{/if}}" value="{{state.images_2_width}}">
+    <input type="hidden" id="images_2_file" name="images[2][height]" class="c-form-texty {{#if errors.images_2_height}}c-form-texty--error{{/if}}" value="{{state.images_2_height}}">
+    {{else}}
+    <input type="file" id="images_2_file" name="images[2][file]" class="c-form-texty {{#if errors.images_2_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
+  </div>
+  <div class="c-form-row {{#if errors.images_2_alt}}c-form-row--error{{/if}}">
+    <label for="images_2_alt" class="c-form-title">Image Alt 2</label>
+    <input type="text" id="images_2_alt" name="images[2][alt]" class="c-form-texty {{#if errors.images_2_alt}}c-form-texty--error{{/if}}" value="{{state.images_2_alt}}">
+  </div>
+</div>
+
+{{!-- Images 3 --}}
+
+<div class="comp-form-row-group">
+  <div class="c-form-row {{#if errors.images_3_file}}c-form-row--error{{/if}}">
+    <label for="images_3_file" class="c-form-title">Image File 3</label>
+    {{#if state.images_3_file}}
+    <img src="/{{storage}}/{{id}}/{{state.images_3_file}}" alt="" class="comp-preview">
+    <input type="hidden" id="images_3_file" name="images[3][file]" class="c-form-texty {{#if errors.images_3_file}}c-form-texty--error{{/if}}" value="{{state.images_3_file}}">
+    <input type="hidden" id="images_3_file" name="images[3][width]" class="c-form-texty {{#if errors.images_3_width}}c-form-texty--error{{/if}}" value="{{state.images_3_width}}">
+    <input type="hidden" id="images_3_file" name="images[3][height]" class="c-form-texty {{#if errors.images_3_height}}c-form-texty--error{{/if}}" value="{{state.images_3_height}}">
+    {{else}}
+    <input type="file" id="images_3_file" name="images[3][file]" class="c-form-texty {{#if errors.images_3_file}}c-form-texty--error{{/if}}">
+    <div data-image-preview class="comp-preview"><p>No files currently selected for upload</p></div>
+    {{/if}}
+  </div>
+  <div class="c-form-row {{#if errors.images_3_alt}}c-form-row--error{{/if}}">
+    <label for="images_3_alt" class="c-form-title">Image Alt 3</label>
+    <input type="text" id="images_3_alt" name="images[3][alt]" class="c-form-texty {{#if errors.images_3_alt}}c-form-texty--error{{/if}}" value="{{state.images_3_alt}}">
+  </div>
+</div>
+
+
+
+
+
+<script>
+  const input = document.querySelector('input[type="file"]')
+  const preview = document.querySelector('[data-image-preview]');
+
+  input.addEventListener('change', updateImageDisplay);
+
+  function updateImageDisplay() {
+    while (preview.firstChild) {
+      preview.removeChild(preview.firstChild);
+    }
+
+    const curFiles = input.files;
+    if (curFiles.length === 0) {
+      const para = document.createElement('p');
+      para.textContent = 'No files currently selected for upload';
+      preview.appendChild(para);
+    } else {
+      const list = document.createElement('ul');
+      preview.appendChild(list);
+
+      for (const file of curFiles) {
+        const listItem = document.createElement('li');
+        const para = document.createElement('p');
+
+        if (validFileType(file)) {
+          para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+          const image = document.createElement('img');
+          image.src = URL.createObjectURL(file);
+
+          listItem.appendChild(image);
+          listItem.appendChild(para);
+        } else {
+          para.textContent = `File name ${file.name}: Not a valid file type. Update your selection.`;
+          listItem.appendChild(para);
+        }
+
+        list.appendChild(listItem);
+      }
+    }
+  }
+
+  // https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+  const fileTypes = [
+    'image/apng',
+    'image/bmp',
+    'image/gif',
+    'image/jpeg',
+    'image/pjpeg',
+    'image/png',
+    'image/svg+xml',
+    'image/tiff',
+    'image/webp',
+    `image/x-icon`
+  ];
+
+  function validFileType(file) {
+    return fileTypes.includes(file.type);
+  }
+
+  function returnFileSize(number) {
+    if (number < 1024) {
+      return number + 'bytes';
+    } else if (number > 1024 && number < 1048576) {
+      return (number / 1024).toFixed(1) + 'KB';
+    } else if (number > 1048576) {
+      return (number / 1048576).toFixed(1) + 'MB';
+    }
+  }
+</script>

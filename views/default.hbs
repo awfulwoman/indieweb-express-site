@@ -1,0 +1,8 @@
+{{!-- A generic page, for generic people --}}
+
+<h1 class="c-page-title">{{data.title}}</h1>
+{{#if data.created}}<p>{{formatDate data.created "cccc dd LLLL, yyyy"}}</p>{{/if}}
+
+{{#if data.place_name}}at {{data.place_name}}{{/if}}
+
+{{{content}}}

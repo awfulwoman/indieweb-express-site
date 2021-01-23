@@ -1,0 +1,16 @@
+{{#if data.opengraph}}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@sonniesedge" />
+
+{{#if data.opengraph.image}}<meta property="twitter:card" content="summary_large_image">{{/if}}
+{{#if url}}<meta property="twitter:url" content="{{url}}">{{/if}}
+{{#if data.opengraph.title}}<meta property="twitter:title" content="{{data.opengraph.title}}">{{/if}}
+{{#if data.opengraph.description}}<meta property="twitter:description" content="{{data.opengraph.description}}">{{/if}}
+{{#if data.opengraph.image}}<meta property="twitter:image" content="{{url}}/{{data.opengraph.image.filename}}/1200">{{/if}}
+{{#if data.opengraph.image}}<meta property="twitter:image:alt" content="{{data.opengraph.image.alt}}">{{/if}}
+<meta property="og:type" content="website">
+{{#if url}}<meta property="og:url" content="{{url}}" />{{/if}}
+{{#if data.opengraph.title}}<meta property="og:title" content="{{data.opengraph.title}}" />{{/if}}
+{{#if data.opengraph.description}}<meta property="og:description" content="{{data.opengraph.description}}" />{{/if}}
+{{#if data.opengraph.image}}<meta property="og:image" content="{{url}}/{{data.opengraph.image.filename}}" />{{/if}}
+{{/if}}

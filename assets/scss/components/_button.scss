@@ -1,0 +1,17 @@
+.comp-button {
+  border: 1px solid green;
+  background-color: green;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  color: white;
+  font-weight: bold;
+
+  &:link, &:visited, &:hover, &:active {
+    color: white;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: orange;
+  }
+}

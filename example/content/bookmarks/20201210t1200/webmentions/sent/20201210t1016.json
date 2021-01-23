@@ -1,0 +1,9 @@
+{
+  "webmention": {
+    "target": "https://brid.gy/publish/twitter",
+    "source": "https://whalecoiner.com/bookmarks/20201209t1516",
+    "endpoint": "https://brid.gy/publish/webmention",
+    "created": "2020-12-10T10:16:19.479Z",
+    "success": true
+  }
+}

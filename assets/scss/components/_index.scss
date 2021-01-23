@@ -1,0 +1,153 @@
+@use  'button-group';
+@use  'button';
+@use  'debug';
+@use  'form';
+@use  'form-row';
+@use 'form-row-group';
+@use  'form-texty';
+@use  'form-title';
+@use  'main';
+@use  'reveal';
+@use  'reveal-content';
+@use  'reveal-title';
+@use  'strapline';
+@use  'tag';
+@use  'tags';
+
+.c-footer {
+  border-top: 2px solid #e4e4e4;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+
+
+
+/* .c-form details > * {
+    margin-top: 1rem;
+  } */
+
+
+
+
+
+/* .c-form-textarea {
+    width: 100%;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 21px;
+  } */
+
+
+
+
+.c-header {
+  max-width: 80rem;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.c-header-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(406px, 1fr));
+  grid-gap: 25px;
+  align-items: center;
+}
+
+.c-nav {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0;
+  align-items: center;
+}
+
+.c-nav-item {
+  margin: 0;
+}
+
+.c-nav-link {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--link-color);
+  padding: 5px;
+  border-bottom-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  margin: 0;
+}
+
+.c-nav-link__active {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--link-color);
+  padding: 5px;
+  border-bottom-color: var(--link-color);
+}
+
+.comp-note {
+  font-size: 3rem;
+  font-size: clamp(1rem, 2.5vw, 3rem);
+}
+
+.c-page-title {
+  font-size: 2rem;
+  font-size: clamp(3rem, 2.5vw, 4rem);
+  font-weight: bold;
+}
+
+.c-date--small {
+  font-size: x-small;
+}
+
+.c-note-card {
+  /* border: 2px solid white; */
+  background-color: var(--accent-background);
+  padding: 1rem;
+  font-size: 1.5rem;
+  overflow-wrap: break-word;
+}
+
+.c-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  grid-gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.c-content {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.c-site-title {
+  font-size: 2rem;
+  font-size: clamp(3rem, 2.5vw, 4rem);
+  text-decoration: none;
+  font-weight: bold;
+}
+a.c-site-title {
+  color: var(--text-color);
+}

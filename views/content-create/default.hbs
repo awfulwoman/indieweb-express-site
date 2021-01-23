@@ -1,0 +1,20 @@
+<h1 class="c-page-title">{{data.title}}</h1>
+
+{{content}}
+
+{{#if messages}}
+<ul>
+{{#each messages}}
+  <li>{{this}}</li>
+{{/each}}
+</ul>
+{{/if}}
+
+{{#if rawError}}
+<h2>Errors</h2>
+<pre class="hljs"><code>{{{dumpObject rawError}}}</code></pre>
+{{/if}}
+
+{{#if url}}
+<p><a href="{{url}}">{{url}}</a>.</p>
+{{/if}}

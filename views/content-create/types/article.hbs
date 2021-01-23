@@ -1,0 +1,51 @@
+<h1>{{data.title}}</h1>
+
+{{{content}}}
+
+<form method="POST" class="c-form">
+
+  {{> fields/title}}
+  {{> fields/content}}
+  {{> fields/slug}}
+  {{> fields/tags}}
+
+  <details class="comp-reveal">
+    <summary class="comp-reveal-title">Place</summary>
+    <div class="comp-reveal-content">
+      {{> fields/place}}
+    </div>
+  </details>
+
+  <details class="comp-reveal">
+    <summary class="comp-reveal-title">Opengraph</summary>
+    <div class="comp-reveal-content">
+      {{> fields/opengraph}}
+    </div>
+  </details>
+
+  <details class="comp-reveal">
+    <summary class="comp-reveal-title">Meta</summary>
+    <div class="comp-reveal-content">
+      {{> fields/privacy}}
+      {{> fields/feed}}
+      {{> fields/index}}
+      {{> fields/created}}
+      {{> fields/modified}}
+      {{> fields/guid}}
+    </div>
+  </details>
+
+  {{> fields/syndication}}
+
+  {{!-- <details class="comp-reveal">
+    <summary class="comp-reveal-title">Optional</summary>
+    <div class="comp-reveal-content">
+      <p>nowt</p>
+    </div>
+  </details> --}}
+
+  <div class="c-form-row">
+    <button class="comp-button comp-button--primary">Save</button>
+  </div>
+
+</form>
