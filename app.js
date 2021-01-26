@@ -76,7 +76,7 @@ try {
     resave: true,
     saveUninitialized: true,
     cookie: {
-      maxAge: 60000000
+      maxAge: 2 * 24 * 60 * 60 * 1000, // two days in miliseconds
     },
     // store: new FileStore({
     //   path: config.dataRoot() + '/sessions'
