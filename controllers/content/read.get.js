@@ -36,9 +36,9 @@ const readGet = (model, options) => {
         storage: itemObj.storage,
         syndications: itemObj.syndications,
         sections: itemObj.sections ? itemObj.sections : null,
-        url: itemObj.url
+        url: itemObj.url,
+        session: req.session || null
       })
-
     } catch (error) {
       throw new AppError('404', 'Could not find this page or content. Have you tried looking under the sofa?', error)
     }

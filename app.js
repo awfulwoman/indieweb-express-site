@@ -78,9 +78,13 @@ try {
     cookie: {
       maxAge: 2 * 24 * 60 * 60 * 1000, // two days in miliseconds
     },
-    // store: new FileStore({
-    //   path: config.dataRoot() + '/sessions'
-    // })
+    store: new FileStore({
+      path: config.dataRoot() + '/sessions',
+      ttl: 2 * 24 * 60 * 60 * 1000,
+      secret: config.keyboardCat(),
+      resave: true,
+      saveUninitialized: true
+    })
   }))
 
   const TwitterStrategy = require('passport-twitter').Strategy

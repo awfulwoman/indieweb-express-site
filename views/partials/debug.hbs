@@ -8,7 +8,7 @@
   <h2>Errors</h2>
   <pre class="hljs"><code>{{{dumpObject errors}}}</code></pre>
   {{/if}}
- 
+
   {{#if state}}
   <h2>State</h2>
   <pre class="hljs"><code>{{{dumpObject state}}}</code></pre>
@@ -64,10 +64,15 @@
   <pre class="hljs"><code>{{{dumpObject raw}}}</code></pre>
   {{/if}}
 
+  {{#if session}}
+  <h2>session</h2>
+  <pre class="hljs"><code>{{{dumpObject session}}}</code></pre>
+  {{/if}}
+
   {{#if @exphbs}}
   <h2>@exphbs</h2>
   <pre class="hljs"><code>{{{dumpObject @exphbs}}}</code></pre>
   {{/if}}
-  
+
 </div>
 {{/if}}
