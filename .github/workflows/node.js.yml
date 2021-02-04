@@ -5,7 +5,7 @@ name: Node.js CI tests and deployment
 
 on:
   push: # When new stuff is pushed to the repo
-    branches: [ master, debug ] # only on these brances
+    branches: [ main, debug ] # only on these brances
   repository_dispatch: # respond to an external event
     types: deploy-that-thing # a custom event name
     # https://goobar.io/manually-trigger-a-github-actions-workflow/
