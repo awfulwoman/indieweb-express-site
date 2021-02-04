@@ -71,19 +71,19 @@ try {
 
   // AUTHENTICATION + SESSIONS
   // -----------------------
+
+  const maxAge = 2 * 24 * 60 * 60 * 1000 // two days in miliseconds
   app.use(session({
     secret: config.keyboardCat(),
     resave: true,
     saveUninitialized: true,
     cookie: {
-      maxAge: 2 * 24 * 60 * 60 * 1000, // two days in miliseconds
+      maxAge: maxAge
     },
     store: new FileStore({
       path: config.dataRoot() + '/sessions',
-      ttl: 2 * 24 * 60 * 60 * 1000,
-      secret: config.keyboardCat(),
-      resave: true,
-      saveUninitialized: true
+      ttl: maxAge,
+      secret: config.keyboardCat()
     })
   }))
 
