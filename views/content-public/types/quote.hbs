@@ -5,19 +5,23 @@
 
   <div class="c-quote e-content">
     {{{content}}}
-
-    {{#if data.quote_of}}
-    <cite class="h-cite u-quotation-of c-quote-text">
-      <a class="u-url" href="{{data.quote_of}}">
-        {{data.quote}}
-      </a>
-    </cite>
-    {{/if}}
   </div>
 
+  {{#if data.quote_of}}
+  <cite class="h-cite u-quotation-of c-quote-text">
+    <a class="u-url" href="{{data.quote_of}}">
+      {{#if data.quote}}
+        {{data.quote}}
+      {{else}}
+        <p>Visit quoted URL.</p>
+      {{/if}}
+    </a>
+  </cite>
+  {{/if}}
 
   {{#if data.quote_of}}
-  <p><a href="{{data.quote_of}}" class="comp-button comp-button--primary">Visit quoted URL</a><span class="util-sr-only">.</span></p>
+  <p><a href="{{data.quote_of}}" class="comp-button comp-button--primary">Visit quoted URL</a><span
+      class="util-sr-only">.</span></p>
   {{/if}}
 
   {{> tags}}
