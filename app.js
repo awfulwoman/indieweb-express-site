@@ -33,8 +33,8 @@ try {
   const app = express()
 
   // Check for login credentials
-  if (!config.twitterConsumerKey() || !config.twitterConsumerSecret()) throw new utilities.AppError('500', `Could not find Twitter credentials`)
-  if (!config.githubClientId() || !config.githubClientSecret() ) throw new utilities.AppError('500', `Could not find Github credentials`)
+  if (!config.twitterConsumerKey() || !config.twitterConsumerSecret()) throw new utilities.AppError('500', 'Could not find Twitter credentials')
+  if (!config.githubClientId() || !config.githubClientSecret()) throw new utilities.AppError('500', 'Could not find Github credentials')
 
   // Check for working directories
   if (!fs.existsSync(config.contentRoot())) throw new utilities.AppError('500', `Could not find ${config.contentRoot()}`)
@@ -45,7 +45,7 @@ try {
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", "blob:", "blob"],
+        defaultSrc: ["'self'", 'blob:', 'blob'],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
         styleSrc: ["'self'"],
         fontSrc: ["'self'"],
@@ -106,14 +106,14 @@ try {
   // Use Twitter passport strategy
   passport.use(new TwitterStrategy(passportTwitterOptions, function (token, tokenSecret, profile, cb) {
     debug('Someone trying to login with following Twitter profile: ', profile.username)
-    let appUserProfile = users.getAppUserObjFromExternalId(profile.id, 'twitter')
+    const appUserProfile = users.getAppUserObjFromExternalId(profile.id, 'twitter')
     return cb(null, appUserProfile)
   }))
 
   // Use Github passport strategy
   passport.use(new GitHubStrategy(passportGithubOptions, function (accessToken, refreshToken, profile, cb) {
     debug('Someone trying to login with following Github profile: ', profile.username)
-    let appUserProfile = users.getAppUserObjFromExternalId(profile.id, 'github')
+    const appUserProfile = users.getAppUserObjFromExternalId(profile.id, 'github')
     return cb(null, appUserProfile)
   }))
 
@@ -134,7 +134,7 @@ try {
   app.use(middleware.renderUsers) // Make user info available to every render
   app.use(middleware.renderDebug) // Make debug status available to every render
   app.use(middleware.renderBuildTime)
-  var accessLogStream = rfs.createStream('access.log', {
+  const accessLogStream = rfs.createStream('access.log', {
     interval: '1d', // rotate daily
     path: config.logDir()
   })
@@ -159,9 +159,7 @@ try {
   app.use(staticify.middleware)
   app.use('/', [routes.offline, routes.disambiguation, routes.archives, routes.auth, routes.content])
 
-
-
-  // 
+  //
   // ERROR PAGES
   // -----------
   app.use((err, req, res, next) => middleware.renderErrors(err, req, res, next)) // Handle any custom errors
@@ -169,19 +167,19 @@ try {
 
   // Boot app
   app.listen(config.sitePort(), () => {
-    console.log(chalk.blue.bold(` ---------------------------------------------------------`))
-    console.log(chalk.blue.bold(`| `) + chalk.bold(`BOOTING`))
-    console.log(chalk.blue.bold(`|---------------------------------------------------------`))
-    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`NODE_ENV: `) + chalk(`${process.env.NODE_ENV}`))
+    console.log(chalk.blue.bold(' ---------------------------------------------------------'))
+    console.log(chalk.blue.bold('| ') + chalk.bold('BOOTING'))
+    console.log(chalk.blue.bold('|---------------------------------------------------------'))
+    console.log(chalk.blue.bold('| ') + chalk.bold.green('NODE_ENV: ') + chalk(`${process.env.NODE_ENV}`))
 
     for (const [key, value] of Object.entries(config)) {
-      console.log(chalk.blue.bold(`| `) + chalk.bold.green(`${key}: `) + chalk(`${value()}`))
+      console.log(chalk.blue.bold('| ') + chalk.bold.green(`${key}: `) + chalk(`${value()}`))
     }
 
-    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`Public app URL: `) + chalk(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`))
-    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`Twitter callback URL: `) + chalk(utilities.constructOauthCallback.oaUrl('twitter')))
-    console.log(chalk.blue.bold(`| `) + chalk.bold.green(`Github callback URL: `) + chalk(utilities.constructOauthCallback.oaUrl('github')))
-    console.log(chalk.blue.bold(` ---------------------------------------------------------`))
+    console.log(chalk.blue.bold('| ') + chalk.bold.green('Public app URL: ') + chalk(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`))
+    console.log(chalk.blue.bold('| ') + chalk.bold.green('Twitter callback URL: ') + chalk(utilities.constructOauthCallback.oaUrl('twitter')))
+    console.log(chalk.blue.bold('| ') + chalk.bold.green('Github callback URL: ') + chalk(utilities.constructOauthCallback.oaUrl('github')))
+    console.log(chalk.blue.bold(' ---------------------------------------------------------'))
 
     // WARM CACHES
     // ------
@@ -190,7 +188,7 @@ try {
   })
 
 } catch (error) {
-  console.log(chalk.bold.red(`ERROR: `), error)
+  console.log(chalk.bold.red('ERROR: '), error)
 
   const emergencyApp = express()
   emergencyApp.get('/', (req, res) => {
@@ -203,4 +201,3 @@ try {
     console.log(`emergencyApp listening at ${chalk(`${config.siteProtocol()}${config.siteDomain()}:${config.sitePort()}`)}`)
   })
 }
-
