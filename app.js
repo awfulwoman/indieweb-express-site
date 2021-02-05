@@ -72,7 +72,7 @@ try {
   // AUTHENTICATION + SESSIONS
   // -----------------------
 
-  const maxAge = 2 * 24 * 60 * 60 * 1000 // two days in miliseconds
+  const maxAge = 2 * 24 * 60 * 60 * 1000 // two days in milliseconds
   app.use(session({
     secret: config.keyboardCat(),
     resave: true,
@@ -133,7 +133,7 @@ try {
   app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
   app.use(middleware.renderUsers) // Make user info available to every render
   app.use(middleware.renderDebug) // Make debug status available to every render
-  app.use(middleware.renderBuildTime)
+  app.use(middleware.renderBuildTime) // Add (satic) buildtime to every render
   const accessLogStream = rfs.createStream('access.log', {
     interval: '1d', // rotate daily
     path: config.logDir()
@@ -186,7 +186,6 @@ try {
     // models.warmAll()
     controllers.cacheController.warmAllContent()
   })
-
 } catch (error) {
   console.log(chalk.bold.red('ERROR: '), error)
 
