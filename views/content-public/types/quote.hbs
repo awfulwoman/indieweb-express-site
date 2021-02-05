@@ -5,15 +5,17 @@
 
   <div class="c-quote e-content">
     {{{content}}}
+
+
+    {{#if data.quote_of}}
+
+    <cite class="h-cite u-quotation-of c-quote-text">
+      <a class="u-url" href="{{data.quote_of}}">
+        {{data.quote}}
+      </a>
+    </cite>
+
   </div>
-
-  {{#if data.quote_of}}
-
-  <cite class="h-cite u-quotation-of c-quote-text">
-    <a class="u-url" href="{{data.quote_of}}">
-      {{data.quote}}
-    </a>
-  </cite>
 
   <p><a href="{{data.quote_of}}" class="comp-button comp-button--primary">Visit quoted URL</a><span
       class="util-sr-only">.</span></p>
