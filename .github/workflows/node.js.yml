@@ -55,6 +55,7 @@ jobs:
       env:
         DATA_DIR: ${{ secrets.DATA_DIR }}
         CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
+        LOG_DIR: ${{ secrets.LOG_DIR }}
         TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
         TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
         GH_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
