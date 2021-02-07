@@ -1,7 +1,7 @@
 {
     "name": "Whale Coiner ",
     "short_name": "Whale Coiner ",
-    "start_url": "/",
+    "start_url": "/disambiguation",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
