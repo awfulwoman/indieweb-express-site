@@ -23,6 +23,9 @@
   "license": "ISC",
   "dependencies": {
     "@sindresorhus/slugify": "^1.1.0",
+    "@whalecoiner/webmention-endpoint-discovery": "^1.0.0",
+    "@whalecoiner/webmention-find-links": "^1.0.0",
+    "@whalecoiner/webmention-simple-dispatch": "^1.0.0",
     "ansi-colors": "^4.1.1",
     "app-root-path": "^3.0.0",
     "async-middleware": "^1.2.1",
