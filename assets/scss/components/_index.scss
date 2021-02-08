@@ -1,5 +1,6 @@
 @use  'button-group';
 @use  'button';
+@use  'content';
 @use  'debug';
 @use  'form';
 @use  'form-row';
@@ -122,24 +123,6 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
   grid-gap: 2rem;
   margin-bottom: 2rem;
-}
-
-.c-content {
-  /* These are technically the same, but use both */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  -ms-word-break: break-all;
-  /* This is the dangerous one in WebKit, as it breaks things wherever */
-  word-break: break-all;
-  /* Instead use this non-standard one: */
-  word-break: break-word;
-
-  /* Adds a hyphen where the word breaks, if supported (No Blink) */
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
 }
 
 .c-site-title {

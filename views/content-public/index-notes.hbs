@@ -13,12 +13,12 @@
 <p class="p-summary">Check out these sick notes, baby.</p>
 <div class="c-card-grid h-feed">
   {{#each children}}
-    <section class="c-note-card h-entry">
-      {{!-- <header class="util-sr-only"> --}}
-        <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
-      {{!-- </header> --}}
+    <article class="c-note-card h-entry">
+      <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
 
-      <div class="c-content">
+      <div class="comp-content">
+
+        <div class="p-summary">
         {{{this.rendered}}}
 
         {{#if data.images}}
@@ -26,13 +26,14 @@
         <a href="/notes/{{../id}}/{{this.file}}/900"><img src="/notes/{{../id}}/{{this.file}}/300" alt="{{this.alt}}"></a>
         {{/each}}
         {{/if}}
+        </div>
       </div>
 
       <footer>
         <p class="c-date--small"><a href="{{this.path}}"><datetime class="dt-published" datetime="{{data.created}}">{{formatDate data.created "cccc dd LLLL, yyyy"}}</datetime></a></p>
       </footer>
 
-    </section>
+    </article>
   {{/each}}
 </div>
 {{/if}}

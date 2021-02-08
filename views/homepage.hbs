@@ -7,29 +7,30 @@
 <p class="p-summary">Check out these sick items, baby.</p>
 <div class="c-card-grid h-feed">
   {{#each children}}
-    <section class="c-note-card h-entry">
+    <article class="c-note-card h-entry">
       {{!-- <header class="util-sr-only"> --}}
-      <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
+      <h2 class="p-name"><a href="{{this.path}}" rel="bookmark" class="u-url">{{this.data.title}}</a></h2>
       {{!-- </header> --}}
 
-      <div class="c-content">
+      <div class="comp-content">
 
         <div class="p-summary">
         {{{truncate this.rendered 600}}}
-        </div>
-
+        
         {{#if data.images}}
         {{#each data.images}}
         <a href="/notes/{{../id}}/{{this.file}}/900"><img src="/notes/{{../id}}/{{this.file}}/300" alt="{{this.alt}}"></a>
         {{/each}}
         {{/if}}
+
+        </div>
       </div>
 
       <footer>
         <p class="c-date--small"><a href="{{this.path}}"><datetime class="dt-published" datetime="{{this.data.created}}">{{formatDate this.data.created "cccc dd LLLL, yyyy"}}</datetime></a></p>
       </footer>
 
-    </section>
+    </article>
   {{/each}}
 </div>
 {{/if}}
