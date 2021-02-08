@@ -5,9 +5,9 @@
 {{#if children}}
 <section>
   <h2>Latest items</h2>
-  <ul>
+  <ul class="h-feed">
     {{#each children}}
-     <li><a href="/{{this.dir}}/{{#if this.data.slug}}{{this.data.slug}}{{else}}{{this.id}}{{/if}}">{{this.data.title}}</a> - {{formatDate data.created "cccc dd LLLL, yyyy"}}</li>
+     <li class="p-name"><a class="u-url" href="/{{this.dir}}/{{#if this.data.slug}}{{this.data.slug}}{{else}}{{this.id}}{{/if}}">{{this.data.title}}</a> - {{formatDate data.created "cccc dd LLLL, yyyy"}}</li>
     {{/each}}
   </ul>
 </section>
