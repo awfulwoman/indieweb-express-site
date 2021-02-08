@@ -9,11 +9,11 @@
 {{{content}}}
 
 {{#if children}}
-<div class="c-card-grid">
+<div class="c-card-grid h-feed">
   {{#each children}}
     <section class="c-note-card">
       {{!-- <header class="util-sr-only"> --}}
-        <h2><a href="{{this.path}}">{{this.data.title}}</a></h2>
+        <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
       {{!-- </header> --}}
 
       <div class="c-content">

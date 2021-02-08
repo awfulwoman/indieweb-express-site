@@ -9,9 +9,9 @@
 {{#if children}}
 <section>
   <h2>Latest stuff and things</h2>
-  <ul>
+  <ul class="h-feed">
     {{#each children}}
-     <li><a href="{{this.path}}">{{this.data.title}}</a> - {{formatDate data.created "cccc dd LLLL, yyyy"}}</li>
+     <li class="p-name"><a class="u-url" href="{{this.path}}">{{this.data.title}}</a> - {{formatDate data.created "cccc dd LLLL, yyyy"}}</li>
     {{/each}}
   </ul>
 </section>
