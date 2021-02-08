@@ -3,12 +3,30 @@
 {{{content}}}
 
 {{#if children}}
-<section>
-  <h2>Latest items</h2>
-  <ul class="h-feed">
-    {{#each children}}
-     <li class="p-name"><a class="u-url" href="/{{this.dir}}/{{#if this.data.slug}}{{this.data.slug}}{{else}}{{this.id}}{{/if}}">{{this.data.title}}</a> - {{formatDate data.created "cccc dd LLLL, yyyy"}}</li>
-    {{/each}}
-  </ul>
-</section>
+<h2 class="p-name">Latest entries</h2>
+<p class="p-summary">Check out these sick items, baby.</p>
+<div class="c-card-grid h-feed">
+  {{#each children}}
+    <section class="c-note-card h-entry">
+      {{!-- <header class="util-sr-only"> --}}
+        <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
+      {{!-- </header> --}}
+
+      <div class="c-content">
+        {{{this.rendered}}}
+
+        {{#if data.images}}
+        {{#each data.images}}
+        <a href="/notes/{{../id}}/{{this.file}}/900"><img src="/notes/{{../id}}/{{this.file}}/300" alt="{{this.alt}}"></a>
+        {{/each}}
+        {{/if}}
+      </div>
+
+      <footer>
+        <p class="c-date--small"><a href="{{this.path}}"><datetime class="dt-published" datetime="{{this.data.created}}">{{formatDate this.data.created "cccc dd LLLL, yyyy"}}</datetime></a></p>
+      </footer>
+
+    </section>
+  {{/each}}
+</div>
 {{/if}}
