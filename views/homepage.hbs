@@ -9,11 +9,14 @@
   {{#each children}}
     <section class="c-note-card h-entry">
       {{!-- <header class="util-sr-only"> --}}
-        <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
+      <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
       {{!-- </header> --}}
 
       <div class="c-content">
-        {{{this.rendered}}}
+
+        <div class="p-summary">
+        {{{truncate this.rendered 600}}}
+        </div>
 
         {{#if data.images}}
         {{#each data.images}}
