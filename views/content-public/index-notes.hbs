@@ -9,9 +9,11 @@
 {{{content}}}
 
 {{#if children}}
+<h2 class="p-name">Latest notes</h2>
+<p class="p-summary">Check out these sick notes, baby.</p>
 <div class="c-card-grid h-feed">
   {{#each children}}
-    <section class="c-note-card">
+    <section class="c-note-card h-entry">
       {{!-- <header class="util-sr-only"> --}}
         <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
       {{!-- </header> --}}
@@ -27,7 +29,7 @@
       </div>
 
       <footer>
-        <p class="c-date--small"><a href="{{this.path}}">{{formatDate data.created "cccc dd LLLL, yyyy"}}</a></p>
+        <p class="c-date--small"><a href="{{this.path}}"><datetime class="dt-published" datetime="{{data.created}}">{{formatDate data.created "cccc dd LLLL, yyyy"}}</datetime></a></p>
       </footer>
 
     </section>
