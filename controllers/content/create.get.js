@@ -9,7 +9,7 @@ const createGet = (model, options = {}) => {
   return asyncHandler(async (req, res) => {
     const formState = {}
 
-    const resolvedUrl = req.query.url && is.url(req.query.url) ? await tall(req.query.url) : undefined // Unshorten any shortened URLs
+    const resolvedUrl = req.query.url && is.url(req.query.url) ? await tall(req.query.url).catch(err => req.query.url) : undefined // Unshorten any shortened URLs
     const resolvedTitle = req.query.title && is.string(req.query.title) ? req.query.title : undefined
     const resolvedText = req.query.text && is.string(req.query.text) ? req.query.text : undefined
 
@@ -29,16 +29,14 @@ const createGet = (model, options = {}) => {
 
     // Convert config array of silos into an array of objects
     const syndicationSilosMissingObj = Array.from(config.silos(), x => {
-      return { id: x }
+      const syndicationObj = { id: x }
+      if (syndicationObj.id === 'twitter' && resolvedUrl && resolvedUrl.match('^http(s?)://twitter.com+')) {
+        syndicationObj.syndicate = true
+      }
+      return syndicationObj
     })
 
     // Check to see if any form items should be prefilled
-    syndicationSilosMissingObj.forEach(silo => {
-      if (silo.id === 'twitter') {
-        if (resolvedUrl && resolvedUrl.includes('twitter.com')) formState.syndicate_to_twitter = silo.syndicate = true
-      }
-    })
-
     res.render(options.template || `content-create/types/${model.id}`, {
       data: { title: `Create new ${model.id}` },
       state: formState,
