@@ -1,5 +1,11 @@
+const concat = require('./concat')
 const dumpObject = require('./dumpobject')
-const statusIcon = require('./statusicon')
 const formatDate = require('./format-date')
+const statusIcon = require('./statusicon')
 
-module.exports = {dumpObject, statusIcon, formatDate}
+module.exports = {
+  concat,
+  dumpObject,
+  formatDate,
+  statusIcon
+}
