@@ -9,19 +9,19 @@
 
 {{#if syndicationSilosMissing}}
 <div class="c-form-row">
-  <h2>Auto syndication</h2>
+  <h2>Syndication</h2>
   <p>Syndicate to selected silos.</p>
   <div class="c-checkbox-group">
     {{#each syndicationSilosMissing}}
-    <input type="checkbox" value="true" id="syndicate_to_{{this}}" name="syndicate_to[{{this}}]"><label
-      for="syndicate_to_{{this}}">{{capitalize this}}</label>
+    <input type="checkbox" value="true" id="syndicate_to_{{this.id}}" name="syndicate_to[{{this.id}}]" {{#if this.syndicate }}checked{{/if}}>
+    <label for="syndicate_to_{{this.id}}">{{capitalize this.id}}</label>
     {{/each}}
   </div>
 </div>
 {{/if}}
 
 <details>
-  <summary>Additional</summary>
+  <summary>Syndication - Additional</summary>
   <div class="c-form-row {{#if errors.manual_syndication}}c-form-row--error{{/if}}">
     <label for="manual_syndication" class="c-form-title">Manual syndication</label>
     <p>Add content that has already been manually syndicated elsewhere.</p>

@@ -8,6 +8,7 @@ const tall = require('tall').tall
 const AppError = require('../../utilities/app-error')
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
+const { resolveAlias } = require('../../models/types/article.model')
 
 const createGet = (model, options) => {
   options || (options = {});
@@ -21,17 +22,27 @@ const createGet = (model, options) => {
     form_state['title'] = req.query.title
     form_state['content'] = req.query.text
     form_state['url'] = resolvedUrl
-    
+
     form_state['bookmark_of'] = resolvedUrl
     form_state['like_of'] = resolvedUrl
     form_state['quote_of'] = resolvedUrl
     form_state['reply_to'] = resolvedUrl
     form_state['repost_of'] = resolvedUrl
 
+    let syndicationSilosMissingObj = Array.from(config.silos(), x => {
+      return { id: x }
+    })
+
+    syndicationSilosMissingObj.forEach(silo => {
+      if (silo.id === 'twitter') {
+        if (resolvedUrl.includes('twitter.com')) form_state['syndicate_to_twitter'] = silo.syndicate = true
+      }
+    })
+
     res.render(options.template || `content-create/types/${model.id}`, {
       data: { title: `Create a new ${model.id}` },
       state: form_state,
-      syndicationSilosMissing: config.silos
+      syndicationSilosMissing: syndicationSilosMissingObj
     })
   })
 }
