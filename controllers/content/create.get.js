@@ -35,7 +35,7 @@ const createGet = (model, options = {}) => {
     // Check to see if any form items should be prefilled
     syndicationSilosMissingObj.forEach(silo => {
       if (silo.id === 'twitter') {
-        if (resolvedUrl.includes('twitter.com')) formState.syndicate_to_twitter = silo.syndicate = true
+        if (resolvedUrl && resolvedUrl.includes('twitter.com')) formState.syndicate_to_twitter = silo.syndicate = true
       }
     })
 
