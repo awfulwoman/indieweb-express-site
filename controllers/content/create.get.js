@@ -9,7 +9,7 @@ const createGet = (model, options = {}) => {
   return asyncHandler(async (req, res) => {
     const formState = {}
 
-    const resolvedUrl = req.query.url && is.url(req.query.url) ? await tall(req.query.url).catch(err => req.query.url) : undefined // Unshorten any shortened URLs
+    const resolvedUrl = req.query.url && is.url(req.query.url) ? await tall(req.query.url).catch(() => req.query.url) : undefined // Unshorten any shortened URLs
     const resolvedTitle = req.query.title && is.string(req.query.title) ? req.query.title : undefined
     const resolvedText = req.query.text && is.string(req.query.text) ? req.query.text : undefined
 
