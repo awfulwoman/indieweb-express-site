@@ -14,7 +14,7 @@
   <div class="c-checkbox-group">
     {{#each syndicationSilosMissing}}
     <input type="checkbox" value="true" id="syndicate_to_{{this.id}}" name="syndicate_to[{{this.id}}]" {{#if this.syndicate }}checked{{/if}}>
-    <label for="syndicate_to_{{this.id}}">{{capitalize this.id}}</label>
+    <label for="syndicate_to_{{this.id}}">{{capitalize this.id}} {{#if this.syndicate }}(assumed){{/if}}</label>
     {{/each}}
   </div>
 </div>
