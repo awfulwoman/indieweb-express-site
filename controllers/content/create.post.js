@@ -11,18 +11,14 @@ const normalizeFormErrors = require('../../utilities/form-normalize-errors')
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
-const syndication = require('../syndication')
 
 const createPost = (model, options = {}) => {
-  return asyncHandler(async (req, res, next) => {
-
+  return asyncHandler(async (req, res) => {
     let formState = {}
     let formErrors = {}
-    let renderMessages = []
-    let tempCurrentDate = DateTime.local().toUTC()
+    const renderMessages = []
 
     try {
-
       // These will go back to the form if there are errors
       formState = normalizeFormState(req)
       formErrors = normalizeFormErrors(req)
@@ -40,20 +36,16 @@ const createPost = (model, options = {}) => {
           errors: formErrors
         })
       } else {
-
         let data = matchedData(req)
-        debug('matchedData: ', data)
-
-        let content = matchedData(req).content ? matchedData(req).content : ' '
+        const content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
 
-        let metaDataResult = shared.metadata(data)
-        data = metaDataResult.data
-        renderMessages.push(...metaDataResult.messages)
+        debug('matchedData: ', data)
+        debug('content: ', content)
 
-        debug('Data to create with: ', data)
+        data = await shared.metadata(data, renderMessages)
 
-        let id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
+        const id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
 
         await model.create(data, content, id).catch((error) => {
           throw error
