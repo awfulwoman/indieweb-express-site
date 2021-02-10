@@ -11,6 +11,7 @@ npm ci
 
 echo "Building assets..."
 npm run css
+npm run sprites
 
 echo "Restarting server process..."
 pm2 stop ecosystem.config.js

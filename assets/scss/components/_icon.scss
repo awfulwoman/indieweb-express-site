@@ -1,0 +1,14 @@
+.comp-icon {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  vertical-align: middle;
+}
+
+// Temporary and nasty
+.comp-icon--float-right {
+  float: right;
+  height: 2em;
+  width: 2em;
+  margin-left: 1em;
+}

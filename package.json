@@ -11,7 +11,8 @@
     "css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
     "watch-server": "npx nodemon app.js --ignore example/",
     "watch-test": "jest --watchAll --reporters=jest-silent-reporter",
-    "watch-css": "sass --watch ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css"
+    "watch-css": "sass --watch ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
+    "sprites": "npx svg-sprite --symbol --defs --dest ./public ./assets/svg/*.svg"
   },
   "jest": {
     "automock": false,
@@ -88,6 +89,7 @@
     "session-file-store": "^1.5.0",
     "sharp": "^0.26.3",
     "staticify": "^5.0.0",
+    "svg-sprite": "^1.5.0",
     "tall": "^3.1.0",
     "uuid": "^8.3.0",
     "validator": "^13.1.17",

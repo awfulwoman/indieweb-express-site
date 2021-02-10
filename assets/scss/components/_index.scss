@@ -1,19 +1,20 @@
-@use  'button-group';
-@use  'button';
-@use  'content';
-@use  'debug';
-@use  'form';
-@use  'form-row';
+@use 'button-group';
+@use 'button';
+@use 'content';
+@use 'debug';
+@use 'form';
+@use 'form-row';
 @use 'form-row-group';
-@use  'form-texty';
-@use  'form-title';
-@use  'main';
-@use  'reveal';
-@use  'reveal-content';
-@use  'reveal-title';
-@use  'strapline';
-@use  'tag';
-@use  'tags';
+@use 'form-texty';
+@use 'form-title';
+@use 'icon';
+@use 'main';
+@use 'reveal';
+@use 'reveal-content';
+@use 'reveal-title';
+@use 'strapline';
+@use 'tag';
+@use 'tags';
 
 .c-footer {
   border-top: 2px solid #e4e4e4;
