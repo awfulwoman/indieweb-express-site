@@ -6,6 +6,10 @@ const tall = require('tall').tall
 const config = require('../../config')
 
 const createGet = (model, options = {}) => {
+
+
+
+
   return asyncHandler(async (req, res) => {
     const formState = {}
 

@@ -2,8 +2,6 @@ const debug = require('debug')('indieweb-express-site:controllers:content:update
 const asyncHandler = require('express-async-handler')
 const is = require('is_js')
 
-const AppError = require('../../utilities/app-error')
-const md = require('../../utilities/markdown-it')
 const normalizeFormState = require('../../utilities/form-normalize-state')
 const config = require('../../config')
 
@@ -15,9 +13,9 @@ const updateGet = (model, options = {}) => {
   return asyncHandler(async (req, res, next) => {
     try {
       // read existing note
-      let existingItem = await model.read(req.params.id)
+      const existingItem = await model.read(req.params.id)
 
-      // debug('Existing item: ', existingItem)
+      debug(existingItem)
 
       // Smoosh .content and .data together
       let formState = { ...existingItem, ...existingItem.data }
@@ -33,8 +31,12 @@ const updateGet = (model, options = {}) => {
       syndicationSilosPresent = existingItem.syndications ? [...new Set(existingItem.syndications.map(item => item.silo))] : []
       syndicationSilosMissing = config.silos().filter(x => !syndicationSilosPresent.includes(x))
 
+      const syndicationSilosMissingObj = Array.from(syndicationSilosMissing, x => {
+        return { id: x }
+      })
+
       debug('syndicationSilosPresent: ', syndicationSilosPresent)
-      debug('syndicationSilosMissing: ', syndicationSilosMissing)
+      debug('syndicationSilosMissing: ', syndicationSilosMissingObj)
       // }
 
       res.render(options.template || `content-create/types/${model.id}`, {
@@ -44,7 +46,7 @@ const updateGet = (model, options = {}) => {
         markdown: formState.content,
         syndications: existingItem.syndications || null,
         // syndicationSilosPresent: syndicationSilosPresent ? syndicationSilosPresent : null,
-        syndicationSilosMissing: syndicationSilosMissing ? syndicationSilosMissing : null,
+        syndicationSilosMissing: syndicationSilosMissingObj ? syndicationSilosMissingObj : null,
         state: formState,
         id: req.params.id,
         storage: model.modelDir
