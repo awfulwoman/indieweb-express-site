@@ -42,18 +42,15 @@ const updatePost = (model, options = {}) => {
           errors: formErrors
         })
       } else {
-
         let data = matchedData(req)
-        debug('matchedData: ', data)
-
-        let content = matchedData(req).content ? matchedData(req).content : ' '
+        const content = matchedData(req).content ? matchedData(req).content : ' '
         delete data.content
 
-        let metaDataResult = shared.metadata(data)
-        data = metaDataResult.data
-        renderMessages.push(...metaDataResult.messages)
+        debug('matchedData: ', data)
+        debug('content: ', content)
 
-        debug('Data to update with: ', data)
+        data = await shared.metadata(data, renderMessages)
+        data = await shared.oEmbed(data, renderMessages)
 
         await model.update(data, content, id).catch((error) => {
           throw error
