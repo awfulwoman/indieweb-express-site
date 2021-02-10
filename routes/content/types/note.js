@@ -46,8 +46,8 @@ router.get(`/${model.modelDir}/archive/:year/:month/:day`, archiveController(mod
 router.get(`/${model.modelDir}`, [renderNav], contentController.readGet(page, {
   id: model.modelDir, 
   index: true, 
-  children: model.recentIndex, 
-  template: 'content-public/index-notes'
+  children: model.recentIndex,
+  template: 'content-public/index'
 }));
 router.get(`/${model.modelDir}/:id`, [renderNav], contentController.readGet(model, {template: 'content-public/types/note'}))
 router.get(`/${model.modelDir}/:id/:file`, [], fileController.readGet(model))
