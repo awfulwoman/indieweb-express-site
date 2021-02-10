@@ -20,6 +20,14 @@ const nav = (originalUrl) => {
       text: 'Bookmarks'
     },
     {
+      path: '/reposts',
+      text: 'Reposts'
+    },
+    {
+      path: '/quotes',
+      text: 'Quotes'
+    },
+    {
       path: '/contact',
       text: 'Contact'
     }
