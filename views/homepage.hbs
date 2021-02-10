@@ -9,7 +9,7 @@
   {{#each children}}
     <article class="c-note-card h-entry">
       {{!-- <header class="util-sr-only"> --}}
-      <svg class="comp-icon comp-icon--float-right"><use xlink:href="/defs/svg/sprite.css.svg#{{this.storage}}"></use></svg>
+      <svg class="comp-icon comp-icon--float-right"><use xlink:href="{{ getVersionedPath '/svg/defs/svg/sprite.css.svg' }}#assets--svg--{{this.storage}}"></use></svg>
       <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
       {{!-- </header> --}}
 

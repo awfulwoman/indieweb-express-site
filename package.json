@@ -12,7 +12,7 @@
     "watch-server": "npx nodemon app.js --ignore example/",
     "watch-test": "jest --watchAll --reporters=jest-silent-reporter",
     "watch-css": "sass --watch ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
-    "sprites": "npx svg-sprite --symbol --defs --dest ./public ./assets/svg/*.svg"
+    "sprites": "npx svg-sprite --symbol --defs --dest ./public/svg ./assets/svg/*"
   },
   "jest": {
     "automock": false,
