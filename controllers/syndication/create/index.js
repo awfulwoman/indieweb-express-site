@@ -1,14 +1,12 @@
 const debug = require('debug')('indieweb-express-site:controllers:syndication:create')
 const is = require('is_js')
-const dispatch = require('../../dispatch')
+const dispatch = require('@whalecoiner/webmention-simple-dispatch')
 const config = require('../../../config')
 
 const createSyndication = async (modelType, id, syndicationType = 'twitter', syndicationUrl = 'https://brid.gy/publish/webmention', options = {}) => {
-
   // Essentially a wrapper for brid.gy
 
   try {
-
     if (!modelType) throw new Error('Required parameter missing: modelType')
     if (!id) throw new Error('Required parameter missing: id')
 
@@ -18,36 +16,39 @@ const createSyndication = async (modelType, id, syndicationType = 'twitter', syn
     if (is.not.string(id)) throw new Error('parameter id must be a string')
 
     // construct syndicationType URL
-    let targetUrl = `https://brid.gy/publish/${syndicationType}`
+    const targetUrl = `https://brid.gy/publish/${syndicationType}`
 
     // construct source URL
-    let sourceUrl = `${config.siteUrl()}/${modelType}/${id}`
+    const sourceUrl = `${config.siteUrl()}/${modelType}/${id}`
 
     debug('syndicationUrl: ', syndicationUrl)
     debug('target: ', targetUrl)
     debug('sourceUrl: ', sourceUrl)
-    
-    let results = await dispatch(syndicationUrl, {
-      target: targetUrl, 
+
+    const results = await dispatch(syndicationUrl, {
+      target: targetUrl,
       source: sourceUrl
     })
 
     debug('Syndication creation raw results from dispatch: ', results)
-    
-    // Brid.gy sent back an error
-    if (results && results.response && results.response.error) throw {
-      statusCode: 'ERROR',
-      statusMessage: results.response.error,
-      httpCode: results.status ? results.status : 500,
-      rawResponse: results
-    }
 
+    // Brid.gy sent back an error
+    if (results && results.response && results.response.error) {
+      throw {
+        statusCode: 'ERROR',
+        statusMessage: results.response.error,
+        httpCode: results.status ? results.status : 500,
+        rawResponse: results
+      }
+    }
     // Error isn't a Brid.gy error but is 400+
-    if (parseInt(results.status) > 400) throw {
-      statusCode: 'ERROR',
-      statusMessage: `Received a ${results.statusCode} error`,
-      httpCode: parseInt(results.statusCode),
-      rawResponse: results
+    if (parseInt(results.status) > 400) {
+      throw {
+        statusCode: 'ERROR',
+        statusMessage: `Received a ${results.statusCode} error`,
+        httpCode: parseInt(results.statusCode),
+        rawResponse: results
+      }
     }
 
     if (parseInt(results.status) === 201 && results.response.url) {
@@ -66,7 +67,6 @@ const createSyndication = async (modelType, id, syndicationType = 'twitter', syn
       httpCode: 500,
       rawResponse: results ? results : 'No response returned'
     }
-
   } catch (error) {
     // debug(error)
     return error
