@@ -11,7 +11,7 @@
   <h2>Latest stuff and things</h2>
   <ul class="h-feed">
     {{#each children}}
-     <li class="p-name"><a class="u-url" href="{{this.path}}">{{this.data.title}}</a> - {{formatDate data.created "cccc dd LLLL, yyyy"}}</li>
+     <li class="p-name"><a class="u-url" href="{{this.path}}">{{this.data.title}}</a> - {{formatDate this.data.created "cccc dd LLLL, yyyy"}}</li>
     {{/each}}
   </ul>
 </section>
