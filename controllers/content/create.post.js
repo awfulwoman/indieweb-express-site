@@ -11,8 +11,13 @@ const normalizeFormErrors = require('../../utilities/form-normalize-errors')
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
+const { create } = require('../../drivers/markdown')
 
 const createPost = (model, options = {}) => {
+
+  // return async createPostRenderer(req, res) => {
+
+  // }
   return asyncHandler(async (req, res) => {
     let formState = {}
     let formErrors = {}
@@ -44,6 +49,7 @@ const createPost = (model, options = {}) => {
         debug('content: ', content)
 
         data = await shared.metadata(data, renderMessages)
+        // data = await shared.oEmbed(data, renderMessages)
 
         const id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
 
