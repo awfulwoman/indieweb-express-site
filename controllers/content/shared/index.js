@@ -1,6 +1,7 @@
 const fileUploads = require('./file-uploads')
 const metadata = require('./metadata')
+const oEmbed = require('./oembed')
 const syndicationAuto = require('./syndication-auto')
 const syndicationManual = require('./syndication-manual')
 
-module.exports = {fileUploads, metadata, syndicationAuto, syndicationManual}
+module.exports = {fileUploads, metadata, syndicationAuto, syndicationManual, oEmbed}

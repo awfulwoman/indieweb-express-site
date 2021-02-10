@@ -49,7 +49,7 @@ const createPost = (model, options = {}) => {
         debug('content: ', content)
 
         data = await shared.metadata(data, renderMessages)
-        // data = await shared.oEmbed(data, renderMessages)
+        data = await shared.oEmbed(data, renderMessages)
 
         const id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
 
