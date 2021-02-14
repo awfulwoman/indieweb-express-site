@@ -48,9 +48,9 @@ try {
         defaultSrc: ["'self'", 'blob:', 'blob'],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://platform.twitter.com"],
         childSrc: ["'self'", "https://platform.twitter.com"],
-        styleSrc: ["'self'"],
+        styleSrc: ["'self'", "https://platform.twitter.com"],
         fontSrc: ["'self'"],
-        connectSrc: ["'self'"]
+        connectSrc: ["'self'", "https://platform.twitter.com"]
       }
     }
   }))
