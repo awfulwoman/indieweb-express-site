@@ -45,9 +45,8 @@ try {
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", 'blob:', 'blob', "platform.twitter.com", "syndication.twitter.com"],
+        defaultSrc: ["'self'", 'blob', "platform.twitter.com", "syndication.twitter.com"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-        childSrc: ["'self'"],
         styleSrc: ["'self'"],
         fontSrc: ["'self'"],
         connectSrc: ["'self'"]
