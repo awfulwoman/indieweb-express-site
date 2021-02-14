@@ -50,7 +50,7 @@
     "glob": "^7.1.6",
     "gray-matter": "^4.0.2",
     "handlebars-helpers": "^0.10.0",
-    "helmet": "^3.22.0",
+    "helmet": "^4.4.1",
     "highlight.js": "^10.4.1",
     "image-size": "^0.9.3",
     "is-image": "^3.0.0",
