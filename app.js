@@ -48,6 +48,7 @@ try {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         styleSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
+        childSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
         fontSrc: ["'self'"],
         connectSrc: ["'self'"]
       }
