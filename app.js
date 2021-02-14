@@ -46,7 +46,7 @@ try {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'", 'blob:', 'blob'],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://platform.twitter.com/widgets.js"],
         styleSrc: ["'self'"],
         fontSrc: ["'self'"],
         connectSrc: ["'self'"]
