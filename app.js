@@ -45,12 +45,12 @@ try {
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", 'blob:', 'blob'],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://platform.twitter.com"],
-        childSrc: ["'self'", "https://platform.twitter.com"],
-        styleSrc: ["'self'", "https://platform.twitter.com"],
+        defaultSrc: ["'self'", 'blob:', 'blob', "platform.twitter.com", "syndication.twitter.com"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        childSrc: ["'self'"],
+        styleSrc: ["'self'"],
         fontSrc: ["'self'"],
-        connectSrc: ["'self'", "https://platform.twitter.com"]
+        connectSrc: ["'self'"]
       }
     }
   }))
