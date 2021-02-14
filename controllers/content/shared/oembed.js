@@ -13,6 +13,7 @@ const oEmbed = async (data, renderMessages = [], options = {}) => {
   
         if (is.not.url(twitterUrl)) throw new Error('Indieweb field is not a URL')
         if (!twitterUrl.match('^http(s?)://twitter.com+')) return data
+        if (data[field + '_oembed_twitter']) return data // data has already been added
 
         let constructedUrl = 'https://publish.twitter.com/oembed?url=' + twitterUrl
 
