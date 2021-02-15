@@ -51,7 +51,8 @@ try {
         styleSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
         childSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
         fontSrc: ["'self'"],
-        connectSrc: ["'self'"]
+        connectSrc: ["'self'"],
+        objectSrc: ["'self'"]
       }
     }
   }))
