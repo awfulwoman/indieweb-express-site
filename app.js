@@ -46,6 +46,7 @@ try {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         styleSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
         childSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
