@@ -14,7 +14,7 @@ const siteProtocol = () => `${process.env['SITE_PROTOCOL'] || 'http'}://`
 const siteDomain = () => `${process.env['SITE_DOMAIN'] || '127.0.0.1'}`
 const siteUrl = () => `${siteProtocol()}${siteDomain()}`
 const siteLoginPath = () =>  process.env['SITE_LOGIN_PATH'] || '/login'
-const fileDateFormat = () => `yyyyLLdd't'HHmm`
+const fileDateFormat = () => `yyyyLLdd't'HHmmss`
 const keyboardCat = () => process.env['KEYBOARD_CAT'] || 'keyboardcatgetoffyoubastard'
 const twitterConsumerKey = () => process.env['TWITTER_CONSUMER_KEY']
 const twitterConsumerSecret = () => process.env['TWITTER_CONSUMER_SECRET']
