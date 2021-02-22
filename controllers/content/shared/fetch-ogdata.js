@@ -5,19 +5,17 @@ const ogs = require('open-graph-scraper');
 
 const fetchOgData = async (data, model, renderMessages = [], options = {}) => {
   try {
-
     const indiewebFields = ['bookmark_of']
-
 
     for (const field of indiewebFields) {
       // if the current field is a field in data
       if (Object.keys(data).includes(field)) {
         let currentUrl = data[field]
-        if (is.not.url(currentUrl)) throw new Error('Indieweb field is not a URL')        
+        if (is.not.url(currentUrl)) throw new Error('Indieweb field is not a URL')
         if (currentUrl.match('^http(s?)://twitter.com+')) return data // don't try this on twitter
 
         // Get data
-        let results = await ogs({url: currentUrl})
+        let results = await ogs({ url: currentUrl })
         // console.log('results: ', results)
 
         let result = results.result
