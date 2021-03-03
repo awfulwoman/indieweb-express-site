@@ -1,11 +1,11 @@
 <h1>{{statusIcon status}} HTTP {{statusCode}} {{statusIcon status}}</h1>
 
-{{{message}}}
+{{{contentHtml}}}
 
 {{#if debug}}
   {{#if rawError}}
-    <pre>
+    <code>
       {{rawError}}
-    </pre>
+    </code>
   {{/if}}
 {{/if}}
