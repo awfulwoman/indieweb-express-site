@@ -13,7 +13,7 @@ const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
 const syndication = require('../syndication')
-const webmention = require('../webmentions')
+// const webmention = require('../webmentions')
 
 const updatePost = (model, options = {}) => {
 
@@ -81,9 +81,9 @@ const updatePost = (model, options = {}) => {
         })
 
         debug('webmention url: ', readData.url)
-        await webmention.send(readData.url).catch((error) => {
-          throw error
-        })
+        // await webmention.send(readData.url).catch((error) => {
+        //   throw error
+        // })
 
         res.render(options.template || `content-create/default`, {
           data: { title: `/${model.modelDir}/${id} updated` },
