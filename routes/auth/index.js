@@ -23,7 +23,7 @@ router.get(config.siteLoginPath(), [renderNav], function(req, res){
 
   res.render('auth/method', {
     data: {title: 'Choose authentication method'},
-    content: null,
+    contentHtml: null,
     siteLoginPath: config.siteLoginPath()
   })
 })

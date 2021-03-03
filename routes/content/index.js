@@ -14,3 +14,4 @@ const repost = require('./types/repost')
 // Therefore base should always be last, as it operates at a higher path level than the others
 // i.e. /notes/1234 will take priority over /about/image.jpg
 module.exports = [article, bandname, bookmark, checkin, like, note, photo, quote, reply, repost, base]
+
