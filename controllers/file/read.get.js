@@ -6,56 +6,48 @@ const files = require('../../drivers/files')
 const Nodecache = require('node-cache')
 const sharp = require('sharp');
 const is = require('is_js');
-let fileCache = new Nodecache()
+const fileCache = new Nodecache()
 
-const readGet = (model, options) => {
+const readGet = (model) => {
   if (!model) throw new Error('No model specified')
-  
-  return asyncHandler(async (req, res, next) => {
+
+  return asyncHandler(async (req, res) => {
     if (!req.params.id) throw new Error('No item ID specified')
     if (!req.params.file) throw new Error('No filename specified')
 
     try {
-
-      let allowedImageSizes = [100, 300, 600, 900, 1200]
+      const allowedImageSizes = [100, 300, 600, 900, 1200]
 
       let resolvedId = req.params.id
       if (model.resolveAlias) resolvedId = await model.resolveAlias(resolvedId)
 
-      let cacheKey = `${model.modelDir}/${resolvedId}/${req.params.file}${req.params.size ? '/' + req.params.size : ''}`
+      const cacheKey = `${model.modelDir}/${resolvedId}/${req.params.file}${req.params.size ? '/' + req.params.size : ''}`
 
-      let fileType = mime.lookup(req.params.file) || 'application/octet-stream'
+      const fileType = mime.lookup(req.params.file) || 'application/octet-stream'
       if (fileType) res.set('Content-Type', fileType)
 
-      let imageWidth = req.params.size && is.inArray(parseInt(req.params.size), allowedImageSizes) ? parseInt(req.params.size) : 100
+      const imageWidth = req.params.size && is.inArray(parseInt(req.params.size), allowedImageSizes) ? parseInt(req.params.size) : 100
 
-      switch (fileCache.has(cacheKey)) {
-        case true:
-          debug(`calling ${cacheKey} from cache`)
-          let buffer = fileCache.get(cacheKey)
-          // debug('image size: ', buffer.length)
-          res.set('Content-Length', buffer.length)
-          res.send(buffer)
-          break
-
-        case false:
-          let readStream = await files.read(model.modelDir, resolvedId, req.params.file)
-
-          const generatedImage = await sharp(readStream)
-            .rotate()
-            .resize({ width: imageWidth })
-            .toBuffer()
-          fileCache.set(cacheKey, generatedImage)
-          // debug('image size: ', generatedImage.length)
-          res.set('Content-Length', generatedImage.length)
-          res.send(generatedImage)
-          break
-
-        default:
-          throw new Error('Should never get here')
-          break
+      if (fileCache.has(cacheKey)) {
+        debug(`calling ${cacheKey} from cache`)
+        const buffer = fileCache.get(cacheKey)
+        // debug('image size: ', buffer.length)
+        res.set('Content-Length', buffer.length)
+        res.send(buffer)
       }
 
+      if (!fileCache.has(cacheKey)) {
+        const readStream = await files.read(model.modelDir, resolvedId, req.params.file)
+
+        const generatedImage = await sharp(readStream)
+          .rotate()
+          .resize({ width: imageWidth })
+          .toBuffer()
+        fileCache.set(cacheKey, generatedImage)
+        // debug('image size: ', generatedImage.length)
+        res.set('Content-Length', generatedImage.length)
+        res.send(generatedImage)
+      }
     } catch (error) {
       throw new AppError(404, 'File not found', error)
     }

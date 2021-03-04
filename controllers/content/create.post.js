@@ -12,7 +12,7 @@ const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
 const { create } = require('../../drivers/markdown')
-const webmention = require('../webmentions')
+// const webmention = require('../webmentions')
 
 const createPost = (model, options = {}) => {
 
@@ -75,7 +75,7 @@ const createPost = (model, options = {}) => {
         if (req.body.manual_syndication) shared.syndicationManual(model, id, req.body.manual_syndication, renderMessages)
 
         await model.read(id).catch((error) => { throw error }) // Read to set up cache
-        await webmention.send(data.url).catch((error) => { throw error })
+        // await webmention.send(data.url).catch((error) => { throw error })
 
         res.render(options.template || `content-create/default`, {
           data: { title: `/${model.modelDir}/${id} created` },
