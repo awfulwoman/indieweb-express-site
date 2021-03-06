@@ -1,4 +1,4 @@
-const debug = require('debug')('indieweb-express-site:controller:quote')
+const debug = require('debug')('indieweb-express-site:routes:content:types:quote')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
@@ -12,7 +12,7 @@ const page = require('../../../models/types/page.model')
 const renderNav = require('../../../middleware/render-nav')
 
 // 🖕 Middleware
-const {fileController, contentController, feedController} = require('../../../controllers')
+const { fileController, contentController, feedController, archiveController } = require('../../../controllers')
 const checkAuthentication = require('../../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')

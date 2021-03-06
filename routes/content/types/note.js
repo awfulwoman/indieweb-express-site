@@ -1,4 +1,4 @@
-const debug = require('debug')('indieweb-express-site:controller:note')
+const debug = require('debug')('indieweb-express-site:routes:content:types:note')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()

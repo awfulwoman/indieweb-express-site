@@ -1,4 +1,4 @@
-const debug = require('debug')('indieweb-express-site:controller:article')
+const debug = require('debug')('indieweb-express-site:routes:content:types::article')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
@@ -12,7 +12,7 @@ const page = require('../../../models/types/page.model')
 const renderNav = require('../../../middleware/render-nav')
 
 // 🖕 Middleware
-const {fileController, contentController, feedController} = require('../../../controllers')
+const {fileController, contentController, feedController, archiveController} = require('../../../controllers')
 const checkAuthentication = require('../../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')
@@ -24,7 +24,6 @@ const createSanitizers = require('../../../controllers/sanitizers')
 const localValidators = [
   body('content').notEmpty().withMessage(`You need to write some content`)
 ]
-
 
 // 🔐 Protected admin routes 
 router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], contentController.createGet(model))

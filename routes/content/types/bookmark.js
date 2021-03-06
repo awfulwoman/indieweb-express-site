@@ -1,4 +1,4 @@
-const debug = require('debug')('indieweb-express-site:controller:bookmark')
+const debug = require('debug')('indieweb-express-site:routes:content:types:bookmark')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
@@ -12,7 +12,7 @@ const page = require('../../../models/types/page.model')
 const renderNav = require('../../../middleware/render-nav')
 
 // 🖕 Middleware
-const {fileController, contentController, feedController} = require('../../../controllers')
+const { fileController, contentController, feedController, archiveController } = require('../../../controllers')
 const checkAuthentication = require('../../../middleware/check-authentication')
 
 const bodyParser = require('body-parser')
@@ -53,7 +53,6 @@ router.get(`/${model.modelDir}/archive/:year?/:month?/:day?`, [renderNav], async
 
 // 📌 Index
 router.get(`/${model.modelDir}`, [renderNav], asyncHandler(async (req, res) => {
-  debug(req)
   try {
     const results = await contentController.readGet(page, { id: model.modelDir, children: model.recentIndex })
     res.render('content-public/index', results)
