@@ -35,8 +35,8 @@ const logger = winston.createLogger({
   ),
   defaultMeta: { service: 'indieweb-express-site' },
   transports: [
-    errors,
-    combined
+    // errors,
+    // combined
   ]
 })
 
