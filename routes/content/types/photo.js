@@ -51,7 +51,7 @@ router.get(`/${model.modelDir}`, [renderNav], asyncHandler(async (req, res) => {
   try {
     const results = await contentController.readGet(page, { id: model.modelDir, children: model.recentIndex })
     res.render('content-public/index', results)
-  } catch (error) { throw new AppError(404) }
+  } catch (error) { throw new AppError(404, null, error) }
 }))
 
 // 📍 Children
@@ -59,7 +59,7 @@ router.get(`/${model.modelDir}/:id`, [renderNav], asyncHandler(async (req, res) 
   try {
     const results = await contentController.readGet(model, { id: req.params.id })
     res.render(`content-public/types/${model.id}`, results)
-  } catch (error) { throw new AppError(404) }
+  } catch (error) { throw new AppError(404, null, error) }
 }))
 
 // 📎 Attached files
