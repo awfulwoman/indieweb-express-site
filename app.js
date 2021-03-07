@@ -137,6 +137,11 @@ try {
   app.use(middleware.renderUsers) // Make user info available to every render
   app.use(middleware.renderDebug) // Make debug status available to every render
   app.use(middleware.renderBuildTime) // Add (satic) buildtime to every render
+
+  //
+  // HTTP LOGGING
+  // ------------
+
   const accessLogStream = rfs.createStream('access.log', {
     interval: '1d', // rotate daily
     path: config.logDir()
@@ -149,7 +154,8 @@ try {
 
   app.use(morgan('combined', { stream: accessLogStream }))
 
-  // LOGGING
+  //
+  // APP LOGGING
   // ------
   // app.use(logger('dev'));
 

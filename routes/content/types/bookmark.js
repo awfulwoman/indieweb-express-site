@@ -64,7 +64,7 @@ router.get(`/${model.modelDir}/:id`, [renderNav], asyncHandler(async (req, res) 
   try {
     const results = await contentController.readGet(model, { id: req.params.id })
     res.render(`content-public/types/${model.id}`, results)
-  } catch (error) { throw new AppError(404) }
+  } catch (error) { throw new AppError(404, null, error) }
 }))
 
 // 📎 Attached files
