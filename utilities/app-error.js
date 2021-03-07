@@ -6,10 +6,10 @@ const debug = require('debug')('indieweb-express-site:utilities:AppError')
 
 class AppError extends Error {
   constructor(statusCode, message, rawError) {
-    // logger.error({
-    //   message: message || 'NO MESSAGE SUPPLIED',
-    //   error: rawError || 'NO ERROR SUPPLIED'
-    // })
+    logger.error({
+      message: message || 'NO MESSAGE SUPPLIED',
+      error: rawError || 'NO ERROR SUPPLIED'
+    })
     super()
     this.statusCode = statusCode
     this.message = message
