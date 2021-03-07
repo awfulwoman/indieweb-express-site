@@ -6,7 +6,7 @@ const logger = require('../config.winston')
 
 class AppError extends Error {
   constructor(statusCode, message, rawError) {
-    logger.error({ 
+    logger.error({
       message: message || 'NO MESSAGE SUPPLIED',
       error: rawError || 'NO ERROR SUPPLIED'
     })

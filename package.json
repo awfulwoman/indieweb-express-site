@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@sindresorhus/slugify": "^1.1.0",
+    "@whalecoiner/tweet2svg": "^1.0.0",
     "@whalecoiner/webmention-endpoint-discovery": "^1.0.0",
     "@whalecoiner/webmention-find-links": "^1.0.0",
     "@whalecoiner/webmention-simple-dispatch": "^1.0.0",
@@ -95,6 +96,8 @@
     "tall": "^3.1.0",
     "uuid": "^8.3.0",
     "validator": "^13.1.17",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0",
     "write": "^2.0.0"
   },
   "devDependencies": {

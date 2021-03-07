@@ -1,6 +1,26 @@
 const winston = require('winston')
+require('winston-daily-rotate-file')
 const path = require('path')
 const config = require('./config')
+
+// - Write all logs with level `error` and below to `error.log`
+const errors = new winston.transports.DailyRotateFile({
+  filename: path.join(config.logDir(), 'error-%DATE%.log'),
+  level: 'error',
+  datePattern: 'YYYY-MM-DD-HH',
+  zippedArchive: true,
+  maxSize: '20m',
+  maxFiles: '14d'
+})
+
+// - Write all logs with level `info` and below to `combined.log`
+const combined = new winston.transports.DailyRotateFile({
+  filename: path.join(config.logDir(), 'combined-%DATE%.log'),
+  datePattern: 'YYYY-MM-DD-HH',
+  zippedArchive: true,
+  maxSize: '20m',
+  maxFiles: '14d'
+})
 
 const logger = winston.createLogger({
   level: 'info',
@@ -15,10 +35,8 @@ const logger = winston.createLogger({
   ),
   defaultMeta: { service: 'indieweb-express-site' },
   transports: [
-    // - Write all logs with level `error` and below to `error.log`
-    new winston.transports.File({ filename: path.join(config.logDir(), 'error.log'), level: 'error' }),
-    // - Write all logs with level `info` and below to `combined.log`
-    new winston.transports.File({ filename: path.join(config.logDir(), 'combined.log') })
+    errors,
+    combined
   ]
 })
 
@@ -29,7 +47,7 @@ if (process.env.NODE_ENV !== 'production') {
       winston.format.printf(info =>
         `${info.level} [${info.timestamp}]: ${info.message} ${info.error ? '\n' + info.error : null}`
       )
-    ),
+    )
   }))
 }
 
