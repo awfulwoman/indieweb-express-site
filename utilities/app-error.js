@@ -1,5 +1,5 @@
 const debug = require('debug')('indieweb-express-site:utilities:AppError')
-// const logger = require('../config.winston')
+const logger = require('../config.winston')
 
 // Shows a debug message for a throw error
 // Emits a statusCode, message, and rawError that can be rendered by other functions
