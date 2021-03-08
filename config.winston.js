@@ -5,9 +5,9 @@ const config = require('./config')
 
 // - Write all logs with level `error` and below to `error.log`
 const errors = new winston.transports.DailyRotateFile({
-  filename: path.join(config.logDir(), 'error-%DATE%.log'),
+  filename: path.join(config.logDir(), 'app', 'error-%DATE%.log'),
   level: 'error',
-  datePattern: 'YYYY-MM-DD-HH',
+  datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '14d'
@@ -15,7 +15,7 @@ const errors = new winston.transports.DailyRotateFile({
 
 // - Write all logs with level `info` and below to `combined.log`
 const combined = new winston.transports.DailyRotateFile({
-  filename: path.join(config.logDir(), 'combined-%DATE%.log'),
+  filename: path.join(config.logDir(), 'app', 'combined-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
