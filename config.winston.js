@@ -16,7 +16,7 @@ const errors = new winston.transports.DailyRotateFile({
 // - Write all logs with level `info` and below to `combined.log`
 const combined = new winston.transports.DailyRotateFile({
   filename: path.join(config.logDir(), 'combined-%DATE%.log'),
-  datePattern: 'YYYY-MM-DD-HH',
+  datePattern: 'YYYY-MM-DD',
   zippedArchive: true,
   maxSize: '20m',
   maxFiles: '14d'
