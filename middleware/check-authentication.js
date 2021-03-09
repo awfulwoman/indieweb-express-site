@@ -1,8 +1,8 @@
 const config = require('../config')
 
 const checkAuthentication = function (req, res, next) {
-  if (req.isAuthenticated() || process.env.DEBUG) {
-  // if (req.isAuthenticated()) {
+  // if (req.isAuthenticated() || process.env.DEBUG) {
+  if (req.isAuthenticated()) {
     res.locals.admin = true
     next()
   } else {

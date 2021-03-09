@@ -3,6 +3,8 @@ const debug = require('debug')('indieweb-express-site:app')
 const path = require('path')
 const fs = require('fs')
 const chalk = require('chalk')
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
 const config = require('./config')
 const utilities = require('./utilities')
 const users = require('./models/user')
@@ -44,7 +46,7 @@ try {
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", "whalecoiner.net", "whalecoiner.org", "sonniesedge.net", "sonniesedge.co.uk" ],
+        defaultSrc: ["'self'", "whalecoiner.net", "whalecoiner.org", "sonniesedge.net", "sonniesedge.co.uk"],
         imgSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         styleSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
@@ -111,6 +113,21 @@ try {
     // deserialize out of session token and into a full user object
     callback(null, users.getAppUserObjFromAppId(userAppId))
   })
+
+  const maxAge = 2 * 24 * 60 * 60 * 1000 // two days in milliseconds
+  app.use(session({
+    secret: config.keyboardCat(),
+    // resave: true,
+    // saveUninitialized: true,
+    cookie: {
+      maxAge: maxAge
+    },
+    store: new FileStore({
+      path: config.dataRoot() + '/sessions',
+      ttl: maxAge,
+      secret: config.keyboardCat()
+    })
+  }))
 
 
   app.use(passport.initialize()) // Initialize Passport in Express.

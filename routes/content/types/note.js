@@ -12,7 +12,7 @@ const page = require('../../../models/types/page.model')
 
 // 🖕 Middleware
 const { fileController, contentController, feedController, archiveController } = require('../../../controllers')
-const {checkAuthentication, session} = require('../../../middleware')
+const {checkAuthentication} = require('../../../middleware')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const processFiles = require('../../../middleware/process-files')
