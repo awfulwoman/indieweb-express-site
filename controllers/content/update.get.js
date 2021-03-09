@@ -2,7 +2,7 @@ const debug = require('debug')('indieweb-express-site:controllers:content:update
 const asyncHandler = require('express-async-handler')
 const is = require('is_js')
 
-const normalizeFormState = require('../../utilities/form-normalize-state')
+const normalizeFormState = require('./shared/form-normalize-state')
 const config = require('../../config')
 
 const updateGet = (model, options = {}) => {

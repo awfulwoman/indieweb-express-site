@@ -6,8 +6,8 @@ const is = require('is_js')
 const moveFile = require('move-file')
 const path = require('path')
 
-const normalizeFormState = require('../../utilities/form-normalize-state')
-const normalizeFormErrors = require('../../utilities/form-normalize-errors')
+const normalizeFormState = require('./shared/form-normalize-state')
+const normalizeFormErrors = require('./shared/form-normalize-errors')
 
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
