@@ -8,9 +8,18 @@ const renderBuildTime = require('./render-buildtime')
 const renderDebug = require('./render-debug')
 const renderNav = require('./render-nav')
 const renderUsers = require('./render-users')
+const isAdmin = require('./is-admin')
 
 module.exports = {
-  requireAuthentication, render404, renderErrors,
-  renderBuildTime, renderDebug, renderNav, session,
-  renderUsers, processFiles, processUploadedFiles
+  requireAuthentication,
+  render404,
+  renderErrors,
+  renderBuildTime,
+  renderDebug,
+  renderNav,
+  session,
+  renderUsers,
+  processFiles,
+  processUploadedFiles,
+  isAdmin
 }

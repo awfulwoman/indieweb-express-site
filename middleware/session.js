@@ -9,8 +9,8 @@ const maxAge = 2 * 24 * 60 * 60 * 1000 // two days in milliseconds
 
 const sessionMiddleware = session({
   secret: config.keyboardCat(),
-  // resave: true,
-  // saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   cookie: {
     maxAge: maxAge
   },
