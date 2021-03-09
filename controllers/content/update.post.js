@@ -6,9 +6,6 @@ const is = require('is_js')
 const moveFile = require('move-file')
 const path = require('path')
 
-const normalizeFormState = require('./shared/form-normalize-state')
-const normalizeFormErrors = require('./shared/form-normalize-errors')
-
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
@@ -28,8 +25,8 @@ const updatePost = (model, options = {}) => {
       debug('ID: ', id)
 
       // These will go back to the form if there are errors
-      formState = normalizeFormState(req)
-      formErrors = normalizeFormErrors(req)
+      formState = shared.formNormalizeState(req)
+      formErrors = shared.formNormalizeErrors(req)
 
       debug('formState: ', formState)
       debug('formErrors: ', formErrors)

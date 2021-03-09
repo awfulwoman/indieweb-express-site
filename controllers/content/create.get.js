@@ -4,6 +4,7 @@ const is = require('is_js')
 const tall = require('tall').tall
 
 const config = require('../../config')
+const shared = require('./shared')
 
 const createGet = (model, options = {}) => {
   return asyncHandler(async (req, res) => {
@@ -27,20 +28,21 @@ const createGet = (model, options = {}) => {
     formState.reply_to = resolvedUrl
     formState.repost_of = resolvedUrl
 
-    // Convert config array of silos into an array of objects
-    const syndicationSilosMissingObj = Array.from(config.silos(), x => {
-      const syndicationObj = { id: x }
-      if (syndicationObj.id === 'twitter' && resolvedUrl && resolvedUrl.match('^http(s?)://twitter.com+')) {
-        syndicationObj.syndicate = true
-      }
-      return syndicationObj
-    })
+    const syndicationSilos = shared.syndicationSilos(config.silos(), resolvedUrl)
+
+    // return {
+    //   data: {
+    //     title: `Create new ${model.id}`
+    //   },
+    //   state: formState,
+    //   syndicationSilosMissing: missingSilos
+    // }
 
     // Check to see if any form items should be prefilled
     res.render(options.template || `content-create/types/${model.id}`, {
       data: { title: `Create new ${model.id}` },
       state: formState,
-      syndicationSilosMissing: syndicationSilosMissingObj
+      syndicationSilosMissing: syndicationSilos
     })
   })
 }

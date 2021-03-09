@@ -5,9 +5,6 @@ const is = require('is_js')
 const path = require('path')
 const { DateTime } = require('luxon')
 
-const normalizeFormState = require('./shared/form-normalize-state')
-const normalizeFormErrors = require('./shared/form-normalize-errors')
-
 const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
@@ -16,9 +13,6 @@ const { create } = require('../../drivers/markdown')
 
 const createPost = (model, options = {}) => {
 
-  // return async createPostRenderer(req, res) => {
-
-  // }
   return asyncHandler(async (req, res) => {
     let formState = {}
     let formErrors = {}
@@ -26,8 +20,8 @@ const createPost = (model, options = {}) => {
 
     try {
       // These will go back to the form if there are errors
-      formState = normalizeFormState(req)
-      formErrors = normalizeFormErrors(req)
+      formState = shared.formNormalizeState(req)
+      formErrors = shared.formNormalizeErrors(req)
 
       debug('formstate: ', formState)
       debug('formErrors: ', formErrors)

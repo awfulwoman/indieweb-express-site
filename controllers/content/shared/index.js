@@ -5,5 +5,17 @@ const syndicationAuto = require('./syndication-auto')
 const syndicationManual = require('./syndication-manual')
 const formNormalizeErrors = require('./form-normalize-errors')
 const formNormalizeState = require('./form-normalize-state')
+const syndicationSilos = require('./syndication-silos')
+const syndicationSilosMissing = require('./syndication-silos-missing')
 
-module.exports = {fileUploads, metadata, syndicationAuto, syndicationManual, oEmbed, formNormalizeErrors, formNormalizeState }
+module.exports = {
+  fileUploads,
+  metadata,
+  syndicationAuto,
+  syndicationManual,
+  oEmbed,
+  formNormalizeErrors,
+  formNormalizeState,
+  syndicationSilos,
+  syndicationSilosMissing
+}
