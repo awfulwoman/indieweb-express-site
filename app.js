@@ -112,14 +112,13 @@ try {
     callback(null, users.getAppUserObjFromAppId(userAppId))
   })
 
-
   app.use(middleware.session)
   app.use(passport.initialize()) // Initialize Passport in Express.
   app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
-  app.use(middleware.isAdmin)
+  app.use(middleware.isAdmin) // Determine if the user is an admin
   app.use(middleware.renderUsers) // Make user info available to every render
   app.use(middleware.renderDebug) // Make debug status available to every render
-  app.use(middleware.renderBuildTime) // Add (satic) buildtime to every render
+  app.use(middleware.renderBuildTime) // Add (static) buildtime to every render
 
   //
   // HTTP LOGGING
@@ -127,7 +126,7 @@ try {
 
   const accessLogStream = rfs.createStream('access.log', {
     interval: '1d', // rotate daily
-    path: config.logDir()
+    path: path(config.logDir(), 'http')
   })
 
   // log only 4xx and 5xx responses to console
@@ -140,7 +139,7 @@ try {
   //
   // APP LOGGING
   // ------
-  // app.use(logger('dev'));
+  // See config.winston.js
 
   //
   // ROUTES
