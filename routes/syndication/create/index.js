@@ -4,13 +4,13 @@ const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const is = require('is_js')
 const syndication= require('../../../controllers/syndication')
-const {checkAuthentication} = require('../../../middleware')
+const {requireAuthentication} = require('../../../middleware')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
 
 // 🔓 Private routes
-router.post(`/create`, [checkAuthentication, urlencodedParser], asyncHandler(async (req, res, next) => {
+router.post(`/create`, [requireAuthentication, urlencodedParser], asyncHandler(async (req, res, next) => {
   // An app endpoint which receives a POSTed destination and a key-value pairs of target and source. 
   // It POSTs a webmention to the target with the payload as url-encoded form data.
   // Responds with success or failure

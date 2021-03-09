@@ -12,7 +12,7 @@ const page = require('../../../models/types/page.model')
 
 // 🖕 Middleware
 const { fileController, contentController, feedController, archiveController } = require('../../../controllers')
-const {checkAuthentication} = require('../../../middleware')
+const {requireAuthentication} = require('../../../middleware')
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const processFiles = require('../../../middleware/process-files')
@@ -29,16 +29,16 @@ const localValidators = [
 // ---------------------
 
 // Create
-router.get(`/${model.modelDir}/create`, [renderNav, checkAuthentication], contentController.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, processFiles.any(), processUploadedFiles, urlencodedParser, checkAuthentication, createValidators, localValidators, createSanitizers], contentController.createPost(model))
+router.get(`/${model.modelDir}/create`, [renderNav, requireAuthentication], contentController.createGet(model))
+router.post(`/${model.modelDir}/create`, [renderNav, processFiles.any(), processUploadedFiles, urlencodedParser, requireAuthentication, createValidators, localValidators, createSanitizers], contentController.createPost(model))
 
 // Update
-router.get(`/${model.modelDir}/:id/edit`, [renderNav, checkAuthentication], contentController.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav, processFiles.any(), processUploadedFiles, urlencodedParser, checkAuthentication, createValidators, localValidators, createSanitizers], contentController.updatePost(model))
+router.get(`/${model.modelDir}/:id/edit`, [renderNav, requireAuthentication], contentController.updateGet(model))
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, processFiles.any(), processUploadedFiles, urlencodedParser, requireAuthentication, createValidators, localValidators, createSanitizers], contentController.updatePost(model))
 
 // Delete
-// router.get(`/${model.modelDir}/:id/delete`, [renderNav, checkAuthentication], contentController.deleteGet(model))
-// router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, checkAuthentication], contentController.deletePost(model))
+// router.get(`/${model.modelDir}/:id/delete`, [renderNav, requireAuthentication], contentController.deleteGet(model))
+// router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, requireAuthentication], contentController.deletePost(model))
 
 // ---------------------
 // 🔓 Public routes

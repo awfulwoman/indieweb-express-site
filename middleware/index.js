@@ -1,4 +1,4 @@
-const checkAuthentication = require('./check-authentication')
+const requireAuthentication = require('./require-authentication')
 const render404 = require('./render-404')
 const renderErrors = require('./render-errors')
 const processFiles = require('./process-files')
@@ -10,7 +10,7 @@ const renderNav = require('./render-nav')
 const renderUsers = require('./render-users')
 
 module.exports = {
-  checkAuthentication, render404, renderErrors,
+  requireAuthentication, render404, renderErrors,
   renderBuildTime, renderDebug, renderNav, session,
   renderUsers, processFiles, processUploadedFiles
 }

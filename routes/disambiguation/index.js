@@ -1,7 +1,7 @@
 const debug = require('debug')('indieweb-express-site:routes:disambiguation')
 const asyncHandler = require('express-async-handler')
 const renderNav = require('../../middleware/render-nav')
-const checkAuthentication = require('../../middleware/check-authentication')
+const requireAuthentication = require('../../middleware/require-authentication')
 const multer = require('multer')
 const upload = multer()
 
@@ -13,7 +13,7 @@ const router = express.Router()
 const models = require('../../models')
 
 // 🔓 Public routes 
-router.get(`/disambiguation`, [checkAuthentication], asyncHandler(async (req, res, next) => {
+router.get(`/disambiguation`, [requireAuthentication], asyncHandler(async (req, res, next) => {
   try {
 
     let form_state = {}
@@ -32,7 +32,7 @@ router.get(`/disambiguation`, [checkAuthentication], asyncHandler(async (req, re
   }
 }))
 
-router.post(`/disambiguation`, [upload.none(), checkAuthentication], asyncHandler(async (req, res, next) => {
+router.post(`/disambiguation`, [upload.none(), requireAuthentication], asyncHandler(async (req, res, next) => {
   try {
     let form_state = {}
 

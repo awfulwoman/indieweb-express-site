@@ -1,13 +1,13 @@
 const config = require('../config')
 
-const checkAuthentication = function (req, res, next) {
+const requireAuthentication = function (req, res, next) {
   // if (req.isAuthenticated() || process.env.DEBUG) {
   if (req.isAuthenticated()) {
-    res.locals.admin = true
+    // res.locals.admin = true
     next()
   } else {
     res.redirect(config.siteLoginPath() + '?redirectPath=' + req.route.path);
   }
 }
 
-module.exports = checkAuthentication
+module.exports = requireAuthentication
