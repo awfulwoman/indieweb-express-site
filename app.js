@@ -126,7 +126,7 @@ try {
 
   const accessLogStream = rfs.createStream('access.log', {
     interval: '1d', // rotate daily
-    path: path(config.logDir(), 'http')
+    path: path.join(config.logDir(), 'http')
   })
 
   // log only 4xx and 5xx responses to console
