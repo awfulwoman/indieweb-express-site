@@ -7,8 +7,7 @@ const router = express.Router()
 const asyncHandler = require('express-async-handler')
 
 // 🖕 Middleware
-const checkAuthentication = require('../../../middleware/check-authentication')
-
+const {checkAuthentication, session} = require('../../../middleware')
 // utilities
 const dispatch = require('@whalecoiner/webmention-simple-dispatch')
 

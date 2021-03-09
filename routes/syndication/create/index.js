@@ -4,8 +4,7 @@ const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 const is = require('is_js')
 const syndication= require('../../../controllers/syndication')
-const checkAuthentication = require('../../../middleware/check-authentication')
-
+const {checkAuthentication, session} = require('../../../middleware')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()

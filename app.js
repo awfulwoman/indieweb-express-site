@@ -22,8 +22,7 @@ const customHelpers = require('./helpers')
 // 🏃‍♀️💨 Express app
 const express = require('express')
 const helmet = require('helmet')
-const session = require('express-session')
-const FileStore = require('session-file-store')(session)
+
 const staticify = require('staticify')(path.join(__dirname, 'public'))
 const middleware = require('./middleware')
 const routes = require('./routes')
@@ -70,24 +69,6 @@ try {
     compilerOptions: {
       preventIndent: true
     }
-  }))
-
-  // AUTHENTICATION + SESSIONS
-  // -----------------------
-
-  const maxAge = 2 * 24 * 60 * 60 * 1000 // two days in milliseconds
-  app.use(session({
-    secret: config.keyboardCat(),
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: maxAge
-    },
-    store: new FileStore({
-      path: config.dataRoot() + '/sessions',
-      ttl: maxAge,
-      secret: config.keyboardCat()
-    })
   }))
 
   const TwitterStrategy = require('passport-twitter').Strategy
