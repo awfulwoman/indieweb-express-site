@@ -39,13 +39,24 @@ const logger = winston.createLogger({
   ]
 })
 
+function errorReplacer(value) {
+  if (value instanceof Error) {
+    return value.stack
+  }
+  return value
+}
+
 if (process.env.NODE_ENV !== 'production') {
   logger.add(new winston.transports.Console({
     format: winston.format.combine(
+      winston.format.errors({ stack: true }),
       winston.format.colorize(),
-      winston.format.printf(info =>
-        `${info.level} [${info.timestamp}]: ${info.message} ${info.error ? '\n' + info.error : null}`
-      )
+      winston.format.splat(),
+      winston.format.printf((item) => {
+        // console.log(item)
+        if (item.error) return `${item.timestamp} ${item.level}: ${item.message} \n ${errorReplacer(item.error)}`
+        return `${item.timestamp} ${item.level}: ${item.message}`
+      })
     )
   }))
 }

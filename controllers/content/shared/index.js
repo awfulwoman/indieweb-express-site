@@ -3,8 +3,8 @@ const metadata = require('./metadata')
 const oEmbed = require('./oembed')
 const syndicationAuto = require('./syndication-auto')
 const syndicationManual = require('./syndication-manual')
-const formNormalizeErrors = require('./form-normalize-errors')
-const formNormalizeState = require('./form-normalize-state')
+const flattenFormErrors = require('./flatten-form-errors')
+const flattenFormBody = require('./flatten-form-body')
 const syndicationSilos = require('./syndication-silos')
 const syndicationSilosMissing = require('./syndication-silos-missing')
 
@@ -14,8 +14,8 @@ module.exports = {
   syndicationAuto,
   syndicationManual,
   oEmbed,
-  formNormalizeErrors,
-  formNormalizeState,
+  flattenFormErrors,
+  flattenFormBody,
   syndicationSilos,
   syndicationSilosMissing
 }

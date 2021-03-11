@@ -85,7 +85,7 @@ const updatePost = (model, options = {}) => {
         res.render(options.template || `content-create/default`, {
           data: { title: `/${model.modelDir}/${id} updated` },
           content: `/${model.modelDir}/${id} was successfully updated!`,
-          messages: renderMessages,
+          log: renderMessages,
           url: `/${model.modelDir}/${id}`
         })
       }
@@ -95,7 +95,7 @@ const updatePost = (model, options = {}) => {
       res.render(options.template || `content-create/default`, {
         data: { title: `Update failed` },
         content: `Update encountered errors.`,
-        messages: renderMessages,
+        log: renderMessages,
         rawError: error
       })
     }

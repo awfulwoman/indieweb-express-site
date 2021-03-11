@@ -2,7 +2,7 @@ const debug = require('debug')('indieweb-express-site:routes:content:types::arti
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
-const { body } = require('express-validator')
+const { body, validationResult, matchedData } = require('express-validator')
 const asyncHandler = require('express-async-handler')
 const AppError = require('../../../utilities/app-error')
 
@@ -12,26 +12,93 @@ const page = require('../../../models/types/page.model')
 const renderNav = require('../../../middleware/render-nav')
 
 // 🖕 Middleware
-const {fileController, contentController, feedController, archiveController} = require('../../../controllers')
-const {requireAuthentication} = require('../../../middleware')
+const { fileController, contentController, feedController, archiveController } = require('../../../controllers')
+const { requireAuthentication } = require('../../../middleware')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-const createValidators = require('../../../controllers/validators')
-const createSanitizers = require('../../../controllers/sanitizers')
+// const createValidators = require('../../../controllers/validators')
+const globalSanitizers = require('../../../controllers/sanitizers')
 
 const localValidators = [
-  body('content').notEmpty().withMessage(`You need to write some content`)
+  body('created').optional({ checkFalsy: true }),
+  body('modified').optional({ checkFalsy: true }),
+  body('place[latlng]').optional({ checkFalsy: true }).isLatLong(),
+  body('bookmark_of').optional({ checkFalsy: true }).isURL(),
+  body('like_of').optional({ checkFalsy: true }).isURL(),
+  body('quote_of').optional({ checkFalsy: true }).isURL(),
+  body('repost_of').optional({ checkFalsy: true }).isURL(),
+  body('reply_to').optional({ checkFalsy: true }).isURL(),
+  body('add_like').optional({ checkFalsy: true }),
+  body('images.*.alt').optional({ checkFalsy: true }),
+  body('images.*.file').optional({ checkFalsy: true }),
+  body('images.*.width').optional({ checkFalsy: true }),
+  body('images.*.height').optional({ checkFalsy: true }),
+  body('images.*.size').optional({ checkFalsy: true }),
+  body('guid').optional({ checkFalsy: true }),
+  body('title').notEmpty().withMessage('You need to add a title'),
+  // body('slug').notEmpty().withMessage('You need to add a slug'),
+  // body('strapline').notEmpty().withMessage('You need to add a strapline'),
+  body('strapline').optional({ checkFalsy: true }),
+  body('content').notEmpty().withMessage('You need to write some content')
 ]
 
+// -------------------------
 // 🔐 Protected admin routes
-router.get(`/${model.modelDir}/create`, [renderNav, requireAuthentication], contentController.createGet(model))
-router.post(`/${model.modelDir}/create`, [renderNav, urlencodedParser, requireAuthentication, createValidators, localValidators, createSanitizers], contentController.createPost(model))
-router.get(`/${model.modelDir}/:id/edit`, [renderNav, requireAuthentication], contentController.updateGet(model))
-router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, requireAuthentication, createValidators, localValidators, createSanitizers], contentController.updatePost(model))
-// router.get(`/${model.modelDir}/:id/delete`, [renderNav, requireAuthentication], contentController.deleteGet(model))
-// router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, requireAuthentication], contentController.deletePost(model))
+// -------------------------
+
+// Create (GET)
+router.get(`/${model.modelDir}/create`, [requireAuthentication], asyncHandler(async (req, res) => {
+  try {
+    const results = await contentController.createGet({ model: model, query: req.query })
+    res.render(`content-create/types/${model.id}`, results)
+  } catch (error) { throw new AppError(404, `Could not load /${model.modelDir}/create`, error) }
+}))
+
+// Create (POST)
+const createPostMiddleware = [requireAuthentication, urlencodedParser, localValidators, globalSanitizers]
+router.post(`/${model.modelDir}/create`, createPostMiddleware, asyncHandler(async (req, res) => {
+  try {
+    const results = await contentController.createPost({ model: model, sanitizedData: matchedData(req), errors: validationResult(req), body: req.body })
+    req.flash('info', results.messages)
+    req.session.save(() => res.redirect(results.url))
+  } catch (error) {
+    error.contentErrors.data = { title: 'Create failed' }
+    error.contentMarkdown = 'Create encountered errors.'
+    res.render(`content-create/types/${model.id}`, error.contentErrors)
+  }
+}))
+
+// Update (GET)
+router.get(`/${model.modelDir}/:id/edit`, [renderNav, requireAuthentication], asyncHandler(async (req, res) => {
+  try {
+    const results = await contentController.updateGet(model)
+    res.render(`content-create/types/${model.id}`, results)
+  } catch (error) { throw new AppError(404, `Could not load /${model.modelDir}/edit/${req.params.id}`, error) }
+}))
+
+// Update (POST)
+router.post(`/${model.modelDir}/:id/edit`, [renderNav, urlencodedParser, requireAuthentication, localValidators, globalSanitizers], asyncHandler(async (req, res) => {
+  try {
+    const results = await contentController.updatePost(model)
+    res.render(`content-create/types/${model.id}`, results)
+  } catch (error) { throw new AppError(404, `Could not load /${model.modelDir}/edit/${req.params.id}`, error) }
+}))
+
+// router.get(`/${model.modelDir}/:id/delete`, [renderNav, requireAuthentication], asyncHandler(async (req, res) => {
+//   try {
+//     const results = await contentController.deleteGet(model)
+//     res.render(`content-create/types/${model.id}`, results)
+//   } catch (error) { throw new AppError(404, `Could not load /${model.modelDir}/delete/${req.params.id}`, error) }
+// }))
+
+// router.post(`/${model.modelDir}/:id/delete`, [renderNav, urlencodedParser, requireAuthentication, createValidators, localValidators, globalSanitizers], asyncHandler(async (req, res) => {
+//   try {
+//     const results = await contentController.deletePost(model)
+//     res.render(`content-create/types/${model.id}`, results)
+//   } catch (error) { throw new AppError(404, `Could not load /${model.modelDir}/delete/${req.params.id}`, error) }
+// }))
 
 // ---------------------
 // 🔓 Public routes
@@ -62,6 +129,7 @@ router.get(`/${model.modelDir}`, [renderNav], asyncHandler(async (req, res) => {
 router.get(`/${model.modelDir}/:id`, [renderNav], asyncHandler(async (req, res) => {
   try {
     const results = await contentController.readGet(model, { id: req.params.id })
+    // results.log = req.flash('info') || null
     res.render(`content-public/types/${model.id}`, results)
   } catch (error) { throw new AppError(404, null, error) }
 }))
