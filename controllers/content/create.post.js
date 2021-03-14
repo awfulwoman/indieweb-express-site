@@ -12,6 +12,7 @@ const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
 const { create } = require('../../drivers/markdown')
+// const webmention = require('../webmentions')
 
 const createPost = (model, options = {}) => {
 
@@ -48,14 +49,12 @@ const createPost = (model, options = {}) => {
         debug('matchedData: ', data)
         debug('content: ', content)
 
-        data = await shared.metadata(data, renderMessages)
-        data = await shared.oEmbed(data, renderMessages)
+        data = await shared.metadata(data, renderMessages).catch((error) => { throw error })
+        data = await shared.oEmbed(data, renderMessages).catch((error) => { throw error })
 
         const id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
 
-        await model.create(data, content, id).catch((error) => {
-          throw error
-        })
+        await model.create(data, content, id).catch((error) => { throw error })
 
         // Get list of all files to save
         if (req.files) shared.fileUploads(model, id, req.files, renderMessages, options = {})
@@ -75,10 +74,8 @@ const createPost = (model, options = {}) => {
         // Store any manually added syndications
         if (req.body.manual_syndication) shared.syndicationManual(model, id, req.body.manual_syndication, renderMessages)
 
-        // Read to set up cache
-        await model.read(id).catch((error) => {
-          throw error
-        })
+        await model.read(id).catch((error) => { throw error }) // Read to set up cache
+        // await webmention.send(data.url).catch((error) => { throw error })
 
         res.render(options.template || `content-create/default`, {
           data: { title: `/${model.modelDir}/${id} created` },

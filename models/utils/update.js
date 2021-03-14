@@ -14,7 +14,6 @@ const normalizeItemObject = require('./normalize-item')
  * @return {Promise}
  */
 const modelUpdate = async (dir, modelCache, data, content, id, options = {}) => {
-
   try {
     if (!dir || !modelCache || !data || !content || !id) throw new Error('You must supply all params')
     if (is.not.object(data)) throw new Error('data must be an object')
@@ -24,8 +23,8 @@ const modelUpdate = async (dir, modelCache, data, content, id, options = {}) => 
 
     let fileContentAsMarkdown = matter.stringify(content, data)
     markdown.update(dir, id, fileContentAsMarkdown)
-    
-    resultObject = await normalizeItemObject({data: data, content: content}, id, dir, options)
+
+    const resultObject = await normalizeItemObject({ data: data, content: content }, id, dir, options)
 
     // modelCache.del(id)
     modelCache.set(id, resultObject)

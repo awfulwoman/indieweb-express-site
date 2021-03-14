@@ -22,8 +22,7 @@ const customHelpers = require('./helpers')
 // 🏃‍♀️💨 Express app
 const express = require('express')
 const helmet = require('helmet')
-const session = require('express-session')
-const FileStore = require('session-file-store')(session)
+
 const staticify = require('staticify')(path.join(__dirname, 'public'))
 const middleware = require('./middleware')
 const routes = require('./routes')
@@ -45,7 +44,7 @@ try {
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"],
+        defaultSrc: ["'self'", "whalecoiner.net", "whalecoiner.org", "sonniesedge.net", "www.sonniesedge.net", "sonniesedge.co.uk", "www.sonniesedge.co.uk"],
         imgSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         styleSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
@@ -70,24 +69,6 @@ try {
     compilerOptions: {
       preventIndent: true
     }
-  }))
-
-  // AUTHENTICATION + SESSIONS
-  // -----------------------
-
-  const maxAge = 2 * 24 * 60 * 60 * 1000 // two days in milliseconds
-  app.use(session({
-    secret: config.keyboardCat(),
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: maxAge
-    },
-    store: new FileStore({
-      path: config.dataRoot() + '/sessions',
-      ttl: maxAge,
-      secret: config.keyboardCat()
-    })
   }))
 
   const TwitterStrategy = require('passport-twitter').Strategy
@@ -131,15 +112,21 @@ try {
     callback(null, users.getAppUserObjFromAppId(userAppId))
   })
 
-
+  app.use(middleware.session)
   app.use(passport.initialize()) // Initialize Passport in Express.
   app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
+  app.use(middleware.isAdmin) // Determine if the user is an admin
   app.use(middleware.renderUsers) // Make user info available to every render
   app.use(middleware.renderDebug) // Make debug status available to every render
-  app.use(middleware.renderBuildTime) // Add (satic) buildtime to every render
+  app.use(middleware.renderBuildTime) // Add (static) buildtime to every render
+
+  //
+  // HTTP LOGGING
+  // ------------
+
   const accessLogStream = rfs.createStream('access.log', {
     interval: '1d', // rotate daily
-    path: config.logDir()
+    path: path.join(config.logDir(), 'http')
   })
 
   // log only 4xx and 5xx responses to console
@@ -149,9 +136,10 @@ try {
 
   app.use(morgan('combined', { stream: accessLogStream }))
 
-  // LOGGING
+  //
+  // APP LOGGING
   // ------
-  // app.use(logger('dev'));
+  // See config.winston.js
 
   //
   // ROUTES

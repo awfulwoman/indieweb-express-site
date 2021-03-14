@@ -7,8 +7,7 @@ const router = express.Router()
 const asyncHandler = require('express-async-handler')
 
 // 🖕 Middleware
-const checkAuthentication = require('../../../middleware/check-authentication')
-
+const {requireAuthentication} = require('../../../middleware')
 // utilities
 const dispatch = require('@whalecoiner/webmention-simple-dispatch')
 
@@ -17,8 +16,8 @@ const { body } = require('express-validator')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 // 🔓 Private routes
-// router.post(`/send`, [checkAuthentication, urlencodedParser], asyncHandler(async(req, res) => {
-router.post('/send', [checkAuthentication, urlencodedParser], asyncHandler(async(req, res) => {
+// router.post(`/send`, [requireAuthentication, urlencodedParser], asyncHandler(async(req, res) => {
+router.post('/send', [requireAuthentication, urlencodedParser], asyncHandler(async(req, res) => {
   // An app endpoint which receives a POSTed destination and a key-value pairs of target and source. 
   // It POSTs a webmention to the target with the payload as url-encoded form data.
   // Responds with success or failure

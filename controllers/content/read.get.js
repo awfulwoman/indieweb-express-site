@@ -1,48 +1,29 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:readGet')
-const asyncHandler = require('express-async-handler')
-const AppError = require('../../utilities/app-error')
 const is = require('is_js')
 const path = require('path')
 
 // READ
-const readGet = (model, options) => {
-  options || (options = {});
-  return asyncHandler(async (req, res, next) => {
-    if (!req.params.id && !options.id) { options.id = 'root' }
-    try {
+const readGet = async (model, options = {}) => {
+  if (!options.id) { options.id = 'root' }
+  if (path.extname(options.id)) throw new Error(`File ${model.modelDir}/${options.id} not found`)
+  if (model.resolveAlias) options.id = await model.resolveAlias(options.id)
 
-      let resolvedId = options.id || req.params.id
+  const itemObj = await model.read(options.id)
+  if (is.falsy(itemObj)) throw new Error(`Could not find ${options.id} in ${model.modelDir}.`)
+  if (itemObj.data.private) throw new Error(`${model.modelDir}/${options.id} is private.`)
 
-      if (path.extname(resolvedId)) throw(`File ${model.modelDir}/${resolvedId} not found`)
-
-      if (model.resolveAlias) resolvedId = await model.resolveAlias(resolvedId)
-      
-      let itemObj = await model.read(resolvedId)
-
-      if (is.falsy(itemObj)) throw new Error(`Could not find ${resolvedId} in ${model.modelDir}.`)
-
-      if (itemObj.data.private) throw new Error(`${model.modelDir}/${resolvedId} is private.`)
-
-      // debug(options.template)
-      // debug(itemObj)
-
-      res.render(options.template || 'default', {
-        content: itemObj.rendered,
-        markdown: itemObj.content,
-        data: itemObj.data,
-        children: options.children ? await options.children() : null,
-        id: itemObj.id,
-        admin: process.env['DEBUG'] || req.isAuthenticated(),
-        storage: itemObj.storage,
-        syndications: itemObj.syndications,
-        sections: itemObj.sections ? itemObj.sections : null,
-        url: itemObj.url,
-        session: req.session || null
-      })
-    } catch (error) {
-      throw new AppError('404', 'Could not find this page or content. Have you tried looking under the sofa?', error)
-    }
-  })
+  return {
+    contentMarkdown: itemObj.content,
+    contentHtml: itemObj.rendered,
+    data: itemObj.data,
+    children: options.children ? await options.children() : null,
+    storageId: itemObj.id,
+    storageType: itemObj.storage,
+    syndications: itemObj.syndications,
+    webmentions: null,
+    sections: itemObj.sections ? itemObj.sections : null,
+    url: itemObj.url
+  }
 }
 
 module.exports = readGet
