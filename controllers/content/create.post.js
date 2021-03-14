@@ -68,11 +68,14 @@ const createPost = async (args) => {
     await argObj.model.read(id).catch((error) => { throw error }) // Read to set up cache
     // await webmention.send(data.url).catch((error) => { throw error })
 
-    return {
+    const successObj = {
       status: 'SUCCESS',
       messages: renderMessages,
       url: `/${argObj.model.modelDir}/${id}`
     }
+
+    return successObj
+    
   } catch (error) {
     const errorObj = {
       status: 'ERROR',

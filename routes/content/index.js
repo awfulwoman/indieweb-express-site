@@ -1,4 +1,4 @@
-const article = require('./types/article')
+// const article = require('./types/article')
 // const bandname = require('./types/bandname')
 // const base = require('./base')
 // const bookmark = require('./types/bookmark')
@@ -15,5 +15,7 @@ const article = require('./types/article')
 // i.e. /notes/1234 will take priority over /about/image.jpg
 
 // module.exports = [article, bandname, bookmark, checkin, like, note, photo, quote, reply, repost, base]
-module.exports = [article]
+const types = require('./type')
+
+module.exports = [types]
 
