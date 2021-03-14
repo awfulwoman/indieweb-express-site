@@ -16,6 +16,8 @@ const dataTwitter = {
 
 const data1 = {
   testProperty: 'testData',
+  storage: 'notes',
+  id: 'ksjfskdfjsd',
   bookmark_of: 'https://www.bbc.com/news/science-environment-56096888'
 }
 
