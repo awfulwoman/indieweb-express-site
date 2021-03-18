@@ -4,7 +4,7 @@ const debug = require('debug')('indieweb-express-site:routes:content:type')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
-const { body, validationResult, matchedData } = require('express-validator')
+const { validationResult, matchedData, checkSchema } = require('express-validator')
 const asyncHandler = require('express-async-handler')
 const AppError = require('../../utilities/app-error')
 
@@ -21,30 +21,14 @@ const urlencodedParser = bodyParser.urlencoded({ extended: true })
 // const createValidators = require('../../../controllers/validators')
 const globalSanitizers = require('../../controllers/sanitizers')
 
-const localValidators = [
-  body('created').optional({ checkFalsy: true }),
-  body('modified').optional({ checkFalsy: true }),
-  body('place[latlng]').optional({ checkFalsy: true }).isLatLong(),
-  body('bookmark_of').optional({ checkFalsy: true }).isURL(),
-  body('like_of').optional({ checkFalsy: true }).isURL(),
-  body('quote_of').optional({ checkFalsy: true }).isURL(),
-  body('repost_of').optional({ checkFalsy: true }).isURL(),
-  body('reply_to').optional({ checkFalsy: true }).isURL(),
-  body('add_like').optional({ checkFalsy: true }),
-  body('images.*.alt').optional({ checkFalsy: true }),
-  body('images.*.file').optional({ checkFalsy: true }),
-  body('images.*.width').optional({ checkFalsy: true }),
-  body('images.*.height').optional({ checkFalsy: true }),
-  body('images.*.size').optional({ checkFalsy: true }),
-  body('guid').optional({ checkFalsy: true }),
-  body('title').notEmpty().withMessage('You need to add a title'),
-  // body('slug').notEmpty().withMessage('You need to add a slug'),
-  // body('strapline').notEmpty().withMessage('You need to add a strapline'),
-  body('strapline').optional({ checkFalsy: true }),
-  body('content').notEmpty().withMessage('You need to write some content')
-]
+
 
 for (const model of modelsArray) {
+
+  debug(model.id)
+  debug(model.validations)
+
+  const localValidators = model.validators || []
 
   // -------------------------
   // 🔐 Protected admin routes

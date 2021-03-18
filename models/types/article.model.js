@@ -1,6 +1,7 @@
 const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:article')
+const { body } = require('express-validator')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache, aliasUtil } = require('../utils')
 const is = require('is_js')
 
@@ -10,42 +11,55 @@ let aliasCache = new Nodecache()
 const id = 'article'
 const modelDir = 'articles'
 
-const fields = { // merge with global fields
+const structure = {
+  title: {
+    validation: {
+      notEmpty: true,
+      errorMessage: 'A title is required',
+    },
+    field: {
+      type: 'string',
+      description: 'A title for your content',
+      formFieldRender: 'textfield'
+    }
+  },
+  slug: {
+    validation: {
+      notEmpty: true,
+      isSlug: true,
+      errorMessage: 'A slug value is required',
+    },
+    field: {
+      type: 'string',
+      formFieldRender: 'textarea'
+    }
+  },
+  strapline: {
+    validation: {
+      notEmpty: true,
+      errorMessage: 'A strapline is required',
+    },
+    field: {
+      type: 'string',
+      formFieldRender: 'textarea'
+    }
+  },
   content: {
-    type: 'string',
-    required: true,
-    description: 'Make a note',
-    formFieldRender: 'textarea'
-  },
-  tags: {
-    type: 'array',
-    description: 'Tags related to this note',
-    extendedDescription: 'Tags should be comma separated',
-    example: 'apple, banana, cherry',
-    formFieldRender: 'tags'
-  },
-  images: {
-    type: 'object',
-    description: 'Images',
-    extendedDescription: 'Photos and stuff',
-    formFieldRender: 'images'
-  },
-  created_geo: {
-    type: 'string',
-    description: 'Where this was created',
-    formFieldRender: 'geo'
-  },
-  place_geo: {
-    type: 'string',
-    description: 'The position this relates to',
-    formFieldRender: 'gps'
-  },
-  place_name: {
-    type: 'string',
-    description: 'The place this relates to',
-    formFieldRender: 'place'
+    validation: {
+      notEmpty: true,
+      errorMessage: 'Some content is required',
+    },
+    field: {
+      type: 'string',
+      formFieldRender: 'textarea'
+    }
   }
 }
+
+
+let validations = Object.fromEntries(Object
+  // .entries(structure)
+)
 
 const settings = {
   rss: true,
@@ -114,7 +128,7 @@ const warm = async () => {
   })
 }
 
-module.exports = { 
-  id, modelDir, fields, settings,
+module.exports = {
+  id, modelDir, settings, structure, validations,
   create, read, update, del, recentIndex, recentFeed, warm, archiveIndex, resolveAlias, clearCache
 }

@@ -11,37 +11,31 @@ module.exports = {
       descriptionExtra: 'A globally unique identifier for this item. Only used internally',
       default: uuid.v4()
     },
-    id: {
-      type: 'string',
-      description: 'Item ID',
-      descriptionExtra: 'A unique ID for this item type and how the item is stored on disk',
-      default: DateTime.local().toFormat(config.fileDateFormat())
-    },
     created: {
       type: 'string',
       description: 'Created',
       descriptionExtra: 'The item creation time and date',
       default: DateTime.local().toString()
     },
-    updated: {
+    modified: {
       type: 'string',
       description: 'Updated',
       descriptionExtra: 'The item update time and date',
       default: DateTime.local().toString()
     },
-    rss: {
+    exclude_from_rss: {
       type: 'boolean',
       description: 'Include in RSS',
       descriptionExtra: 'Whether the item is included in the item type RSS feed',
       default: true
     },
-    listed: {
+    exclude_from_listings: {
       type: 'boolean',
       description: 'Include on listings',
       descriptionExtra: 'Whether the item is included on the sites listings and archives',
       default: true
     },
-    public: {
+    private: {
       type: 'boolean',
       description: 'Public',
       descriptionExtra: 'Whether the item is available when the URL is visited directly',
