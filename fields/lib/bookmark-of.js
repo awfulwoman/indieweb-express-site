@@ -5,11 +5,7 @@ module.exports = {
   validation: {
     bookmark_of: {
       in: ['body'],
-      isUrl: {
-        option: {
-          require_valid_protocol: true
-        }
-      },
+      isURL: { option: { require_valid_protocol: true } },
       notEmpty: true,
       errorMessage: 'A bookmark URL is required',
       trim: true

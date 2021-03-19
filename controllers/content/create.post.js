@@ -10,6 +10,7 @@ const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
 const { create } = require('../../drivers/markdown')
+const { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } = require('constants')
 // const webmention = require('../webmentions')
 
 function ContentError(contentErrors) {
@@ -24,12 +25,18 @@ const createPost = async (args) => {
   let formState = {}
   let formErrors = {}
 
+  debug('args.body: ', args.body)
+  debug('args.errors: ', args.errors)
+
   try {
     // Clone args object
     const argObj = { ...args }
 
     formState = shared.flattenFormBody(argObj.body)
     formErrors = shared.flattenFormErrors(argObj.errors)
+
+    debug('formState: ', formState)
+    debug('formErrors: ', formErrors)
 
     const id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
 
@@ -41,10 +48,19 @@ const createPost = async (args) => {
       throw new Error('Errors were present')
     }
 
-    argObj.sanitizedData = await shared.metadata(argObj.sanitizedData, renderMessages).catch((error) => { throw error })
-    argObj.sanitizedData = await shared.oEmbed(argObj.sanitizedData, renderMessages).catch((error) => { throw error })
+    argObj.sanitizedData = await shared.metadata(argObj.sanitizedData, renderMessages).catch((error) => {
+      debug('Error while adding metadata')
+      throw error
+    })
+    argObj.sanitizedData = await shared.oEmbed(argObj.sanitizedData, renderMessages).catch((error) => {
+      debug('Error while adding oEmbed data')
+      throw error
+    })
 
-    await argObj.model.create(argObj.sanitizedData, argObj.content, id).catch((error) => { throw error })
+    await argObj.model.create(argObj.sanitizedData, argObj.content, id).catch((error) => {
+      debug('Error while creating model item')
+      throw error
+    })
 
     // Get list of all files to save
     debug('argObj.files: ', argObj.files)

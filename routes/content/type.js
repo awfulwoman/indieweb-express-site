@@ -9,6 +9,7 @@ const asyncHandler = require('express-async-handler')
 const AppError = require('../../utilities/app-error')
 const processFiles = require('../../middleware/process-files')
 const processUploadedFiles = require('../../middleware/process-uploaded-files')
+const md = require('../../utilities/markdown-it')
 
 // 💅 Models
 const { modelsArray, page } = require('../../models')
@@ -38,6 +39,7 @@ for (const model of modelsArray) {
 
   // Create (GET)
   router.get(`/${model.modelDir}/create`, [requireAuthentication], asyncHandler(async (req, res) => {
+    debug(`/${model.modelDir}/create (get)`)
     try {
       const results = await contentController.createGet({ model: model, query: req.query })
       res.render(`content-create/types/${model.id}`, results)
@@ -47,6 +49,7 @@ for (const model of modelsArray) {
   // Create (POST)
   const createPostMiddleware = [requireAuthentication, processFiles.any(), processUploadedFiles, checkSchema(localValidators)]
   router.post(`/${model.modelDir}/create`, createPostMiddleware, asyncHandler(async (req, res) => {
+    debug(`/${model.modelDir}/create (post)`)
     try {
       const results = await contentController.createPost({
         model: model,
@@ -59,7 +62,7 @@ for (const model of modelsArray) {
       req.session.save(() => res.redirect(results.url))
     } catch (error) {
       error.contentErrors.data = { title: 'Create failed' }
-      error.contentMarkdown = 'Create encountered errors.'
+      error.contentHtml = md.render('Create encountered errors.')
       res.render(`content-create/types/${model.id}`, error.contentErrors)
     }
   }))

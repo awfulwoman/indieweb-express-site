@@ -3,12 +3,18 @@ module.exports = {
   description: 'Quoting a URL',
   formFieldRender: 'textfield',
   validation: {
-    like_of: {
+    quote_of: {
       in: ['body'],
-      isUrl: { option: { require_valid_protocol: true } },
-      notEmpty: true,
+      // notEmpty: true,
       errorMessage: 'A quote URL is required',
-      trim: true
+      trim: true,
+      isURL: {
+        option: {
+          require_protocol: true,
+          require_valid_protocol: true
+        },
+        errorMessage: 'A valid URL is required'
+      }
     }
   },
   schema: {}

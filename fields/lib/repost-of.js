@@ -5,7 +5,7 @@ module.exports = {
   validation: {
     repost_of: {
       in: ['body'],
-      isUrl: { option: { require_valid_protocol: true } },
+      isURL: { option: { require_valid_protocol: true } },
       notEmpty: true,
       errorMessage: 'A repost URL is required',
       trim: true

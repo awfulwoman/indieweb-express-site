@@ -5,7 +5,7 @@ module.exports = {
   validation: {
     reply_to: {
       in: ['body'],
-      isUrl: { option: { require_valid_protocol: true } },
+      isURL: { option: { require_valid_protocol: true } },
       notEmpty: true,
       errorMessage: 'A reply URL is required',
       trim: true
