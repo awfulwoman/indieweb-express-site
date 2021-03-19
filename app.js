@@ -85,7 +85,7 @@ try {
   const passportGithubOptions = {
     clientID: config.githubClientId(),
     clientSecret: config.githubClientSecret(),
-    callbackURL: utilities.constructOauthCallback.oaUrl('github')
+    callbackURL: '/oauth/github/callback'
   }
 
   // Use Twitter passport strategy

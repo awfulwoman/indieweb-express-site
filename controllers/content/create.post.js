@@ -37,7 +37,7 @@ const createPost = async (args) => {
     delete argObj.sanitizedData.content
 
     if (is.not.empty(formErrors)) {
-      renderMessages.push('errrrror')
+      renderMessages.push('Form errors are present. You need to deal with them.')
       throw new Error('Errors were present')
     }
 
@@ -47,9 +47,10 @@ const createPost = async (args) => {
     await argObj.model.create(argObj.sanitizedData, argObj.content, id).catch((error) => { throw error })
 
     // Get list of all files to save
-    if (argObj.files) shared.fileUploads(argObj.model, id, argObj.files, renderMessages, options = {})
-
-    renderMessages.push('SUCCESS!')
+    debug('argObj.files: ', argObj.files)
+    if (argObj.files) {
+      shared.fileUploads(argObj.model, id, argObj.files, renderMessages, options = {})
+    }
 
     // Syndicate if requested
     if (argObj.body.syndicate_to) {
@@ -68,14 +69,17 @@ const createPost = async (args) => {
     await argObj.model.read(id).catch((error) => { throw error }) // Read to set up cache
     // await webmention.send(data.url).catch((error) => { throw error })
 
+    renderMessages.push('SUCCESS!')
+
     const successObj = {
       status: 'SUCCESS',
       messages: renderMessages,
       url: `/${argObj.model.modelDir}/${id}`
     }
 
+    debug(successObj)
+
     return successObj
-    
   } catch (error) {
     const errorObj = {
       status: 'ERROR',
@@ -85,6 +89,8 @@ const createPost = async (args) => {
       state: formState,
       errors: formErrors
     }
+
+    debug(errorObj)
 
     throw new ContentError(errorObj)
   }

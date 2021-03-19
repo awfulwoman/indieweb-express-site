@@ -1,9 +1,7 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:article')
-const { body } = require('express-validator')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache, aliasUtil } = require('../utils')
-const is = require('is_js')
+const { created, modified, title, guid, slug, strapline, content } = require('../../fields')
 
 let modelCache = new Nodecache()
 let aliasCache = new Nodecache()
@@ -11,55 +9,23 @@ let aliasCache = new Nodecache()
 const id = 'article'
 const modelDir = 'articles'
 
-const structure = {
-  title: {
-    validation: {
-      notEmpty: true,
-      errorMessage: 'A title is required',
-    },
-    field: {
-      type: 'string',
-      description: 'A title for your content',
-      formFieldRender: 'textfield'
-    }
-  },
-  slug: {
-    validation: {
-      notEmpty: true,
-      isSlug: true,
-      errorMessage: 'A slug value is required',
-    },
-    field: {
-      type: 'string',
-      formFieldRender: 'textarea'
-    }
-  },
-  strapline: {
-    validation: {
-      notEmpty: true,
-      errorMessage: 'A strapline is required',
-    },
-    field: {
-      type: 'string',
-      formFieldRender: 'textarea'
-    }
-  },
-  content: {
-    validation: {
-      notEmpty: true,
-      errorMessage: 'Some content is required',
-    },
-    field: {
-      type: 'string',
-      formFieldRender: 'textarea'
-    }
-  }
-}
+const fields = [
+  created,
+  modified,
+  guid,
+  title,
+  slug,
+  strapline,
+  content
+]
 
-
-let validations = Object.fromEntries(Object
-  // .entries(structure)
-)
+// {
+//   ...title,
+//   validation: {
+//     ...title.validation,
+//     title: { ...title.validation.title, notEmpty: true, optional: false, errorMessage: 'A title is required' }
+//   }
+// },
 
 const settings = {
   rss: true,
@@ -123,12 +89,22 @@ const archiveIndex = async (dateObj) => {
 
 const warm = async () => {
   debug(`Warming ${modelDir} cache.`)
-  return await cache.warm(modelCache, modelDir, {
-    modelAliasCache: aliasCache
-  })
+  return await cache.warm(modelCache, modelDir, { modelAliasCache: aliasCache })
 }
 
 module.exports = {
-  id, modelDir, settings, structure, validations,
-  create, read, update, del, recentIndex, recentFeed, warm, archiveIndex, resolveAlias, clearCache
+  id,
+  modelDir,
+  settings,
+  fields,
+  create,
+  read,
+  update,
+  del,
+  recentIndex,
+  recentFeed,
+  warm,
+  archiveIndex,
+  resolveAlias,
+  clearCache
 }

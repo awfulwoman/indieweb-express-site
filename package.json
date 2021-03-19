@@ -4,6 +4,9 @@
   "description": "",
   "main": "app.js",
   "repository": "https://github.com/whalecoiner/indieweb-express-site",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "scripts": {
     "start": "node app.js",
     "dev": "concurrently npm:watch-css npm:watch-server --raw",
@@ -64,6 +67,7 @@
     "is-valid-path": "^0.1.1",
     "javascript-natural-sort": "^0.7.1",
     "jest-fetch-mock": "^3.0.3",
+    "joi": "^17.4.0",
     "js-yaml": "^3.14.0",
     "json-size": "^1.0.0",
     "luxon": "^1.25.0",

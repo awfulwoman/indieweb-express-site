@@ -4,7 +4,7 @@ const normalizeFormErrors = (errors) => {
   try {
     const formErrors = {}
 
-    for (const error of errors.array()) {
+    for (const error of errors) {
       let replacedParam = error.param.replace('.', '_')
       formErrors[replacedParam] = error.msg
     }

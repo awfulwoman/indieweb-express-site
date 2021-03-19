@@ -7,6 +7,8 @@ const router = express.Router()
 const { validationResult, matchedData, checkSchema } = require('express-validator')
 const asyncHandler = require('express-async-handler')
 const AppError = require('../../utilities/app-error')
+const processFiles = require('../../middleware/process-files')
+const processUploadedFiles = require('../../middleware/process-uploaded-files')
 
 // 💅 Models
 const { modelsArray, page } = require('../../models')
@@ -15,20 +17,20 @@ const { modelsArray, page } = require('../../models')
 const { fileController, contentController, feedController, archiveController } = require('../../controllers')
 const { requireAuthentication } = require('../../middleware')
 
-const bodyParser = require('body-parser')
-const urlencodedParser = bodyParser.urlencoded({ extended: true })
+// const bodyParser = require('body-parser')
+// const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 // const createValidators = require('../../../controllers/validators')
-const globalSanitizers = require('../../controllers/sanitizers')
-
-
+// const globalSanitizers = require('../../controllers/sanitizers')
 
 for (const model of modelsArray) {
-
-  debug(model.id)
-  debug(model.validations)
-
-  const localValidators = model.validators || []
+  // debug(model.id, model.structure)
+  // debug('model.fields: ', model.fields)
+  if (!model.fields || model.fields.length === 0) throw new Error(`${model.id} has no validation fields!`)
+  const localValidators = {}
+  if (model.fields) model.fields.forEach(field => Object.assign(localValidators, field.validation))
+  // debug('localValidators: ', localValidators)
+  // debug(checkSchema(localValidators))
 
   // -------------------------
   // 🔐 Protected admin routes
@@ -43,10 +45,16 @@ for (const model of modelsArray) {
   }))
 
   // Create (POST)
-  const createPostMiddleware = [requireAuthentication, urlencodedParser, localValidators, globalSanitizers]
+  const createPostMiddleware = [requireAuthentication, processFiles.any(), processUploadedFiles, checkSchema(localValidators)]
   router.post(`/${model.modelDir}/create`, createPostMiddleware, asyncHandler(async (req, res) => {
     try {
-      const results = await contentController.createPost({ model: model, sanitizedData: matchedData(req), errors: validationResult(req), body: req.body })
+      const results = await contentController.createPost({
+        model: model,
+        sanitizedData: matchedData(req),
+        errors: validationResult(req).errors,
+        body: req.body,
+        files: req.files || null
+      })
       req.flash('info', results.messages)
       req.session.save(() => res.redirect(results.url))
     } catch (error) {
@@ -65,7 +73,7 @@ for (const model of modelsArray) {
   }))
 
   // Update (POST)
-  router.post(`/${model.modelDir}/:id/edit`, [urlencodedParser, requireAuthentication, localValidators, globalSanitizers], asyncHandler(async (req, res) => {
+  router.post(`/${model.modelDir}/:id/edit`, [requireAuthentication, processFiles.any(), processUploadedFiles, checkSchema(localValidators)], asyncHandler(async (req, res) => {
     try {
       const results = await contentController.updatePost(model)
       res.render(`content-create/types/${model.id}`, results)
