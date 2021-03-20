@@ -1,9 +1,9 @@
 
-const globalFields = require('../_global')
+const globalFields = require('./_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:page')
-const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, guid, content } = require('../../fields')
+const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('./utils')
+const { created, modified, guid, content } = require('../fields')
 
 let modelCache = new Nodecache()
 
