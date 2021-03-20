@@ -156,7 +156,7 @@ try {
   app.use('/syndication', [routes.syndication.create, routes.syndication.store])
   app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
   app.use(staticify.middleware)
-  app.use('/', [routes.offline, routes.disambiguation, routes.archives, routes.auth, routes.content])
+  app.use('/', [routes.offline, routes.feeds, routes.disambiguation, routes.archives, routes.auth, routes.content])
 
   //
   // ERROR PAGES

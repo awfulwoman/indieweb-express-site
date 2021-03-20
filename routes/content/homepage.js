@@ -1,6 +1,6 @@
 // loop through each content page and setup routes
 
-const debug = require('debug')('indieweb-express-site:routes:content:page')
+const debug = require('debug')('indieweb-express-site:routes:homepage')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
@@ -15,12 +15,7 @@ const md = require('../../utilities/markdown-it')
 const { globalRecentIndex, page } = require('../../models')
 
 // 🖕 Middleware
-const { fileController, contentController, feedController } = require('../../controllers')
-
-// 🗼 Syndication routes
-router.get(`/rss`, feedController.rssGet(globalRecentIndex))
-router.get(`/json`, feedController.jsonGet(globalRecentIndex))
-router.get(`/atom`, feedController.atomGet(globalRecentIndex))
+const { fileController, contentController } = require('../../controllers')
 
 router.get('/', [], asyncHandler(async (req, res) => {
     try {

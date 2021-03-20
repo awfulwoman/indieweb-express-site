@@ -1,6 +1,6 @@
 // loop through each content model and setup routes
 
-const debug = require('debug')('indieweb-express-site:routes:content:type')
+const debug = require('debug')('indieweb-express-site:routes:content:types')
 // 🏃‍♀️💨 Express
 const express = require('express')
 const router = express.Router()
@@ -12,7 +12,7 @@ const processUploadedFiles = require('../../middleware/process-uploaded-files')
 const md = require('../../utilities/markdown-it')
 
 // 💅 Models
-const { modelsArray, page } = require('../../models')
+const models = require('../../models')
 
 // 🖕 Middleware
 const { fileController, contentController, feedController, archiveController } = require('../../controllers')
@@ -24,7 +24,7 @@ const { requireAuthentication } = require('../../middleware')
 // const createValidators = require('../../../controllers/validators')
 // const globalSanitizers = require('../../controllers/sanitizers')
 
-for (const model of modelsArray) {
+for (const model of models.modelsArray) {
   // debug(model.id, model.structure)
   // debug('model.fields: ', model.fields)
   if (!model.fields || model.fields.length === 0) throw new Error(`${model.id} has no validation fields!`)
@@ -117,7 +117,7 @@ for (const model of modelsArray) {
   // 📌 Index
   router.get(`/${model.modelDir}`, [], asyncHandler(async (req, res) => {
     try {
-      const results = await contentController.readGet(page, { id: model.modelDir, children: model.recentIndex })
+      const results = await contentController.readGet(models.page, { id: model.modelDir, children: model.recentIndex })
       res.render('content-public/index', results)
     } catch (error) { throw new AppError(404, null, error) }
   }))
