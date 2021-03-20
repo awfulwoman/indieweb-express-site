@@ -15,7 +15,13 @@
 // i.e. /notes/1234 will take priority over /about/image.jpg
 
 // module.exports = [article, bandname, bookmark, checkin, like, note, photo, quote, reply, repost, base]
+const homepage = require('./homepage')
+const pages = require('./page')
 const types = require('./type')
 
-module.exports = [types]
+module.exports = [
+    types,
+    pages,
+    homepage
+]
 

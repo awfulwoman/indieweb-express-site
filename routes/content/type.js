@@ -132,8 +132,8 @@ for (const model of modelsArray) {
   }))
 
   // 📎 Attached files
-  router.get(`/${model.modelDir}/:id/:file`, [], fileController.readGet(model))
-  router.get(`/${model.modelDir}/:id/:file/:size`, [], fileController.readGet(model))
+  router.get(`/${model.modelDir}/:id/f/:file`, [], fileController.readGet(model))
+  router.get(`/${model.modelDir}/:id/f/:file/:size`, [], fileController.readGet(model))
 }
 
 module.exports = router

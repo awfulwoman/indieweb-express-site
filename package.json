@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "concurrently npm:watch-css npm:watch-server --raw",
+    "dev": "npm run sprites && concurrently npm:watch-css npm:watch-server --raw",
     "test": "jest",
     "css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
     "watch-server": "npx nodemon app.js --ignore example/",
