@@ -6,6 +6,7 @@ module.exports = {
   validation: {
     tags: {
       in: ['body'],
+      optional: { options: { nullable: true, checkFalsy: true } },
       isString: true,
       customSanitizer: {
         options: (value, { req, location, path }) => {
