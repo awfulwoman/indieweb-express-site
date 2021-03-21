@@ -1,18 +1,14 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:createPost')
 const makeError = require("make-error")
-
-const { validationResult, matchedData } = require('express-validator')
 const is = require('is_js')
-const path = require('path')
 const { DateTime } = require('luxon')
 
-const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
-const { create } = require('../../drivers/markdown')
-const { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } = require('constants')
 // const webmention = require('../webmentions')
 
+// Custom errors
+// TODO: Move to own module
 function ContentError(contentErrors) {
   ContentError.super.call(this, 'Content error')
   this.contentErrors = contentErrors
@@ -25,9 +21,6 @@ const createPost = async (args) => {
   let formState = {}
   let formErrors = {}
 
-  debug('args.body: ', args.body)
-  debug('args.errors: ', args.errors)
-
   try {
     // Clone args object
     const argObj = { ...args }
@@ -35,10 +28,7 @@ const createPost = async (args) => {
     formState = shared.flattenFormBody(argObj.body)
     formErrors = shared.flattenFormErrors(argObj.errors)
 
-    debug('formState: ', formState)
-    debug('formErrors: ', formErrors)
-
-    const id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
+    argObj.id = DateTime.local().toUTC().toFormat(config.fileDateFormat())
 
     argObj.content = argObj.sanitizedData.content ? argObj.sanitizedData.content : ' '
     delete argObj.sanitizedData.content
@@ -52,37 +42,40 @@ const createPost = async (args) => {
       debug('Error while adding metadata')
       throw error
     })
+
     argObj.sanitizedData = await shared.oEmbed(argObj.sanitizedData, renderMessages).catch((error) => {
       debug('Error while adding oEmbed data')
       throw error
     })
 
-    await argObj.model.create(argObj.sanitizedData, argObj.content, id).catch((error) => {
+    await argObj.model.create(argObj.sanitizedData, argObj.content, argObj.id).catch((error) => {
       debug('Error while creating model item')
       throw error
     })
 
-    // Get list of all files to save
-    debug('argObj.files: ', argObj.files)
+    // The core item has been saved to markdown.
+    // Now to process data held in other files.
+
+    // Use req.files data to look for uploaded files and save them to the item
     if (argObj.files) {
-      shared.fileUploads(argObj.model, id, argObj.files, renderMessages, options = {})
+      shared.fileUploads(argObj.model, argObj.id, argObj.files, renderMessages, options = {})
     }
 
     // Syndicate if requested
     if (argObj.body.syndicate_to) {
       for (const syndication in argObj.body.syndicate_to) {
         if (Object.hasOwnProperty.call(argObj.body.syndicate_to, syndication)) {
-          await shared.syndicationAuto(argObj.model, id, syndication, renderMessages, {})
+          await shared.syndicationAuto(argObj.model, argObj.id, syndication, renderMessages, {})
         }
       }
     }
 
     // Store any manually added syndications
     if (argObj.body.manual_syndication) {
-      shared.syndicationManual(argObj.model, id, argObj.body.manual_syndication, renderMessages)
+      shared.syndicationManual(argObj.model, argObj.id, argObj.body.manual_syndication, renderMessages)
     }
 
-    await argObj.model.read(id).catch((error) => { throw error }) // Read to set up cache
+    await argObj.model.read(argObj.id).catch((error) => { throw error }) // Read to set up cache
     // await webmention.send(data.url).catch((error) => { throw error })
 
     renderMessages.push('SUCCESS!')
@@ -90,10 +83,8 @@ const createPost = async (args) => {
     const successObj = {
       status: 'SUCCESS',
       messages: renderMessages,
-      url: `/${argObj.model.modelDir}/${id}`
+      url: `/${argObj.model.modelDir}/${argObj.id}`
     }
-
-    debug(successObj)
 
     return successObj
   } catch (error) {
@@ -105,8 +96,6 @@ const createPost = async (args) => {
       state: formState,
       errors: formErrors
     }
-
-    debug(errorObj)
 
     throw new ContentError(errorObj)
   }

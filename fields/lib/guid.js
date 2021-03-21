@@ -3,17 +3,13 @@ module.exports = {
   validation: {
     guid: {
       in: ['body'],
-      isUUID: {
-        options: {
-          version: 4
-        }
-      },
       optional: {
         options: {
           nullable: true,
           checkFalsy: true
         }
       },
+      isUUID: true,
       errorMessage: 'This must be in a UUIDv4 format',
       trim: true
     }

@@ -70,17 +70,36 @@ for (const model of models.modelsArray) {
   // Update (GET)
   router.get(`/${model.modelDir}/:id/edit`, [requireAuthentication], asyncHandler(async (req, res) => {
     try {
-      const results = await contentController.updateGet(model)
+      const results = await contentController.updateGet({
+        model: model,
+        id: req.params.id
+      })
       res.render(`content-create/types/${model.id}`, results)
     } catch (error) { throw new AppError(404, `Could not load /${model.modelDir}/edit/${req.params.id}`, error) }
   }))
 
   // Update (POST)
-  router.post(`/${model.modelDir}/:id/edit`, [requireAuthentication, processFiles.any(), processUploadedFiles, checkSchema(localValidators)], asyncHandler(async (req, res) => {
+  const updatePostMiddleware = [requireAuthentication, processFiles.any(), processUploadedFiles, checkSchema(localValidators)]
+  router.post(`/${model.modelDir}/:id/edit`, updatePostMiddleware, asyncHandler(async (req, res) => {
+    debug(`/${model.modelDir}/edit (post)`)
     try {
-      const results = await contentController.updatePost(model)
-      res.render(`content-create/types/${model.id}`, results)
-    } catch (error) { throw new AppError(404, `Could not load /${model.modelDir}/edit/${req.params.id}`, error) }
+      const results = await contentController.updatePost({
+        model: model,
+        id: req.params.id,
+        sanitizedData: matchedData(req),
+        errors: validationResult(req).errors,
+        body: req.body,
+        files: req.files || null
+      })
+      
+      req.flash('info', results.messages)
+      req.session.save(() => res.redirect(results.url))
+    } catch (error) {
+      debug(error)
+      error.contentErrors.data = { title: 'Update failed' }
+      error.contentHtml = md.render('Update encountered errors.')
+      res.render(`content-create/types/${model.id}`, error.contentErrors)
+    }
   }))
 
   // router.get(`/${model.modelDir}/:id/delete`, [requireAuthentication], asyncHandler(async (req, res) => {

@@ -33,14 +33,6 @@ const createGet = async (args) => {
     state: formState,
     syndicationSilosMissing: syndicationSilos
   }
-
-  // Check to see if any form items should be prefilled
-  // res.render(options.template || `content-create/types/${model.id}`, {
-  //   data: { title: `Create new ${model.id}` },
-  //   state: formState,
-  //   syndicationSilosMissing: syndicationSilos
-  // })
-
 }
 
 module.exports = createGet
