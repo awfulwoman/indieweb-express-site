@@ -2,38 +2,20 @@ const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:bookmark')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
+const { created, modified, guid, bookmarkOf, content } = require('../../fields')
 
 let modelCache = new Nodecache()
 
 const id = 'bookmark'
 const modelDir = 'bookmarks'
 
-const fields = { // merge with global fields
-  title: {
-    type: 'string',
-    required: true,
-    description: 'Title of the linked document',
-    formFieldRender: 'textfield'
-  },
-  content: {
-    type: 'string',
-    required: true,
-    description: 'Make a note',
-    formFieldRender: 'textarea'
-  },
-  tags: {
-    type: 'array',
-    description: 'Tags related to this note',
-    extendedDescription: 'Tags should be comma separated',
-    example: 'apple, banana, cherry',
-    formFieldRender: 'tags'
-  },
-  created_geo: {
-    type: 'string',
-    description: 'Where this was created',
-    formFieldRender: 'geo'
-  }
-}
+const fields = [
+  created,
+  modified,
+  guid,
+  bookmarkOf,
+  content
+]
 
 const settings = {
   rss: true,

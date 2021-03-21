@@ -1,108 +1,112 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:updatePost')
-const asyncHandler = require('express-async-handler')
-const { validationResult, matchedData } = require('express-validator')
+const makeError = require("make-error")
 const is = require('is_js')
+const { DateTime } = require('luxon')
 
-const moveFile = require('move-file')
-const path = require('path')
-
-const normalizeFormState = require('../../utilities/form-normalize-state')
-const normalizeFormErrors = require('../../utilities/form-normalize-errors')
-
-const md = require('../../utilities/markdown-it')
 const config = require('../../config')
 const shared = require('./shared')
-const syndication = require('../syndication')
 // const webmention = require('../webmentions')
 
-const updatePost = (model, options = {}) => {
+// Custom errors
+// TODO: Move to own module
+function ContentError(contentErrors) {
+  ContentError.super.call(this, 'Content error')
+  this.contentErrors = contentErrors
+}
+makeError(ContentError)
 
-  return asyncHandler(async (req, res, next) => {
-    let formState = {}
-    let formErrors = {}
-    let renderMessages = []
+const updatePost = async (args) => {
+  // Vars accessible by both try and catch
+  const renderMessages = []
+  let formState = {}
+  let formErrors = {}
 
-    try {
-      if (!req.params.id) throw new Error('All parameters must be supplied!')
-      let id = req.params.id
-      debug('ID: ', id)
+  try {
+    // Clone args object
+    const argObj = { ...args }
 
-      // These will go back to the form if there are errors
-      formState = normalizeFormState(req)
-      formErrors = normalizeFormErrors(req)
+    formState = shared.flattenFormBody(argObj.body)
+    formErrors = shared.flattenFormErrors(argObj.errors)
 
-      debug('formState: ', formState)
-      debug('formErrors: ', formErrors)
-
-      if (is.not.empty(formErrors)) {
-        debug(formErrors)
-        res.render(options.template || `content-create/types/${model.id}`, {
-          data: { title: `${model.modelDir} update error` },
-          content: md.render('There were errors while updating the item.'),
-          state: formState,
-          errors: formErrors
-        })
-      } else {
-        let data = matchedData(req)
-        const content = matchedData(req).content ? matchedData(req).content : ' '
-        delete data.content
-
-        debug('matchedData: ', data)
-        debug('content: ', content)
-
-        data = await shared.metadata(data, renderMessages)
-        data = await shared.oEmbed(data, renderMessages)
-
-        await model.update(data, content, id).catch((error) => {
-          throw error
-        })
-
-        // TODO: add files function
-        // Get list of all files to save
-        if (req.files) shared.fileUploads(model, id, req.files, renderMessages, options = {})
-
-        renderMessages.push(`/${model.modelDir}/${id} updated!`)
-
-        // Syndicate if necessary
-        if (req.body.syndicate_to) {
-          for (const syndication in req.body.syndicate_to) {
-            if (Object.hasOwnProperty.call(req.body.syndicate_to, syndication)) {
-              await shared.syndicationAuto(model, id, syndication, renderMessages, {})
-            }
-          }
-        }
-
-        // Store any manually added syndications
-        if (req.body.manual_syndication) shared.syndicationManual(model, id, req.body.manual_syndication, renderMessages)
-
-        model.clearCache(id)
-        let readData = await model.read(id).catch((error) => {
-          throw error
-        })
-
-        debug('webmention url: ', readData.url)
-        // await webmention.send(readData.url).catch((error) => {
-        //   throw error
-        // })
-
-        res.render(options.template || `content-create/default`, {
-          data: { title: `/${model.modelDir}/${id} updated` },
-          content: `/${model.modelDir}/${id} was successfully updated!`,
-          messages: renderMessages,
-          url: `/${model.modelDir}/${id}`
-        })
-      }
-    } catch (error) {
-      // TODO: Ideally any rendering should be handled by the router
-      debug('ERROR!:', error)
-      res.render(options.template || `content-create/default`, {
-        data: { title: `Update failed` },
-        content: `Update encountered errors.`,
-        messages: renderMessages,
-        rawError: error
-      })
+    if (!argObj.id) {
+      throw new Error('All parameters must be supplied!')
     }
-  })
+
+    argObj.content = argObj.sanitizedData.content ? argObj.sanitizedData.content : ' '
+    delete argObj.sanitizedData.content
+
+    if (is.not.empty(formErrors)) {
+      renderMessages.push('Form errors are present. You need to deal with them.')
+      throw new Error('Errors were present')
+    }
+
+    argObj.sanitizedData = await shared.metadata(argObj.sanitizedData, renderMessages).catch((error) => {
+      debug('Error while adding metadata')
+      throw error
+    })
+
+    argObj.sanitizedData = await shared.oEmbed(argObj.sanitizedData, renderMessages).catch((error) => {
+      debug('Error while adding oEmbed data')
+      throw error
+    })
+
+    await argObj.model.update(argObj.sanitizedData, argObj.content, argObj.id).catch((error) => {
+      debug('Error while updating model item')
+      throw error
+    })
+
+    // The core item has been saved to markdown.
+    // Now to process data held in other files.
+
+    // Use req.files data to look for uploaded files and save them to the item
+    if (argObj.files) {
+      shared.fileUploads(argObj.model, argObj.id, argObj.files, renderMessages, options = {})
+    }
+
+    // Syndicate if requested
+    if (argObj.body.syndicate_to) {
+      for (const syndication in argObj.body.syndicate_to) {
+        if (Object.hasOwnProperty.call(argObj.body.syndicate_to, syndication)) {
+          await shared.syndicationAuto(argObj.model, argObj.id, syndication, renderMessages, {})
+        }
+      }
+    }
+
+    // Store any manually added syndications
+    if (argObj.body.manual_syndication) {
+      shared.syndicationManual(argObj.model, argObj.id, argObj.body.manual_syndication, renderMessages)
+    }
+
+    argObj.model.clearCache(argObj.id)
+    await argObj.model.read(argObj.id).catch((error) => { throw error }) // Read to set up cache
+    // await webmention.send(data.url).catch((error) => { throw error })
+
+    renderMessages.push('SUCCESS!')
+
+    const successObj = {
+      status: 'SUCCESS',
+      messages: renderMessages,
+      url: `/${argObj.model.modelDir}/${argObj.id}`
+    }
+
+    debug(successObj)
+
+    return successObj
+  } catch (error) {
+    const errorObj = {
+      status: 'ERROR',
+      contentHtml: md.render(error.message),
+      messages: {
+        info: renderMessages
+      },
+      state: formState,
+      errors: formErrors
+    }
+
+    debug(errorObj)
+
+    throw new ContentError(errorObj)
+  }
 }
 
 module.exports = updatePost

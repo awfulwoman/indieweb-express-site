@@ -1,61 +1,31 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:updateGet')
-const asyncHandler = require('express-async-handler')
 const is = require('is_js')
 
-const normalizeFormState = require('../../utilities/form-normalize-state')
+const shared = require('./shared')
 const config = require('../../config')
 
-const updateGet = (model, options = {}) => {
+const updateGet = async (args) => {
+  const argObj = { ...args }
 
-  let syndicationSilosPresent
-  let syndicationSilosMissing
+  // read existing item
+  const existingItem = await argObj.model.read(argObj.id)
 
-  return asyncHandler(async (req, res, next) => {
-    try {
-      // read existing note
-      const existingItem = await model.read(req.params.id)
+  // Smoosh .content and .data together
+  let formState = { ...existingItem, ...existingItem.data }
+  delete formState.data
 
-      debug(existingItem)
+  // Flatten everything into an array compatible with the forms
+  formState = shared.flattenFormBody(formState)
 
-      // Smoosh .content and .data together
-      let formState = { ...existingItem, ...existingItem.data }
-      delete formState.data
-
-      // Flatten everything into an array compatible with the forms
-      formState = normalizeFormState(formState)
-
-      debug('Flattened item: ', formState)
-      debug('Syndications: ', existingItem.syndications)
-
-      // if (existingItem.syndications) {
-      syndicationSilosPresent = existingItem.syndications ? [...new Set(existingItem.syndications.map(item => item.silo))] : []
-      syndicationSilosMissing = config.silos().filter(x => !syndicationSilosPresent.includes(x))
-
-      const syndicationSilosMissingObj = Array.from(syndicationSilosMissing, x => {
-        return { id: x }
-      })
-
-      debug('syndicationSilosPresent: ', syndicationSilosPresent)
-      debug('syndicationSilosMissing: ', syndicationSilosMissingObj)
-      // }
-
-      res.render(options.template || `content-create/types/${model.id}`, {
-        update: true,
-        data: { title: `Editing ${model.modelDir}/${req.params.id}` },
-        content: `Start editing your ${model.id}!`,
-        markdown: formState.content,
-        syndications: existingItem.syndications || null,
-        // syndicationSilosPresent: syndicationSilosPresent ? syndicationSilosPresent : null,
-        syndicationSilosMissing: syndicationSilosMissingObj ? syndicationSilosMissingObj : null,
-        state: formState,
-        id: req.params.id,
-        storage: model.modelDir
-      })
-    } catch (error) {
-      debug(error)
-      throw error
-    }
-  })
+  return {
+    data: { title: `Editing ${argObj.model.modelDir}/${argObj.id}` },
+    content: `Start editing your ${argObj.model.id}!`,
+    syndications: existingItem.syndications || null,
+    syndicationSilosMissing: shared.syndicationSilosMissing(config.silos(), existingItem.syndications),
+    state: formState,
+    id: argObj.id,
+    storage: argObj.model.modelDir
+  }
 }
 
 module.exports = updateGet

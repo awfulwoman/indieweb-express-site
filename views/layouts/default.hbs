@@ -57,6 +57,14 @@
     {{>nav}}
   </header>
   <main class="c-main">
+    {{#if messages.info}}
+    <h2>Info</h2>
+    <ul>
+      {{#each messages.info}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
     {{{body}}}
   </main>
   <footer class="c-footer">

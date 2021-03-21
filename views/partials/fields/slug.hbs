@@ -1,10 +1,10 @@
-<div class="c-form-row">
-  <label for="slug" class="c-form-slug">Slug</label>
-  <input 
-  type="text" 
-  id="slug" 
-  name="slug" 
+<div class="c-form-row {{#if errors.slug}}c-form-row--error{{/if}}">
+  <label for="slug" class="c-form-title">Slug</label>
+  <input type="text" id="slug" name="slug" 
   class="c-form-texty {{#if errors.slug}}c-form-texty--error{{/if}}"
   value="{{state.slug}}"
   >
+  {{#if errors.slug}}
+    <p class="comp-error">ERROR! {{errors.slug}}</p>
+  {{/if}}
 </div>

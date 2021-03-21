@@ -1,6 +1,7 @@
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:note')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
+const { created, modified, tags, guid, images, content } = require('../../fields')
 const { DateTime } = require('luxon')
 const chrono = require('chrono-node')
 
@@ -10,41 +11,18 @@ const id = 'note'
 const modelDir = 'notes'
 
 const defaultTitle = (datestamp) => {
-  let parsedDate = DateTime.fromJSDate(chrono.parseDate(datestamp)).toUTC().toISODate();
+  const parsedDate = DateTime.fromJSDate(chrono.parseDate(datestamp)).toUTC().toISODate();
   return `A note from ${parsedDate}`
 }
 
-const fields = { // merge with global fields
-  title: {
-    type: 'string',
-    required: true,
-    description: 'A title for this note, if so desired',
-  },
-  content: {
-    type: 'string',
-    required: true,
-    description: 'Make a note'
-  },
-  tags: {
-    type: 'array',
-    description: 'Tags related to this note',
-    extendedDescription: 'Tags should be comma separated',
-    example: 'apple, banana, cherry'
-  },
-  images: {
-    type: 'object',
-    description: 'Images',
-    extendedDescription: 'Photos and stuff'
-  },
-  creation_geo: {
-    type: 'string',
-    description: 'Where this was created'
-  },
-  place: {
-    type: 'object', // contains: gps, name, address, google_maps_id
-    description: 'The place this relates to'
-  }
-}
+const fields = [
+  created,
+  modified,
+  guid,
+  content,
+  images,
+  tags
+]
 
 const settings = {
   rss: true,

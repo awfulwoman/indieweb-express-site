@@ -6,17 +6,17 @@ const config = require('../../../config')
 
 const fileUploads = async (model, id, files, renderMessages, options = {}) => {
   try {
-    if (!model) throw new Error(`Missing paramter: model`)
-    if (!id) throw new Error(`Missing parameter: id`)
-    if (!files) throw new Error(`Missing parameter: files`)
+    if (!model) throw new Error('Missing paramter: model')
+    if (!id) throw new Error('Missing parameter: id')
+    if (!files) throw new Error('Missing parameter: files')
 
     for (const file of files) {
-      let destination = path.join(config.contentRoot(), model.modelDir, id, 'files', file.filename)
+      const destination = path.join(config.contentRoot(), model.modelDir, id, 'files', file.filename)
       await moveFile(file.path, destination).catch((error) => {
         throw error
       })
-      debug(`Added image ${destination}`)
-      renderMessages.push(`Added image ${destination}`)
+      debug(`Image: ${destination}`)
+      renderMessages.push(`Image: ${file.filename}`)
     }
   } catch (error) {
     renderMessages.push(error)

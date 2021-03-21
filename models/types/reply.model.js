@@ -2,48 +2,20 @@ const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:reply')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
+const { created, modified, guid, content, replyTo } = require('../../fields')
 
 let modelCache = new Nodecache()
 
 const id = 'reply'
 const modelDir = 'replies'
 
-const fields = { // merge with global fields
-  content: {
-    type: 'string',
-    required: true,
-    description: 'Make a note',
-    formFieldRender: 'textarea'
-  },
-  tags: {
-    type: 'array',
-    description: 'Tags related to this note',
-    extendedDescription: 'Tags should be comma separated',
-    example: 'apple, banana, cherry',
-    formFieldRender: 'tags'
-  },
-  images: {
-    type: 'object',
-    description: 'Images',
-    extendedDescription: 'Photos and stuff',
-    formFieldRender: 'images'
-  },
-  created_geo: {
-    type: 'string',
-    description: 'Where this was created',
-    formFieldRender: 'geo'
-  },
-  place_geo: {
-    type: 'string',
-    description: 'The position this relates to',
-    formFieldRender: 'gps'
-  },
-  place_name: {
-    type: 'string',
-    description: 'The place this relates to',
-    formFieldRender: 'place'
-  }
-}
+const fields = [
+  created,
+  modified,
+  guid,
+  replyTo,
+  content
+]
 
 const settings = {
   rss: true,

@@ -2,4 +2,7 @@
   <label for="title" class="c-form-title">Quote URL</label>
   <input type="text" id="quote_of" name="quote_of"
     class="c-form-texty {{#if errors.quote_of}}c-form-texty--error{{/if}}" value="{{state.quote_of}}">
+  {{#if errors.quote_of}}
+    <p class="comp-error">ERROR! {{errors.quote_of}}</p>
+  {{/if}}
 </div>

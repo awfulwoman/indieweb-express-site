@@ -1,13 +1,13 @@
-const e = require('express');
-const users = require('../config.users');
+const debug = require('debug')('indieweb-express-site:models:users')
+const users = require('../config.users')
 
-const getAppUserObjFromExternalId = function(ExternalId, ExternalApp) {
+const getAppUserObjFromExternalId = function (ExternalId, ExternalApp) {
   // users filtered down to where id matches
-  // console.log('getAppUserObjFromExternalId param ExternalId: ', ExternalId)
+  // debug('getAppUserObjFromExternalId param ExternalId: ', ExternalId)
   // for each user
 
-  console.log('getAppUserFromExternalId ExternalId:', ExternalId);
-  console.log('getAppUserFromExternalId ExternalApp:', ExternalApp);
+  debug('getAppUserFromExternalId ExternalId:', ExternalId)
+  debug('getAppUserFromExternalId ExternalApp:', ExternalApp)
 
   for (let i = 0; i < users.length; i++) {
     const user = users[i];
@@ -16,19 +16,19 @@ const getAppUserObjFromExternalId = function(ExternalId, ExternalApp) {
     });
 
     if (result.length > 0) {
-      console.log('getAppUserFromExternalId valid user:', user);
+      // debug('getAppUserFromExternalId valid user:', user);
       return user
     } else {
       return false
     }
-    
+
   }
 }
 
-const getAppUserObjFromAppId = function(appId) {
-  console.log('getAppUserObjFromAppId: ', appId)
+const getAppUserObjFromAppId = function (appId) {
+  // debug('getAppUserObjFromAppId: ', appId)
   let result = users.filter(function (user) {
-    console.log('getAppUserObjFromAppId: ', user)
+    // debug('getAppUserObjFromAppId: ', user)
     return user.id === appId;
   });
 

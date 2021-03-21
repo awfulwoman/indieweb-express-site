@@ -22,6 +22,7 @@ const customHelpers = require('./helpers')
 // 🏃‍♀️💨 Express app
 const express = require('express')
 const helmet = require('helmet')
+const flash = require('connect-flash')
 
 const staticify = require('staticify')(path.join(__dirname, 'public'))
 const middleware = require('./middleware')
@@ -84,7 +85,7 @@ try {
   const passportGithubOptions = {
     clientID: config.githubClientId(),
     clientSecret: config.githubClientSecret(),
-    callbackURL: utilities.constructOauthCallback.oaUrl('github')
+    callbackURL: '/oauth/github/callback'
   }
 
   // Use Twitter passport strategy
@@ -115,11 +116,18 @@ try {
   app.use(middleware.session)
   app.use(passport.initialize()) // Initialize Passport in Express.
   app.use(passport.session()) // Restore Passport's authentication state, if any, from the session.
+  app.use(flash()) // Allow messages to be passed to redirects
+  app.use(middleware.renderNav)
   app.use(middleware.isAdmin) // Determine if the user is an admin
   app.use(middleware.renderUsers) // Make user info available to every render
   app.use(middleware.renderDebug) // Make debug status available to every render
   app.use(middleware.renderBuildTime) // Add (static) buildtime to every render
-
+  app.use(function (req, res, next) {
+    // if there's a flash message in the session request, make it available in the response, then delete it
+    res.locals.messages = req.session.flash
+    delete req.session.flash
+    next()
+  })
   //
   // HTTP LOGGING
   // ------------
@@ -148,7 +156,7 @@ try {
   app.use('/syndication', [routes.syndication.create, routes.syndication.store])
   app.use('/youdidntsaythemagicword', (req, res, next) => res.render('youdidntsaythemagicword', {}))
   app.use(staticify.middleware)
-  app.use('/', [routes.offline, routes.disambiguation, routes.archives, routes.auth, routes.content])
+  app.use('/', [routes.offline, routes.feeds, routes.disambiguation, routes.archives, routes.auth, routes.content])
 
   //
   // ERROR PAGES

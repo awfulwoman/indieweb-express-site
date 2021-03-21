@@ -6,34 +6,44 @@ Express server-side app, using Markdown for data storage.
 
 ## Installation
 
-```
-npm i
+```bash
+npm install
 ```
 
 ## Run tests
 
 Tests are done via [Jest](https://www.npmjs.com/package/jest).
 
-```
+```bash
 npm test
 ```
 
 ## Running app
 
-```
-npm run start:dev
+Development:
+
+```bash
+npm run dev
 ```
 
-This is an alias in `package.json` for:
+Production:
 
-```
-npx nodemon app.js
+```bash
+npm start
 ```
 
 ## Debugging app
 
-The app can be debugged using [debug](https://www.npmjs.com/package/debug).
+The app can display useful information via [debug](https://www.npmjs.com/package/debug).
 
+Full debugging:
+
+```bash
+DEBUG=indieweb-express-site:* npm run dev
 ```
-DEBUG=indieweb-express-site:controller:*,indieweb-express-site:error npx nodemon app.js
+
+or limited to only some areas:
+
+```bash
+DEBUG=indieweb-express-site:controller:*,indieweb-express-site:error npm run dev
 ```

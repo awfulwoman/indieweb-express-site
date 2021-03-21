@@ -7,19 +7,16 @@ const metadata = async (data, renderMessages = [], options = {}) => {
 
   if (!data.created) {
     data.created = tempCurrentDate.toISO()
-    renderMessages.push(`Creation date: ${data.created}`)
+    renderMessages.push(`Created: ${data.created}`)
   }
   if (!data.modified) {
     data.modified = tempCurrentDate.toISO()
-    renderMessages.push(`Modified date: ${data.modified}`)
+    renderMessages.push(`Modified: ${data.modified}`)
   }
   if (!data.guid) {
     data.guid = uuid.v4()
     renderMessages.push(`GUID: ${data.guid}`)
   }
-
-  debug('new metadata: ')
-  debug(data)
 
   return data
 }

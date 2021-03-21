@@ -10,7 +10,7 @@ const renderErrors = (err, req, res, next) => {
     status: 'error',
     statusCode: statusCode || 500,
     contentHtml: message,
-    rawError: rawError || null
+    rawError: rawError || 'no rawError'
   })
 }
 
