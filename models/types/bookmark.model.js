@@ -1,8 +1,7 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:bookmark')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, guid, bookmarkOf, content } = require('../../fields')
+const field = require('../../fields')
 
 let modelCache = new Nodecache()
 
@@ -10,11 +9,11 @@ const id = 'bookmark'
 const modelDir = 'bookmarks'
 
 const fields = [
-  created,
-  modified,
-  guid,
-  bookmarkOf,
-  content
+  field.created,
+  field.modified,
+  field.guid,
+  field.bookmarkOf,
+  field.content
 ]
 
 const settings = {

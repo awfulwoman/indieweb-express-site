@@ -1,7 +1,7 @@
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:article')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache, aliasUtil } = require('../utils')
-const { created, modified, title, guid, slug, strapline, content } = require('../../fields')
+const field = require('../../fields')
 
 let modelCache = new Nodecache()
 let aliasCache = new Nodecache()
@@ -10,13 +10,13 @@ const id = 'article'
 const modelDir = 'articles'
 
 const fields = [
-  created,
-  modified,
-  guid,
-  title,
-  slug,
-  strapline,
-  content
+  field.created,
+  field.modified,
+  field.guid,
+  field.title,
+  field.slug,
+  field.strapline,
+  field.content
 ]
 
 // {

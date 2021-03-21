@@ -1,8 +1,7 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:reply')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, guid, content, replyTo } = require('../../fields')
+const field = require('../../fields')
 
 let modelCache = new Nodecache()
 
@@ -10,11 +9,11 @@ const id = 'reply'
 const modelDir = 'replies'
 
 const fields = [
-  created,
-  modified,
-  guid,
-  replyTo,
-  content
+  field.created,
+  field.modified,
+  field.guid,
+  field.replyTo,
+  field.content
 ]
 
 const settings = {

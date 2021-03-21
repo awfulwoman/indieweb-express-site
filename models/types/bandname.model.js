@@ -1,8 +1,7 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:bandname')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, guid, title, content } = require('../../fields')
+const field = require('../../fields')
 
 let modelCache = new Nodecache()
 
@@ -10,11 +9,11 @@ const id = 'bandname'
 const modelDir = 'bandnames'
 
 const fields = [
-  created,
-  modified,
-  guid,
-  title,
-  content
+  field.created,
+  field.modified,
+  field.guid,
+  field.title,
+  field.content
 ]
 
 const settings = {

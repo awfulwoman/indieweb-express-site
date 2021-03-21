@@ -1,7 +1,7 @@
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:note')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, tags, guid, images, content } = require('../../fields')
+const field = require('../../fields')
 const { DateTime } = require('luxon')
 const chrono = require('chrono-node')
 
@@ -16,12 +16,12 @@ const defaultTitle = (datestamp) => {
 }
 
 const fields = [
-  created,
-  modified,
-  guid,
-  content,
-  images,
-  tags
+  field.created,
+  field.modified,
+  field.guid,
+  field.content,
+  field.images,
+  field.tags
 ]
 
 const settings = {

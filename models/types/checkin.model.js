@@ -1,8 +1,7 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:checkin')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, guid, content } = require('../../fields')
+const field = require('../../fields')
 
 let modelCache = new Nodecache()
 
@@ -10,10 +9,10 @@ const id = 'checkin'
 const modelDir = 'checkins'
 
 const fields = [
-  created,
-  modified,
-  guid,
-  content
+  field.created,
+  field.modified,
+  field.guid,
+  field.content
 ]
 
 const settings = {

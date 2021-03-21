@@ -1,8 +1,7 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:like')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, guid, content, likeOf } = require('../../fields')
+const field = require('../../fields')
 
 let modelCache = new Nodecache()
 
@@ -10,11 +9,11 @@ const id = 'like'
 const modelDir = 'likes'
 
 const fields = [
-  created,
-  modified,
-  guid,
-  likeOf,
-  content
+  field.created,
+  field.modified,
+  field.guid,
+  field.likeOf,
+  field.content
 ]
 
 const settings = {

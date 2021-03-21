@@ -1,8 +1,7 @@
-const globalFields = require('../_global')
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:quote')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, guid, content, quoteOf } = require('../../fields')
+const field = require('../../fields')
 
 let modelCache = new Nodecache()
 
@@ -10,11 +9,11 @@ const id = 'quote'
 const modelDir = 'quotes'
 
 const fields = [
-  created,
-  modified,
-  guid,
-  quoteOf,
-  content
+  field.created,
+  field.modified,
+  field.guid,
+  field.quoteOf,
+  field.content
 ]
 
 const settings = {
