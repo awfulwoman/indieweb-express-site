@@ -1,7 +1,7 @@
 const Nodecache = require('node-cache')
 const debug = require('debug')('indieweb-express-site:models:note')
 const { modelCreate, modelRead, modelUpdate, modelDelete, cache } = require('../utils')
-const { created, modified, title, guid, images, content } = require('../../fields')
+const { created, modified, tags, guid, images, content } = require('../../fields')
 const { DateTime } = require('luxon')
 const chrono = require('chrono-node')
 
@@ -20,7 +20,8 @@ const fields = [
   modified,
   guid,
   content,
-  images
+  images,
+  tags
 ]
 
 const settings = {

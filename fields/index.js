@@ -14,6 +14,7 @@ const replyTo = require('./lib/reply-to')
 const repostOf = require('./lib/repost-of')
 const slug = require('./lib/slug')
 const strapline = require('./lib/strapline')
+const tags = require('./lib/tags')
 const title = require('./lib/title')
 // const xxx = require('./lib/xxx')
 // const xxx = require('./lib/xxx')
@@ -38,5 +39,6 @@ module.exports = {
   repostOf,
   slug,
   strapline,
+  tags,
   title
 }

@@ -5,6 +5,7 @@ const AppError = require('./app-error')
 const formGeo = require('./form-geo')
 const markdownIt = require('./markdown-it')
 const monthNameToMonthNumber = require('./month-name-to-month-number')
+const stringToArray = require('./stringToArray')
 
 module.exports = {
   arrayToArchive,
@@ -13,5 +14,6 @@ module.exports = {
   AppError,
   formGeo,
   markdownIt,
-  monthNameToMonthNumber
+  monthNameToMonthNumber,
+  stringToArray
 }
