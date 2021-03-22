@@ -7,4 +7,7 @@
   class="c-form-texty {{#if errors.strapline}}c-form-texty--error{{/if}}"
   value="{{state.strapline}}"
   >
+  {{#if errors.strapline}}
+    <p class="comp-error">ERROR! {{errors.strapline}}</p>
+  {{/if}}
 </div>

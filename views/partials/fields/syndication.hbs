@@ -28,5 +28,8 @@
     <input type="text" id="manual_syndication" name="manual_syndication"
       class="c-form-texty {{#if errors.manual_syndication}}c-form-texty--error{{/if}}"
       value="{{state.manual_syndication}}">
+    {{#if errors.manual_syndication}}
+      <p class="comp-error">ERROR! {{errors.manual_syndication}}</p>
+    {{/if}}
   </div>
 </details>

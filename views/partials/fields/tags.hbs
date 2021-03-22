@@ -6,4 +6,7 @@
     name="tags"
     class="c-form-texty {{#if errors.tags}}c-form-texty--error{{/if}}"
     >{{state.tags}}</textarea>
+  {{#if errors.tags}}
+    <p class="comp-error">ERROR! {{errors.tags}}</p>
+  {{/if}}
 </div>
