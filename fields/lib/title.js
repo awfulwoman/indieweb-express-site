@@ -5,8 +5,6 @@ module.exports = {
     title: {
       in: ['body'],
       isString: true,
-      notEmpty: true,
-      // errorMessage: 'A title is required',
       trim: true
     }
   }
