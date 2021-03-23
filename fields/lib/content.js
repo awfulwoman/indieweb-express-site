@@ -6,7 +6,6 @@ module.exports = {
     content: {
       in: ['body'],
       isString: true,
-      notEmpty: true,
       errorMessage: 'You need to provide some content',
       // trim: true
     }
