@@ -12,8 +12,7 @@ const fields = [
   field.created,
   field.modified,
   field.guid,
-  field.repostOf,
-  field.content
+  field.repostOf
 ]
 
 const settings = {
