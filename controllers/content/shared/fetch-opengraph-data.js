@@ -24,7 +24,7 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
     const scrapedDir = path.join(config.contentRoot(), model.modelDir, id, 'scraped')
 
     // Check for existing OpenGraph data
-    if (await fileExists(path.join(scrapedDir, 'opengraph.json'))) throw new Error('Opengraph data already present')
+    if (await fileExists(path.join(scrapedDir, 'opengraph.json'))) throw new Error('Opengraph: data already present')
 
     for (const field of indiewebFields) {
       // if the current indiewebfield is a property in the data object...
@@ -38,7 +38,7 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
 
         let result = ogsResponse.result
         if (!result.success) throw new Error('Could not get Opengraph data for this URL')
-        debug('result: ', result)
+        renderMessages.push('OpenGraph: fetched data')
 
         await mkdir(scrapedDir)
 
@@ -58,12 +58,13 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
             const remoteImageFilename = path.basename(remoteImageUrl.pathname)
 
             if (!downloadImage.ok) throw new Error(`Unexpected response while fetching OG data: ${downloadImage.statusText}`)
-            renderMessages.push('Fetched OpenGraph data for ' + field + ' ' + currentUrl)
+            renderMessages.push('OpenGraph: fetched image')
 
             const localImageDir = path.join(scrapedDir, 'files')
             const localImageFile = path.join(localImageDir, remoteImageFilename)
             await mkdir(localImageDir)
             await streamPipeline(downloadImage.body, createWriteStream(localImageFile))
+            renderMessages.push('OpenGraph: saved image')
 
             ogObj.image.filename = remoteImageFilename
 
@@ -79,9 +80,7 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
             }
 
           }
-
-          // renderMessages.push('Added: OG data')
-        } // Finish images
+        } 
 
         // Fallback to adding screenshot
         // if ((!result.ogImage || !result.twitterImage) && (!data.ogObj || (data.ogObj && !data.ogObj.image))) {
@@ -92,22 +91,17 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
         //   // renderMessages.push('Added screenshot for ' + currentUrl)
         // }
 
-
-
-        // SAVE OBJECT
-        
-        await fs.promises.writeFile(path.join(scrapedDir, 'opengraph.json'), JSON.stringify(ogObj, null, 2))
-        debug('saved OG data: ', ogObj)
-        renderMessages.push('Added OpenGraph data for ' + field + ' ' + currentUrl)
       }
     }
 
-    // debug('data: ', data)
+
+    // SAVE OBJECT
+    await fs.promises.writeFile(path.join(scrapedDir, 'opengraph.json'), JSON.stringify(ogObj, null, 2))
+    renderMessages.push('OpenGraph: saved data')
 
     return data
   } catch (error) {
     renderMessages.push(error.message)
-    debug(error)
     throw error
   }
 }
