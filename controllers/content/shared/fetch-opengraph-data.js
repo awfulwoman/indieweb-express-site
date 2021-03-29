@@ -24,7 +24,7 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
     const scrapedDir = path.join(config.contentRoot(), model.modelDir, id, 'scraped')
 
     // Check for existing OpenGraph data
-    if (fileExists(path.join(scrapedDir, 'opengraph.json'))) throw new Error('Opengraph data already present')
+    if (await fileExists(path.join(scrapedDir, 'opengraph.json'))) throw new Error('Opengraph data already present')
 
     for (const field of indiewebFields) {
       // if the current indiewebfield is a property in the data object...
@@ -35,7 +35,6 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
 
         // Get data
         const ogsResponse = await ogs({ url: currentUrl })
-        // console.log('ogsResponse: ', ogsResponse)
 
         let result = ogsResponse.result
         if (!result.success) throw new Error('Could not get Opengraph data for this URL')
@@ -44,7 +43,9 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
         await mkdir(scrapedDir)
 
         // Add title 
-        ogObj.title = result.ogDescription
+        if (result.ogTitle) ogObj.title = result.ogTitle
+        if(result.ogDescription) ogObj.description = result.ogDescription
+        if(result.ogSiteName) ogObj.siteName = result.ogSiteName
 
         // Add social media image if present in result, and no ogObj data already exists
         if (result.ogImage || result.twitterImage) {
@@ -65,6 +66,8 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
             await streamPipeline(downloadImage.body, createWriteStream(localImageFile))
 
             ogObj.image.filename = remoteImageFilename
+
+            if (sourceImage.type) ogObj.image.type = sourceImage.type
 
             if (sourceImage.height && sourceImage.height) {
               ogObj.image.height = sourceImage.height
@@ -92,8 +95,9 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
 
 
         // SAVE OBJECT
+        
         await fs.promises.writeFile(path.join(scrapedDir, 'opengraph.json'), JSON.stringify(ogObj, null, 2))
-
+        debug('saved OG data: ', ogObj)
         renderMessages.push('Added OpenGraph data for ' + field + ' ' + currentUrl)
       }
     }
