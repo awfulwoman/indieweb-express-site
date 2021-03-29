@@ -40,7 +40,6 @@ const modelRead = async (dir, cache, id, options = {}) => {
     let cachingActionResult = cache.set(id, resultObject)
     if (is.falsy(cachingActionResult)) { debug(`ERROR: Could not store ${dir}/${id} in cache!`) }
     
-    debug(resultObject)
     return resultObject
   } catch (error) {
     throw error
