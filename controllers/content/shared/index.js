@@ -1,6 +1,7 @@
 const fileUploads = require('./file-uploads')
 const metadata = require('./metadata')
 const oEmbed = require('./oembed')
+const fetchOpengraphData = require('./fetch-opengraph-data')
 const syndicationAuto = require('./syndication-auto')
 const syndicationManual = require('./syndication-manual')
 const flattenFormErrors = require('./flatten-form-errors')
@@ -14,6 +15,7 @@ module.exports = {
   syndicationAuto,
   syndicationManual,
   oEmbed,
+  fetchOpengraphData,
   flattenFormErrors,
   flattenFormBody,
   syndicationSilos,

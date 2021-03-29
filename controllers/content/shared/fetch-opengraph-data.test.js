@@ -1,4 +1,4 @@
-const fetchOgData = require('./fetch-ogdata')
+const fetchOgData = require('./fetch-opengraph-data')
 
 const dataBasic = {
   testProperty: 'testData',

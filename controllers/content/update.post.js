@@ -58,6 +58,11 @@ const updatePost = async (args) => {
     // The core item has been saved to markdown.
     // Now to process data held in other files.
 
+    // try to save OpenGraph data
+    await shared.fetchOpengraphData(argObj.sanitizedData, argObj.model, argObj.id, renderMessages).catch((error) => {
+      debug('Caught an error while fetching OpenGraph data, but not rethrowing because it is not critical')
+    })
+
     // Use req.files data to look for uploaded files and save them to the item
     if (argObj.files) {
       shared.fileUploads(argObj.model, argObj.id, argObj.files, renderMessages, options = {})
@@ -81,7 +86,7 @@ const updatePost = async (args) => {
     await argObj.model.read(argObj.id).catch((error) => { throw error }) // Read to set up cache
     // await webmention.send(data.url).catch((error) => { throw error })
 
-    renderMessages.push('SUCCESS!')
+    renderMessages.push('Item updated!')
 
     const successObj = {
       status: 'SUCCESS',

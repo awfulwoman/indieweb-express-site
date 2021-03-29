@@ -1,4 +1,5 @@
 const arrayToArchive = require('./array-to-archive')
+const fileExists = require('./file-exists')
 const combineMerge = require('./combine-merge')
 const constructOauthCallback = require('./construct-oauth-callback')
 const AppError = require('./app-error')
@@ -9,6 +10,7 @@ const stringToArray = require('./stringToArray')
 
 module.exports = {
   arrayToArchive,
+  fileExists,
   combineMerge,
   constructOauthCallback,
   AppError,

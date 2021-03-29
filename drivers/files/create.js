@@ -1,15 +1,8 @@
-const fs = require('fs')
 const path = require('path')
 const config = require('../../config')
 const is = require('is_js')
 const debug = require('debug')('indieweb-express-site:drivers:files:create')
 const write = require('write')
-
-async function checkFileExists(file) {
-  return fs.promises.access(file, fs.constants.F_OK)
-    .then(() => true)
-    .catch(() => false)
-}
 
 const create = async (type, id, filename, content) => {
   try {
