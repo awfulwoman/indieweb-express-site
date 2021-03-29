@@ -3,6 +3,10 @@
 
   {{> author}}
 
+  {{#if scraped}}
+  <img class="comp-siteimage"  src="/bookmarks/{{storageId}}/f/{{scraped.image.filename}}/600" width="{{scraped.image.width}}" height="{{scraped.image.height}}" alt="">
+  {{/if}}
+
   <div class="comp-bookmark e-content">
     {{{contentHtml}}}
   </div>

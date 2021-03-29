@@ -22,7 +22,8 @@ const readGet = async (model, options = {}) => {
     syndications: itemObj.syndications,
     webmentions: null,
     sections: itemObj.sections ? itemObj.sections : null,
-    url: itemObj.url
+    url: itemObj.url,
+    scraped: itemObj.scraped || null
   }
 }
 

@@ -4,6 +4,7 @@ const matter = require('gray-matter')
 
 const normalizeItemObject = require('./normalize-item')
 const addSyndications = require('./add-syndications')
+const addScrapd = require('./add-scraped')
 const { markdown } = require('../../drivers')
 
 const modelRead = async (dir, cache, id, options = {}) => {
@@ -29,6 +30,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
 
     // if syndications read them
     resultObject = await addSyndications(resultObject, id, dir, options)
+    resultObject = await addScrapd(resultObject, id, dir, options)
     
     // Normalize object (fix wonky dates, add missing fields, etc)
     resultObject = await normalizeItemObject(resultObject, id, dir, options)
@@ -38,6 +40,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
     let cachingActionResult = cache.set(id, resultObject)
     if (is.falsy(cachingActionResult)) { debug(`ERROR: Could not store ${dir}/${id} in cache!`) }
     
+    debug(resultObject)
     return resultObject
   } catch (error) {
     throw error

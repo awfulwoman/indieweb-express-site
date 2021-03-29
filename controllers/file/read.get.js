@@ -3,6 +3,7 @@ const mime = require('mime-types');
 const asyncHandler = require('express-async-handler');
 const AppError = require('../../utilities/app-error')
 const files = require('../../drivers/files')
+const scraped = require('../../drivers/scraped')
 const Nodecache = require('node-cache')
 const sharp = require('sharp');
 const is = require('is_js');
@@ -37,7 +38,7 @@ const readGet = (model) => {
       }
 
       if (!fileCache.has(cacheKey)) {
-        const readStream = await files.read(model.modelDir, resolvedId, req.params.file)
+        const readStream = await scraped.read(model.modelDir, resolvedId, req.params.file) || await files.read(model.modelDir, resolvedId, req.params.file)
 
         const generatedImage = await sharp(readStream)
           .rotate()
