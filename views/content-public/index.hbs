@@ -28,6 +28,10 @@
         {{#each data.images}}
         <a href="/notes/{{../id}}/f/{{this.file}}/900"><img src="/notes/{{../id}}/f/{{this.file}}/300" alt="{{this.alt}}"></a>
         {{/each}}
+        {{else}}
+          {{#if this.scraped.image}}
+          <a href="/{{this.storage}}/{{this.id}}/f/{{this.scraped.image.filename}}/900"><img src="/{{this.storage}}/{{this.id}}/f/{{this.scraped.image.filename}}/300" alt=""></a>
+          {{/if}}
         {{/if}}
 
         </div>
