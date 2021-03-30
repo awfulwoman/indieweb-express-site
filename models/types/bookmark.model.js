@@ -13,6 +13,7 @@ const fields = [
   field.title,
   field.modified,
   field.guid,
+  field.tags,
   field.bookmarkOf,
   field.content
 ]
