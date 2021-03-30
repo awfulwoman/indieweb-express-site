@@ -33,7 +33,7 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
       // if the current indiewebfield is a property in the data object...
       if (Object.keys(data).includes(field)) {
         const currentUrl = data[field]
-        if (is.not.url(currentUrl)) throw new Error(`Indieweb field '${field}' does not contain a URL`)
+        if (is.not.url(currentUrl)) throw new Error(`Indieweb field does not contain a URL`)
         if (currentUrl.match('^http(s?)://twitter.com+')) return data // don't try this on twitter
 
         // Fetch data
