@@ -2,40 +2,4 @@
 
 {{{contentHtml}}}
 
-{{#if children}}
-<h2 class="p-name">Latest entries</h2>
-<p class="p-summary">Check out these sick items, baby.</p>
-<div class="c-card-grid h-feed">
-  {{#each children}}
-    <article class="c-note-card h-entry">
-      {{!-- <header class="util-sr-only"> --}}
-      <svg class="comp-icon comp-icon--float-right"><use xlink:href="{{ getVersionedPath '/svg/defs/svg/sprite.css.svg' }}#assets--svg--{{this.storage}}"></use></svg>
-      <h2 class="p-name"><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
-      {{!-- </header> --}}
-
-      <div class="comp-content">
-
-        <div class="p-summary">
-        {{{truncate this.rendered 600}}}
-        
-        {{#if data.images}}
-        {{#each data.images}}
-        <a href="/notes/{{../id}}/f/{{this.file}}/900"><img src="/notes/{{../id}}/f/{{this.file}}/300" alt="{{this.alt}}"></a>
-        {{/each}}
-        {{else}}
-          {{#if scraped.image}}
-          <a href="/{{this.storage}}/{{this.id}}/f/{{this.scraped.image.filename}}/900"><img src="/{{this.storage}}/{{this.id}}/f/{{this.scraped.image.filename}}/300" alt="{{this.alt}}"></a>
-          {{/if}}
-        {{/if}}
-
-        </div>
-      </div>
-
-      <footer>
-        <p class="c-date--small"><a href="{{this.path}}"><datetime class="dt-published" datetime="{{this.data.created}}">{{formatDate this.data.created "cccc dd LLLL, yyyy"}}</datetime></a></p>
-      </footer>
-
-    </article>
-  {{/each}}
-</div>
-{{/if}}
+{{> cards}}

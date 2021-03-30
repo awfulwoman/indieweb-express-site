@@ -1,0 +1,38 @@
+{{#if children}}
+<h2 class="p-name">Latest stuff and things</h2>
+<p class="p-summary">Check out these sick items, baby.</p>
+
+<div class="c-card-grid h-feed">
+  {{#each children}}
+    <article class="comp-card h-entry">
+      <h2 class="p-name comp-card__title"><svg class="comp-icon comp-icon--float-right"><use xlink:href="{{ getVersionedPath '/svg/defs/svg/sprite.css.svg' }}#assets--svg--{{this.storage}}"></use></svg><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
+
+      <div class="p-summary comp-card__content">
+        {{{truncate this.rendered 600}}}
+      </div>
+    
+      <div class="comp-card__img">
+        {{#if this.data.images}}
+          {{#each this.data.images}}
+            {{#if @first}}
+              <a href="/{{../storage}}/{{../id}}"><img src="/{{../storage}}/{{../id}}/f/{{this.file}}/300" alt="{{this.alt}}"></a>
+            {{else}}
+              <a href="/{{../storage}}/{{../id}}"><img src="/{{../storage}}/{{../id}}/f/{{this.file}}/100" alt="{{this.alt}}"></a>
+            {{/if}}
+          {{/each}}
+        {{else}}
+          {{#if this.scraped.image}}
+          <a href="/{{this.storage}}/{{this.id}}"><img src="/{{this.storage}}/{{this.id}}/f/{{this.scraped.image.filename}}/300" alt=""></a>
+          {{else}}
+          <a href="/{{this.storage}}/{{this.id}}"><img src="/android-chrome-192x192.png" alt=""></a>
+          {{/if}}
+        {{/if}}
+      </div>
+
+      <footer class="comp-card__footer">
+        <p class="c-date--small"><a href="{{this.path}}"><datetime class="dt-published" datetime="{{this.data.created}}">{{formatDate this.data.created "cccc dd LLLL, yyyy"}}</datetime></a></p>
+      </footer>
+    </article>
+  {{/each}}
+</div>
+{{/if}}

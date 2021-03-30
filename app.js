@@ -46,7 +46,7 @@ try {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'", "whalecoiner.net", "whalecoiner.org", "sonniesedge.net", "www.sonniesedge.net", "sonniesedge.co.uk", "www.sonniesedge.co.uk"],
-        imgSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
+        imgSrc: ["'self'", "data:", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
         styleSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
         childSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
