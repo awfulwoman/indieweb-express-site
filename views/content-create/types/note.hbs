@@ -7,6 +7,8 @@
   {{> fields/content }}
   {{> fields/tags}}
 
+  {{> fields/images}}
+
   <details class="comp-reveal">
     <summary class="comp-reveal-title">Place</summary>
     <div class="comp-reveal-content">
@@ -15,11 +17,17 @@
   </details>
 
   <details class="comp-reveal">
-    <summary class="comp-reveal-title">Meta</summary>
+    <summary class="comp-reveal-title">Visibility</summary>
     <div class="comp-reveal-content">
       {{> fields/privacy}}
       {{> fields/feed}}
       {{> fields/index}}
+    </div>
+  </details>
+
+  <details class="comp-reveal">
+    <summary class="comp-reveal-title">Meta</summary>
+    <div class="comp-reveal-content">
       {{> fields/created}}
       {{> fields/modified}}
       {{> fields/guid}}
@@ -30,7 +38,6 @@
     <summary class="comp-reveal-title">Optional</summary>
     <div class="comp-reveal-content">
       {{> fields/title}}
-      {{> fields/images}}
     </div>
   </details>
 
