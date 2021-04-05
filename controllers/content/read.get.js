@@ -19,6 +19,7 @@ const readGet = async (model, options = {}) => {
     data: itemObj.data,
     children: options.children ? await options.children() : null,
     twitter: shared.makeTweetable(itemObj),
+    opengraph: await shared.formatOpengraph(itemObj),
     storageId: itemObj.id,
     storageType: itemObj.storage || 'pages',
     childrenType: options.childrenType,
