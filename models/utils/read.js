@@ -26,7 +26,11 @@ const modelRead = async (dir, cache, id, options = {}) => {
     // The item is not present in the model cache. Read from filesystem
     let result = await markdown.read(dir, id)
 
-    let resultObject = matter(result)
+    function firstFourLines(file, options) {
+      file.excerpt = file.content.split('\n').slice(0, 4).join(' ');
+    }
+
+    let resultObject = matter(result, { excerpt: firstFourLines })
 
     // if syndications read them
     resultObject = await addSyndications(resultObject, id, dir, options)
