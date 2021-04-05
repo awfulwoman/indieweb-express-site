@@ -4,79 +4,9 @@
   <h1>Handlebars template debugging 🐜 </h1>
 
 
-  {{#if errors}}
-  <h2>Errors</h2>
-  <pre class="hljs"><code>{{{dumpObject errors}}}</code></pre>
-  {{/if}}
-
-  {{#if state}}
-  <h2>State</h2>
-  <pre class="hljs"><code>{{{dumpObject state}}}</code></pre>
-  {{/if}}
-
-  {{#if syndications}}
-  <h2>Syndications</h2>
-  <pre class="hljs"><code>{{{dumpObject syndications}}}</code></pre>
-  {{/if}}
-
-  {{#if twitter}}
-  <h2>Twitter</h2>
-  <pre class="hljs"><code>{{{dumpObject twitter}}}</code></pre>
-  {{/if}}
-
-  {{#if scraped}}
-  <h2>Scraped</h2>
-  <pre class="hljs"><code>{{{dumpObject scraped}}}</code></pre>
-  {{/if}}
-
-  {{#if id}}
-  <h2>ID</h2>
-  <pre class="hljs"><code>{{{dumpObject id}}}</code></pre>
-  {{/if}}
-
-  {{#if storage}}
-  <h2>Storage</h2>
-  <pre class="hljs"><code>{{{dumpObject storage}}}</code></pre>
-  {{/if}}
-
-  {{#if data}}
+  {{#if json}}
   <h2>Data</h2>
-  <pre class="hljs"><code>{{{dumpObject data}}}</code></pre>
-  {{/if}}
-
-  {{#if contentHtml}}
-  <h2>contentHtml</h2>
-  <pre class="hljs"><code>{{{dumpObject contentHtml}}}</code></pre>
-  {{/if}}
-
-  {{#if contentMarkdown}}
-  <h2>contentMarkdown</h2>
-  <pre class="hljs"><code>{{{dumpObject contentMarkdown}}}</code></pre>
-  {{/if}}
-
-  {{#if sections}}
-  <h2>Sections</h2>
-  <pre class="hljs"><code>{{{dumpObject sections}}}</code></pre>
-  {{/if}}
-
-  {{#if children}}
-  <h2>Children</h2>
-  <pre class="hljs"><code>{{{dumpObject children}}}</code></pre>
-  {{/if}}
-
-  {{#if fields}}
-  <h2>Fields</h2>
-  <pre class="hljs"><code>{{{dumpObject fields}}}</code></pre>
-  {{/if}}
-
-  {{#if raw}}
-  <h2>Raw</h2>
-  <pre class="hljs"><code>{{{dumpObject raw}}}</code></pre>
-  {{/if}}
-
-  {{#if @exphbs}}
-  <h2>@exphbs</h2>
-  <pre class="hljs"><code>{{{dumpObject @exphbs}}}</code></pre>
+  <pre class="hljs"><code>{{{dumpObject json}}}</code></pre>
   {{/if}}
 
 </div>

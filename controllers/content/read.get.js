@@ -13,7 +13,7 @@ const readGet = async (model, options = {}) => {
   if (is.falsy(itemObj)) throw new Error(`Could not find ${options.id} in ${model.modelDir}.`)
   if (itemObj.data.private) throw new Error(`${model.modelDir}/${options.id} is private.`)
 
-  return {
+  let readObj =  {
     contentMarkdown: itemObj.content,
     contentHtml: itemObj.rendered,
     data: itemObj.data,
@@ -29,6 +29,11 @@ const readGet = async (model, options = {}) => {
     url: itemObj.url,
     scraped: itemObj.scraped || null
   }
+
+  let clonedReadObj = {...readObj}
+  clonedReadObj.json = readObj
+
+  return clonedReadObj
 }
 
 module.exports = readGet
