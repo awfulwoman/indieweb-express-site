@@ -16,8 +16,8 @@ const readGet = async (model, options = {}) => {
   debug(itemObj)
   let readObj =  {
     contentMarkdown: itemObj.content,
-    contentHtml: itemObj.rendered,
-    excerpt: itemObj.excerpt,
+    contentHtml: itemObj.contentHtml,
+    excerptHtml: itemObj.excerptHtml,
     data: itemObj.data,
     children: options.children ? await options.children() : null,
     twitter: shared.makeTweetable(itemObj),

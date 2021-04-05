@@ -33,7 +33,7 @@ const generateBaseFeed = async (model) => {
       
       feed.addItem({
         title: item.data.title,
-        description: item.rendered,
+        description: item.strapline || item.excerptHtml,
         content: md.render(renderedContentWithAdditionalData),
         id: item.url,
         link: item.url,

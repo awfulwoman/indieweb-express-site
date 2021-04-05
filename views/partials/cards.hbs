@@ -8,7 +8,7 @@
       <h2 class="p-name comp-card__title"><svg class="comp-icon comp-icon--float-right"><use xlink:href="{{ getVersionedPath '/svg/defs/svg/sprite.css.svg' }}#assets--svg--{{this.storage}}"></use></svg><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
 
       <div class="p-summary comp-card__content">
-        {{{truncate this.rendered 600}}}
+        {{{excerptHtml}}}
       </div>
     
       <div class="comp-card__img">

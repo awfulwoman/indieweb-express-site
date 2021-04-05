@@ -17,8 +17,8 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
 
   // Render content markdown to HTML if present
   if (resultObject && resultObject.content) {
-    resultObject.rendered = md.render(resultObject.content)
-    resultObject.excerpt = md.render(resultObject.excerpt)
+    resultObject.contentHtml = md.render(resultObject.content)
+    resultObject.excerptHtml = md.render(resultObject.excerpt)
   }
 
   // Load sections and add to object
@@ -26,7 +26,7 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
     resultObject.sections = []
     for (let i = 0; i < resultObject.data.sections.length; i++) {
       let sectionData = matter(await markdown.readSection(dir, id, resultObject.data.sections[i]))
-      sectionData.rendered = md.render(sectionData.content)
+      sectionData.contentHtml = md.render(sectionData.content)
       resultObject.sections.push(sectionData)
     }
   }
