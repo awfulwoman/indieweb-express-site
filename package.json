@@ -66,6 +66,7 @@
     "is_js": "^0.9.0",
     "is-image": "^3.0.0",
     "is-iso-date": "0.0.1",
+    "is-string-blank": "^1.0.1",
     "is-valid-path": "^0.1.1",
     "javascript-natural-sort": "^0.7.1",
     "jest-fetch-mock": "^3.0.3",
