@@ -3,9 +3,6 @@
 APPDIR=$1
 cd $APPDIR
 
-echo "Remove existing node_modules..."
-rm -rf node_modules
-
 echo "Building app..."
 npm ci
 
