@@ -42,15 +42,16 @@ try {
   if (!fs.existsSync(config.logDir())) throw new utilities.AppError('500', `Could not find ${config.logDir()}`)
 
   // ⛑ Configure CSP headers
+  // Use defaults from Helmet, and customize CSP
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'", "whalecoiner.net", "whalecoiner.org", "sonniesedge.net", "www.sonniesedge.net", "sonniesedge.co.uk", "www.sonniesedge.co.uk"],
-        imgSrc: ["'self'", "data:", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
-        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "platform.twitter.com", "syndication.twitter.com"],
-        styleSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
+        imgSrc: ["'self'", "data:", "platform.twitter.com", "syndication.twitter.com"],
+        scriptSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
+        styleSrc: ["'self'", "https:", "'unsafe-inline'", "platform.twitter.com", "syndication.twitter.com"],
         childSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
-        fontSrc: ["'self'"],
+        fontSrc: ["'self'", "https:", "data:"],
         connectSrc: ["'self'"],
         objectSrc: ["'self'"]
       }

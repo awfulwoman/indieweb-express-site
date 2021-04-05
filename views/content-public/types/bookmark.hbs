@@ -12,17 +12,14 @@
   </div>
 
   {{#if data.bookmark_of}}
-  <p><a href="{{data.bookmark_of}}"
+  <p>
+    <a href="{{data.bookmark_of}}"
       class="u-bookmark-of {{#if data.add_like}}u-like-of {{/if}}comp-button comp-button--primary">Visit bookmarked
-      URL</a><span class="util-sr-only">.</span></p>
+      URL</a><span class="util-sr-only">.</span>
+  </p>
   {{/if}}
 
-  <div class="p-bridgy-twitter-content u-bridgy-omit-link util-display-none">
-    {{{contentHtml}}}
-
-     {{data.bookmark_of}}
-     {{url}}
-  </div>
+  {{> twitter}}
 
   {{> syndications}}
   {{> tags}}

@@ -1,4 +1,5 @@
 const fileUploads = require('./file-uploads')
+const makeTweetable = require('./make-tweetable')
 const metadata = require('./metadata')
 const oEmbed = require('./oembed')
 const fetchOpengraphData = require('./fetch-opengraph-data')
@@ -11,6 +12,7 @@ const syndicationSilosMissing = require('./syndication-silos-missing')
 
 module.exports = {
   fileUploads,
+  makeTweetable,
   metadata,
   syndicationAuto,
   syndicationManual,

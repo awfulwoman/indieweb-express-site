@@ -12,10 +12,11 @@
     "dev": "npm run sprites && concurrently npm:watch-css npm:watch-server --raw",
     "test": "jest",
     "css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
-    "watch-server": "npx nodemon app.js --ignore example/",
+    "watch-server": "npx nodemon app.js --ignore example/ --ignore assets/",
     "watch-test": "jest --watchAll --reporters=jest-silent-reporter",
     "watch-css": "sass --watch ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
-    "sprites": "npx svg-sprite --symbol --defs --dest ./public/svg ./assets/svg/*"
+    "sprites": "npx svg-sprite --symbol --defs --dest ./public/svg ./assets/svg/*",
+    "js": "rollup -c -w"
   },
   "jest": {
     "automock": false,
@@ -75,6 +76,7 @@
     "make-error": "^1.3.6",
     "markdown-it": "^10.0.0",
     "markdown-it-implicit-figures": "^0.10.0",
+    "markdown-it-mentions": "^1.0.0",
     "mime-types": "^2.1.27",
     "mkdirp": "^1.0.4",
     "months": "^2.1.0",
@@ -96,6 +98,7 @@
     "qs": "^6.9.4",
     "rand-token": "^1.0.1",
     "remove-markdown": "^0.3.0",
+    "rollup-plugin-terser": "^7.0.2",
     "rotating-file-stream": "^2.1.3",
     "sass": "^1.29.0",
     "session-file-store": "^1.5.0",
@@ -103,6 +106,9 @@
     "staticify": "^5.0.0",
     "svg-sprite": "^1.5.0",
     "tall": "^3.1.0",
+    "trim-newlines": "^3.0.0",
+    "twemoji-parser": "^11.0.2",
+    "twitter-text": "^3.1.0",
     "uuid": "^8.3.0",
     "validator": "^13.1.17",
     "winston": "^3.3.3",
@@ -110,11 +116,18 @@
     "write": "^2.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
     "concurrently": "^5.3.0",
     "eslint": "^7.20.0",
     "eslint-plugin-node": "^11.1.0",
     "jest": "^26.5.0",
     "jest-silent-reporter": "^0.4.0",
-    "mock-fs": "^4.13.0"
+    "markdown-it-regexp": "^0.4.0",
+    "markdown-it-replace-link": "^1.1.0",
+    "mock-fs": "^4.13.0",
+    "rollup": "^2.44.0",
+    "rollup-plugin-size-snapshot": "^0.12.0"
   }
 }

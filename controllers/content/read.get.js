@@ -1,6 +1,7 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:readGet')
 const is = require('is_js')
 const path = require('path')
+const shared = require('./shared')
 
 // READ
 const readGet = async (model, options = {}) => {
@@ -17,6 +18,7 @@ const readGet = async (model, options = {}) => {
     contentHtml: itemObj.rendered,
     data: itemObj.data,
     children: options.children ? await options.children() : null,
+    twitter: shared.makeTweetable(itemObj),
     storageId: itemObj.id,
     storageType: itemObj.storage || 'pages',
     childrenType: options.childrenType,
