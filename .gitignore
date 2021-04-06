@@ -8,3 +8,4 @@ completer.hist
 /data
 /log
 public/bundle.js.map
+.size-snapshot.json
