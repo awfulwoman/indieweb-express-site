@@ -9,14 +9,15 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "npm run sprites && concurrently npm:watch-css npm:watch-server --raw",
+    "dev": "npm run sprites && concurrently npm:watch-css npm:watch-js npm:watch-server --raw",
     "test": "jest",
     "css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
+    "js": "rollup -c",
     "watch-server": "npx nodemon app.js --ignore example/ --ignore assets/",
     "watch-test": "jest --watchAll --reporters=jest-silent-reporter",
+    "watch-js": "rollup -c",
     "watch-css": "sass --watch ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
-    "sprites": "npx svg-sprite --symbol --defs --dest ./public/svg ./assets/svg/*",
-    "js": "rollup -c -w"
+    "sprites": "npx svg-sprite --symbol --defs --dest ./public/svg ./assets/svg/*"
   },
   "jest": {
     "automock": false,
