@@ -2,13 +2,9 @@ const debug = require('debug')('indieweb-express-site:models:utils:cache:warm')
 const is = require('is_js')
 const path = require('path')
 const fg = require('fast-glob')
-const naturalSort = require('javascript-natural-sort')
 const config = require('../../../config')
-const AppError = require('../../../utilities/app-error')
-const read = require('../read')
+const read = require('../crud/read')
 const alias = require('../alias')
-const defaultTitle = require('../default-title')
-
 
 const warm = async (modelCache, type, options = {}) => {
   let result = []

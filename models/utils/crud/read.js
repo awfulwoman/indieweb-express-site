@@ -2,10 +2,11 @@ const debug = require('debug')('indieweb-express-site:models:utils:read')
 const is = require('is_js')
 const matter = require('gray-matter')
 
-const normalizeItemObject = require('./normalize-item')
-const addSyndications = require('./add-syndications')
-const addScrapd = require('./add-scraped')
-const { markdown } = require('../../drivers')
+const normalizeItemObject = require('../normalize-item')
+const addSyndications = require('../add-syndications')
+const addScraped = require('../add-scraped')
+const addTwitter = require('../add-twitter')
+const { markdown } = require('../../../drivers')
 
 const modelRead = async (dir, cache, id, options = {}) => {
   try {
@@ -34,10 +35,11 @@ const modelRead = async (dir, cache, id, options = {}) => {
 
     // if syndications read them
     resultObject = await addSyndications(resultObject, id, dir, options)
-    resultObject = await addScrapd(resultObject, id, dir, options)
+    resultObject = await addScraped(resultObject, id, dir, options)
     
     // Normalize object (fix wonky dates, add missing fields, etc)
     resultObject = await normalizeItemObject(resultObject, id, dir, options)
+    resultObject = addTwitter(resultObject, options)
 
     // debug(resultObject)
 

@@ -2,8 +2,8 @@ const debug = require('debug')('indieweb-express-site:models:utils:update')
 const is = require('is_js')
 const matter = require('gray-matter')
 
-const { markdown } = require('../../drivers')
-const normalizeItemObject = require('./normalize-item')
+const { markdown } = require('../../../drivers')
+const normalizeItemObject = require('../normalize-item')
 
 /** @description Generic function for updating any model content item.
  * @param {string} dir Storage directory for this kind of content. e.g. 'notes' 

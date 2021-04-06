@@ -1,6 +1,6 @@
 const debug = require('debug')('indieweb-express-site:models:utils:create')
 const is = require('is_js')
-const {markdown} = require('../../drivers')
+const {markdown} = require('../../../drivers')
 const matter = require('gray-matter')
 
 const modelCreate = async (dir, cache, data, content, id) => {

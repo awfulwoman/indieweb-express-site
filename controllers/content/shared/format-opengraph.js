@@ -2,8 +2,8 @@ const debug = require('debug')('indieweb-express-site:controllers:content:shared
 const config = require('../../../config')
 
 const formatOpengraph = async (itemObj) => {
-  debug('itemObj')
-  debug(itemObj)
+  // debug('itemObj')
+  // debug(itemObj)
 
   const imageObj = async () => {
 
@@ -73,12 +73,9 @@ const formatOpengraph = async (itemObj) => {
     type: 'website',
     title: itemObj.data.title,
     url: itemObj.url,
-    description: itemObj.excerpt || (itemObj.scraped && itemObj.scraped.description) || 'A piece of content from whalecoiner.com',
+    description: itemObj.excerptHtml || (itemObj.scraped && itemObj.scraped.description) || 'A piece of content from whalecoiner.com',
     image: imageObjFinal
   }
-
-  // debug('opengraphObj')
-  // debug(opengraphObj)
 
   return opengraphObj
 }

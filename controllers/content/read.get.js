@@ -13,14 +13,16 @@ const readGet = async (model, options = {}) => {
   if (is.falsy(itemObj)) throw new Error(`Could not find ${options.id} in ${model.modelDir}.`)
   if (itemObj.data.private) throw new Error(`${model.modelDir}/${options.id} is private.`)
 
-  debug(itemObj)
   let readObj =  {
     contentMarkdown: itemObj.content,
     contentHtml: itemObj.contentHtml,
     excerptHtml: itemObj.excerptHtml,
     data: itemObj.data,
     children: options.children ? await options.children() : null,
-    twitter: shared.makeTweetable(itemObj),
+    twitter: {
+      markdown: itemObj.twitterMarkdown,
+      html: itemObj.twitterHtml,
+    },
     opengraph: await shared.formatOpengraph(itemObj),
     storageId: itemObj.id,
     storageType: itemObj.storage || 'pages',
@@ -34,6 +36,9 @@ const readGet = async (model, options = {}) => {
 
   let clonedReadObj = {...readObj}
   clonedReadObj.json = readObj
+
+  debug(clonedReadObj)
+
 
   return clonedReadObj
 }
