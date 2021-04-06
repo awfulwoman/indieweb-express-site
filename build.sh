@@ -4,6 +4,7 @@ APPDIR=$1
 cd $APPDIR
 
 echo "Building app..."
+rm -rf node_modules
 npm ci
 
 echo "Building assets..."
