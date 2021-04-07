@@ -1,21 +1,27 @@
+const AppError = require('./app-error')
 const arrayToArchive = require('./array-to-archive')
-const fileExists = require('./file-exists')
+const cleanContent = require('./clean-content')
 const combineMerge = require('./combine-merge')
 const constructOauthCallback = require('./construct-oauth-callback')
-const AppError = require('./app-error')
+const fileExists = require('./file-exists')
 const formGeo = require('./form-geo')
-const markdownIt = require('./markdown-it')
+const isContentEmpty = require('./is-content-empty')
+const md = require('./markdown-it')
 const monthNameToMonthNumber = require('./month-name-to-month-number')
+const quoteSafely = require('quote')
 const stringToArray = require('./stringToArray')
 
 module.exports = {
+  AppError,
   arrayToArchive,
-  fileExists,
+  cleanContent,
   combineMerge,
   constructOauthCallback,
-  AppError,
+  fileExists,
   formGeo,
-  markdownIt,
+  isContentEmpty,
+  md,
   monthNameToMonthNumber,
+  quoteSafely,
   stringToArray
 }

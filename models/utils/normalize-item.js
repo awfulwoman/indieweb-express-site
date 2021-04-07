@@ -5,7 +5,7 @@ const is = require('is_js')
 const matter = require('gray-matter')
 
 const defaultTitle = require('../utils/default-title')
-const md = require('../../utilities/markdown-it')
+const { md } = require('../../utilities')
 const config = require('../../config')
 const AppError = require('../../utilities/app-error')
 const { markdown } = require('../../drivers')

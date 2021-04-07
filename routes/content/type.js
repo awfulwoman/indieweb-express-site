@@ -9,7 +9,7 @@ const asyncHandler = require('express-async-handler')
 const AppError = require('../../utilities/app-error')
 const processFiles = require('../../middleware/process-files')
 const processUploadedFiles = require('../../middleware/process-uploaded-files')
-const md = require('../../utilities/markdown-it')
+const { md } = require('../../utilities')
 
 // 💅 Models
 const models = require('../../models')

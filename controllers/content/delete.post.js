@@ -1,7 +1,7 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:deletePost')
 const asyncHandler = require('express-async-handler');
 const AppError = require('../../utilities/app-error')
-const md = require('../../utilities/markdown-it')
+const { md } = require('../../utilities')
 
 const bodyParser = require('body-parser')
 const urlencodedParser = bodyParser.urlencoded({ extended: true })

@@ -1,12 +1,7 @@
 const debug = require('debug')('indieweb-express-site:models:utils:makeTweetable')
 const twttr = require('twitter-text')
-const trimNewlines = require('trim-newlines')
-const isStringBlank = require('is-string-blank')
-const md = require('../../utilities/markdown-it')
 
-const isContentEmpty = (content) => {
-  return isStringBlank(trimNewlines(content))
-}
+const { md, isContentEmpty, cleanContent, quoteSafely } = require('../../utilities')
 
 // Does the first object contain a property that matches one of the keys in the second array?
 const relevantUrl = (resultObject, tweetableIndiewebFields) => { 
@@ -28,11 +23,22 @@ const addTweetableContent = (resultObject, options = {}) => {
   // - it contains no Markdown links
   if (resultObject.twitter_content && !isContentEmpty(resultObject.twitter_content)) {
     // debug('Found resultObject.twitter_content')
-    let combined = trimNewlines(`${resultObject.twitter_content}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
-    if (twttr.parseTweet(combined).valid && !combined.includes('](')) {
-      // debug('resultObject.twitter_content is tweetableObj')
-      resultObject.twitterMarkdown = combined
-      resultObject.twitterHtml = md.render(combined)
+
+    if (resultObject.data && resultObject.data.title) {
+      let combinedContentUrlTitle = cleanContent(`${resultObject.twitter_content}\n${quoteSafely(resultObject.data.title)}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
+      if (twttr.parseTweet(combinedContentUrlTitle).valid && !combinedContentUrlTitle.includes('](')) {
+        debug('resultObject.twitter_content (with title)', combinedContentUrlTitle)
+        resultObject.twitterMarkdown = combinedContentUrlTitle
+        resultObject.twitterHtml = md.render(combinedContentUrlTitle)
+        return resultObject
+      }
+    }
+
+    let combinedContentUrl = cleanContent(`${resultObject.twitter_content}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
+    if (twttr.parseTweet(combinedContentUrl).valid && !combinedContentUrl.includes('](')) {
+      debug('resultObject.twitter_content', combinedContentUrlTitle)
+      resultObject.twitterMarkdown = combinedContentUrl
+      resultObject.twitterHtml = md.render(combinedContentUrl)
       return resultObject
     }
   }
@@ -42,11 +48,21 @@ const addTweetableContent = (resultObject, options = {}) => {
   // - it contains no Markdown links
   if (resultObject.content && !isContentEmpty(resultObject.content)) {
     // debug('Found resultObject.content')
-    let combined = trimNewlines(`${resultObject.content}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
-    if (twttr.parseTweet(combined).valid && !combined.includes('](')) {
-      // debug('resultObject.content is tweetableObj')
-      resultObject.twitterMarkdown = combined
-      resultObject.twitterHtml = md.render(combined)
+    if (resultObject.data && resultObject.data.title) {
+      let combinedContentUrlTitle = cleanContent(`${resultObject.content}\n${quoteSafely(resultObject.data.title)}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
+      if (twttr.parseTweet(combinedContentUrlTitle).valid && !combinedContentUrlTitle.includes('](')) {
+        debug('resultObject.content (with title)', combinedContentUrlTitle)
+        resultObject.twitterMarkdown = combinedContentUrlTitle
+        resultObject.twitterHtml = md.render(combinedContentUrlTitle)
+        return resultObject
+      }
+    }
+
+    let combinedContentUrl = cleanContent(`${resultObject.content}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
+    if (twttr.parseTweet(combinedContentUrl).valid && !combinedContentUrl.includes('](')) {
+      debug('resultObject.content', combinedContentUrlTitle)
+      resultObject.twitterMarkdown = combinedContentUrl
+      resultObject.twitterHtml = md.render(combinedContentUrl)
       return resultObject
     }
   }
@@ -56,7 +72,7 @@ const addTweetableContent = (resultObject, options = {}) => {
   // for each indieweb field
   debug('Both twitter_content and content are empty')
 
-  // confirm that combined content and indieweb field is tweetableObj
+  // confirm that combinedContentUrl content and indieweb field is tweetableObj
   let markdownContent = ''
   if (tweetableObj) {
     debug('tweetableObj')
@@ -76,10 +92,10 @@ const addTweetableContent = (resultObject, options = {}) => {
     }
   }
 
-  let combined = trimNewlines(`${markdownContent}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
-  if (twttr.parseTweet(combined).valid) {
-    resultObject.twitterMarkdown = combined
-    resultObject.twitterHtml = md.render(combined)
+  let combinedContentUrl = cleanContent(`${markdownContent}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
+  if (twttr.parseTweet(combinedContentUrl).valid) {
+    resultObject.twitterMarkdown = combinedContentUrl
+    resultObject.twitterHtml = md.render(combinedContentUrl)
     return resultObject
   }
 
