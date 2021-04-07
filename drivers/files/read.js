@@ -9,9 +9,16 @@ const read = async (type, id, filename) => {
     if (!type || !id) throw new Error('markdown.read: Missing parameters')
     if (is.not.string(type) || is.not.string(id) || is.not.string(filename)) throw new Error('markdown.read: Parameters must be supplied as strings')
 
-    let destination = path.join(config.contentRoot(), type, id, 'files', filename)
+    let locations = ['scraped/files', 'files']
 
-    return await fs.promises.readFile(destination)
+    for (const location of locations) {
+      let destinationFiles = path.join(config.contentRoot(), type, id, location, filename)
+      let results = await fs.promises.readFile(destinationFiles).catch((error) => {
+        debug(`Error while reading ${destinationFiles}`)
+      })
+      if (results) return results
+    }
+
   } catch (error) {
     return Promise.reject(error)
   }

@@ -9,7 +9,7 @@ const asyncHandler = require('express-async-handler')
 const AppError = require('../../utilities/app-error')
 const processFiles = require('../../middleware/process-files')
 const processUploadedFiles = require('../../middleware/process-uploaded-files')
-const md = require('../../utilities/markdown-it')
+const { md } = require('../../utilities')
 
 // 💅 Models
 const models = require('../../models')
@@ -136,7 +136,7 @@ for (const model of models.modelsArray) {
   // 📌 Index
   router.get(`/${model.modelDir}`, [], asyncHandler(async (req, res) => {
     try {
-      const results = await contentController.readGet(models.page, { id: model.modelDir, children: model.recentIndex })
+      const results = await contentController.readGet(models.page, { id: model.modelDir, children: model.recentIndex, childrenType: model.modelDir })
       res.render('content-public/index', results)
     } catch (error) { throw new AppError(404, null, error) }
   }))

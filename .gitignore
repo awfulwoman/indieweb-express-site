@@ -7,3 +7,5 @@ completer.hist
 .stversions
 /data
 /log
+public/bundle.js.map
+.size-snapshot.json

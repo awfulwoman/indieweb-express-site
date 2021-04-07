@@ -12,8 +12,8 @@ const fields = [
   field.created,
   field.modified,
   field.guid,
-  field.likeOf,
-  field.content
+  field.tags,
+  field.likeOf
 ]
 
 const settings = {

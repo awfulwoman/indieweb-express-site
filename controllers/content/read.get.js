@@ -1,6 +1,7 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:readGet')
 const is = require('is_js')
 const path = require('path')
+const shared = require('./shared')
 
 // READ
 const readGet = async (model, options = {}) => {
@@ -12,18 +13,34 @@ const readGet = async (model, options = {}) => {
   if (is.falsy(itemObj)) throw new Error(`Could not find ${options.id} in ${model.modelDir}.`)
   if (itemObj.data.private) throw new Error(`${model.modelDir}/${options.id} is private.`)
 
-  return {
+  let readObj =  {
     contentMarkdown: itemObj.content,
-    contentHtml: itemObj.rendered,
+    contentHtml: itemObj.contentHtml,
+    excerptHtml: itemObj.excerptHtml,
     data: itemObj.data,
     children: options.children ? await options.children() : null,
+    twitter: {
+      markdown: itemObj.twitterMarkdown,
+      html: itemObj.twitterHtml,
+    },
+    opengraph: await shared.formatOpengraph(itemObj),
     storageId: itemObj.id,
-    storageType: itemObj.storage,
+    storageType: itemObj.storage || 'pages',
+    childrenType: options.childrenType,
     syndications: itemObj.syndications,
     webmentions: null,
     sections: itemObj.sections ? itemObj.sections : null,
-    url: itemObj.url
+    url: itemObj.url,
+    scraped: itemObj.scraped || null
   }
+
+  let clonedReadObj = {...readObj}
+  clonedReadObj.json = readObj
+
+  debug(clonedReadObj)
+
+
+  return clonedReadObj
 }
 
 module.exports = readGet

@@ -1,7 +1,11 @@
 @use 'button-group';
 @use 'button';
+@use 'card';
+@use 'card-grid';
 @use 'content';
 @use 'debug';
+@use 'feeds';
+@use 'footer';
 @use 'form';
 @use 'form-row';
 @use 'form-row-group';
@@ -12,38 +16,10 @@
 @use 'reveal';
 @use 'reveal-content';
 @use 'reveal-title';
+@use 'site-image';
 @use 'strapline';
 @use 'tag';
 @use 'tags';
-
-.c-footer {
-  border-top: 2px solid #e4e4e4;
-  max-width: 80rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-
-
-
-/* .c-form details > * {
-    margin-top: 1rem;
-  } */
-
-
-
-
-
-/* .c-form-textarea {
-    width: 100%;
-    border: 1px solid black;
-    padding: 10px;
-    font-size: 21px;
-  } */
-
-
 
 
 .c-header {
@@ -109,21 +85,6 @@
 
 .c-date--small {
   font-size: x-small;
-}
-
-.c-note-card {
-  /* border: 2px solid white; */
-  background-color: var(--accent-background);
-  padding: 1rem;
-  font-size: 1.5rem;
-  overflow-wrap: break-word;
-}
-
-.c-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
-  grid-gap: 2rem;
-  margin-bottom: 2rem;
 }
 
 .c-site-title {

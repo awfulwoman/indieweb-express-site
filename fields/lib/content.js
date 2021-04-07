@@ -5,10 +5,7 @@ module.exports = {
   validation: {
     content: {
       in: ['body'],
-      isString: true,
-      notEmpty: true,
-      errorMessage: 'You need to provide some content',
-      // trim: true
+      isString: true
     }
   }
 }

@@ -17,8 +17,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   {{!-- <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet"> --}}
   {{#if admin}}
-  <script src="{{getVersionedPath '/admin.js' }}" async />
-  </script>
+  <script src="{{getVersionedPath '/bundle.js' }}" async></script>
   {{/if}}
   <meta name="theme-color" content="#ffffff" />
   <link rel="webmention" href="https://webmention.io/whalecoiner.com/webmention" />
@@ -68,7 +67,14 @@
     {{{body}}}
   </main>
   <footer class="c-footer">
-    <p>Last deploy: {{buildTime}}</p>
+    <ul>
+      <li>Last deployed: {{buildTime}}</li>
+      <li>Source: <a href="https://github.com/whalecoiner/indieweb-express-site">View on Github</a></li>
+      <li>Github: <a rel="me" href="https://github.com/whalecoiner">@whalecoiner</a> & <a rel="me" href="https://github.com/sonniesedge">@sonniesedge</a> </li>
+      <li>Twitter: <a rel="me" href="https://twitter.com/sonniesedge">@sonniesedge</a></li>
+      <li>Instagram: <a rel="me" href="https://instagram.com/sonniesedge">@sonniesedge</a></li>
+    </ul>
+    <p></p>
   </footer>
   {{>debug}}
 </body>

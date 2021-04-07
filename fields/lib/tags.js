@@ -9,7 +9,7 @@ module.exports = {
       optional: { options: { nullable: true, checkFalsy: true } },
       isString: true,
       customSanitizer: {
-        options: (value, { req, location, path }) => {
+        options: (value) => {
           return stringToArray(value)
         }
       }

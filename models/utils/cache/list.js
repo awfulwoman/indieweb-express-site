@@ -1,13 +1,7 @@
 const debug = require('debug')('indieweb-express-site:models:utils:cache:list')
 const is = require('is_js')
 const { DateTime } = require('luxon')
-const path = require('path')
-const fg = require('fast-glob')
 const naturalSort = require('javascript-natural-sort')
-const config = require('../../../config')
-const AppError = require('../../../utilities/app-error')
-const read = require('../read')
-const alias = require('../alias')
 
 const list = async (modelCache, modelDir, options = {}) => {
   if (!options.limit) options.limit = 20

@@ -2,9 +2,11 @@ const debug = require('debug')('indieweb-express-site:models:utils:read')
 const is = require('is_js')
 const matter = require('gray-matter')
 
-const normalizeItemObject = require('./normalize-item')
-const addSyndications = require('./add-syndications')
-const { markdown } = require('../../drivers')
+const normalizeItemObject = require('../normalize-item')
+const addSyndications = require('../add-syndications')
+const addScraped = require('../add-scraped')
+const addTwitter = require('../add-twitter')
+const { markdown } = require('../../../drivers')
 
 const modelRead = async (dir, cache, id, options = {}) => {
   try {
@@ -25,13 +27,19 @@ const modelRead = async (dir, cache, id, options = {}) => {
     // The item is not present in the model cache. Read from filesystem
     let result = await markdown.read(dir, id)
 
-    let resultObject = matter(result)
+    function firstFourLines(file, options) {
+      file.excerpt = file.content.split('\n').slice(0, 4).join(' ');
+    }
+
+    let resultObject = matter(result, { excerpt: firstFourLines })
 
     // if syndications read them
     resultObject = await addSyndications(resultObject, id, dir, options)
+    resultObject = await addScraped(resultObject, id, dir, options)
     
     // Normalize object (fix wonky dates, add missing fields, etc)
     resultObject = await normalizeItemObject(resultObject, id, dir, options)
+    resultObject = addTwitter(resultObject, options)
 
     // debug(resultObject)
 

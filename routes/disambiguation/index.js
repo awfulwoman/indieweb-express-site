@@ -5,7 +5,7 @@ const requireAuthentication = require('../../middleware/require-authentication')
 const multer = require('multer')
 const upload = multer()
 
-const md = require('../../utilities/markdown-it')
+const { md } = require('../../utilities')
 
 // 🏃‍♀️💨 Express
 const express = require('express')

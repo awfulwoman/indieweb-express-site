@@ -1,0 +1,24 @@
+.comp-card {
+  background-color: var(--accent-background);
+  padding: 1rem;
+}
+
+.comp-card .comp-card__title { grid-area: title; }
+.comp-card .comp-card__img { grid-area: img; }
+.comp-card .comp-card__content { grid-area: bd; }
+.comp-card .comp-card__footer { grid-area: ft; }
+
+.comp-card {
+  display: grid;
+  grid-column-gap: 20px;
+  grid-template-columns: 150px 3fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "img title"
+    "img bd"
+    "ft ft";
+}
+
+.comp-card__footer {
+  text-align: right;
+}

@@ -1,6 +1,6 @@
 const debug = require('debug')('indieweb-express-site:controller:offline')
 const asyncHandler = require('express-async-handler')
-const md = require('../../utilities/markdown-it')
+const { md } = require('../../utilities')
 
 // 🏃‍♀️💨 Express
 const express = require('express')

@@ -20,6 +20,7 @@ const fields = [
   field.modified,
   field.guid,
   field.content,
+  field.tags,
   field.images,
   field.tags
 ]

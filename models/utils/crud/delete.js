@@ -1,6 +1,6 @@
 const debug = require('debug')('indieweb-express-site:models:utils:delete')
 const is = require('is_js')
-const {markdown} = require('../../drivers')
+const {markdown} = require('../../../drivers')
 const matter = require('gray-matter')
 
 const modelDelete = async (dir, cache, id) => {

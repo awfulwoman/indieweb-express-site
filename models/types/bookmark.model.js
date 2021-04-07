@@ -10,8 +10,10 @@ const modelDir = 'bookmarks'
 
 const fields = [
   field.created,
+  field.title,
   field.modified,
   field.guid,
+  field.tags,
   field.bookmarkOf,
   field.content
 ]

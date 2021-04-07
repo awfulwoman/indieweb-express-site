@@ -5,7 +5,7 @@ const is = require('is_js')
 const matter = require('gray-matter')
 
 const defaultTitle = require('../utils/default-title')
-const md = require('../../utilities/markdown-it')
+const { md } = require('../../utilities')
 const config = require('../../config')
 const AppError = require('../../utilities/app-error')
 const { markdown } = require('../../drivers')
@@ -17,7 +17,8 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
 
   // Render content markdown to HTML if present
   if (resultObject && resultObject.content) {
-    resultObject.rendered = md.render(resultObject.content)
+    resultObject.contentHtml = md.render(resultObject.content)
+    resultObject.excerptHtml = md.render(resultObject.excerpt || '')
   }
 
   // Load sections and add to object
@@ -25,7 +26,7 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
     resultObject.sections = []
     for (let i = 0; i < resultObject.data.sections.length; i++) {
       let sectionData = matter(await markdown.readSection(dir, id, resultObject.data.sections[i]))
-      sectionData.rendered = md.render(sectionData.content)
+      sectionData.contentHtml = md.render(sectionData.content)
       resultObject.sections.push(sectionData)
     }
   }

@@ -3,15 +3,14 @@
 APPDIR=$1
 cd $APPDIR
 
-echo "Remove existing node_modules..."
-rm -rf node_modules
-
 echo "Building app..."
+rm -rf node_modules
 npm ci
 
 echo "Building assets..."
 npm run css
 npm run sprites
+npm run js
 
 echo "Restarting server process..."
 pm2 stop ecosystem.config.js
