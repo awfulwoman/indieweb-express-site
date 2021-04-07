@@ -1,9 +1,8 @@
 const debug = require('debug')('indieweb-express-site:controllers:content:updatePost')
-const makeError = require("make-error")
+const makeError = require('make-error')
 const is = require('is_js')
-const { DateTime } = require('luxon')
 
-const config = require('../../config')
+const { md } = require('./../../utilities')
 const shared = require('./shared')
 // const webmention = require('../webmentions')
 
@@ -98,6 +97,7 @@ const updatePost = async (args) => {
 
     return successObj
   } catch (error) {
+    debug(error)
     const errorObj = {
       status: 'ERROR',
       contentHtml: md.render(error.message),

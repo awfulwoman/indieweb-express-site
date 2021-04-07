@@ -1,5 +1,5 @@
 module.exports = {
-  description: 'XXXXXXXXX',
+  description: 'Add an additional "like" to an item that is not primarily about likes',
   formFieldRender: 'textfield',
   validation: {
     add_like: {
