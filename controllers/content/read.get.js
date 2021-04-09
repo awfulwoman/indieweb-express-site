@@ -16,7 +16,7 @@ const readGet = async (model, options = {}) => {
   let readObj =  {
     contentMarkdown: itemObj.content,
     contentHtml: itemObj.contentHtml,
-    excerptHtml: itemObj.excerptHtml,
+    excerpt: itemObj.excerpt,
     data: itemObj.data,
     children: options.children ? await options.children() : null,
     twitter: {

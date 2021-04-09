@@ -73,7 +73,7 @@ const formatOpengraph = async (itemObj) => {
     type: 'website',
     title: itemObj.data.title,
     url: itemObj.url,
-    description: itemObj.excerptHtml || (itemObj.scraped && itemObj.scraped.description) || 'A piece of content from whalecoiner.com',
+    description: itemObj.excerpt.markdown || (itemObj.scraped && itemObj.scraped.description) || 'A piece of content from whalecoiner.com',
     image: imageObjFinal
   }
 

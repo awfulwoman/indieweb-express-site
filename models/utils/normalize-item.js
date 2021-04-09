@@ -18,7 +18,11 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
   // Render content markdown to HTML if present
   if (resultObject && resultObject.content) {
     resultObject.contentHtml = md.render(resultObject.content)
-    resultObject.excerptHtml = md.render(resultObject.excerpt || '')
+  }
+
+  resultObject.excerpt = {
+    html: md.render(resultObject.excerpt || ''),
+    markdown: resultObject.excerpt
   }
 
   // Load sections and add to object
