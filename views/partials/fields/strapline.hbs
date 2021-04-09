@@ -1,4 +1,4 @@
-<div class="c-form-row">
+<div class="c-form-row" {{#if errors.strapline}}c-form-row--error{{/if}}>
   <label for="strapline" class="c-form-title">Strapline</label>
   <input 
   type="text" 
@@ -7,4 +7,7 @@
   class="c-form-texty {{#if errors.strapline}}c-form-texty--error{{/if}}"
   value="{{state.strapline}}"
   >
+  {{#if errors.strapline}}
+    <p class="comp-error">ERROR! {{errors.strapline}}</p>
+  {{/if}}
 </div>

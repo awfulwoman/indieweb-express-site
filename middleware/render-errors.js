@@ -9,7 +9,10 @@ const renderErrors = (err, req, res, next) => {
   res.render('error', {
     status: 'error',
     statusCode: statusCode || 500,
-    contentHtml: message,
+    content:{
+      html: md.render(message || ''),
+      markdown: message
+    },
     rawError: rawError || 'no rawError'
   })
 }

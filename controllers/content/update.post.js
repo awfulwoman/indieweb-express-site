@@ -100,7 +100,10 @@ const updatePost = async (args) => {
     debug(error)
     const errorObj = {
       status: 'ERROR',
-      contentHtml: md.render(error.message),
+      content: {
+        markdown: error.messages,
+        html: md.render(error.message)
+      },
       messages: {
         info: renderMessages
       },

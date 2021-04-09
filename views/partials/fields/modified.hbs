@@ -1,4 +1,4 @@
-<div class="c-form-row">
+<div class="c-form-row {{#if errors.modified}}c-form-row--error{{/if}}">
   <label for="modified" class="c-form-title">Date modified</label>
   <input 
   type="text" 
@@ -7,4 +7,7 @@
   class="c-form-texty {{#if errors.modified}}c-form-texty--error{{/if}}"
   value="{{state.modified}}"
   >
+  {{#if errors.modified}}
+    <p class="comp-error">ERROR! {{errors.modified}}</p>
+  {{/if}}
 </div>

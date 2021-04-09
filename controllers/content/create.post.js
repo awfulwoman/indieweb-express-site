@@ -34,7 +34,12 @@ const createPost = async (args) => {
     delete argObj.sanitizedData.content
 
     if (is.not.empty(formErrors)) {
+      debug('formErrors', formErrors)
       renderMessages.push('Form errors are present. You need to deal with them.')
+      for (const propName in formErrors) {
+        debug(formErrors[propName])
+        renderMessages.push(`🚨 ${propName}: ${formErrors[propName]}`)
+      }
       throw new Error('Errors were present')
     }
 

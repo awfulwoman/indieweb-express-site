@@ -2,4 +2,7 @@
   <label for="repost_of" class="c-form-title">Reposted URL</label>
   <input type="text" id="repost_of" name="repost_of"
     class="c-form-texty {{#if errors.repost_of}}c-form-texty--error{{/if}}" value="{{state.repost_of}}">
+  {{#if errors.repost_of}}
+    <p class="comp-error">ERROR! {{errors.repost_of}}</p>
+  {{/if}}
 </div>

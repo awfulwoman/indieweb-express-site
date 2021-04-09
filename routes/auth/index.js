@@ -20,7 +20,10 @@ router.get(config.siteLoginPath(), [], function (req, res) {
 
   res.render('auth/method', {
     data: { title: 'Choose authentication method' },
-    contentHtml: null,
+    content: {
+      html: null,
+      markdown: null
+    },
     siteLoginPath: config.siteLoginPath()
   })
 })

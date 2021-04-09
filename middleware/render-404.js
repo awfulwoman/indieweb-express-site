@@ -3,7 +3,10 @@ const render404 = (req, res, next) => {
   res.render('error', {
     status: 'error',
     statusCode: '404',
-    contentHtml: 'Nothing to see here. Go home.'
+    content: {
+      markdown: 'Nothing to see here. Go home.',
+      html: '<p>Nothing to see here. Go home.</p>'
+    } 
   })
 }
 
