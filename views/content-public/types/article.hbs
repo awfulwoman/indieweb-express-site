@@ -6,11 +6,11 @@
   {{>strapline value=data.strapline}}
 
   <div class="c-post e-content">
-    {{{contentHtml}}}
+    {{{content.html}}}
 
     {{#if sections}}
       {{#each sections}}
-      {{>section id=../id storage=../storage data=this.data contentHtml=this.contentHtml}}
+      {{>section id=../id storage=../storage data=this.data content.html=this.content.html}}
       {{/each}}
     {{/if}}
   </div>

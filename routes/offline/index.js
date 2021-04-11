@@ -12,7 +12,10 @@ router.get(`/offline`, asyncHandler(async (req, res, next) => {
   try {
     res.render('default', {
       data: { title: 'Du bist Offline' },
-      contentHtml: md.render("Looks like you're offline."),
+      content: {
+        html: md.render("Looks like you're offline."),
+        markdown: "Looks like you're offline.",
+      } 
     })
   } catch (error) {
     debug(error)

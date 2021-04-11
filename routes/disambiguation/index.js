@@ -24,7 +24,10 @@ router.get(`/disambiguation`, [requireAuthentication], asyncHandler(async (req, 
 
     res.render(req.query.title || req.query.text || req.query.url ? 'content-create/disambiguation-post' : 'content-create/disambiguation-get', {
       data: { title: 'Disambiguation' },
-      contentHtml: md.render('Just used for manual testing.'),
+      content: {
+        html: md.render('Just used for manual testing.'),
+        markdown: 'Just used for manual testing.',
+      },
       state: form_state
     })
   } catch (error) {

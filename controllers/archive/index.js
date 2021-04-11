@@ -54,8 +54,10 @@ const archiveController = async (model, range = {}, options = {}) => {
       data: {
         title: `Archive results for ${humanDateTime}`
       },
-      contentHtml: '',
-      contentMarkdown: '',
+      content: {
+        html: '',
+        markdown: ''
+      },
       children: resultsObj
     }
   } catch (error) {

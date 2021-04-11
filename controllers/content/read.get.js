@@ -14,15 +14,11 @@ const readGet = async (model, options = {}) => {
   if (itemObj.data.private) throw new Error(`${model.modelDir}/${options.id} is private.`)
 
   let readObj =  {
-    contentMarkdown: itemObj.content,
-    contentHtml: itemObj.contentHtml,
-    excerptHtml: itemObj.excerptHtml,
+    content: itemObj.content,
+    excerpt: itemObj.excerpt,
     data: itemObj.data,
     children: options.children ? await options.children() : null,
-    twitter: {
-      markdown: itemObj.twitterMarkdown,
-      html: itemObj.twitterHtml,
-    },
+    twitter: itemObj.twitter,
     opengraph: await shared.formatOpengraph(itemObj),
     storageId: itemObj.id,
     storageType: itemObj.storage || 'pages',

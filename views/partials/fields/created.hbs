@@ -1,4 +1,4 @@
-<div class="c-form-row">
+<div class="c-form-row {{#if errors.created}}c-form-row--error{{/if}}">
   <label for="created" class="c-form-title">Date created</label>
   <input 
   type="text" 
@@ -7,4 +7,7 @@
   class="c-form-texty {{#if errors.created}}c-form-texty--error{{/if}}"
   value="{{state.created}}"
   >
+  {{#if errors.created}}
+    <p class="comp-error">ERROR! {{errors.created}}</p>
+  {{/if}}
 </div>

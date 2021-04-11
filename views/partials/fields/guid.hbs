@@ -1,4 +1,4 @@
-<div class="c-form-row">
+<div class="c-form-row {{#if errors.guid}}c-form-row--error{{/if}}">
   <label for="guid" class="c-form-title">GUID</label>
   <input 
   type="text" 
@@ -7,4 +7,7 @@
   class="c-form-texty {{#if errors.guid}}c-form-texty--error{{/if}}"
   value="{{state.guid}}"
   >
+  {{#if errors.guid}}
+    <p class="comp-error">ERROR! {{errors.guid}}</p>
+  {{/if}}
 </div>

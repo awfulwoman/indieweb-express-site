@@ -1,0 +1,7 @@
+<div class="c-form-row {{#if errors.twitter_content}}c-form-row--error{{/if}}">
+  <label for="content" class="c-form-title">Content</label>
+  <textarea rows="8" id="twitter_content" name="twitter_content" class="c-form-texty {{#if errors.twitter_content}}c-form-texty--error{{/if}}">{{state.twitter_content}}</textarea>
+  {{#if errors.twitter_content}}
+    <p class="comp-error">ERROR! {{errors.twitter_content}}</p>
+  {{/if}}
+</div>

@@ -62,7 +62,10 @@ for (const model of models.modelsArray) {
       req.session.save(() => res.redirect(results.url))
     } catch (error) {
       error.contentErrors.data = { title: 'Create failed' }
-      error.contentHtml = md.render('Create encountered errors.')
+      error.content = {
+        html: md.render('Create encountered errors.'),
+        markdown: 'Create encountered errors.'
+      }
       res.render(`content-create/types/${model.id}`, error.contentErrors)
     }
   }))
@@ -97,7 +100,10 @@ for (const model of models.modelsArray) {
     } catch (error) {
       debug(error)
       error.contentErrors.data = { title: 'Update failed' }
-      error.contentHtml = md.render('Update encountered errors.')
+      error.content = {
+        html: md.render('Update encountered errors.'),
+        markdown: 'Update encountered errors.'
+      },
       res.render(`content-create/types/${model.id}`, error.contentErrors)
     }
   }))
