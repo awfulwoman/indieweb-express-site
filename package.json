@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "npm run sprites && concurrently npm:watch-css npm:watch-js npm:watch-server --raw",
-    "test": "jest",
+    "test": "jest  --env=node",
     "css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
     "js": "rollup -c",
     "watch-server": "npx nodemon app.js --ignore example/ --ignore assets/",
@@ -99,6 +99,7 @@
     "natural-orderby": "^2.0.3",
     "node-cache": "^5.1.0",
     "node-fetch": "^2.6.1",
+    "nodejs-file-downloader": "^4.4.2",
     "nodemon": "^2.0.6",
     "normalize-path": "^3.0.0",
     "open-graph-scraper": "^4.7.1",

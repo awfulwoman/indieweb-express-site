@@ -3,6 +3,7 @@ const arrayToArchive = require('./array-to-archive')
 const cleanContent = require('./clean-content')
 const combineMerge = require('./combine-merge')
 const constructOauthCallback = require('./construct-oauth-callback')
+const downloadFile = require('./download-file')
 const fileExists = require('./file-exists')
 const formGeo = require('./form-geo')
 const isContentEmpty = require('./is-content-empty')
@@ -17,6 +18,7 @@ module.exports = {
   cleanContent,
   combineMerge,
   constructOauthCallback,
+  downloadFile,
   fileExists,
   formGeo,
   isContentEmpty,
