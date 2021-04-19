@@ -1,5 +1,5 @@
 const multer = require('multer')
-const debug = require('debug')('indieweb-express-site:middleware:processFiles')
+const debug = require('debug')('indieweb-express-site:middleware:filesUpload')
 const mime = require('mime-types')
 const slugify = require('@sindresorhus/slugify')
 const { DateTime } = require('luxon')
@@ -16,6 +16,6 @@ const diskStorage = multer.diskStorage({
     cb(null, slugify(file.fieldname) + '-' + uniqueSuffix + '.' + mime.extension(file.mimetype))
   }
 })
-const processUploadedFiles = multer({ storage: diskStorage })
+const filesUpload = multer({ storage: diskStorage })
 
-module.exports = processUploadedFiles
+module.exports = filesUpload

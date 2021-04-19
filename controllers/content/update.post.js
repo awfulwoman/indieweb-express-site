@@ -64,7 +64,7 @@ const updatePost = async (args) => {
 
     // Use req.files data to look for uploaded files and save them to the item
     if (argObj.files) {
-      shared.fileUploads(argObj.model, argObj.id, argObj.files, renderMessages, options = {})
+      shared.attachFiles(argObj.model, argObj.id, argObj.files, renderMessages, options = {})
     }
 
     // Syndicate if requested

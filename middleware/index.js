@@ -1,8 +1,8 @@
 const requireAuthentication = require('./require-authentication')
 const render404 = require('./render-404')
 const renderErrors = require('./render-errors')
-const processFiles = require('./process-files')
-const processUploadedFiles = require('./process-uploaded-files')
+const filesUpload = require('./files-upload')
+const filesExtractData = require('./files-extract-data')
 const session = require('./session')
 const renderBuildTime = require('./render-buildtime')
 const renderDebug = require('./render-debug')
@@ -19,7 +19,7 @@ module.exports = {
   renderNav,
   session,
   renderUsers,
-  processFiles,
-  processUploadedFiles,
+  filesUpload,
+  filesExtractData,
   isAdmin
 }

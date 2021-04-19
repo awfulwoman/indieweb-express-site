@@ -1,4 +1,4 @@
-const debug = require('debug')('indieweb-express-site:middleware:processUploadedFiles')
+const debug = require('debug')('indieweb-express-site:middleware:filesExtractData')
 const sizeOf = require('image-size')
 const isImage = require('is-image')
 const qs = require('qs')
@@ -14,7 +14,7 @@ const combineMerge = require('../utilities/combine-merge')
 
 // This means that we're going to be changing the submitted form data on-the-fly to include the uploaded file.
 
-const processFiles = (req, res, next) => {
+const filesExtractData = (req, res, next) => {
   debug('req.files', req.files)
   if (!req.files) next()
   if (!req.uploads) req.uploads = {}
@@ -85,7 +85,7 @@ const processFiles = (req, res, next) => {
   }
 
   // After processing all the uploads, we want to  attach the data object 
-  // (but not the actual file) to req.body, so that it can be handled like anything else there
+  // (but not the actual file) to req.body, so that it can be handled like anything else there.
   // In the above example we would end up with `req.body.images`
   for (const uploadGroup in req.uploads) {
     if (Object.hasOwnProperty.call(req.uploads, uploadGroup)) {
@@ -98,4 +98,4 @@ const processFiles = (req, res, next) => {
   next()
 }
 
-module.exports = processFiles
+module.exports = filesExtractData

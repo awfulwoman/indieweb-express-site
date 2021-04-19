@@ -7,8 +7,7 @@ const router = express.Router()
 const { validationResult, matchedData, checkSchema } = require('express-validator')
 const asyncHandler = require('express-async-handler')
 const AppError = require('../../utilities/app-error')
-const processFiles = require('../../middleware/process-files')
-const processUploadedFiles = require('../../middleware/process-uploaded-files')
+const { filesExtractData, filesUpload } = require('../../middleware')
 const { md } = require('../../utilities')
 
 // 💅 Models
@@ -47,7 +46,7 @@ for (const model of models.modelsArray) {
   }))
 
   // Create (POST)
-  const createPostMiddleware = [requireAuthentication, processFiles.any(), processUploadedFiles, checkSchema(localValidators)]
+  const createPostMiddleware = [requireAuthentication, filesUpload.any(), filesExtractData, checkSchema(localValidators)]
   router.post(`/${model.modelDir}/create`, createPostMiddleware, asyncHandler(async (req, res) => {
     debug(`/${model.modelDir}/create (post)`)
     try {
@@ -82,7 +81,7 @@ for (const model of models.modelsArray) {
   }))
 
   // Update (POST)
-  const updatePostMiddleware = [requireAuthentication, processFiles.any(), processUploadedFiles, checkSchema(localValidators)]
+  const updatePostMiddleware = [requireAuthentication, filesUpload.any(), filesExtractData, checkSchema(localValidators)]
   router.post(`/${model.modelDir}/:id/edit`, updatePostMiddleware, asyncHandler(async (req, res) => {
     debug(`/${model.modelDir}/edit (post)`)
     try {

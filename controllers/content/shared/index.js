@@ -1,4 +1,4 @@
-const fileUploads = require('./attach-uploaded-files')
+const attachFiles = require('./attach-files')
 const formatOpengraph = require('./format-opengraph')
 const metadata = require('./metadata')
 const oEmbed = require('./oembed')
@@ -11,7 +11,7 @@ const syndicationSilos = require('./syndication-silos')
 const syndicationSilosMissing = require('./syndication-silos-missing')
 
 module.exports = {
-  fileUploads,
+  attachFiles,
   formatOpengraph,
   metadata,
   syndicationAuto,
