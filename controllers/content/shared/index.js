@@ -1,4 +1,4 @@
-const fileUploads = require('./file-uploads')
+const fileUploads = require('./attach-uploaded-files')
 const formatOpengraph = require('./format-opengraph')
 const metadata = require('./metadata')
 const oEmbed = require('./oembed')

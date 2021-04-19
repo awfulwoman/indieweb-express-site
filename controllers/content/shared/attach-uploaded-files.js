@@ -1,4 +1,4 @@
-const debug = require('debug')('indieweb-express-site:controllers:content:shared:fileUploads')
+const debug = require('debug')('indieweb-express-site:controllers:content:shared:attachUploadedFiles')
 const path = require('path')
 const moveFile = require('move-file')
 
