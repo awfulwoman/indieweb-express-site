@@ -4,8 +4,9 @@ const path = require('path')
 const config = require('../../config')
 
 let expectedNodeData = {
-  content: 
-`\nThis is a note. It is beautiful.`,
+  content: {
+    markdown: '\nThis is a note. It is beautiful.'
+  },
   data: {
     guid: 'e09e7eeb-da6d-4c83-9ff9-709d9ad4b300',
     type: 'note',
@@ -46,11 +47,11 @@ describe('Read from a file', () => {
   });
 
   test('Successfully reading from disk', async () => {
-    await expect(note.read('0000')).resolves.toMatchObject(expectedNodeData);
+    await expect(note.read('0000')).resolves.toMatchObject(expectedNodeData)
   });
 
   test('Fail reading from disk', async () => {
-    await expect(note.read('xyz')).rejects.toThrow();
+    await expect(note.read('xyz')).rejects.toThrow()
   });
 
   afterEach(() => mock.restore());

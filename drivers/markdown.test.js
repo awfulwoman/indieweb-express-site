@@ -5,8 +5,9 @@ const config = require('../config')
 const outdent = require('outdent')
 
 let expectedNodeData = {
-  content:
-    `\nThis is a note. It is beautiful.`,
+  content: {
+    markdown: 'This is a note. It is beautiful.'
+  },
   data: {
     guid: 'e09e7eeb-da6d-4c83-9ff9-709d9ad4b300',
     type: 'note',
