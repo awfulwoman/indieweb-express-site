@@ -1,4 +1,8 @@
-const fetchOgData = require('./fetch-opengraph-data')
+require('open-graph-scraper/node_modules/iconv-lite').encodingExists();
+const fetchOgData = require('../fetch-opengraph-data')
+const config = require('../../../../config')
+const mock = require('mock-fs')
+const path = require('path')
 
 const id = '1234567890'
 
@@ -29,6 +33,12 @@ const data1 = {
 }
 
 describe('Checking the basics', () => {
+
+  let testRawFileDataPath = path.join(config.contentRoot(), 'notes/1234567890/')
+
+  beforeEach(() => {
+    mock({testRawFileDataPath})
+  })
 
 
   test('Reject indieweb fields that are not URLs', async () => {

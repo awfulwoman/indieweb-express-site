@@ -84,7 +84,7 @@ describe('Check for working file operations', () => {
     ---
     
     This is a note. It is beautiful.
-
+    
     `
 
     beforeEach(() => {
