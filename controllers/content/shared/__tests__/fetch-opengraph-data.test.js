@@ -1,4 +1,5 @@
-require('open-graph-scraper/node_modules/iconv-lite').encodingExists();
+// why iconv-lite? See: https://stackoverflow.com/questions/46227783/encoding-not-recognized-in-jest-js
+require('open-graph-scraper/node_modules/iconv-lite').encodingExists()
 const fetchOgData = require('../fetch-opengraph-data')
 const config = require('../../../../config')
 const mock = require('mock-fs')
