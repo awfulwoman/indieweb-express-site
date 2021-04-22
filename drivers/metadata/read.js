@@ -3,7 +3,6 @@ const fs = require('fs')
 const path = require('path')
 const is = require('is_js')
 const config = require('../../config')
-const AppError = require('../../utilities/app-error')
 
 const read = async (contentType, contentId, metadataType, filename) => {
   try {
@@ -19,8 +18,8 @@ const read = async (contentType, contentId, metadataType, filename) => {
 
     let destination = path.join(
       config.contentRoot(), 
-      contentType === 'page' ? '' : contentType, 
-      (contentType === 'page' && contentId === 'root') ? '' : contentId, 
+      contentType === 'pages' ? '' : contentType, 
+      (contentType === 'pages' && contentId === 'root') ? '' : contentId, 
       metadataType, 
       filename
       )

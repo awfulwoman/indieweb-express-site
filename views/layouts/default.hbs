@@ -45,6 +45,8 @@
   <script type="module" src="new.browsers.js"></script> --}}
   {{#if data.strapline}}
   <meta name="description" content="{{data.strapline}}">
+  {{else}}
+  <meta name="description" content="{{data.excerpt.plain}}">
   {{/if}}
 
   {{> opengraph}}

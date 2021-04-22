@@ -7,7 +7,7 @@ const { created, modified, guid, content } = require('../fields')
 let modelCache = new Nodecache()
 
 const id = 'page'
-const modelDir = 'page'
+const modelDir = 'pages'
 
 const fields = [
   created,

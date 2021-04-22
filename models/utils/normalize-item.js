@@ -1,13 +1,12 @@
 const debug = require('debug')('indieweb-express-site:models:utils:normalizeItem')
 
 const { DateTime } = require('luxon')
-const is = require('is_js')
 const matter = require('gray-matter')
+const removeMd = require('remove-markdown')
 
 const defaultTitle = require('../utils/default-title')
 const { md } = require('../../utilities')
 const config = require('../../config')
-const AppError = require('../../utilities/app-error')
 const { markdown } = require('../../drivers')
 const sanitizeDate = require('./sanitize-date')
 
@@ -17,15 +16,19 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
 
   // Render content markdown to HTML if present
   if (resultObject && resultObject.content) {
-    resultObject.content = {
+    resultObject.contentFormats = {
       html: md.render(resultObject.content),
-      markdown: resultObject.content
+      markdown: resultObject.content,
+      plain: removeMd(resultObject.excerpt || '')
     }
   }
 
-  resultObject.excerpt = {
-    html: md.render(resultObject.excerpt || ''),
-    markdown: resultObject.excerpt
+  if (resultObject && resultObject.excerpt) {
+    resultObject.excerptFormats = {
+      html: md.render(resultObject.excerpt || ''),
+      markdown: resultObject.excerpt,
+      plain: removeMd(resultObject.excerpt || '')
+    }
   }
 
   // Load sections and add to object
@@ -33,7 +36,7 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
     resultObject.sections = []
     for (let i = 0; i < resultObject.data.sections.length; i++) {
       let sectionData = matter(await markdown.readSection(dir, id, resultObject.data.sections[i]))
-      sectionData.content = {
+      sectionData.contentFormats = {
         html: md.render(sectionData.content),
         markdown: sectionData.content
       }
@@ -53,20 +56,24 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
   // TODO: Sanitize dates
   if (resultObject.data.created) resultObject.data.created = sanitizeDate(resultObject.data.created)
   if (resultObject.data.modified) resultObject.data.modified = sanitizeDate(resultObject.data.modified)
+
+  // The proper name for the last modified date is "modified"
   if (resultObject.data.changed) {
     // debug('unclean data')
-    resultObject.data.changed = sanitizeDate(resultObject.data.changed)
+    resultObject.data.modified = sanitizeDate(resultObject.data.changed)
+    delete resultObject.data.changed
   }
   if (resultObject.data.updated) {
     // debug('unclean data')
-    resultObject.data.updated = sanitizeDate(resultObject.data.updated)
+    resultObject.data.modified = sanitizeDate(resultObject.data.updated)
+    resultObject.data.updated
   }
 
 
-  if (!resultObject.id) resultObject.id = id
-  if (!resultObject.storage) resultObject.storage = dir
+  if (!resultObject.storageId) resultObject.storageId = id
+  if (!resultObject.storageType) resultObject.storageType = dir
   if (!resultObject.path) resultObject.path = `/${dir}/${resultObject.data.slug || id}`
-  if (!resultObject.url) resultObject.url = `${config.siteProtocol()}${config.siteDomain()}/${dir}/${resultObject.data.slug || id}`
+  if (!resultObject.url) resultObject.url = `${config.siteProtocol()}${config.siteDomain()}${dir === 'pages' ? '' : '/' + dir}/${resultObject.data.slug || id}`
   // if (process.env.DEBUG) resultObject.raw = result
 
   return resultObject

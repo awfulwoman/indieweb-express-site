@@ -10,12 +10,18 @@ const updateGet = async (args) => {
   // read existing item
   const existingItem = await argObj.model.read(argObj.id)
 
+  debug('EXISTINGITEM')
+  debug(existingItem)
+
   // Smoosh .content and .data together
   let formState = { ...existingItem, ...existingItem.data }
   delete formState.data
 
   // Flatten everything into an array compatible with the forms
   formState = shared.flattenFormBody(formState)
+
+  debug('FORMSTATE')
+  debug(formState)
 
   return {
     data: { title: `Editing ${argObj.model.modelDir}/${argObj.id}` },
