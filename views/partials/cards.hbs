@@ -15,16 +15,16 @@
         {{#if this.data.images}}
           {{#each this.data.images}}
             {{#if @first}}
-              <a href="/{{../storage}}/{{../id}}"><img src="/{{../storage}}/{{../id}}/f/{{this.file}}/300" alt="{{this.alt}}"></a>
+              <a href="/{{../storageType}}/{{../storageId}}"><img src="/{{../storageType}}/{{../storageId}}/f/{{this.file}}/300" alt="{{this.alt}}"></a>
             {{else}}
-              <a href="/{{../storage}}/{{../id}}"><img src="/{{../storage}}/{{../id}}/f/{{this.file}}/100" alt="{{this.alt}}"></a>
+              <a href="/{{../storageType}}/{{../storageId}}"><img src="/{{../storageType}}/{{../storageId}}/f/{{this.file}}/100" alt="{{this.alt}}"></a>
             {{/if}}
           {{/each}}
         {{else}}
           {{#if this.scraped.image}}
-          <a href="/{{this.storage}}/{{this.id}}"><img src="/{{this.storage}}/{{this.id}}/f/{{this.scraped.image.filename}}/300" alt=""></a>
+          <a href="/{{this.storageType}}/{{this.storageId}}"><img src="/{{this.storageType}}/{{this.storageId}}/f/{{this.scraped.image.filename}}/300" alt=""></a>
           {{else}}
-          <a href="/{{this.storage}}/{{this.id}}"><img src="/placeholder.png" alt=""></a>
+          <a href="/{{this.storageType}}/{{this.storageId}}"><img src="/placeholder.png" alt=""></a>
           {{/if}}
         {{/if}}
       </div>
