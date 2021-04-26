@@ -19,7 +19,7 @@ const readGet = async (model, options = {}) => {
 
   // Add site config info
   itemObj.site = {
-    url: config.sitePort() ? config.siteUrl() + ':' + config.sitePort() : config.sitePort(),
+    url: config.sitePort() !== '80' ? config.siteUrl() + ':' + config.sitePort() : config.sitePort(),
     title: config.siteTitle(),
     description: config.siteDescription(),
     author: config.siteAuthor()
