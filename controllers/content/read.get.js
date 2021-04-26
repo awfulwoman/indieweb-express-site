@@ -2,6 +2,7 @@ const debug = require('debug')('indieweb-express-site:controllers:content:readGe
 const is = require('is_js')
 const path = require('path')
 const shared = require('./shared')
+const config = require('../../config')
 
 // READ
 const readGet = async (model, options = {}) => {
@@ -13,35 +14,23 @@ const readGet = async (model, options = {}) => {
   if (is.falsy(itemObj)) throw new Error(`Could not find ${options.id} in ${model.modelDir}.`)
   if (itemObj.data.private) throw new Error(`${model.modelDir}/${options.id} is private.`)
 
-  // let readObj = itemObj
-
-  // let readObj =  {
-  //   content: itemObj.content,
-  //   excerpt: itemObj.excerpt,
-  //   data: itemObj.data,
-  //   children: options.children ? await options.children() : null,
-  //   twitter: itemObj.twitter,
-  //   opengraph: await shared.formatOpengraph(itemObj),
-  //   storageId: itemObj.id,
-  //   storageType: itemObj.storage || 'pages',
-  //   childrenType: options.childrenType,
-  //   syndications: itemObj.syndications,
-  //   webmentions: null,
-  //   sections: itemObj.sections ? itemObj.sections : null,
-  //   url: itemObj.url,
-  //   scraped: itemObj.scraped || null
-  // }
-
   itemObj.children = options.children ? await options.children() : null
   itemObj.opengraph = await shared.formatOpengraph(itemObj)
-  // itemObj.storageType = itemObj.storage || 'pages'
 
-  let clonedItemObj = {...itemObj}
-  clonedItemObj.json = itemObj
+  // Add site config info
+  itemObj.site = {
+    url: config.sitePort() ? config.siteUrl() + ':' + config.sitePort() : config.sitePort(),
+    title: config.siteTitle(),
+    description: config.siteDescription(),
+    author: config.siteAuthor()
+  } 
 
-  debug(clonedItemObj)
+  // Add a JSON property that can be used in templates for debugging
+  let jsonObj = {...itemObj}
+  itemObj.json = jsonObj
 
-  return clonedItemObj
+  debug(itemObj)
+  return itemObj
 }
 
 module.exports = readGet

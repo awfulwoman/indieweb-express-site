@@ -5,13 +5,13 @@
     {{{contentFormats.html}}}
   </div>
 
-   {{> author}}
-
   {{#if data.images}}
   {{#each data.images}}
   <img src="/notes/{{../storageId}}/f/{{this.file}}/900" class="u-photo" alt="{{this.alt}}" width="{{this.width}}" height="{{this.height}}">
   {{/each}}
   {{/if}}
+
+  {{> author}}
 
   {{> twitter}}
   {{> syndications}}

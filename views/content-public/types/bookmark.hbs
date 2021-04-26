@@ -1,8 +1,6 @@
 <article class="h-entry">
   <h1 class="c-page-title p-name">{{data.title}}</h1>
 
-  {{> author}}
-
   {{#if scraped}}
   <img class="comp-siteimage"  src="/bookmarks/{{storageId}}/f/{{scraped.image.filename}}/600" width="{{scraped.image.width}}" height="{{scraped.image.height}}" alt="">
   {{/if}}
@@ -18,6 +16,8 @@
       URL</a><span class="util-sr-only">.</span>
   </p>
   {{/if}}
+
+  {{> author}}
 
   {{> twitter}}
 

@@ -13,6 +13,7 @@ const sitePortExternal = () => process.env['SITE_PORT_EXTERNAL'] || '80'
 const siteProtocol = () => `${process.env['SITE_PROTOCOL'] || 'http'}://`
 const siteDomain = () => `${process.env['SITE_DOMAIN'] || '127.0.0.1'}`
 const siteUrl = () => `${siteProtocol()}${siteDomain()}`
+const siteAuthor = () => 'Charlie Owen'
 const siteLoginPath = () =>  process.env['SITE_LOGIN_PATH'] || '/login'
 const fileDateFormat = () => `yyyyLLdd't'HHmmss`
 const keyboardCat = () => process.env['KEYBOARD_CAT'] || 'keyboardcatgetoffyoubastard'
@@ -24,7 +25,7 @@ const silos = () => ['twitter', 'medium', 'flickr', 'facebook']
 
 module.exports = {
   appRoot, dataRoot, contentRoot, logDir,
-  siteTitle, siteDescription, sitePort, sitePortExternal, 
+  siteTitle, siteDescription, sitePort, sitePortExternal, siteAuthor,
   siteProtocol, siteDomain, siteUrl, siteLoginPath, fileDateFormat,
   keyboardCat, silos,
   twitterConsumerKey, twitterConsumerSecret, githubClientId, githubClientSecret

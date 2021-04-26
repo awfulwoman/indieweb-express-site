@@ -51,6 +51,7 @@
   },
   // The "extended" object is generated when the core markdown file is read
   // It adds lots of data that is useful for using the item in the app
+  // If you're reading the object, then use this property.
   "extended": {
     "created": "", // unix or JS data format
     "modified": "", // unix or JS data format
@@ -59,6 +60,17 @@
     "storage": "bookmarks",
     "path": "/bookmarks/20210329t155326",
     "url": "http://127.0.0.1/bookmarks/20210329t155326",
+    "title": "Au revoir, mon AMPmour?",
+    "guid": "a906bd71-d754-4be9-9552-56814de704b1",
+    "bookmark_of": "https://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/",
+    "images": [
+      {
+        "file": "testcard_f.jpg",
+        "alt": "A classic BBC test card",
+        "width": 365,
+        "height": 273
+      }
+    ],
     "content": {
       "html": "<p>This is quite excellent.</p>\n",
       "markdown": "This is quite excellent. \r\n",
@@ -90,6 +102,9 @@
         "width": 1200,
         "twitterCardSize": "summary_large_image"
       }
-    }
+    },
+    "children": [
+
+    ]
   }
 }
