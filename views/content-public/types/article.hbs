@@ -10,7 +10,7 @@
 
     {{#if sections}}
       {{#each sections}}
-      {{>section id=../id storage=../storage data=this.data contentFormats.html=this.contentFormats.html}}
+      {{>section id=../id storage=../storage data=this.data contentsFormats=this.contentFormats}}
       {{/each}}
     {{/if}}
   </div>
