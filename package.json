@@ -67,7 +67,7 @@
     "gray-matter": "^4.0.2",
     "handlebars-helpers": "^0.10.0",
     "helmet": "^4.4.1",
-    "highlight.js": "^10.4.1",
+    "highlight.js": "^10.7.1",
     "http-errors": "^1.7.2",
     "image-size": "^0.9.3",
     "is_js": "^0.9.0",

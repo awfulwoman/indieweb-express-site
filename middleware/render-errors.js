@@ -3,17 +3,18 @@ const { md } = require('../utilities')
 
 const renderErrors = (err, req, res, next) => {
   let { statusCode, message, rawError } = err
-  if (message) { message = md.render(message) } else { message = null }
+  // if (message) { message = md.render(message) } else { message = null }
+  // debug(err)
 
   res.status(statusCode || 500)
   res.render('error', {
     status: 'error',
     statusCode: statusCode || 500,
     content:{
-      html: md.render(message || ''),
-      markdown: message
+      html: md.render(message || 'No error message supplied'),
+      markdown: message || 'No error message supplied'
     },
-    rawError: rawError || 'no rawError'
+    rawError: rawError || 'No raw error supplied'
   })
 }
 

@@ -29,7 +29,7 @@ const readGet = async (model, options = {}) => {
   let jsonObj = {...itemObj}
   itemObj.json = jsonObj
 
-  debug(itemObj)
+  // debug(itemObj)
   return itemObj
 }
 
