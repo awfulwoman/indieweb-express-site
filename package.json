@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "npm run sprites && concurrently npm:watch-css npm:watch-js npm:watch-server --raw",
-    "test": "jest  --env=node",
+    "dev": "NODE_ENV=development npm run sprites && concurrently npm:watch-css npm:watch-js npm:watch-server --raw",
+    "test": "jest --env=node",
     "css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",
     "js": "rollup -c",
     "watch-server": "npx nodemon app.js --ignore example/ --ignore assets/",
