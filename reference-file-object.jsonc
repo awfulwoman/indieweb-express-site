@@ -21,7 +21,7 @@
         }
       ]
     },
-    "isEmpty": false // this comes from gray-matter and indicates whether the frontmatter is empty
+    "isEmpty": false // this comes from gray-matter and indicates whether the frontmatter of the core markdown file is empty
   },
   // "attached" contains all files that complement the core item
   // these are normally saved as <whatever>.json files in their own directories.
@@ -46,6 +46,16 @@
         "url": "https://twitter.com/sonniesedge/status/1346839127526924288",
         "silo": "twitter",
         "created": "2021-01-03T12:00:00.000Z"
+      }
+    ],
+    "webmentions": [
+      {
+
+      }
+    ],
+    "children": [
+      {
+
       }
     ]
   },
@@ -82,10 +92,12 @@
       "plain": "This is quite excellent."
     },
     "twitter": {
-      "markdown": "🔖 Au revoir, mon AMPmour?\nhttps://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/",
-      "html": "<p>🔖 Au revoir, mon AMPmour?\n<a href=\"https://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/\">https://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/</a></p>\n"
+      "generator": "automatic",
+      "markdown": "This post by @beep nails things right on the head.\nhttps://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/",
+      "html": "<p>This post by <a href=\"https://twitter.com/beep\">@beep</a> nails things right on the head.\n<a href=\"https://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/\">https://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/</a></p>\n",
+      "plain": "This post by @beep nails things right on the head.\nhttps://ethanmarcotte.com/wrote/au-revoir-mon-ampmour/"
     },
-    // used to populate each pages opengraph and twitter card metadata
+    // Generated to populate each pages opengraph and twitter card metadata
     "opengraph": {
       "twitter": {
         "creator": "@sonniesedge",
@@ -102,9 +114,6 @@
         "width": 1200,
         "twitterCardSize": "summary_large_image"
       }
-    },
-    "children": [
-
-    ]
+    }
   }
 }
