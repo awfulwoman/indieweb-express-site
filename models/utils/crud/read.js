@@ -5,7 +5,7 @@ const matter = require('gray-matter')
 const normalizeItemObject = require('../normalize-item')
 const addSyndications = require('../add-syndications')
 const addScraped = require('../add-scraped')
-const addTwitter = require('../add-twitter')
+const addTwitter = require('../add-tweetable-content')
 const { markdown } = require('../../../drivers')
 
 const modelRead = async (dir, cache, id, options = {}) => {
@@ -28,7 +28,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
   let result = await markdown.read(dir, id)
 
   function firstFourLines(file, options) {
-    file.excerpt = file.excerpt || file.content.split('\n').slice(0, 4).join(' ');
+    file.excerpt = file.excerpt || file.content.split('\n').slice(0, 4).join(' ')
   }
 
   let resultObject = matter(result, { excerpt: firstFourLines })
@@ -48,7 +48,7 @@ const modelRead = async (dir, cache, id, options = {}) => {
   let cachingActionResult = cache.set(id, resultObject)
   if (is.falsy(cachingActionResult)) throw new (`ERROR: Could not store ${dir}/${id} in cache!`)
 
-  debug(resultObject)
+  // debug(resultObject)
 
   return resultObject
 

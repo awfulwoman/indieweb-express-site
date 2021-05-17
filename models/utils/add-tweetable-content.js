@@ -1,7 +1,8 @@
-const debug = require('debug')('indieweb-express-site:models:utils:makeTweetable')
+const debug = require('debug')('indieweb-express-site:models:utils:addTwitter')
 const twttr = require('twitter-text')
 
 const { md, isContentEmpty, cleanContent, quoteSafely } = require('../../utilities')
+
 
 // Does the first object contain a property that matches one of the keys in the second array?
 const relevantUrl = (resultObject, tweetableIndiewebFields) => { 
@@ -13,44 +14,42 @@ const relevantUrl = (resultObject, tweetableIndiewebFields) => {
   }
 }
 
+
+// Add an object that contains directly tweetable content
+// All sanitized and safely tweetable.
 const addTweetableContent = (resultObject, options = {}) => {
   const tweetableIndiewebFields = ['quote_of', 'bookmark_of']
 
   let tweetableObj = relevantUrl(resultObject, tweetableIndiewebFields)
 
+  // ---------------------------------------
+  // OPTION 1. USE DEDICATED TWITTER CONTENT
+  // ---------------------------------------
+  // TODO: ensure that twitter_content is validated as tweetable when saving form
   // If there is a Twitter content field then see if:
   // - it's a valid tweet
   // - it contains no Markdown links
-  if (resultObject.twitterFormats && !isContentEmpty(resultObject.twitter)) {
-    // debug('Found resultObject.twitter')
-
+  if (resultObject.content_twitter && !isContentEmpty(resultObject.content_twitter)) {
     if (resultObject.data && resultObject.data.title) {
-      let combinedContentUrlTitle = cleanContent(`${resultObject.twitter}\n${quoteSafely(resultObject.data.title)}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
-      if (twttr.parseTweet(combinedContentUrlTitle).valid && !combinedContentUrlTitle.includes('](')) {
-        // debug('resultObject.twitter (with title)', combinedContentUrlTitle)
-        resultObject.twitterFormats = {
-          markdown: combinedContentUrlTitle,
-          html: md.render(combinedContentUrlTitle)
+      let contentUrl = cleanContent(`${resultObject.content_twitter}\n${tweetableObj.fieldValue}`)
+      if (twttr.parseTweet(contentUrl).valid && !contentUrl.includes('](')) {
+        if (!resultObject.extended) resultObject.extended = {}
+        resultObject.extended.twitter = {
+          markdown: contentUrl,
+          html: md.render(contentUrl)
         }
         return resultObject
       }
     }
-
-    let combinedContentUrl = cleanContent(`${resultObject.twitter}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
-    if (twttr.parseTweet(combinedContentUrl).valid && !combinedContentUrl.includes('](')) {
-      // debug('resultObject.twitter', combinedContentUrlTitle)
-      resultObject.twitterFormats = {
-        markdown: combinedContentUrl,
-        html: md.render(combinedContentUrl)
-      }
-      return resultObject
-    }
   }
 
+  // ---------------------------------------
+  // OPTION 2. TWEET NORMAL CONTENT
+  // ---------------------------------------
   // If there is a normal content field then see if:
   // - it's a valid tweet
   // - it contains no Markdown links
-  if (resultObject.content && resultObject.content.markdown && !isContentEmpty(resultObject.content.markdown)) {
+  if (resultObject.contentFormats && resultObject.contentFormats.markdown && !isContentEmpty(resultObject.contentFormats.markdown)) {
     // debug('Found resultObject.content')
     if (resultObject.data && resultObject.data.title) {
       let combinedContentUrlTitle = cleanContent(`${resultObject.content.markdown}\n${quoteSafely(resultObject.data.title)}${tweetableObj ? '\n' + tweetableObj.fieldValue : ''}`)
@@ -75,8 +74,10 @@ const addTweetableContent = (resultObject, options = {}) => {
     }
   }
   
-
-  // if there is content that is tweetableObj then link directly to th
+  // -----------------------------------------------------
+  // OPTION 3. GENERIC TWEET POINTING TO 3RD-PARTY URL
+  // -----------------------------------------------------
+  // if there is content that is tweetable then link directly to th
   // for each indieweb field
   // debug('Both twitter and content are empty')
 
@@ -108,6 +109,13 @@ const addTweetableContent = (resultObject, options = {}) => {
     }
     return resultObject
   }
+
+
+  // -----------------------------------------------------
+  // OPTION 4. GENERIC TWEET POINTING TO ORIGINAL ITEM
+  // -----------------------------------------------------
+
+
 
   return resultObject
 }
