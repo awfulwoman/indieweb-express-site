@@ -28,7 +28,11 @@ for (const model of models.modelsArray) {
   // debug('model.fields: ', model.fields)
   if (!model.fields || model.fields.length === 0) throw new Error(`${model.id} has no validation fields!`)
   const localValidators = {}
-  if (model.fields) model.fields.forEach(field => Object.assign(localValidators, field.validation))
+  if (model.fields) model.fields.forEach(field => {
+    // debug(model)
+    // debug(field)
+    Object.assign(localValidators, field.validation)
+  })
   // debug('localValidators: ', localValidators)
   // debug(checkSchema(localValidators))
 

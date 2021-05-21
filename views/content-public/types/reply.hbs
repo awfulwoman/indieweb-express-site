@@ -1,13 +1,15 @@
 <article class="h-entry">
   <h1 class="c-page-title p-name">{{data.title}}</h1>
 
-   
+  {{#if scraped}}
+  <img class="comp-siteimage"  src="/replies/{{storageId}}/f/{{scraped.image.filename}}/600" width="{{scraped.image.width}}" height="{{scraped.image.height}}" alt="">
+  {{/if}}
 
   <div class="comp-reply e-content">
     {{{contentFormats.html}}}
   </div>
 
-  <p><a href="{{data.reply_to}}" class="u-in-reply-to comp-button comp-button--primary">Visit original URL</a><span class="util-sr-only">.</span></p>
+  <p><a href="{{data.in_reply_to}}" class="u-in-reply-to comp-button comp-button--primary">Visit original URL</a><span class="util-sr-only">.</span></p>
 
   {{> twitter}}
 

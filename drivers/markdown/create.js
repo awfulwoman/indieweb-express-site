@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const is = require('is_js')
 const config = require('../../config')
-const AppError = require('../../utilities/app-error')
+const mkdir = require('mkdirp')
 
 const create = async (type, id, fileContent) => {
   try {
@@ -13,7 +13,7 @@ const create = async (type, id, fileContent) => {
     let destinationPath = path.join(config.contentRoot(), type, id)
     let destinationPathAndFile = path.join(destinationPath, 'index.md')
 
-    await fs.promises.mkdir(destinationPath)
+    await mkdir(destinationPath)
       .catch((error) => {
         throw error
       })

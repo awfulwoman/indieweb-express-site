@@ -44,17 +44,20 @@ const createPost = async (args) => {
     }
 
     argObj.sanitizedData = await shared.metadata(argObj.sanitizedData, renderMessages).catch((error) => {
-      debug('Error while adding metadata')
+      renderMessages.push(error.message)
+      renderMessages.push('Error while adding metadata')
       throw error
     })
 
     argObj.sanitizedData = await shared.oEmbed(argObj.sanitizedData, renderMessages).catch((error) => {
-      debug('Error while adding oEmbed data')
+      renderMessages.push(error.message)
+      renderMessages.push('Error while adding oEmbed data')
       throw error
     })
 
     await argObj.model.create(argObj.sanitizedData, argObj.content, argObj.id).catch((error) => {
-      debug('Error while creating model item')
+      renderMessages.push(error.message)
+      renderMessages.push('Error while creating model item')
       throw error
     })
 
@@ -106,6 +109,9 @@ const createPost = async (args) => {
       state: formState,
       errors: formErrors
     }
+
+    debug(error)
+    debug(errorObj)
 
     throw new ContentError(errorObj)
   }

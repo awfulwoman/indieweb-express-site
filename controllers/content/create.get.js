@@ -21,7 +21,7 @@ const createGet = async (args) => {
   formState.bookmark_of = resolvedUrl
   formState.like_of = resolvedUrl
   formState.quote_of = resolvedUrl
-  formState.reply_to = resolvedUrl
+  formState.in_reply_to = resolvedUrl
   formState.repost_of = resolvedUrl
 
   const syndicationSilos = shared.syndicationSilos(config.silos(), resolvedUrl)

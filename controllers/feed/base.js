@@ -18,7 +18,7 @@ const generateBaseFeed = async (model) => {
     if (item.data.like_of) renderedContentWithAdditionalData += '[View the liked URL](' + item.data.like_of + ') \n\n'
     if (item.data.repost_of) renderedContentWithAdditionalData += '[View the reposted URL](' + item.data.repost_of + ') \n\n'
     if (item.data.quote_of) renderedContentWithAdditionalData += '[View the quoted URL](' + item.data.quote_of + ') \n\n'
-    if (item.data.reply_to) renderedContentWithAdditionalData += '[View the URL being replied to](' + item.data.reply_to + ') \n\n'
+    if (item.data.in_reply_to) renderedContentWithAdditionalData += '[View the URL being replied to](' + item.data.in_reply_to + ') \n\n'
 
     if (item.data.images) {
       item.data.images.forEach(image => {

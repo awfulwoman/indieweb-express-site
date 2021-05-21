@@ -13,7 +13,7 @@ const fields = [
   field.modified,
   field.guid,
   field.tags,
-  field.replyTo,
+  field.inReplyTo,
   field.content
 ]
 

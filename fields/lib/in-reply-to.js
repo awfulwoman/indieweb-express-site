@@ -1,13 +1,13 @@
 module.exports = {
-  id: 'replyTo',
+  id: 'inReplyTo',
   description: 'Replying to a URL',
   formFieldRender: 'textfield',
   validation: {
-    reply_to: {
+    in_reply_to: {
       in: ['body'],
       isURL: { option: { require_valid_protocol: true } },
       notEmpty: true,
-      errorMessage: 'A reply URL is required',
+      errorMessage: 'An in_reply_to URL is required',
       trim: true
     }
   },

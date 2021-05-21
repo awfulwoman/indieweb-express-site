@@ -21,7 +21,7 @@ const fetchOgData = async (data, model, id, renderMessages = [], options = {}) =
   const ogObj = {}
 
   try {
-    const indiewebFields = ['bookmark_of'] // I can't think of what other indeiweb fields might use OG data
+    const indiewebFields = ['bookmark_of', 'in_reply_to'] // I can't think of what other indeiweb fields might use OG data
     const scrapedDir = path.join(config.contentRoot(), model.modelDir, id, 'scraped')
     const localImageDir = path.join(scrapedDir, 'files')
 

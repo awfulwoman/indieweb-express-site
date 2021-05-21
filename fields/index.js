@@ -10,7 +10,7 @@ const likeOf = require('./lib/like-of')
 const modified = require('./lib/modified')
 const privateItem = require('./lib/private')
 const quoteOf = require('./lib/quote-of')
-const replyTo = require('./lib/reply-to')
+const inReplyTo = require('./lib/in-reply-to')
 const repostOf = require('./lib/repost-of')
 const slug = require('./lib/slug')
 const strapline = require('./lib/strapline')
@@ -35,7 +35,7 @@ module.exports = {
   modified,
   privateItem,
   quoteOf,
-  replyTo,
+  inReplyTo,
   repostOf,
   slug,
   strapline,
