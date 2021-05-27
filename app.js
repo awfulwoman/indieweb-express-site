@@ -129,6 +129,7 @@ try {
     delete req.session.flash
     next()
   })
+  app.use(middleware.clacksOverhead) // You helped me survive a horrible childhood, Terry. <3
   //
   // HTTP LOGGING
   // ------------

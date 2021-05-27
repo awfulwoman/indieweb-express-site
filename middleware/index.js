@@ -1,3 +1,4 @@
+const clacksOverhead = require('./clacks-overhead')
 const requireAuthentication = require('./require-authentication')
 const render404 = require('./render-404')
 const renderErrors = require('./render-errors')
@@ -11,6 +12,7 @@ const renderUsers = require('./render-users')
 const isAdmin = require('./is-admin')
 
 module.exports = {
+  clacksOverhead,
   requireAuthentication,
   render404,
   renderErrors,
