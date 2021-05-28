@@ -3,11 +3,11 @@
 <h2>{{data.title}}</h2>
 {{/if}}
 
-{{#each data.image}}
-<img src="/{{../storage}}/{{../id}}/f/{{this.file}}" alt="{{this.alt}}">
+{{#each data.images}}
+<img src="/{{../storageType}}/{{../storageId}}/f/{{this.file}}/600" alt="{{this.alt}}">
 {{/each}}
 
-{{{contentFormats.html}}}
+{{{extended.content.html}}}
 
 {{#if data.aside}}
 <div>

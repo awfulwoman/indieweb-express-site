@@ -1,16 +1,16 @@
 <article class="h-entry">
   <h1 class="c-page-title p-name">{{data.title}}</h1>
 
-   {{> author}}
+  {{> author}}
 
   {{>strapline value=data.strapline}}
 
   <div class="c-post e-content">
-    {{{contentFormats.html}}}
+    {{{extended.content.html}}}
 
     {{#if sections}}
       {{#each sections}}
-      {{>section id=../id storage=../storage data=this.data contentsFormats=this.contentFormats}}
+      {{>section storageId=../storageId storageType=../storageType data=this.data extended=this.extended}}
       {{/each}}
     {{/if}}
   </div>
