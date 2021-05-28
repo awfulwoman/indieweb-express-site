@@ -24,7 +24,8 @@ const normalizeItemObject = async (resultObject, id, dir, options = {}) => {
   }
 
   if (resultObject && resultObject.excerpt) {
-    resultObject.excerptFormats = {
+    if (!resultObject.extended) resultObject.extended = {}
+    resultObject.extended.excerpt = {
       html: md.render(resultObject.excerpt || ''),
       markdown: resultObject.excerpt,
       plain: removeMd(resultObject.excerpt || '')

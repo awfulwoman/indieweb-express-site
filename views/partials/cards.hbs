@@ -1,15 +1,17 @@
 {{#if children}}
-<h2 class="p-name">Latest stuff and things</h2>
-<p class="p-summary">Check out these sick items, baby.</p>
+<h2 class="p-name">Latest</h2>
+<p class="p-summary">I crafted all of these items just for you. Yes <em>you</em>.</p>
 
 <div class="c-card-grid h-feed">
   {{#each children}}
     <article class="comp-card h-entry">
       <h2 class="p-name comp-card__title"><svg class="comp-icon comp-icon--float-right"><use xlink:href="{{ getVersionedPath '/svg/defs/svg/sprite.css.svg' }}#assets--svg--{{this.storage}}"></use></svg><a href="{{this.path}}" class="u-url">{{this.data.title}}</a></h2>
 
+      {{#if this.extended.excerpt}}
       <div class="p-summary comp-card__content">
-        {{{excerptFormats.html}}}
+        {{{this.extended.excerpt.html}}}
       </div>
+      {{/if}}
     
       <div class="comp-card__img">
         {{#if this.data.images}}
