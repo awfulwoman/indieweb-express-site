@@ -7,7 +7,7 @@ const tweetableIndiewebFields = ['quote_of', 'bookmark_of']
 
 
 // Does the first object contain a property that matches one of the keys in the second array?
-const createIndiewebUrlObj = (resultObject, tweetableIndiewebFields) => { 
+const createIndiewebUrlObj = (resultObject, tweetableIndiewebFields) => {
   for (const field of tweetableIndiewebFields) {
     if (resultObject.data[field] !== undefined) return {
       fieldValue: resultObject.data[field],
@@ -76,28 +76,28 @@ const createTweetableObj = (resultObject) => {
   // - it's a valid tweet
   // - it contains no Markdown links
   if (indiewebUrlObj && resultObject.content && !isContentEmpty(resultObject.content)) {
-      let cleanContentTitleUrl = cleanContent(`${resultObject.content}${resultObject.type === 'bookmark' ? quoteSafely(resultObject.data.title) : ''}\n${url}`)
-      let cleanContentUrl = cleanContent(`${resultObject.content}${url ? '\n' + url : ''}`)
+    let cleanContentTitleUrl = cleanContent(`${resultObject.content}${resultObject.type === 'bookmark' ? quoteSafely(resultObject.data.title) : ''}\n${url}`)
+    let cleanContentUrl = cleanContent(`${resultObject.content}${url ? '\n' + url : ''}`)
 
-      // If it can be tweeted with the content, the item title intact, and a URL, then do so
-      if (isTweetable(cleanContentTitleUrl)) {
-        return {
-          markdown: cleanContentTitleUrl,
-          html: md.render(cleanContentTitleUrl),
-          plain: cleanContentTitleUrl,
-          generatedFrom: 'CONTENT'
-        }
+    // If it can be tweeted with the content, the item title intact, and a URL, then do so
+    if (isTweetable(cleanContentTitleUrl)) {
+      return {
+        markdown: cleanContentTitleUrl,
+        html: md.render(cleanContentTitleUrl),
+        plain: cleanContentTitleUrl,
+        generatedFrom: 'CONTENT'
       }
+    }
 
-      // If it can be tweeted with the content and URL, then do so
-      if (isTweetable(cleanContentUrl)) {
-        return{
-          markdown: cleanContentTitleUrl,
-          html: md.render(cleanContentTitleUrl),
-          plain: cleanContentTitleUrl,
-          generatedFrom: 'CONTENT'
-        }
-      }    
+    // If it can be tweeted with the content and URL, then do so
+    if (isTweetable(cleanContentUrl)) {
+      return {
+        markdown: cleanContentTitleUrl,
+        html: md.render(cleanContentTitleUrl),
+        plain: cleanContentTitleUrl,
+        generatedFrom: 'CONTENT'
+      }
+    }
   }
 
   // ---------------------------------------
@@ -117,8 +117,6 @@ const createTweetableObj = (resultObject) => {
       }
     }
   }
-  
-
 
 
   // -----------------------------------------------------
