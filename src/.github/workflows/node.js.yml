@@ -7,9 +7,7 @@ on:
   push: # When new stuff is pushed to the repo
     branches:  # only on these branches
       - main
-      - debug
       - docker-nginx-node
-
   pull_request:
     branches:
       - main
