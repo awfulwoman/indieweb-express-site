@@ -6,13 +6,33 @@ Express server-side app, using Markdown for data storage.
 
 ## Installation
 
+### Installing and running via Docker
+
+The app is fully Dockerised. To run it this way you will need the Docker service installed on your local machine.
+
+You will need to add the following to your `/etc/hosts` file:
+
 ```bash
+localhost indieweb.localhost
+```
+
+Once done you can start the app:
+
+```bash
+docker compose up --detached
+```
+### Installing directly onto host
+
+You will need node v14.16 installed.
+
+```bash
+cd src/
 npm install
 ```
 
 ## Run tests
 
-Tests are done via [Jest](https://www.npmjs.com/package/jest).
+Tests are performed via [Jest](https://www.npmjs.com/package/jest).
 
 ```bash
 npm test
