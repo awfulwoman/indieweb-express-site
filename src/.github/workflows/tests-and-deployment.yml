@@ -8,6 +8,9 @@ on:
   push: # When new stuff is pushed to the repo
     branches:  # only on these branches
       - docker-nginx-node
+  pull_request:
+    branches:
+      - main
   repository_dispatch: # respond to an external event
     types: deploy-that-thing # a custom event name
     # https://goobar.io/manually-trigger-a-github-actions-workflow/
