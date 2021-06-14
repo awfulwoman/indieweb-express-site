@@ -41,8 +41,10 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }} # I'm using the env var defined earlier to supply a parameter/argument to the setup-node action.
     - name: Install app dependencies
+      working-directory: ./src
       run: npm ci # Runs this command inside the virutal machine where the repo was downloaded to
     - name: Run app tests
+      working-directory: ./src
       run: npm test
 
   # Job 2: Deploy the app
@@ -87,6 +89,7 @@ jobs:
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
+        SOURCE: "src/"
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
