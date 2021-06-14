@@ -5,7 +5,7 @@ name: Node.js CI tests and deployment
 
 on:
   push: # When new stuff is pushed to the repo
-    branches: [ main, debug ] # only on these brances
+    branches: [ main, debug, docker-nginx-node ] # only on these brances
   repository_dispatch: # respond to an external event
     types: deploy-that-thing # a custom event name
     # https://goobar.io/manually-trigger-a-github-actions-workflow/
@@ -21,7 +21,7 @@ on:
 
 env: # set some environment variables (env vars) that last through the workflow
   APPDIR: ${{ secrets.SERVER_DIR }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
-  NODE_VERSION: 14.15.0
+  NODE_VERSION: 14.16.0
 
 jobs:
   # Job 1: Test the app
@@ -82,7 +82,7 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
-        REMOTE_HOST: ${{ secrets.SERVER_IP }}
+        REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
         REMOTE_USER: ${{ secrets.SERVER_USER }}
         TARGET: ${{ secrets.SERVER_DIR }}
     - name: Execute build script on remote server. Builds npm and runs pm2.

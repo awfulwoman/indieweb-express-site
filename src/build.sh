@@ -3,17 +3,20 @@
 APPDIR=$1
 cd $APPDIR
 
-echo "Building app..."
-rm -rf node_modules
-npm ci
+docker compose stop
+docker compose -f docker-compse.yml -f docker-compose.production.yml up -d
 
-echo "Building assets..."
-npm run css
-npm run sprites
-npm run js
+# echo "Building app..."
+# rm -rf node_modules
+# npm ci
 
-echo "Restarting server process..."
-pm2 stop ecosystem.config.js
-pm2 delete ecosystem.config.js
-pm2 start ecosystem.config.js
-pm2 save
+# echo "Building assets..."
+# npm run css
+# npm run sprites
+# npm run js
+
+# echo "Restarting server process..."
+# pm2 stop ecosystem.config.js
+# pm2 delete ecosystem.config.js
+# pm2 start ecosystem.config.js
+# pm2 save
