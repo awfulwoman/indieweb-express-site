@@ -1,11 +1,10 @@
-/node_modules
+node_modules
 .env
 .vscode
 completer.hist
 .DS_Store
 .stignore
 .stversions
-/data
-/log
+log
 public/bundle.js.map
 .size-snapshot.json

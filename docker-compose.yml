@@ -1,9 +1,28 @@
+version: '3'
+
+# Declare volumes
+volumes:
+  nodemodules:
+
+# Declare services
 services:
   indieweb-express-site:
-    build: .
+    build: ./src
     volumes:
-      - .:/var/www
-    ports:
-      - '49160:3000'
+      - ./src/example/content:/content
+      - nodemodules:/usr/src/app/node_modules
+    expose:
+      - "3000"
+    environment:
+      - VIRTUAL_HOST=whalecoiner.localhost,whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk
+      - VIRTUAL_PORT=3000
   redis:
     image: "redis:alpine"
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      # - /path/to/certificates:/etc/nginx/certs
