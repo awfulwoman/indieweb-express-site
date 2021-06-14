@@ -6,6 +6,7 @@ cd $APPDIR
 docker compose stop
 docker compose -f docker-compse.yml -f docker-compose.production.yml up -d
 
+
 # echo "Building app..."
 # rm -rf node_modules
 # npm ci
