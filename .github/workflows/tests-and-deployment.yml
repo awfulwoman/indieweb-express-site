@@ -1,6 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
+# FOR USE VIA DOCKER!
 name: Tests and Deployment
 
 on:
@@ -21,7 +22,7 @@ on:
     # ```
 
 env: # set some environment variables (env vars) that last through the workflow
-  APPDIR: ${{ secrets.SERVER_DIR }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
+  APPDIR: ${{ secrets.SERVER_DIR_ALT }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
   NODE_VERSION: 14.16.0
 
 jobs:
@@ -50,9 +51,11 @@ jobs:
     - name: Checkout code from ${{ github.repository }} # Github supplies a few variables that can be accessed by the workflow. They all start with 'github.'
       uses: actions/checkout@v2
     - name: Create .env file
+      working-directory: ./src
       run: 'touch .env'
       shell: bash # The above command uses this unix shell
     - name: Write environment secrets to app .env file
+      working-directory: ./src
       env:
         DATA_DIR: ${{ secrets.DATA_DIR }}
         CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
@@ -84,13 +87,13 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
         ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
-        REMOTE_USER: ${{ secrets.SERVER_USER }}
-        TARGET: ${{ secrets.SERVER_DIR }}
-    - name: Execute build script on remote server. Builds npm and runs pm2.
+        REMOTE_USER: ${{ secrets.SERVER_USER_ALT }}
+        TARGET: ${{ secrets.SERVER_DIR_ALT }}
+    - name: Execute build script on remote server. Runs docker?
       uses: appleboy/ssh-action@master        
       with: # I can't lie - I haven't a clue why some actions use "with" and others use "env". 
             # I'd GUESS that one supplies env vars and the others supply arguments directly to a script. But I don't KNOW. 🤷‍♀️
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USER }}
+        host: ${{ secrets.SERVER_IP_ALT }}
+        username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY }}
-        script: ${{ secrets.SERVER_DIR }}/build.sh ${{ env.APPDIR }}
+        script: ${{ secrets.SERVER_DIR_ALT }}/build.sh ${{ env.APPDIR }}
