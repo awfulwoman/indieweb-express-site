@@ -7,11 +7,6 @@ name: Tests and Deployment
 on:
   push: # When new stuff is pushed to the repo
     branches:  # only on these branches
-      - main
-      - docker-nginx-node
-  pull_request:
-    branches:
-      - main
       - docker-nginx-node
   repository_dispatch: # respond to an external event
     types: deploy-that-thing # a custom event name
