@@ -86,7 +86,7 @@ jobs:
         echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
         echo "DEBUG_TOKEN=${{ env.DEBUG_TOKEN }}" >> .env
       shell: bash
-    - name: Copy app to remote server
+    - name: Copy app to remote server (${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }})
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
         SOURCE: "src/"
