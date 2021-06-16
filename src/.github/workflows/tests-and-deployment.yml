@@ -1,11 +1,16 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI tests and deployment
+# FOR USE VIA DOCKER!
+name: Tests and Deployment
 
 on:
   push: # When new stuff is pushed to the repo
-    branches: [ main, debug ] # only on these brances
+    branches:  # only on these branches
+      - docker-nginx-node
+  pull_request:
+    branches:
+      - main
   repository_dispatch: # respond to an external event
     types: deploy-that-thing # a custom event name
     # https://goobar.io/manually-trigger-a-github-actions-workflow/
@@ -20,8 +25,8 @@ on:
     # ```
 
 env: # set some environment variables (env vars) that last through the workflow
-  APPDIR: ${{ secrets.SERVER_DIR }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
-  NODE_VERSION: 14.15.0
+  APPDIR: ${{ secrets.SERVER_DIR_ALT }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
+  NODE_VERSION: 14.16.0
 
 jobs:
   # Job 1: Test the app
@@ -36,8 +41,10 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }} # I'm using the env var defined earlier to supply a parameter/argument to the setup-node action.
     - name: Install app dependencies
+      working-directory: ./src
       run: npm ci # Runs this command inside the virutal machine where the repo was downloaded to
     - name: Run app tests
+      working-directory: ./src
       run: npm test
 
   # Job 2: Deploy the app
@@ -49,9 +56,11 @@ jobs:
     - name: Checkout code from ${{ github.repository }} # Github supplies a few variables that can be accessed by the workflow. They all start with 'github.'
       uses: actions/checkout@v2
     - name: Create .env file
+      working-directory: ./src
       run: 'touch .env'
       shell: bash # The above command uses this unix shell
     - name: Write environment secrets to app .env file
+      working-directory: ./src
       env:
         DATA_DIR: ${{ secrets.DATA_DIR }}
         CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
@@ -77,19 +86,20 @@ jobs:
         echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
         echo "DEBUG_TOKEN=${{ env.DEBUG_TOKEN }}" >> .env
       shell: bash
-    - name: Copy app to remote server
+    - name: Copy app to remote server (${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }})
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+        SOURCE: "src/"
+        SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY_ALT }}
         ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
-        REMOTE_HOST: ${{ secrets.SERVER_IP }}
-        REMOTE_USER: ${{ secrets.SERVER_USER }}
-        TARGET: ${{ secrets.SERVER_DIR }}
-    - name: Execute build script on remote server. Builds npm and runs pm2.
+        REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
+        REMOTE_USER: ${{ secrets.SERVER_USER_ALT }}
+        TARGET: ${{ secrets.SERVER_DIR_ALT }}
+    - name: Execute build script on remote server. Runs docker?
       uses: appleboy/ssh-action@master        
       with: # I can't lie - I haven't a clue why some actions use "with" and others use "env". 
             # I'd GUESS that one supplies env vars and the others supply arguments directly to a script. But I don't KNOW. 🤷‍♀️
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USER }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        script: ${{ secrets.SERVER_DIR }}/build.sh ${{ env.APPDIR }}
+        host: ${{ secrets.SERVER_IP_ALT }}
+        username: ${{ secrets.SERVER_USER_ALT }}
+        key: ${{ secrets.DEPLOY_KEY_ALT }}
+        script: ${{ secrets.SERVER_DIR_ALT }}/build.sh ${{ env.APPDIR }}
