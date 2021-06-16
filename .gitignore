@@ -9,3 +9,5 @@ completer.hist
 /log
 public/bundle.js.map
 .size-snapshot.json
+src/log
+src/public
