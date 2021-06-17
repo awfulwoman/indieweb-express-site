@@ -89,7 +89,7 @@ jobs:
     - name: debug
       # run: echo ${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }} | sed 's/./& /g'
       # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
-      run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed -n 's/./& /g'
+      run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
