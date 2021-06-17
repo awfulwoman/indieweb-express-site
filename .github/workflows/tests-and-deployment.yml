@@ -86,8 +86,8 @@ jobs:
         echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
         echo "DEBUG_TOKEN=${{ env.DEBUG_TOKEN }}" >> .env
       shell: bash
-    # - name: debug
-      # run: echo ${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }} | sed 's/./& /g'
+    - name: debug
+      run: echo ${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }} | sed 's/./& /g'
       # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
       # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
     - name: Copy app to remote server
