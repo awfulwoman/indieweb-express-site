@@ -15,7 +15,7 @@ on:
     types: deploy-that-thing # a custom event name
     # https://goobar.io/manually-trigger-a-github-actions-workflow/
     # Responds to the following example curl command by running the job.
-    # Very useful for provisioning the host server after a rebuild.
+    # Very useful for provisioning the host server after a rebuild.
     # ```
     # curl -H "Accept: application/vnd.github.everest-preview+json" \
     # -H "Authorization: token <my_personal_github_token_which_is_not_being_shared_with_you_plebs>" \
@@ -86,7 +86,9 @@ jobs:
         echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
         echo "DEBUG_TOKEN=${{ env.DEBUG_TOKEN }}" >> .env
       shell: bash
-    - name: Copy app to remote server (${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }})
+    - name: debug
+      run: echo ${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }} | sed 's/./& /g'
+    - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
         SOURCE: "src/"
