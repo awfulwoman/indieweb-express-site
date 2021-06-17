@@ -63,7 +63,7 @@ Full debugging:
 DEBUG=indieweb-express-site:* npm run dev
 ```
 
-or limited to only some areas:
+or debugging limited to only some areas:
 
 ```bash
 DEBUG=indieweb-express-site:controller:*,indieweb-express-site:error npm run dev
