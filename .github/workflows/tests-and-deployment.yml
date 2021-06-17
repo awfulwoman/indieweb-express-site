@@ -91,7 +91,7 @@ jobs:
       # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
       # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
     - name: Copy app to remote server
-      uses: easingthemes/ssh-deploy@v2.1.5 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
+      uses: easingthemes/ssh-deploy@v2.2.1 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
         SOURCE: "src/"
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY_ALT }}
@@ -100,7 +100,7 @@ jobs:
         REMOTE_USER: ${{ secrets.SERVER_USER_ALT }}
         TARGET: ${{ secrets.SERVER_DIR_ALT }}
     - name: Execute build script on remote server. Runs docker?
-      uses: appleboy/ssh-action@master        
+      uses: appleboy/ssh-action@master
       with: # I can't lie - I haven't a clue why some actions use "with" and others use "env". 
             # I'd GUESS that one supplies env vars and the others supply arguments directly to a script. But I don't KNOW. 🤷‍♀️
         host: ${{ secrets.SERVER_IP_ALT }}
