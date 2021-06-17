@@ -30,26 +30,26 @@ env: # set some environment variables (env vars) that last through the workflow
 
 jobs:
   # Job 1: Test the app
-  run-tests:
-    runs-on: ubuntu-latest # Run the following steps on a temporary instance of an Ubuntu virtual machine (VM)
+  # run-tests:
+  #   runs-on: ubuntu-latest # Run the following steps on a temporary instance of an Ubuntu virtual machine (VM)
 
-    steps:
-    - name: Checkout code from ${{ github.repository }}
-      uses: actions/checkout@v2 # This is an action provided by Github that checks out my repos code and adds it to the Ubuntu virtual machine
-    - name: Use Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v1.4.4 # A Github Action (a chunk of scripting) that installs node on the VM. the "v1.4.4" refers to the version of the setup-node action found at https://github.com/actions/setup-node
-      with:
-        node-version: ${{ env.NODE_VERSION }} # I'm using the env var defined earlier to supply a parameter/argument to the setup-node action.
-    - name: Install app dependencies
-      working-directory: ./src
-      run: npm ci # Runs this command inside the virutal machine where the repo was downloaded to
-    - name: Run app tests
-      working-directory: ./src
-      run: npm test
+  #   steps:
+  #   - name: Checkout code from ${{ github.repository }}
+  #     uses: actions/checkout@v2 # This is an action provided by Github that checks out my repos code and adds it to the Ubuntu virtual machine
+  #   - name: Use Node.js ${{ env.NODE_VERSION }}
+  #     uses: actions/setup-node@v1.4.4 # A Github Action (a chunk of scripting) that installs node on the VM. the "v1.4.4" refers to the version of the setup-node action found at https://github.com/actions/setup-node
+  #     with:
+  #       node-version: ${{ env.NODE_VERSION }} # I'm using the env var defined earlier to supply a parameter/argument to the setup-node action.
+  #   - name: Install app dependencies
+  #     working-directory: ./src
+  #     run: npm ci # Runs this command inside the virutal machine where the repo was downloaded to
+  #   - name: Run app tests
+  #     working-directory: ./src
+  #     run: npm test
 
   # Job 2: Deploy the app
   deploy-app:
-    needs: run-tests # Requires that "run-tests" completed first. Otherwise it will try to run in parallel. 
+    # needs: run-tests # Requires that "run-tests" completed first. Otherwise it will try to run in parallel. 
     runs-on: ubuntu-latest
 
     steps:
