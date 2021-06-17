@@ -95,7 +95,7 @@ jobs:
       env:
         SOURCE: "src/"
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY_ALT }}
-        ARGS: "-rltz --delete --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
+        ARGS: "-rltz --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
         REMOTE_USER: ${{ secrets.SERVER_USER_ALT }}
         TARGET: ${{ secrets.SERVER_DIR_ALT }}
