@@ -29,3 +29,4 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       # - /path/to/certificates:/etc/nginx/certs
+      
