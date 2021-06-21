@@ -73,7 +73,6 @@ jobs:
         DEBUG_TOKEN: ${{ secrets.DEBUG_TOKEN }}
       run: | # This is a multiline comment
         echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
-        echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
         echo "TWITTER_CONSUMER_KEY=${{ env.TWITTER_CONSUMER_KEY }}" >> .env
         echo "TWITTER_CONSUMER_SECRET=${{ env.TWITTER_CONSUMER_SECRET }}" >> .env
         echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
@@ -86,6 +85,7 @@ jobs:
         echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
         echo "DEBUG_TOKEN=${{ env.DEBUG_TOKEN }}" >> .env
       shell: bash
+      # echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
     - name: debug
       run: echo ${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }} | sed 's/./& /g'
       # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
