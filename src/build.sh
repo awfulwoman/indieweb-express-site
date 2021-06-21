@@ -3,8 +3,8 @@
 APPDIR=$1
 cd $APPDIR
 
-docker compose stop
-docker compose -f docker-compse.yml -f docker-compose.production.yml up -d
+docker-compose stop
+docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d
 
 
 # echo "Building app..."
