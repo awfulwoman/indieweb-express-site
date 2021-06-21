@@ -7,7 +7,7 @@ volumes:
 # Declare services
 services:
   indieweb-express-site:
-    # build: ./src
+    build: .
     volumes:
       - ./src/example/content:/content
       - nodemodules:/usr/src/app/node_modules
