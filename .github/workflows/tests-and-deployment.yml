@@ -93,7 +93,7 @@ jobs:
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.2.1 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
-        SOURCE: "src/"
+        # SOURCE: "src/"
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY_ALT }}
         ARGS: "-rltz --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
@@ -106,4 +106,7 @@ jobs:
         host: ${{ secrets.SERVER_IP_ALT }}
         username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY_ALT }}
-        script: ${{ secrets.SERVER_DIR_ALT }}/build.sh ${{ env.APPDIR }}
+        # script: ${{ secrets.SERVER_DIR_ALT }}/build.sh ${{ env.APPDIR }}
+        script: |
+          cd ./src
+          docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d
