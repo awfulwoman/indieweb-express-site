@@ -1,1 +1,10 @@
+node_modules
+.env
+.vscode
+completer.hist
 .DS_Store
+.stignore
+.stversions
+log
+public/bundle.js.map
+.size-snapshot.json

@@ -41,10 +41,8 @@ jobs:
   #     with:
   #       node-version: ${{ env.NODE_VERSION }} # I'm using the env var defined earlier to supply a parameter/argument to the setup-node action.
   #   - name: Install app dependencies
-  #     working-directory: ./src
   #     run: npm ci # Runs this command inside the virutal machine where the repo was downloaded to
   #   - name: Run app tests
-  #     working-directory: ./src
   #     run: npm test
 
   # Job 2: Deploy the app
@@ -56,11 +54,9 @@ jobs:
     - name: Checkout code from ${{ github.repository }} # Github supplies a few variables that can be accessed by the workflow. They all start with 'github.'
       uses: actions/checkout@v2
     - name: Create .env file
-      working-directory: ./src
       run: 'touch .env'
       shell: bash # The above command uses this unix shell
     - name: Write environment secrets to app .env file
-      working-directory: ./src
       env:
         DATA_DIR: ${{ secrets.DATA_DIR }}
         CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
@@ -93,7 +89,6 @@ jobs:
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.2.1 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
-        # SOURCE: "src/"
         SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY_ALT }}
         ARGS: "-rltz --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
@@ -108,5 +103,5 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY_ALT }}
         # script: ${{ secrets.SERVER_DIR_ALT }}/build.sh ${{ env.APPDIR }}
         script: |
-          cd ./src
+          cd ${{ secrets.SERVER_DIR_ALT }}
           docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d
