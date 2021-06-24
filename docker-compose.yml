@@ -32,7 +32,7 @@ services:
       - "443:443"
     volumes:
       # - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
       - certs:/etc/nginx/certs
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
@@ -44,6 +44,6 @@ services:
     volumes:
       - acme:/etc/acme.sh
       # - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:
       - DEFAULT_EMAIL=letsencrypt@whalecoiner.com
