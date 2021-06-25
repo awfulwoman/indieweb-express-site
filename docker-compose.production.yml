@@ -4,4 +4,5 @@ services:
     environment:
       # - VIRTUAL_HOST=whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk,beta.whalecoiner.com
       - VIRTUAL_HOST=beta.whalecoiner.com
+      - LETSENCRYPT_HOST=beta.whalecoiner.com
       - VIRTUAL_PORT=3000
