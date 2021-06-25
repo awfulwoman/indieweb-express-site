@@ -44,6 +44,6 @@ services:
     volumes:
       - acme:/etc/acme.sh
       # - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - DEFAULT_EMAIL=letsencrypt@whalecoiner.com
