@@ -111,4 +111,4 @@ jobs:
         # script: ${{ secrets.SERVER_DIR_ALT }}/build.sh ${{ env.APPDIR }}
         script: |
           cd ${{ secrets.SERVER_DIR_ALT }}
-          docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d
+          docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d --build
