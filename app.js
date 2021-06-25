@@ -46,7 +46,7 @@ try {
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", "whalecoiner.net", "whalecoiner.org", "sonniesedge.net", "www.sonniesedge.net", "sonniesedge.co.uk", "www.sonniesedge.co.uk"],
+        defaultSrc: ["'self'", "whalecoiner.com", "whalecoiner.net", "whalecoiner.org", "beta.whalecoiner.com", "sonniesedge.net", "www.sonniesedge.net", "sonniesedge.co.uk", "www.sonniesedge.co.uk"],
         imgSrc: ["'self'", "data:", "platform.twitter.com", "syndication.twitter.com"],
         scriptSrc: ["'self'", "platform.twitter.com", "syndication.twitter.com"],
         styleSrc: ["'self'", "https:", "'unsafe-inline'", "platform.twitter.com", "syndication.twitter.com"],
