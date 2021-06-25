@@ -27,9 +27,9 @@ RUN npm install
 COPY . .
 
 # Start the app
-CMD ["npm", "run", "css"]
-CMD ["npm", "run", "js"]
-CMD ["npm", "run", "sprites"]
-CMD ["npm", "start"]
+# CMD ["npm", "run", "css"]
+# CMD ["npm", "run", "js"]
+# CMD ["npm", "run", "sprites"]
+# CMD ["npm", "start"]
 
-
+CMD "./build.sh"
