@@ -10,6 +10,7 @@ RUN apt install libvips libvips-dev -y
 EXPOSE 3000
 
 # Create app directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
@@ -32,4 +33,4 @@ COPY . .
 # CMD ["npm", "run", "sprites"]
 # CMD ["npm", "start"]
 
-CMD "./build.sh"
+ENTRYPOINT "./build.sh"
