@@ -71,12 +71,8 @@ jobs:
         echo "NGINX_VHOST_DIR=${{ secrets.NGINX_VHOST_DIR }}" >> .env
         echo "NGINX_CERTS_DIR=${{ secrets.NGINX_CERTS_DIR }}" >> .env
       shell: bash
-      # echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
-      # echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
-    - name: debug
-      run: echo ${{ secrets.SERVER_USER_ALT }}@${{ secrets.SERVER_IP_ALT }}:${{ secrets.SERVER_DIR_ALT }} | sed 's/./& /g'
-      # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
-      # run: echo ${{ secrets.DEPLOY_KEY_ALT }} | sed 's/./& /g'
+      # echo "DATA_DIR=${{ secrets.DATA_DIR }}" >> .env
+      # echo "CONTENT_DIR=${{ secrets.CONTENT_DIR }}" >> .env
     - name: Make sites dir on server if not present
       uses: appleboy/ssh-action@master
       with: 
@@ -99,7 +95,6 @@ jobs:
         host: ${{ secrets.SERVER_IP_ALT }}
         username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY_ALT }}
-        # script: ${{ secrets.SERVER_DIR_ALT }}/build.sh ${{ env.APPDIR }}
         script: |
           cd ${{ secrets.SERVER_DIR_ALT }}
           docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d --build
