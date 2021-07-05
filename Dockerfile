@@ -33,4 +33,4 @@ COPY . .
 # CMD ["npm", "run", "sprites"]
 # CMD ["npm", "start"]
 
-ENTRYPOINT "./build.sh"
+CMD "npm run dev"

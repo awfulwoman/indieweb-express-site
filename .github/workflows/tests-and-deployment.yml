@@ -97,4 +97,4 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY_ALT }}
         script: |
           cd ${{ secrets.SERVER_DIR_ALT }}
-          docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d --build
+          ./start-production.sh

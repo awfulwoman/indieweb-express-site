@@ -13,9 +13,6 @@ services:
       - nodemodules:/usr/src/app/node_modules
     expose:
       - "3000"
-    environment:
-      - VIRTUAL_HOST=whalecoiner.localhost
-      - VIRTUAL_PORT=3000
   redis:
     image: "redis:alpine"
   nginx-proxy:

@@ -8,7 +8,7 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "npm run sprites && npm run css && npm run js && node app.js",
     "dev": "NODE_ENV=development npm run sprites && concurrently npm:watch-css npm:watch-js npm:watch-server --raw",
     "test": "jest --env=node",
     "css": "sass ./assets/scss/core.scss:./public/core.css ./assets/scss/advanced.scss:./public/advanced.css",

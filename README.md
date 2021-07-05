@@ -5,30 +5,36 @@ Express server-side app, using Markdown for data storage.
 
 ![Node.js CI](https://github.com/whalecoiner/indieweb-express-site/workflows/Node.js%20CI/badge.svg) ![CodeQL](https://github.com/whalecoiner/indieweb-express-site/workflows/CodeQL/badge.svg)
 
-## Installation
-
-### Installing and running via Docker
+## Installing a development environment via Docker
 
 The app is fully Dockerised. To run it this way you will need the Docker service installed on your local machine.
 
 You will need to add the following to your `/etc/hosts` file:
 
 ```bash
-localhost indieweb.localhost
+localhost whalecoiner.localhost
 ```
 
 Once done you can start the app:
 
 ```bash
-docker compose up --detached
+./start-development.sh
 ```
-### Installing directly onto host
+
+The app can then be found at `http://whalecoiner.localhost`
+
+## Installing a development environment directly onto the host
 
 You will need node v14.16 installed.
 
 ```bash
-cd src/
 npm install
+```
+
+Run app via:
+
+```bash
+npm run dev
 ```
 
 ## Run tests
@@ -39,18 +45,12 @@ Tests are performed via [Jest](https://www.npmjs.com/package/jest).
 npm test
 ```
 
-## Running app
+## Running for production
 
-Development:
-
-```bash
-npm run dev
-```
-
-Production:
+The site is deployed to a server via Github Actions. The following Docker command is run on the server once deployed:
 
 ```bash
-npm start
+./start-production.sh
 ```
 
 ## Debugging app
