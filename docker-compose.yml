@@ -3,10 +3,6 @@ version: '3'
 # Declare volumes
 volumes:
   nodemodules:
-  certs:
-  vhost:
-  html:
-  acme:
 
 # Declare services
 services:
@@ -31,19 +27,5 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      # - /var/run/docker.sock:/tmp/docker.sock:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - certs:/etc/nginx/certs
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      # - /path/to/certificates:/etc/nginx/certs
-  nginx-proxy-acme:
-    image: nginxproxy/acme-companion
-    volumes_from: 
-      - nginx-proxy
-    volumes:
-      - acme:/etc/acme.sh
-      # - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      - DEFAULT_EMAIL=letsencrypt@whalecoiner.com
+
