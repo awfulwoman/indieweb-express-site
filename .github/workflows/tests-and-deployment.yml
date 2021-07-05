@@ -67,6 +67,10 @@ jobs:
         GH_CLIENT_SECRET: ${{ secrets.GH_CLIENT_SECRET }}
         SITE_LOGIN_PATH: ${{ secrets.SITE_LOGIN_PATH }}
         DEBUG_TOKEN: ${{ secrets.DEBUG_TOKEN }}
+        NGINX_DEFAULT_EMAIL: ${{ secrets.NGINX_DEFAULT_EMAIL }}
+        NGINX_HTML_DIR: ${{ secrets.NGINX_HTML_DIR }}
+        NGINX_VHOST_DIR: ${{ secrets.NGINX_VHOST_DIR }}
+        NGINX_CERTS_DIR: ${{ secrets.NGINX_CERTS_DIR }}
       run: | # This is a multiline comment
         echo "TWITTER_CONSUMER_KEY=${{ env.TWITTER_CONSUMER_KEY }}" >> .env
         echo "TWITTER_CONSUMER_SECRET=${{ env.TWITTER_CONSUMER_SECRET }}" >> .env
