@@ -18,11 +18,14 @@ services:
       - VIRTUAL_PORT=3000
     deploy:
       restart_policy:
-        condition: on-failure
+        condition: always
   redis:
     image: "redis:alpine"
   nginx-proxy:
     image: jwilder/nginx-proxy
+    deploy:
+      restart_policy:
+        condition: always
     ports:
       - "80:80"
       - "443:443"

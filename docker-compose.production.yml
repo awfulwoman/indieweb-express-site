@@ -14,14 +14,17 @@ services:
       - VIRTUAL_HOST=beta.whalecoiner.com
       - LETSENCRYPT_HOST=beta.whalecoiner.com
       - VIRTUAL_PORT=3000
-  nginx-proxy:
+  nginx-proxy: # Add volumes for production
     volumes:
       - certs:/etc/nginx/certs
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       # - /path/to/certificates:/etc/nginx/certs
-  nginx-proxy-acme:
+  nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
+    deploy:
+      restart_policy:
+        condition: always
     volumes_from: 
       - nginx-proxy
     volumes:
