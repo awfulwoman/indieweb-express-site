@@ -4,7 +4,7 @@ services:
   indieweb-express-site:
     volumes:
       - ./:/usr/src/app
-    command: npm run dev
+    command: ["npm", "run", "dev"]
     environment:
       - VIRTUAL_HOST=whalecoiner.localhost
       - VIRTUAL_PORT=3000

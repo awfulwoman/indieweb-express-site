@@ -15,6 +15,7 @@ services:
       - VIRTUAL_HOST=beta.whalecoiner.com
       - LETSENCRYPT_HOST=beta.whalecoiner.com
       - VIRTUAL_PORT=3000
+    command: ["npm", "start"]
   nginx-proxy: # Add nginx volumes for production
     volumes:
       - certs:/etc/nginx/certs
