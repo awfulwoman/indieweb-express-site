@@ -56,37 +56,22 @@ jobs:
     - name: Create .env file
       run: 'touch .env'
       shell: bash # The above command uses this unix shell
-    - name: Write environment secrets to app .env file
-      env:
-        DATA_DIR: ${{ secrets.DATA_DIR }}
-        CONTENT_DIR: ${{ secrets.CONTENT_DIR }}
-        LOG_DIR: ${{ secrets.LOG_DIR }}
-        TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
-        TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-        GH_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
-        GH_CLIENT_SECRET: ${{ secrets.GH_CLIENT_SECRET }}
-        SITE_LOGIN_PATH: ${{ secrets.SITE_LOGIN_PATH }}
-        DEBUG_TOKEN: ${{ secrets.DEBUG_TOKEN }}
-        NGINX_DEFAULT_EMAIL: ${{ secrets.NGINX_DEFAULT_EMAIL }}
-        NGINX_HTML_DIR: ${{ secrets.NGINX_HTML_DIR }}
-        NGINX_VHOST_DIR: ${{ secrets.NGINX_VHOST_DIR }}
-        NGINX_CERTS_DIR: ${{ secrets.NGINX_CERTS_DIR }}
       run: | # This is a multiline comment
-        echo "TWITTER_CONSUMER_KEY=${{ env.TWITTER_CONSUMER_KEY }}" >> .env
-        echo "TWITTER_CONSUMER_SECRET=${{ env.TWITTER_CONSUMER_SECRET }}" >> .env
+        echo "TWITTER_CONSUMER_KEY=${{ secrets.TWITTER_CONSUMER_KEY }}" >> .env
+        echo "TWITTER_CONSUMER_SECRET=${{ secrets.TWITTER_CONSUMER_SECRET }}" >> .env
         echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
-        echo "LOG_DIR=${{ env.LOG_DIR }}" >> .env
+        echo "LOG_DIR=${{ secrets.LOG_DIR }}" >> .env
         echo "SITE_PROTOCOL=http" >> .env
         echo "SITE_DOMAIN=beta.whalecoiner.com" >> .env
-        echo "SITE_LOGIN_PATH=${{ env.SITE_LOGIN_PATH }}" >> .env
+        echo "SITE_LOGIN_PATH=${{ secrets.SITE_LOGIN_PATH }}" >> .env
         echo "LAST_DEPLOY=$(TZ=GMT date -d now)" >> .env
-        echo "GH_CLIENT_ID=${{ env.GH_CLIENT_ID }}" >> .env
-        echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
-        echo "DEBUG_TOKEN=${{ env.DEBUG_TOKEN }}" >> .env
-        echo "NGINX_DEFAULT_EMAIL=${{ env.NGINX_DEFAULT_EMAIL }}" >> .env
-        echo "NGINX_HTML_DIR=${{ env.NGINX_HTML_DIR }}" >> .env
-        echo "NGINX_VHOST_DIR=${{ env.NGINX_VHOST_DIR }}" >> .env
-        echo "NGINX_CERTS_DIR=${{ env.NGINX_CERTS_DIR }}" >> .env
+        echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
+        echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
+        echo "DEBUG_TOKEN=${{ secrets.DEBUG_TOKEN }}" >> .env
+        echo "NGINX_DEFAULT_EMAIL=${{ secrets.NGINX_DEFAULT_EMAIL }}" >> .env
+        echo "NGINX_HTML_DIR=${{ secrets.NGINX_HTML_DIR }}" >> .env
+        echo "NGINX_VHOST_DIR=${{ secrets.NGINX_VHOST_DIR }}" >> .env
+        echo "NGINX_CERTS_DIR=${{ secrets.NGINX_CERTS_DIR }}" >> .env
       shell: bash
       # echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
       # echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
