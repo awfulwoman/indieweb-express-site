@@ -79,6 +79,10 @@ jobs:
         echo "GH_CLIENT_ID=${{ env.GH_CLIENT_ID }}" >> .env
         echo "GH_CLIENT_SECRET=${{ env.GH_CLIENT_SECRET }}" >> .env
         echo "DEBUG_TOKEN=${{ env.DEBUG_TOKEN }}" >> .env
+        echo "NGINX_DEFAULT_EMAIL=${{ env.NGINX_DEFAULT_EMAIL }}" >> .env
+        echo "NGINX_HTML_DIR=${{ env.NGINX_HTML_DIR }}" >> .env
+        echo "NGINX_VHOST_DIR=${{ env.NGINX_VHOST_DIR }}" >> .env
+        echo "NGINX_CERTS_DIR=${{ env.NGINX_CERTS_DIR }}" >> .env
       shell: bash
       # echo "DATA_DIR=${{ env.DATA_DIR }}" >> .env
       # echo "CONTENT_DIR=${{ env.CONTENT_DIR }}" >> .env
