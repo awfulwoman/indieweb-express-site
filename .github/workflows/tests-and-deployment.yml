@@ -79,7 +79,11 @@ jobs:
         host: ${{ secrets.SERVER_IP_ALT }}
         username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY_ALT }}
-        script: mkdir -p ${{ secrets.SERVER_DIR_ALT }}
+        script: |
+          mkdir -p ${{ secrets.SERVER_DIR_ALT }}
+          mkdir -p ${{ secrets.NGINX_HTML_DIR }}
+          mkdir -p ${{ secrets.NGINX_VHOST_DIR }}
+          mkdir -p ${{ secrets.NGINX_CERTS_DIR }}
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.2.1 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
