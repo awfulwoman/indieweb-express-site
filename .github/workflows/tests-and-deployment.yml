@@ -54,8 +54,6 @@ jobs:
     - name: Checkout code from ${{ github.repository }} # Github supplies a few variables that can be accessed by the workflow. They all start with 'github.'
       uses: actions/checkout@v2
     - name: Create .env file
-      run: 'touch .env'
-      shell: bash # The above command uses this unix shell
       run: | # This is a multiline comment
         echo "TWITTER_CONSUMER_KEY=${{ secrets.TWITTER_CONSUMER_KEY }}" >> .env
         echo "TWITTER_CONSUMER_SECRET=${{ secrets.TWITTER_CONSUMER_SECRET }}" >> .env
