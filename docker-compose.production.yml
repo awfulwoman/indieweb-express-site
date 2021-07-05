@@ -22,9 +22,6 @@ services:
       # - /path/to/certificates:/etc/nginx/certs
   nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
-    deploy:
-      restart_policy:
-        condition: always
     volumes_from: 
       - nginx-proxy
     volumes:

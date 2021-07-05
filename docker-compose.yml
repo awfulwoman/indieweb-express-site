@@ -16,9 +16,6 @@ services:
     environment:
       - VIRTUAL_HOST=whalecoiner.localhost
       - VIRTUAL_PORT=3000
-    deploy:
-      restart_policy:
-        condition: always
   redis:
     image: "redis:alpine"
   nginx-proxy:
