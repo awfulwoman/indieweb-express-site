@@ -25,6 +25,8 @@ The app can then be found at `http://whalecoiner.localhost`
 
 ## Installing a development environment directly onto the host
 
+You won't get all the fancy things that docker does, but it'll be enough to work with the node app.
+
 You will need node v14.16 installed.
 
 ```bash
