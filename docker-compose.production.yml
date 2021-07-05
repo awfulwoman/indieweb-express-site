@@ -1,9 +1,9 @@
 
 # Declare volumes
 volumes:
-  certs:
-  vhost:
-  html:
+  certs: # TODO: Remove
+  vhost: # TODO: Remove
+  html: # TODO: Remove
   acme:
 
 # Declare services
@@ -14,12 +14,14 @@ services:
       - VIRTUAL_HOST=beta.whalecoiner.com
       - LETSENCRYPT_HOST=beta.whalecoiner.com
       - VIRTUAL_PORT=3000
-  nginx-proxy: # Add volumes for production
+  nginx-proxy: # Add nginx volumes for production
     volumes:
       - certs:/etc/nginx/certs
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
-      # - /path/to/certificates:/etc/nginx/certs
+      # - ${NGINX_CERTS_DIR}:/etc/nginx/certs
+      # - ${NGINX_VHOST_DIR}:/etc/nginx/vhost.d
+      # - ${NGINX_HTML_DIR}:/usr/share/nginx/html
   nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
     volumes_from: 
@@ -29,3 +31,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - DEFAULT_EMAIL=letsencrypt@whalecoiner.com
+      # - DEFAULT_EMAIL=${NGINX_DEFAULT_EMAIL}
