@@ -2,9 +2,6 @@ version: '3'
 
 # Declare volumes
 volumes:
-  certs: # TODO: Remove
-  vhost: # TODO: Remove
-  html: # TODO: Remove
   acme:
 
 # Declare services
@@ -18,12 +15,9 @@ services:
     command: ["npm", "start"]
   nginx-proxy: # Add nginx volumes for production
     volumes:
-      - certs:/etc/nginx/certs
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
-      # - ${NGINX_CERTS_DIR}:/etc/nginx/certs
-      # - ${NGINX_VHOST_DIR}:/etc/nginx/vhost.d
-      # - ${NGINX_HTML_DIR}:/usr/share/nginx/html
+      - ${NGINX_CERTS_DIR}:/etc/nginx/certs
+      - ${NGINX_VHOST_DIR}:/etc/nginx/vhost.d
+      - ${NGINX_HTML_DIR}:/usr/share/nginx/html
   nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
     volumes_from: 
