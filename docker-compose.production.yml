@@ -24,6 +24,6 @@ services:
       - nginx-proxy
     volumes:
       - acme:/etc/acme.sh
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Binding the host docker socket (/var/run/docker.sock) inside the container to /var/run/docker.sock is a requirement of nginxproxy/acme-companion.
     environment:
       - DEFAULT_EMAIL=${NGINX_DEFAULT_EMAIL}

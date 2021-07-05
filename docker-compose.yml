@@ -21,5 +21,4 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
+      - /var/run/docker.sock:/tmp/docker.sock:ro # Binding the host docker socket (/var/run/docker.sock) inside the container to /tmp/docker.sock is a requirement of nginx-proxy.
