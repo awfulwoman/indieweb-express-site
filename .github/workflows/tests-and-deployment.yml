@@ -62,7 +62,7 @@ jobs:
         echo "SITE_PROTOCOL=http" >> .env
         echo "SITE_DOMAIN=beta.whalecoiner.com" >> .env
         echo "SITE_LOGIN_PATH=${{ secrets.SITE_LOGIN_PATH }}" >> .env
-        echo "LAST_DEPLOY=$(TZ=GMT date -d now)" >> .env
+        echo "LAST_DEPLOY=\"$(TZ=GMT date -d now)\" >> .env
         echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
         echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
         echo "DEBUG_TOKEN=${{ secrets.DEBUG_TOKEN }}" >> .env
