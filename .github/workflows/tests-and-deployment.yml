@@ -56,22 +56,19 @@ jobs:
       run: | # This is a multiline comment
         echo "TWITTER_CONSUMER_KEY=${{ secrets.TWITTER_CONSUMER_KEY }}" >> .env
         echo "TWITTER_CONSUMER_SECRET=${{ secrets.TWITTER_CONSUMER_SECRET }}" >> .env
-        echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
-        echo "LOG_DIR=${{ secrets.LOG_DIR }}" >> .env
-        echo "SITE_PROTOCOL=http" >> .env
-        echo "SITE_DOMAIN=beta.whalecoiner.com" >> .env
-        echo "SITE_LOGIN_PATH=${{ secrets.SITE_LOGIN_PATH }}" >> .env
-        echo "LAST_DEPLOY='$(TZ=GMT date -d now)'" >> .env
         echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
         echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
+        echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
+        echo "LOG_DIR='/whalecoiner/logs'" >> .env
+        echo "DATA_DIR='/whalecoiner/data'" >> .env
+        echo "CONTENT_DIR='/whalecoiner/content" >> .env
+        echo "SITE_PROTOCOL=http" >> .env
+        echo "SITE_DOMAIN=whalecoiner.com" >> .env
+        echo "SITE_LOGIN_PATH=${{ secrets.SITE_LOGIN_PATH }}" >> .env
+        echo "LAST_DEPLOY='$(TZ=GMT date -d now)'" >> .env
         echo "DEBUG_TOKEN=${{ secrets.DEBUG_TOKEN }}" >> .env
         echo "NGINX_DEFAULT_EMAIL=${{ secrets.NGINX_DEFAULT_EMAIL }}" >> .env
-        echo "NGINX_HTML_DIR=${{ secrets.NGINX_HTML_DIR }}" >> .env
-        echo "NGINX_VHOST_DIR=${{ secrets.NGINX_VHOST_DIR }}" >> .env
-        echo "NGINX_CERTS_DIR=${{ secrets.NGINX_CERTS_DIR }}" >> .env
       shell: bash
-      # echo "DATA_DIR=${{ secrets.DATA_DIR }}" >> .env
-      # echo "CONTENT_DIR=${{ secrets.CONTENT_DIR }}" >> .env
     - name: Make sites dir on server if not present
       uses: appleboy/ssh-action@master
       with: 

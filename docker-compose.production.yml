@@ -3,6 +3,9 @@ version: '3'
 # Declare volumes
 volumes:
   acme:
+  vhosts:
+  html:
+  certs:
   whalecoiner:
     driver: rexray/dobs
 
@@ -17,9 +20,10 @@ services:
     command: ["npm", "start"]
   nginx-proxy: # Add nginx volumes for production
     volumes:
-      - ${NGINX_CERTS_DIR}:/etc/nginx/certs
-      - ${NGINX_VHOST_DIR}:/etc/nginx/vhost.d
-      - ${NGINX_HTML_DIR}:/usr/share/nginx/html
+      - certs:/etc/nginx/certs
+      - vhosts:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html # User for certificate creation, not content
+      - whalecoiner:/whalecoiner
   nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
     volumes_from: 
