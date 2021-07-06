@@ -8,3 +8,4 @@ services:
     environment:
       - VIRTUAL_HOST=whalecoiner.localhost
       - VIRTUAL_PORT=3000
+      - NODE_ENV=development

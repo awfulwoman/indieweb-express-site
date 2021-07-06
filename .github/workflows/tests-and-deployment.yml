@@ -1,13 +1,12 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests.
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-# FOR USE VIA DOCKER!
 name: Tests and Deployment
 
 on:
   push: # When new stuff is pushed to the repo
     branches:  # only on these branches
       - docker-nginx-node
+      - main
   pull_request:
     branches:
       - main
