@@ -3,6 +3,9 @@ version: '3'
 # Declare volumes
 volumes:
   acme:
+  whalecoiner:
+    external: true
+    driver: rexray/dobs
 
 # Declare services
 services:
