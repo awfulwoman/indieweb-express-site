@@ -7,7 +7,7 @@ volumes:
   html:
   certs:
   content:
-    driver: rexray/dobs
+    external: true
 
 # Declare services
 services:
