@@ -59,6 +59,7 @@ jobs:
         echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
         echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
         echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
+        echo "SERVER_DIR=${{ SERVER_DIR_ALT }}" >> .env
         echo "LOG_DIR=${{ secrets.LOG_DIR_ALT }}" >> .env
         echo "DATA_DIR=${{ secrets.DATA_DIR_ALT }}" >> .env
         echo "CONTENT_DIR=${{ secrets.CONTENT_DIR_ALT }}" >> .env
