@@ -6,8 +6,6 @@ volumes:
   vhosts:
   html:
   certs:
-  content:
-    driver: rexray/asdasdadasdasdasdasdasd
 
 # Declare services
 services:
@@ -20,7 +18,7 @@ services:
       - VIRTUAL_PORT=3000
       - NODE_ENV=production
     volumes:
-      - content:/usr/src/content
+      - ${ secrets.SERVER_DIR_ALT }:/usr/src/content
     command: ["npm", "start"]
   nginx-proxy: # Add nginx volumes for production
     volumes:
