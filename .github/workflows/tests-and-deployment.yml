@@ -59,9 +59,9 @@ jobs:
         echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
         echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
         echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
-        echo "LOG_DIR='/whalecoiner/logs'" >> .env
-        echo "DATA_DIR='/whalecoiner/data'" >> .env
-        echo "CONTENT_DIR='/whalecoiner/content" >> .env
+        echo "LOG_DIR='/usr/src/logs'" >> .env
+        echo "DATA_DIR='/usr/src/data'" >> .env
+        echo "CONTENT_DIR='/usr/src/content" >> .env
         echo "SITE_PROTOCOL=http" >> .env
         echo "SITE_DOMAIN=whalecoiner.com" >> .env
         echo "SITE_LOGIN_PATH=${{ secrets.SITE_LOGIN_PATH }}" >> .env

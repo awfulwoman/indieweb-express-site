@@ -6,7 +6,7 @@ volumes:
   vhosts:
   html:
   certs:
-  whalecoiner:
+  content:
     driver: rexray/dobs
 
 # Declare services
@@ -23,7 +23,7 @@ services:
       - certs:/etc/nginx/certs
       - vhosts:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html # User for certificate creation, not content
-      - whalecoiner:/whalecoiner
+      - content:/usr/src/content
   nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
     volumes_from: 
