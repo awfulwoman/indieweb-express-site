@@ -3,6 +3,7 @@ version: '3'
 services:
   indieweb-express-site:
     volumes:
+      # - ./example/content:/content
       - ./:/usr/src/app
     command: ["npm", "run", "dev"]
     environment:

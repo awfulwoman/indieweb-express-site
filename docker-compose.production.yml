@@ -17,13 +17,14 @@ services:
       - LETSENCRYPT_HOST=whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk,beta.whalecoiner.com
       - VIRTUAL_PORT=3000
       - NODE_ENV=production
+    volumes:
+      - content:/usr/src/content
     command: ["npm", "start"]
   nginx-proxy: # Add nginx volumes for production
     volumes:
       - certs:/etc/nginx/certs
       - vhosts:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html # User for certificate creation, not content
-      - content:/usr/src/content
   nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
     volumes_from: 

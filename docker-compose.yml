@@ -9,7 +9,6 @@ services:
   indieweb-express-site:
     build: .
     volumes:
-      - ./example/content:/content
       - nodemodules:/usr/src/app/node_modules
     expose:
       - "3000"
