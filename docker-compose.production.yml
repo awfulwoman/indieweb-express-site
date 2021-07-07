@@ -19,7 +19,7 @@ services:
       - ${SERVER_LOG_DIR}:${APP_LOG_DIR}
       - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
-  nginx-proxy: # Add nginx volumes for production
+  nginx: # Add nginx volumes for production
     volumes:
       - ${SERVER_NGINX_CERTS_DIR}:/etc/nginx/certs
       - ${SERVER_NGINX_VHOSTS_DIR}:/etc/nginx/vhost.d
