@@ -24,7 +24,7 @@ on:
     # ```
 
 env: # set some environment variables (env vars) that last through the workflow
-  APPDIR: ${{ secrets.SERVER_APP_DIR_ALT }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
+  APPDIR: ${{ secrets.SERVER_APP_DIR }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
   NODE_VERSION: 14.16.0
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Create .env file
       run: | # This is a multiline comment
-        echo "SERVER_APP_DIR=${{ secrets.SERVER_APP_DIR_ALT }}" >> .env
+        echo "SERVER_APP_DIR=${{ secrets.SERVER_APP_DIR }}" >> .env
         echo "SERVER_LOG_DIR=${{ secrets.SERVER_LOG_DIR }}" >> .env
         echo "SERVER_CONTENT_DIR=${{ secrets.SERVER_CONTENT_DIR }}" >> .env
         echo "SERVER_DATA_DIR=${{ secrets.SERVER_DATA_DIR }}" >> .env
@@ -89,7 +89,7 @@ jobs:
         username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY_ALT }}
         script: |
-          mkdir -p ${{ secrets.SERVER_APP_DIR_ALT }}
+          mkdir -p ${{ secrets.SERVER_APP_DIR }}
           mkdir -p ${{ secrets.SERVER_NGINX_HTML_DIR }}
           mkdir -p ${{ secrets.SERVER_NGINX_VHOSTS_DIR }}
           mkdir -p ${{ secrets.SERVER_NGINX_CERTS_DIR }}
@@ -100,7 +100,7 @@ jobs:
         ARGS: "-rltz --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
         REMOTE_USER: ${{ secrets.SERVER_USER_ALT }}
-        TARGET: ${{ secrets.SERVER_APP_DIR_ALT }}
+        TARGET: ${{ secrets.SERVER_APP_DIR }}
     - name: Run docker on remote server
       uses: appleboy/ssh-action@master
       with: # I can't lie - I haven't a clue why some actions use "with" and others use "env". 
@@ -109,5 +109,5 @@ jobs:
         username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY_ALT }}
         script: |
-          cd ${{ secrets.SERVER_APP_DIR_ALT }}
+          cd ${{ secrets.SERVER_APP_DIR }}
           ./start-production.sh
