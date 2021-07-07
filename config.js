@@ -21,7 +21,7 @@ const twitterConsumerKey = () => process.env['TWITTER_CONSUMER_KEY']
 const twitterConsumerSecret = () => process.env['TWITTER_CONSUMER_SECRET']
 const githubClientId = () => process.env['GH_CLIENT_ID']
 const githubClientSecret = () => process.env['GH_CLIENT_SECRET']
-const silos = () => ['twitter', 'medium', 'flickr', 'facebook']
+const silos = () => ['twitter', 'medium', 'flickr']
 const isDevelopment = () => process.env.NODE_ENV === 'development' ? true : false
 
 module.exports = {

@@ -63,7 +63,7 @@ jobs:
         echo "SERVER_DIR=${{ secrets.SERVER_DIR_ALT }}" >> .env
         echo "LOG_DIR=${{ secrets.LOG_DIR }}" >> .env
         echo "DATA_DIR=${{ secrets.DATA_DIR }}" >> .env
-        echo "CONTENT_DIR=${{ secrets.CONTENT_DIR }}" >> .env
+        echo "CONTENT_DIR=${{ secrets.CONTENT_DIR_ALT }}" >> .env
         echo "SITE_PROTOCOL=http" >> .env
         echo "SITE_DOMAIN=whalecoiner.com" >> .env
         echo "SITE_LOGIN_PATH=${{ secrets.SITE_LOGIN_PATH }}" >> .env
