@@ -3,6 +3,7 @@ FROM node:14
 
 # TODO: remove
 # RUN apt-get install dumb-init
+RUN groupadd -r whalecoiner && useradd -r -g whalecoiner whalecoiner
 RUN apt update
 RUN apt install libvips libvips-dev -y
 
@@ -12,6 +13,8 @@ EXPOSE 3000
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
+
+USER whalecoiner
 
 # Install app dependencies
 COPY ./package.json .
