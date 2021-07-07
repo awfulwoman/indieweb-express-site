@@ -3,9 +3,6 @@ version: '3'
 # Declare volumes
 volumes:
   acme:
-  vhosts:
-  html:
-  certs:
 
 # Declare services
 services:
@@ -18,13 +15,15 @@ services:
       - VIRTUAL_PORT=3000
       - NODE_ENV=production
     volumes:
-      - ${CONTENT_DIR}:/usr/src/content
+      - ${SERVER_CONTENT_DIR}:${APP_CONTENT_DIR}
+      - ${SERVER_LOG_DIR}:${APP_LOG_DIR}
+      - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
   nginx-proxy: # Add nginx volumes for production
     volumes:
-      - certs:/etc/nginx/certs
-      - vhosts:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html # User for certificate creation, not content
+      - ${SERVER_NGINX_CERTS_DIR}:/etc/nginx/certs
+      - ${SERVER_NGINX_VHOSTS_DIR}:/etc/nginx/vhost.d
+      - ${SERVER_NGINX_HTML_DIR}:/usr/share/nginx/html # Used for certificate creation, not content
   nginx-proxy-acme: # Add certificate handler for production
     image: nginxproxy/acme-companion
     volumes_from: 
@@ -33,4 +32,4 @@ services:
       - acme:/etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro # Binding the host docker socket (/var/run/docker.sock) inside the container to /var/run/docker.sock is a requirement of nginxproxy/acme-companion.
     environment:
-      - DEFAULT_EMAIL=${NGINX_DEFAULT_EMAIL}
+      - DEFAULT_EMAIL=${LETSENCRYPT_DEFAULT_EMAIL}

@@ -24,7 +24,7 @@ on:
     # ```
 
 env: # set some environment variables (env vars) that last through the workflow
-  APPDIR: ${{ secrets.SERVER_DIR_ALT }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
+  APPDIR: ${{ secrets.SERVER_APP_DIR_ALT }} # Secrets are pulled from the repos secrets list, so that they aren't exposed in this public file.
   NODE_VERSION: 14.16.0
 
 jobs:
@@ -48,32 +48,40 @@ jobs:
   deploy-app:
     # needs: run-tests # Requires that "run-tests" completed first. Otherwise it will try to run in parallel. 
     runs-on: ubuntu-latest
+    env: # These are directories used only within the Docker containers
+      APP_DIR: /usr/src/app
+      APP_LOG_DIR: /usr/src/logs
+      APP_DATA_DIR: /usr/src/data
+      APP_CONTENT_DIR: /usr/src/content
 
     steps:
     - name: Checkout code from ${{ github.repository }} # Github supplies a few variables that can be accessed by the workflow. They all start with 'github.'
       uses: actions/checkout@v2
     - name: Create .env file
       run: | # This is a multiline comment
-        echo "TESTY=testttttt" >> .env
+        echo "SERVER_APP_DIR=${{ secrets.SERVER_APP_DIR_ALT }}" >> .env
+        echo "SERVER_LOG_DIR=${{ secrets.SERVER_LOG_DIR }}" >> .env
+        echo "SERVER_CONTENT_DIR=${{ secrets.SERVER_CONTENT_DIR }}" >> .env
+        echo "SERVER_DATA_DIR=${{ secrets.SERVER_DATA_DIR }}" >> .env
+        echo "SERVER_NGINX_HTML_DIR=${{ secrets.SERVER_NGINX_HTML_DIR }}" >> .env
+        echo "SERVER_NGINX_VHOSTS_DIR=${{ secrets.SERVER_NGINX_VHOSTS_DIR }}" >> .env
+        echo "SERVER_NGINX_CERTS_DIR=${{ secrets.SERVER_NGINX_CERTS_DIR }}" >> .env
+        echo "APP_DIR=${{ env.APP_DIR }}" >> .env
+        echo "APP_LOG_DIR=${{ env.APP_LOG_DIR }}" >> .env
+        echo "APP_DATA_DIR=${{ env.APP_DATA_DIR }}" >> .env
+        echo "APP_CONTENT_DIR=${{ env.APP_CONTENT_DIR }}" >> .env
+        echo "APP_DOMAIN=whalecoiner.com" >> .env
+        echo "APP_LOGIN_PATH=${{ secrets.APP_LOGIN_PATH }}" >> .env
+        echo "LAST_DEPLOY='$(TZ=GMT date -d now)'" >> .env
+        echo "DEBUG_TOKEN=${{ secrets.DEBUG_TOKEN }}" >> .env
+        echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
+        echo "LETSENCRYPT_DEFAULT_EMAIL=${{ secrets.LETSENCRYPT_DEFAULT_EMAIL }}" >> .env
         echo "TWITTER_CONSUMER_KEY=${{ secrets.TWITTER_CONSUMER_KEY }}" >> .env
         echo "TWITTER_CONSUMER_SECRET=${{ secrets.TWITTER_CONSUMER_SECRET }}" >> .env
         echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
         echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
-        echo "KEYBOARD_CAT=$(openssl rand -base64 12)" >> .env
-        echo "SERVER_DIR=${{ secrets.SERVER_DIR_ALT }}" >> .env
-        echo "LOG_DIR=${{ secrets.LOG_DIR }}" >> .env
-        echo "DATA_DIR=${{ secrets.DATA_DIR }}" >> .env
-        echo "CONTENT_DIR=${{ secrets.CONTENT_DIR_ALT }}" >> .env
-        echo "SITE_PROTOCOL=http" >> .env
-        echo "SITE_DOMAIN=whalecoiner.com" >> .env
-        echo "SITE_LOGIN_PATH=${{ secrets.SITE_LOGIN_PATH }}" >> .env
-        echo "LAST_DEPLOY='$(TZ=GMT date -d now)'" >> .env
-        echo "DEBUG_TOKEN=${{ secrets.DEBUG_TOKEN }}" >> .env
-        echo "NGINX_DEFAULT_EMAIL=${{ secrets.NGINX_DEFAULT_EMAIL }}" >> .env
-        echo "NGINX_HTML_DIR=${{ secrets.NGINX_HTML_DIR }}" >> .env
-        echo "NGINX_VHOST_DIR=${{ secrets.NGINX_VHOST_DIR }}" >> .env
-        echo "NGINX_CERTS_DIR=${{ secrets.NGINX_CERTS_DIR }}" >> .env
       shell: bash
+
     - name: Make sites dir on server if not present
       uses: appleboy/ssh-action@master
       with: 
@@ -81,10 +89,10 @@ jobs:
         username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY_ALT }}
         script: |
-          mkdir -p ${{ secrets.SERVER_DIR_ALT }}
-          mkdir -p ${{ secrets.NGINX_HTML_DIR }}
-          mkdir -p ${{ secrets.NGINX_VHOST_DIR }}
-          mkdir -p ${{ secrets.NGINX_CERTS_DIR }}
+          mkdir -p ${{ secrets.SERVER_APP_DIR_ALT }}
+          mkdir -p ${{ secrets.SERVER_NGINX_HTML_DIR }}
+          mkdir -p ${{ secrets.SERVER_NGINX_VHOSTS_DIR }}
+          mkdir -p ${{ secrets.SERVER_NGINX_CERTS_DIR }}
     - name: Copy app to remote server
       uses: easingthemes/ssh-deploy@v2.2.1 # Here I'm using a third-party action, rather than a Github action. See it at https://github.com/easingthemes/ssh-deploy
       env:
@@ -92,7 +100,7 @@ jobs:
         ARGS: "-rltz --exclude '.git/' --exclude '.github/' --exclude 'node_modules/' --exclude 'log/' --stats"
         REMOTE_HOST: ${{ secrets.SERVER_IP_ALT }}
         REMOTE_USER: ${{ secrets.SERVER_USER_ALT }}
-        TARGET: ${{ secrets.SERVER_DIR_ALT }}
+        TARGET: ${{ secrets.SERVER_APP_DIR_ALT }}
     - name: Run docker on remote server
       uses: appleboy/ssh-action@master
       with: # I can't lie - I haven't a clue why some actions use "with" and others use "env". 
@@ -101,5 +109,5 @@ jobs:
         username: ${{ secrets.SERVER_USER_ALT }}
         key: ${{ secrets.DEPLOY_KEY_ALT }}
         script: |
-          cd ${{ secrets.SERVER_DIR_ALT }}
+          cd ${{ secrets.SERVER_APP_DIR_ALT }}
           ./start-production.sh
