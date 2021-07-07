@@ -54,7 +54,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Create .env file
       run: | # This is a multiline comment
-        echo "TESTY=test" >> .env
+        echo "TESTY=testttttt" >> .env
         echo "TWITTER_CONSUMER_KEY=${{ secrets.TWITTER_CONSUMER_KEY }}" >> .env
         echo "TWITTER_CONSUMER_SECRET=${{ secrets.TWITTER_CONSUMER_SECRET }}" >> .env
         echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env

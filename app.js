@@ -182,7 +182,7 @@ try {
     console.log(chalk.blue.bold('| ') + chalk.bold.green('Github callback URL: ') + chalk(utilities.constructOauthCallback.oaUrl('github')))
     console.log(chalk.blue.bold(' ---------------------------------------------------------'))
 
-    // WARM CACHES
+    // WARM THEM CACHES
     // ------
     // models.warmAll()
     controllers.cacheController.warmAllContent()
