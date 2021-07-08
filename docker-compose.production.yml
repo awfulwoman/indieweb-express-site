@@ -6,6 +6,19 @@ volumes:
 
 # Declare services
 services:
+  traefik:
+    ports:
+      - "443:443"
+    command:
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - --traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
+      - --traefik.http.routers.redirs.entrypoints=web
+      - --traefik.http.routers.redirs.middlewares=redirect-to-https
+
   whalecoiner:
     environment:
       # - VIRTUAL_HOST=whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk,beta.whalecoiner.com
@@ -21,18 +34,6 @@ services:
       - traefik.http.routers.whalecoiner.tls.certresolver=le
       - traefik.http.routers.whalecoiner.entrypoints=websecure
 
-  traefik:
-    ports:
-      - "443:443"
-    command:
-      - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
-      - --certificatesresolvers.le.acme.storage=/acme.json
-      - --certificatesresolvers.le.acme.tlschallenge=true
-      - --traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - --traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
-      - --traefik.http.routers.redirs.entrypoints=web
-      - --traefik.http.routers.redirs.middlewares=redirect-to-https
   # nginx: # Add nginx volumes for production
   #   ports:
   #     - "80:80"
