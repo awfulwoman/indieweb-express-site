@@ -9,10 +9,12 @@ services:
   traefik:
     ports:
       - "443:443"
+    volumes:
+      - ${SERVER_NGINX_CERTS_DIR}:/letsencrypt
     command:
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
-      - --certificatesresolvers.le.acme.storage=/acme.json
+      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.le.acme.tlschallenge=true
     labels:
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
