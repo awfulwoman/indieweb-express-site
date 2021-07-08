@@ -39,7 +39,7 @@ services:
     labels:
       # - "traefik.port=80"
       - "traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)"
-      - "traefik.http.routers.whalecoiner.tls=true
+      - "traefik.http.routers.whalecoiner.tls=true"
       - "traefik.http.routers.whalecoiner.tls.certresolver=lets-encrypt"
       - "traefik.http.routers.whalecoiner.entrypoints=websecure"
 
