@@ -10,6 +10,7 @@ services:
       - ${SERVER_NGINX_CERTS_DIR}:/letsencrypt
     command:
       # - --entrypoints.web.address=:80
+      - --log.level=DEBUG
       - --entrypoints.websecure.address=:443
       - --entryPoints.web.http.redirections.entryPoint.to = "websecure"
       - --entryPoints.web.http.redirections.entryPoint.scheme = "https"
@@ -37,10 +38,15 @@ services:
       - web
     labels:
       # - "traefik.port=80"
+      # - "traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)"
+      # - "traefik.http.routers.whalecoiner.tls=true"
+      # - "traefik.http.routers.whalecoiner.tls.certresolver=lets-encrypt"
+      # - "traefik.http.routers.whalecoiner.entrypoints=websecure"
       - "traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)"
+      - "traefik.http.routers.whalecoiner.middlewares=auth"
+      - "traefik.http.routers.whalecoiner.entrypoints=websecure"
       - "traefik.http.routers.whalecoiner.tls=true"
       - "traefik.http.routers.whalecoiner.tls.certresolver=lets-encrypt"
-      - "traefik.http.routers.whalecoiner.entrypoints=websecure"
 
   # nginx: # Add nginx volumes for production
   #   ports:
