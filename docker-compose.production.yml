@@ -10,9 +10,6 @@ services:
     environment:
       # - VIRTUAL_HOST=whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk,beta.whalecoiner.com
       # - LETSENCRYPT_HOST=whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk,beta.whalecoiner.com
-      - VIRTUAL_HOST=beta.whalecoiner.com
-      - LETSENCRYPT_HOST=beta.whalecoiner.com
-      - VIRTUAL_PORT=3000
       - NODE_ENV=production
     volumes:
       - ${SERVER_CONTENT_DIR}:${APP_CONTENT_DIR}
@@ -27,11 +24,15 @@ services:
   traefik:
     ports:
       - "443:443"
-    commands:
+    command:
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
       - --certificatesresolvers.le.acme.storage=/acme.json
       - --certificatesresolvers.le.acme.tlschallenge=true
+      - --traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - --traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
+      - --traefik.http.routers.redirs.entrypoints=web
+      - --traefik.http.routers.redirs.middlewares=redirect-to-https
   # nginx: # Add nginx volumes for production
   #   ports:
   #     - "80:80"
