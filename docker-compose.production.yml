@@ -32,7 +32,7 @@ services:
       - ${SERVER_LOG_DIR}:${APP_LOG_DIR}
       - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
-    network:
+    networks:
       - internal
       - web
     labels:
