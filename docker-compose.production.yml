@@ -30,9 +30,9 @@ services:
       - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
     labels:
-      - traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)
-      - traefik.http.routers.whalecoiner.tls.certresolver=le
-      - traefik.http.routers.whalecoiner.entrypoints=websecure
+      - --traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)
+      - --traefik.http.routers.whalecoiner.tls.certresolver=le
+      - --traefik.http.routers.whalecoiner.entrypoints=websecure
 
   # nginx: # Add nginx volumes for production
   #   ports:
