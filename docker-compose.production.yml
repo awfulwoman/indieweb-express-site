@@ -1,13 +1,10 @@
 version: '3'
 
-# Declare volumes
-volumes:
-  acme:
-
 # Declare services
 services:
   traefik:
     ports:
+      - "80:80"
       - "443:443"
     volumes:
       - ${SERVER_NGINX_CERTS_DIR}:/letsencrypt

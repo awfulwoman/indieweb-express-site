@@ -23,6 +23,8 @@ services:
       - --entrypoints.web.address=:80
       - --providers.docker
     #   - --api.insecure 
+    labels:
+      - "traefik.http.services.whalecoiner.loadbalancer.server.port=3000"
     ports:
       - "80:80"
       # - "8080:8080"

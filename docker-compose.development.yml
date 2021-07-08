@@ -11,5 +11,4 @@ services:
     #   - VIRTUAL_PORT=3000
       - NODE_ENV=development
     labels:
-      - traefik.http.routers.whalecoiner.rule=Host(`whalecoiner.localhost`)
-      - traefik.http.services.whalecoiner.loadbalancer.server.port=3000
+      - "traefik.http.routers.whalecoiner.rule=Host(`whalecoiner.localhost`)"
