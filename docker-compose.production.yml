@@ -14,10 +14,11 @@ services:
       - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
       - --certificatesresolvers.le.acme.storage=/acme.json
       - --certificatesresolvers.le.acme.tlschallenge=true
-      - --traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - --traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
-      - --traefik.http.routers.redirs.entrypoints=web
-      - --traefik.http.routers.redirs.middlewares=redirect-to-https
+    labels:
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
   whalecoiner:
     environment:
