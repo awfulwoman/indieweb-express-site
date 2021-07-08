@@ -32,7 +32,7 @@ services:
     ports:
       - "80:80"
       # - "8080:8080"
-    network:
+    networks:
       - web
     container_name: traefik
     volumes:
