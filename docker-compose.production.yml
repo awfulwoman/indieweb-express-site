@@ -9,10 +9,14 @@ services:
     volumes:
       - ${SERVER_NGINX_CERTS_DIR}:/letsencrypt
     command:
+      # - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
-      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --entryPoints.web.http.redirections.entryPoint.to = "websecure"
+      - --entryPoints.web.http.redirections.entryPoint.scheme = "https"
+      - --certificatesResolvers.lets-encrypt.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
+      - --certificatesResolvers.lets-encrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesResolvers.lets-encrypt.acme.tlschallenge=true
+      
     labels:
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
       - "traefik.http.routers.http-catchall.entrypoints=web"

@@ -21,7 +21,8 @@ services:
     image: "traefik:v2.0.0"
     command:
       - --entrypoints.web.address=:80
-      - --providers.docker
+      - --providers.docker=true
+      - --providers.docker.network=web
     #   - --api.insecure 
     labels:
       - "traefik.http.services.whalecoiner.loadbalancer.server.port=3000"
