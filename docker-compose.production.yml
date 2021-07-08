@@ -10,14 +10,14 @@ services:
     ports:
       - "443:443"
     command:
-      - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
-      - --certificatesresolvers.le.acme.storage=/acme.json
-      - --certificatesresolvers.le.acme.tlschallenge=true
-      - --traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - --traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
-      - --traefik.http.routers.redirs.entrypoints=web
-      - --traefik.http.routers.redirs.middlewares=redirect-to-https
+      - entrypoints.websecure.address=:443
+      - certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
+      - certificatesresolvers.le.acme.storage=/acme.json
+      - certificatesresolvers.le.acme.tlschallenge=true
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+      - traefik.http.routers.redirs.rule=hostregexp(`{host:.+}`)
+      - traefik.http.routers.redirs.entrypoints=web
+      - traefik.http.routers.redirs.middlewares=redirect-to-https
 
   whalecoiner:
     environment:
@@ -30,9 +30,9 @@ services:
       - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
     labels:
-      - --traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)
-      - --traefik.http.routers.whalecoiner.tls.certresolver=le
-      - --traefik.http.routers.whalecoiner.entrypoints=websecure
+      - traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)
+      - traefik.http.routers.whalecoiner.tls.certresolver=le
+      - traefik.http.routers.whalecoiner.entrypoints=websecure
 
   # nginx: # Add nginx volumes for production
   #   ports:
