@@ -16,7 +16,7 @@ services:
       - --certificatesResolvers.lets-encrypt.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
       - --certificatesResolvers.lets-encrypt.acme.storage=/letsencrypt/acme.json
       - --certificatesResolvers.lets-encrypt.acme.tlschallenge=true
-    labels:
+    # labels:
       # - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
       # - "traefik.http.routers.http-catchall.entrypoints=web"
       # - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
