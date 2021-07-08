@@ -18,10 +18,10 @@ services:
       - --certificatesResolvers.lets-encrypt.acme.tlschallenge=true
       
     labels:
-      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
-      - "traefik.http.routers.http-catchall.entrypoints=web"
-      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      # - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      # - "traefik.http.routers.http-catchall.entrypoints=web"
+      # - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      # - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
   whalecoiner:
     environment:
@@ -33,9 +33,14 @@ services:
       - ${SERVER_LOG_DIR}:${APP_LOG_DIR}
       - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
+    networks:
+      - internal
+      - web
     labels:
+      # - "traefik.port=80"
       - "traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)"
-      - "traefik.http.routers.whalecoiner.tls.certresolver=le"
+      - "traefik.http.routers.whalecoiner.tls=true
+      - "traefik.http.routers.whalecoiner.tls.certresolver=lets-encrypt"
       - "traefik.http.routers.whalecoiner.entrypoints=websecure"
 
   # nginx: # Add nginx volumes for production

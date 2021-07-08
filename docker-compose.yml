@@ -5,6 +5,9 @@ volumes:
   nodemodules:
 networks:
   web:
+    external: true
+  internal:
+    external: false
 
 # Declare services
 services:
@@ -18,7 +21,7 @@ services:
   #   image: "redis:alpine"
 
   traefik:
-    image: "traefik:v2.0.0"
+    image: "traefik:v2.2.0"
     command:
       - --entrypoints.web.address=:80
       - --providers.docker=true
@@ -29,5 +32,8 @@ services:
     ports:
       - "80:80"
       # - "8080:8080"
+    network:
+      - web
+    container_name: traefik
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
