@@ -16,7 +16,6 @@ services:
       - --certificatesResolvers.lets-encrypt.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
       - --certificatesResolvers.lets-encrypt.acme.storage=/letsencrypt/acme.json
       - --certificatesResolvers.lets-encrypt.acme.tlschallenge=true
-      
     labels:
       # - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
       # - "traefik.http.routers.http-catchall.entrypoints=web"
@@ -33,7 +32,7 @@ services:
       - ${SERVER_LOG_DIR}:${APP_LOG_DIR}
       - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
-    networks:
+    network:
       - internal
       - web
     labels:
