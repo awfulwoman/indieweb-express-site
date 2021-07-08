@@ -6,7 +6,7 @@ volumes:
 
 # Declare services
 services:
-  indieweb-express-site:
+  whalecoiner:
     environment:
       # - VIRTUAL_HOST=whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk,beta.whalecoiner.com
       # - LETSENCRYPT_HOST=whalecoiner.com,sonniesedge.net,sonnieseedge.co.uk,www.whalecoiner.com,www.sonniesedge.net,www.sonnieseedge.co.uk,beta.whalecoiner.com
@@ -19,17 +19,33 @@ services:
       - ${SERVER_LOG_DIR}:${APP_LOG_DIR}
       - ${SERVER_DATA_DIR}:${APP_DATA_DIR}
     command: ["npm", "start"]
-  nginx: # Add nginx volumes for production
-    volumes:
-      - ${SERVER_NGINX_CERTS_DIR}:/etc/nginx/certs
-      - ${SERVER_NGINX_VHOSTS_DIR}:/etc/nginx/vhost.d
-      - ${SERVER_NGINX_HTML_DIR}:/usr/share/nginx/html # Used for certificate creation, not content
-  nginx-proxy-acme: # Add certificate handler for production
-    image: nginxproxy/acme-companion
-    volumes_from: 
-      - nginx
-    volumes:
-      - acme:/etc/acme.sh
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Binding the host docker socket (/var/run/docker.sock) inside the container to /var/run/docker.sock is a requirement of nginxproxy/acme-companion.
-    environment:
-      - DEFAULT_EMAIL=${LETSENCRYPT_DEFAULT_EMAIL}
+    labels:
+      - traefik.http.routers.whalecoiner.rule=Host(`beta.whalecoiner.com`)
+      - traefik.http.routers.whalecoiner.tls.certresolver=le
+      - traefik.http.routers.whalecoiner.entrypoints=websecure
+
+  traefik:
+    ports:
+      - "443:443"
+    commands:
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.le.acme.email=${LETSENCRYPT_DEFAULT_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/acme.json
+      - --certificatesresolvers.le.acme.tlschallenge=true
+  # nginx: # Add nginx volumes for production
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ${SERVER_NGINX_CERTS_DIR}:/etc/nginx/certs
+  #     - ${SERVER_NGINX_VHOSTS_DIR}:/etc/nginx/vhost.d
+  #     - ${SERVER_NGINX_HTML_DIR}:/usr/share/nginx/html # Used for certificate creation, not content
+  # nginx-proxy-acme: # Add certificate handler for production
+  #   image: nginxproxy/acme-companion
+  #   volumes_from: 
+  #     - nginx
+  #   volumes:
+  #     - acme:/etc/acme.sh
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro # Binding the host docker socket (/var/run/docker.sock) inside the container to /var/run/docker.sock is a requirement of nginxproxy/acme-companion.
+  #   environment:
+  #     - DEFAULT_EMAIL=${LETSENCRYPT_DEFAULT_EMAIL}

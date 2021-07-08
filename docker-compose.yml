@@ -3,27 +3,28 @@ version: '3'
 # Declare volumes
 volumes:
   nodemodules:
+networks:
+  web:
 
 # Declare services
 services:
-  indieweb-express-site:
+  whalecoiner:
     build: .
     volumes:
       - nodemodules:/usr/src/app/node_modules
     expose:
       - "3000"
-  redis:
-    image: "redis:alpine"
-  nginx:
-    image: nginx
+  # redis:
+  #   image: "redis:alpine"
+
+  traefik:
+    image: "traefik:v2.0.0"
+    command:
+      - --entrypoints.web.address=:80
+      - --providers.docker
+    #   - --api.insecure 
     ports:
       - "80:80"
-      - "443:443"
-  docker-gen:
-    image: jwilder/docker-gen 
-    volumes_from: 
-      - nginx
-    volumes: 
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - .:/etc/docker-gen/templates
-    command: "-notify-sighup nginx -watch -only-exposed /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf"
+      # - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"

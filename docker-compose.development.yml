@@ -1,12 +1,15 @@
 version: '3'
 
 services:
-  indieweb-express-site:
+  whalecoiner:
     volumes:
       # - ./example/content:/content
       - ./:/usr/src/app
     command: ["npm", "run", "dev"]
     environment:
-      - VIRTUAL_HOST=whalecoiner.localhost
-      - VIRTUAL_PORT=3000
+    #   - VIRTUAL_HOST=whalecoiner.localhost
+    #   - VIRTUAL_PORT=3000
       - NODE_ENV=development
+    labels:
+      - traefik.http.routers.whalecoiner.rule=Host(`whalecoiner.localhost`)
+      - traefik.http.services.whalecoiner.loadbalancer.server.port=3000
